@@ -1,0 +1,7 @@
+const CACHE='jyc-shell-v3';
+const SHELL=['/','/jyc-logo-circle.png','/manifest.json'];
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',event=>{if(event.request.method!=='GET'||!event.request.url.startsWith(self.location.origin))return;event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(res=>{if(res.ok&&['basic','cors'].includes(res.type)){const clone=res.clone();caches.open(CACHE).then(c=>c.put(event.request,clone)).catch(()=>{})}return res}).catch(()=>caches.match('/')))});
+self.addEventListener('push',event=>{let data={title:'JYC',body:'A new JYC update is available.'};try{if(event.data)data={...data,...event.data.json()}}catch(_){}event.waitUntil(self.registration.showNotification(data.title,{body:data.body,icon:'/jyc-logo-circle.png',badge:'/jyc-logo-circle.png',data:data.url||'/'}))});
+self.addEventListener('notificationclick',event=>{event.notification.close();event.waitUntil(clients.matchAll({type:'window',includeUncontrolled:true}).then(list=>{const url=event.notification.data||'/';for(const client of list)if('focus' in client){client.navigate(url);return client.focus()}return clients.openWindow(url)}))});
