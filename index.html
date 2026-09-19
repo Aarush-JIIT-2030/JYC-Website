@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JIIT Youth Club — Ready to Soar. Discover official JYC clubs, events, people, gallery and campus experiences at JIIT Sector 128." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f1e6" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0e11" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="JYC" />
+    <link rel="apple-touch-icon" href="/jyc-logo-circle.png" />
+    <meta property="og:title" content="JIIT Youth Club — Ready to Soar" />
+    <meta property="og:description" content="JIIT Youth Club, Sector 128, Noida." />
+    <meta property="og:image" content="/jyc-logo-circle.png" />
+    <link rel="icon" href="/jyc-logo-circle.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>JIIT Youth Club — Ready to Soar</title>
+  </head>
+  <body>
+    <script>
+      // Development safety: an older service worker can otherwise return a stale React/Vite module
+      // before the new app gets a chance to unregister it. This is what can surface old lazy-module errors.
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+        navigator.serviceWorker?.getRegistrations?.().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
+        window.caches?.keys?.().then(keys => keys.forEach(k => caches.delete(k))).catch(() => {});
+      }
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

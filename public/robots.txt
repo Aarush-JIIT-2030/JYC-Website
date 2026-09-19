@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /my-jyc
+Disallow: /notifications
+
+# Add the deployed absolute sitemap URL here after the production domain is known.

@@ -1,0 +1,13 @@
+{
+  "name": "JIIT Youth Club",
+  "short_name": "JYC",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f0e11",
+  "theme_color": "#0f0e11",
+  "description": "Official JIIT Youth Club experience for clubs, events and campus communities.",
+  "icons": [
+    {"src":"/jyc-logo-circle.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
