@@ -13,7 +13,8 @@ export function InteractivePhoenix({sceneUrl=''}){
     {particles.map(i=><i key={i} className="phoenix-particle" style={{'--i':i}}/>)}
     {spline&&<iframe className="phoenix-spline" title="Interactive JYC Phoenix" src={sceneUrl} loading="lazy"/>}<div className="phoenix-3d-core" style={{transform:`translate3d(${p.x}px,${p.y}px,0) rotateX(${p.y*.45}deg) rotateY(${p.x*.45}deg)`}}>
       <span className="phoenix-halo"/>
-      <img src="/jyc-phoenix.png" alt="JYC phoenix"/>
+      <div className="phoenix-artwork" aria-hidden="true"><img src="/jyc-phoenix.png" alt=""/></div>
+      <div className="phoenix-seal-wrap" aria-hidden="true"><div className="phoenix-seal"><img src="/jyc-logo-circle.png" alt=""/></div><span className="phoenix-seal-label">JIIT YOUTH CLUB</span></div>
       <div className="phoenix-ring-label">JYC · 128 · NOIDA</div>
     </div>
     <div className="phoenix-node node-one">CLUBS</div><div className="phoenix-node node-two">EVENTS</div><div className="phoenix-node node-three">PEOPLE</div>
@@ -27,7 +28,7 @@ export function EcosystemSection({data}){
   const people=data.team.filter(m=>m.published===true).length;
   const moments=data.gallery.length;
   const nodes=[['clubs','CLUBS',clubs,'/clubs'],['events','EVENTS',events,'/events'],['people','PEOPLE',people,'/team'],['moments','MOMENTS',moments,'/gallery'],['fest','FESTS',data.fest?.active?1:0,'/events'],['discover','DISCOVER','→','/discover']];
-  return <section className="section ecosystem-section reveal"><div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Communities, experiences, people and moments connected through one student-led space.</p></div><div className="ecosystem-orbit"><div className="ecosystem-core"><img src="/jyc-logo-circle.png" alt="JYC"/><span>READY TO SOAR</span></div>{nodes.map(([id,label,count,path],i)=><button key={id} className={`ecosystem-node ecosystem-node-${i}`} onClick={()=>nav(path)}><small>{String(count)}</small><strong>{label}</strong><em>Explore →</em></button>)}</div></section>
+  return <section className="section ecosystem-section reveal"><div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Communities, experiences, people and moments connected through one student-led space.</p></div><div className="ecosystem-orbit"><div className="ecosystem-core"><div className="ecosystem-brand-lockup"><img src="/jyc-phoenix.png" alt="JIIT Youth Club phoenix"/><div className="ecosystem-brand-meta"><span>JIIT YOUTH CLUB</span><b>128 · NOIDA</b></div></div><span>READY TO SOAR</span></div>{nodes.map(([id,label,count,path],i)=><button key={id} className={`ecosystem-node ecosystem-node-${i}`} onClick={()=>nav(path)}><small>{String(count)}</small><strong>{label}</strong><em>Explore →</em></button>)}</div></section>
 }
 
 export function DiscoverPage({data}){
