@@ -131,7 +131,7 @@ export function JsonLd({data}){const payload={
   name:'JIIT Youth Club',
   description:'Official JIIT Youth Club at JIIT Sector 128, Noida.',
   url:window.location.origin,
-  logo:`${window.location.origin}/jyc-phoenix-reference.png`
+  logo:`${window.location.origin}/jyc-logo-circle.png`
 };return <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(payload)}}/>}
 
 export function SkipLink(){return <a className="skip-link" href="#main-content">Skip to content</a>}
