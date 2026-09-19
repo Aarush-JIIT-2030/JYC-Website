@@ -154,3 +154,26 @@ V6.2 POLISH
 - Search body scroll lock, clear control, result counts and improved empty state
 - Improved light mode surfaces and contrast using approved JYC palette
 - Added focus-visible accessibility treatment
+
+## V13.4 reference UI
+
+The public UI now uses the red phoenix reference mark, a compact desktop header, a five-item mobile bottom navigation, improved search, and a responsive dark/light visual system.
+
+### Public download / self-host
+
+Open `/download` on the deployed site. It explains:
+
+- public browser access without a Vercel account;
+- phone/PWA installation;
+- GitHub source;
+- the downloadable source ZIP at `/downloads/jyc-website-source.zip`;
+- Vercel Drop/self-hosting.
+
+The production domain itself must be public in Vercel Deployment Protection settings. Code cannot override an account/project-level Vercel access gate.
+
+
+## V13.5 Reference UI Overhaul
+
+The latest UI pass aligns the public website more closely with the supplied JIIT Youth Club reference: compact desktop chrome, circular phoenix brand treatment, warm cream/dark themes, a tighter hero/orbit composition, compact “What’s Next” event strip, five-item mobile navigation, a right-side mobile More drawer, and a closer admin dashboard treatment.
+
+The implementation keeps the existing Supabase/CMS data model and does not add the excluded “This Week at JYC” section.

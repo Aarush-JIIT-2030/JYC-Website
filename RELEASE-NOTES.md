@@ -116,3 +116,13 @@ The project structure and source-level checks were performed in this environment
 - Integrated the supplied JIIT Noida Academic Calendar 2026–27 as a separate public calendar source, including academic milestones, examinations, vacations and holidays represented in the supplied PDF.
 - Added admin Academic Calendar workspace with public visibility, All-view inclusion and search visibility controls.
 - Improved phone light/dark glass surfaces and Fest Mode logo treatment while keeping animations restrained and reduced-motion aware.
+
+## V13.3.1 — Reference navigation pass
+
+- Reworked phone navigation to match the supplied JYC reference: Home / Clubs / Events / Team / More in a bottom pill dock.
+- Kept desktop public navigation at the top; mobile dock is explicitly hidden above the phone breakpoint.
+- Removed the mobile desktop-nav ghost-label overlap by hiding desktop nav links until the mobile menu is opened.
+- Refined mobile header, theme control, search trigger and safe-area spacing.
+- Refined the search overlay into a translucent JYC glass sheet with touch-friendly exploration chips.
+- Added a reference phoenix asset for the hero focal point while retaining the official circular JYC mark for the header and identity surfaces.
+- Added Vercel public-access guidance; account-level Deployment Protection must be disabled in the Vercel dashboard for a public production URL.
