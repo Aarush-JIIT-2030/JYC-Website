@@ -20,6 +20,8 @@ import './v13-6-open-source-ui.css';
 import './v13-7-product-ui.css';
 import './v13-8-orbit-product.css';
 import './breathing-particles.css';
+import './homepage-scale.css';
+import './nav-scale.css';
 import { SkipLink, InstallPrompt, MaintenanceGate, ErrorBoundary, RecruitmentHub, AuditionsHub, MyJYC, CalendarPage, NotificationCenter, EventTools, DownloadICS, RegistrationPage, AccountLogin, JsonLd, usePageMeta } from './extra-features.jsx';
 import Admin from './admin-chunk.jsx';
 
@@ -94,7 +96,7 @@ function App() {
       observer.observe(node);
     });
     return () => observer.disconnect();
-  }, [loc.pathname, data]);
+  }, [loc.pathname, data, bootReady]);
   useEffect(() => { if (!('serviceWorker' in navigator)) return; if (import.meta.env.DEV) { navigator.serviceWorker.getRegistrations().then(rs => Promise.all(rs.map(r => r.unregister()))).catch(() => { }); if ('caches' in window) caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k)))).catch(() => { }); return; } navigator.serviceWorker.register('/sw.js').catch(() => { }) }, []);
   useEffect(() => { try { const key = 'jyc-pageviews'; const views = JSON.parse(storageGet(key, '{}')); views[loc.pathname] = (views[loc.pathname] || 0) + 1; views.total = (views.total || 0) + 1; storageSet(key, JSON.stringify(views)) } catch { } }, [loc.pathname]);
   useEffect(() => { if (import.meta.env.VITE_ENABLE_ANALYTICS !== 'true' || !data.flags?.analytics) return; let sessionKey = storageGet('jyc-analytics-session'); if (!sessionKey) { sessionKey = uid(); storageSet('jyc-analytics-session', sessionKey) } supabase.from('jyc_page_views').insert({ path: loc.pathname, referrer: document.referrer || null, session_key: sessionKey }).then(() => { }).catch(() => { }) }, [loc.pathname, data.flags?.analytics]);
