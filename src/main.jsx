@@ -22,6 +22,7 @@ import './v13-8-orbit-product.css';
 import './breathing-particles.css';
 import './homepage-scale.css';
 import './nav-scale.css';
+import './mobile-ui-fixes.css';
 import { SkipLink, InstallPrompt, MaintenanceGate, ErrorBoundary, RecruitmentHub, AuditionsHub, MyJYC, CalendarPage, NotificationCenter, EventTools, DownloadICS, RegistrationPage, AccountLogin, JsonLd, usePageMeta } from './extra-features.jsx';
 import Admin from './admin-chunk.jsx';
 
