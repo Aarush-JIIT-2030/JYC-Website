@@ -280,7 +280,27 @@ body {
 .hamb i {
   background: currentColor !important;
   box-shadow: none !important;
-  width: 10px !important;
-  height: 1px !important;
-  margin: 1px 0 !important;
+  width: 8px !important;
+  height: 1.5px !important;
+  margin: 2px 0 !important;
+}
+
+/* JYC search modal: move the magnifier glyph to the right of the input so it
+   stops colliding with the placeholder text. */
+.search-input-wrap>span {
+  order: 99 !important;
+  margin-left: 10px !important;
+  margin-right: 0 !important;
+}
+
+.search-input-wrap input {
+  padding-left: 10px !important;
+}
+
+/* Bottom nav bar: floating pill shape with rounded ends, centered width. */
+.mobile-dock {
+  border-radius: 999px !important;
+  margin-inline: auto !important;
+  max-width: min(560px, calc(100vw - 20px)) !important;
+  padding: 6px 8px !important;
 }
