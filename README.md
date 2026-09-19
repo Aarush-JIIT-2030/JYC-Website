@@ -177,3 +177,7 @@ The production domain itself must be public in Vercel Deployment Protection sett
 The latest UI pass aligns the public website more closely with the supplied JIIT Youth Club reference: compact desktop chrome, circular phoenix brand treatment, warm cream/dark themes, a tighter hero/orbit composition, compact “What’s Next” event strip, five-item mobile navigation, a right-side mobile More drawer, and a closer admin dashboard treatment.
 
 The implementation keeps the existing Supabase/CMS data model and does not add the excluded “This Week at JYC” section.
+
+## V13.8 Animated Reference Polish
+
+The latest UI pass adds visibly moving orbital rings and light nodes to the phoenix hero, subtle star/network motion, desktop pointer-depth parallax, a live next-event countdown strip, and native share/clipboard actions on club and event detail pages. The implementation keeps the existing Supabase/PWA/admin architecture and adapts open-source UI interaction patterns without adding a runtime UI dependency.
