@@ -12,6 +12,7 @@ export function InteractivePhoenix({sceneUrl='',stats={}}){
   return <div className="phoenix-3d-stage phoenix-calm-stage" aria-label="JYC Phoenix navigation">
     {spline&&<iframe className="phoenix-spline" title="Interactive JYC Phoenix" src={sceneUrl} loading="lazy"/>}
     <div className="phoenix-calm-glow" aria-hidden="true"/>
+    <div className="phoenix-orbital-system" aria-hidden="true"><span className="phoenix-orbit phoenix-orbit-a"/><span className="phoenix-orbit phoenix-orbit-b"/><span className="phoenix-orbit phoenix-orbit-c"/><i className="phoenix-orb phoenix-orb-a"/><i className="phoenix-orb phoenix-orb-b"/><i className="phoenix-orb phoenix-orb-c"/><i className="phoenix-orb phoenix-orb-d"/></div>
     <div className="phoenix-3d-core phoenix-bird-only">
       <span className="phoenix-halo"/>
       <div className="phoenix-artwork" aria-hidden="true"><img src="/jyc-phoenix-reference-hd.png" alt=""/></div>

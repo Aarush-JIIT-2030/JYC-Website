@@ -4,13 +4,13 @@
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V18.18.0 — JYC Motion** — an animated, human-first public experience built on the V18.17 functional baseline.
+> **Release: V18.21.0 — Best JYC / V17 + V18 + V20 consolidation** — an animated, human-first public experience built on the V18.17 functional baseline.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
 ## Product map
 
-**Home → Clubs → Events → Moments → Team → Calendar → More → Search**
+**Home → Clubs → Events → Moments → Team → Contact → More → Search**
 
 Supporting public surfaces include **Moments, My JYC, Campus Map and the JYC FAQ**. Fests are intentionally not part of the normal navigation: they appear only when an authorized editor switches the public experience into **Fest mode**. Recruitment is intentionally homepage-only and can be surfaced only when the JYC editor-controlled recruitment flag allows it.
 
@@ -19,6 +19,7 @@ Supporting public surfaces include **Moments, My JYC, Campus Map and the JYC FAQ
 - **Club first.** This is a club website, not a generic student dashboard.
 - **Search is relevance-first.** Exact title matches are deliberately ranked above metadata, fuzzy matches and shortcuts.
 - **No surprise publishing.** Admin drafts remain drafts until an authorized person publishes them.
+- **Official JYC content.** Public clubs, events, team and gallery content is data-driven; the UI does not invent official campus records.
 - **Optional personal layer.** My JYC saves clubs/events without turning the public site into a dashboard.
 - **Accessible motion.** Micro-interactions respect `prefers-reduced-motion` and avoid adding a heavy animation dependency for simple effects.
 - **Human interaction.** Motion is attached to real club/event content instead of decorative animation for its own sake.
@@ -175,3 +176,8 @@ Before a release reaches `main`:
 - Staff Control Center with draft/review/publish workflow
 
 The repository deliberately favors a small, understandable React/CSS system over a large animation dependency. Open-source references are documented in `docs/OPEN-SOURCE-UI-NOTES.md`.
+
+
+## Final release checklist
+
+See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the consolidated public UI, mobile, map, admin, SEO, PWA and security checks.

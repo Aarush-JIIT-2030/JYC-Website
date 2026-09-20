@@ -1,22 +1,26 @@
-# Contributing to JYC Website
+# Contributing to the JYC Website
 
-JYC is a student-facing campus product. Keep changes focused, accessible and data-first.
+JYC is a student-facing campus website, not a generic dashboard template. Changes should preserve the compact editorial feel and the official-content model.
 
-## Before a pull request
+## Before opening a PR
 
 ```bash
-npm ci
-npm run build
+npm install
 npm run qa
+npm run qa:seo
+npm run qa:security
+npm run build
+npx playwright install chromium
+npm run qa:browser
 ```
 
-For UI work, also test desktop and mobile in both light and dark mode.
+## Product rules
 
-## Principles
-
-- Prefer small, composable changes.
-- Keep exact search matches ahead of fuzzy matches.
-- Do not invent public JYC content.
-- AI may recommend edits, but admins approve and publish them.
-- Never commit `.env.local`, service-role keys or private credentials.
-- Keep keyboard navigation and visible focus states working.
+1. Do not invent official JYC clubs, events, people, venues or gallery records.
+2. Keep public navigation simple: Home, Clubs, Events, Moments, Team, Contact, More, Search.
+3. Prefer compact typography and useful information density over oversized hero sections.
+4. Keep animation purposeful and respect `prefers-reduced-motion`.
+5. Do not introduce mouse-driven RAF loops for decorative effects.
+6. Keep admin functionality private and separate from the public experience.
+7. Never commit `.env.local` or service-role credentials.
+8. Test 390×844 and 400×580 before considering a public UI change complete.

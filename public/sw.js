@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jyc-cache-v18-18-0-motion';
+const CACHE_NAME = 'jyc-cache-v18-21-0-best-jyc';
 
 const APP_SHELL = [
   '/',

@@ -34,7 +34,9 @@ export function CampusMapPage({data}){
   <div className="campus-map-layout reveal">
    <div className="campus-map-frame functional-map">
     <iframe title={`OpenStreetMap map for JIIT ${c.label}`} src={osmEmbed(c)} loading="lazy" referrerPolicy="no-referrer-when-downgrade"/>
+    <div className="map-theme-vignette" aria-hidden="true"/>
     <div className="map-overlay-card"><span className="eyebrow">SELECTED CAMPUS</span><strong>JIIT {c.label}</strong><small>{c.subtitle}</small><div><a href={directions(c)} target="_blank" rel="noopener noreferrer">Directions ↗</a></div></div>
+    <div className="map-source-chip">OPENSTREETMAP · JYC CAMPUS LAYER</div>
    </div>
    <aside className="campus-map-side">
     <div className="campus-location-highlight"><span className="eyebrow">CAMPUS</span><h2>{c.label}</h2><p>{c.address}</p><div className="map-side-actions"><a className="btn" href={directions(c)} target="_blank" rel="noopener noreferrer">Get directions ↗</a></div></div>
