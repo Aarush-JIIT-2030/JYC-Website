@@ -447,3 +447,134 @@ select {
   top: auto !important;
   transform: translateX(-50%) translateZ(30px) !important
 }
+
+/* ---------- 11. Hero title: smaller logo lockup, tighter spacing ---------- */
+.home .hero-copy {
+  padding: 38px 0 !important;
+  max-width: 620px !important
+}
+
+.home .hero h1 {
+  font-size: clamp(46px, 5.6vw, 84px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.07em !important;
+  margin: 16px 0 16px !important;
+  max-width: 620px !important
+}
+
+.home .hero h4 {
+  margin-bottom: 12px !important
+}
+
+.home .hero-copy>p {
+  max-width: 560px !important
+}
+
+@media(max-width:900px) {
+  .home .hero-copy {
+    padding: 6px 0 0 !important
+  }
+
+  .home .hero h1 {
+    font-size: clamp(40px, 11vw, 60px) !important;
+    line-height: .94 !important;
+    margin: 12px 0 14px !important
+  }
+}
+
+/* ---------- 12. Guide page FAQ accordion ---------- */
+.faq-list {
+  display: grid !important;
+  gap: 10px !important;
+  margin-top: 14px !important
+}
+
+.faq-item {
+  border: 1px solid var(--border-tech) !important;
+  background: var(--bg-card) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  animation: jyc-fade-up .5s var(--jyc-ease) both !important;
+  animation-delay: var(--faq-delay, 0ms) !important
+}
+
+.faq-q {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: 46px 1fr auto !important;
+  align-items: center !important;
+  gap: 16px !important;
+  text-align: left !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  padding: 18px 22px !important;
+  cursor: pointer !important;
+  font: inherit !important;
+  transition: background .25s ease !important
+}
+
+.faq-q:hover {
+  background: color-mix(in srgb, var(--accent-red) 6%, transparent) !important
+}
+
+.faq-q>span {
+  font: 800 11px var(--club-display, 'Space Grotesk') !important;
+  letter-spacing: .16em !important;
+  color: var(--jyc-red, var(--accent-red)) !important
+}
+
+.faq-q strong {
+  font: 700 22px var(--club-display, 'Space Grotesk') !important;
+  letter-spacing: -.02em !important
+}
+
+.faq-q>b {
+  font-size: 22px !important;
+  color: var(--jyc-red, var(--accent-red)) !important;
+  transition: transform .3s var(--jyc-ease) !important
+}
+
+.faq-item.open .faq-q>b {
+  transform: rotate(180deg) !important
+}
+
+.faq-a {
+  border-top: 1px solid var(--border-tech) !important;
+  padding: 16px 22px 20px 84px !important;
+  animation: jyc-fade-up .3s var(--jyc-ease) both !important
+}
+
+.faq-a p {
+  margin: 0 !important;
+  color: var(--text-muted) !important;
+  line-height: 1.7 !important;
+  max-width: 760px !important
+}
+
+@media(max-width:760px) {
+  .faq-q {
+    grid-template-columns: 34px 1fr auto !important;
+    gap: 10px !important;
+    padding: 16px 16px !important
+  }
+
+  .faq-q strong {
+    font-size: 18px !important
+  }
+
+  .faq-a {
+    padding: 14px 16px 18px !important
+  }
+}
+
+@keyframes jyc-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px)
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
