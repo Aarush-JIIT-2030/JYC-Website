@@ -50,6 +50,7 @@ import './v18.12-best-jyc.css';
 import './v18.13-jyc-compact.css';
 import './v18.14-mobile-first.css';
 import './v18.16-runtime-fix.css';
+import './v20-ui-refinement.css';
 import { normalizeSearch, rankSearchResults } from './lib/search.js';
 import {CREATOR,JYC_CONTACTS} from './lib/site-config.js';
 import {CampusMapPage,QRSharePage} from './v14-platform-plus.jsx';
@@ -105,11 +106,40 @@ function slug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g
 const findEntity=(rows,key)=>rows.find(x=>x.id===key||slug(x.name||x.title)===slug(key));
 
 function SiteAtmosphere(){
- const stars=React.useMemo(()=>Array.from({length:34},(_,i)=>({
-  x:`${(i*37)%97}%`,y:`${(i*61)%94}%`,s:`${1+(i%3)*.65}px`,d:`${3.8+(i%7)*.65}s`
- })),[]);
+ const starRefs=React.useRef([]);
+ const mouse=React.useRef({mx:-9999,my:-9999});
+ const offs=React.useRef([]);
+const stars=React.useMemo(()=>Array.from({length:34},(_,i)=>({
+   x:`${(i*37)%97}%`,y:`${(i*61)%94}%`,s:`${(1.6+(i%3)*.75)*1.5}px`,d:`${3.8+(i%7)*.65}s`
+  })),[]);
+  React.useEffect(()=>{
+   const els=starRefs.current;
+   offs.current=stars.map(()=>({x:0,y:0}));
+   const onMove=e=>{mouse.current.mx=e.clientX;mouse.current.my=e.clientY};
+   let raf;
+   const step=(now)=>{
+    const {mx,my}=mouse.current;
+    const {innerWidth:w,innerHeight:h}=window;
+    const t=now/1000;
+    for(let i=0;i<els.length;i++){
+     const el=els[i];if(!el)continue;
+     const cx=w*parseFloat(stars[i].x)/100,cy=h*parseFloat(stars[i].y)/100;
+     const dx=mx-cx,dy=my-cy,dist=Math.hypot(dx,dy),R=90;
+     const ph=i*1.3;
+     let tx=Math.sin(t*.25+ph)*7,ty=Math.cos(t*.21+ph*.7)*5;
+     if(dist<R&&dist>0){const f=(1-dist/R)*9;tx=tx-(dx/dist)*f;ty=ty-(dy/dist)*f}
+     const o=offs.current[i];
+     o.x+=(tx-o.x)*.055;o.y+=(ty-o.y)*.055;
+     el.style.transform=`translate3d(${o.x.toFixed(2)}px,${o.y.toFixed(2)}px,0)`;
+    }
+    raf=requestAnimationFrame(step);
+   };
+   window.addEventListener('mousemove',onMove);
+   raf=requestAnimationFrame(step);
+   return()=>{window.removeEventListener('mousemove',onMove);cancelAnimationFrame(raf)};
+  },[stars]);
  return <div className="site-atmosphere" aria-hidden="true">
-  <div className="site-star-field">{stars.map((star,i)=><i key={i} className="site-star" style={{'--x':star.x,'--y':star.y,'--s':star.s,'--d':star.d}}/> )}</div>
+  <div className="site-star-field">{stars.map((star,i)=><i key={i} ref={el=>{starRefs.current[i]=el}} className="site-star" style={{'--x':star.x,'--y':star.y,'--s':star.s,'--d':star.d}}/> )}</div>
   <div className="light-dust"/>
   <div className="atmosphere-glow atmosphere-glow-a"/>
   <div className="atmosphere-glow atmosphere-glow-b"/>
@@ -254,9 +284,12 @@ function Team({data}){
 }
 
 
-function Contact({data}){return <section className="section page"><Back label="Back to home" to="/"/><SectionHead eyebrow="CONTACT" title="Stay connected with JYC." text="Follow official channels for updates, events and opportunities."/><div className="contact-grid"><a className="contact-card" href="https://www.instagram.com/jiityouthclub128/" target="_blank" rel="noreferrer"><span>01</span><h3>Instagram</h3><p>@jiityouthclub128</p>↗</a><a className="contact-card" href="https://chat.whatsapp.com/BUvEqpevLr6Jp44904ysht?s=cl&p=a&mlu=4&ilr=4" target="_blank" rel="noreferrer"><span>02</span><h3>WhatsApp Community</h3><p>Join the JYC community.</p>↗</a><div className="contact-card"><span>03</span><h3>Website Creator</h3><p>{data.creator.name} · {data.creator.role}</p><div className="social-row"><a href={data.creator.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href={data.creator.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href={data.creator.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p>{data.creator.email}</p></div></div></section>}
-
-
+function Contact({data}){
+ const [form,setForm]=useState({name:'',email:'',message:''});
+ const [sent,setSent]=useState(false);
+ const [sending,setSending]=useState(false);
+ const submit=e=>{e.preventDefault();if(!form.name.trim()||!form.email.trim()||!form.message.trim())return;setSending(true);setTimeout(()=>{setSending(false);setSent(true)},650)};
+ return <section className="section page"><Back label="Back to home" to="/"/><SectionHead eyebrow="CONTACT" title="Stay connected with JYC." text="Follow official channels for updates, events and opportunities."/><div className="contact-grid"><a className="contact-card" href="https://www.instagram.com/jiityouthclub128/" target="_blank" rel="noreferrer"><span>01</span><h3>Instagram</h3><p>@jiityouthclub128</p>↗</a><a className="contact-card" href="https://chat.whatsapp.com/BUvEqpevLr6Jp44904ysht?s=cl&p=a&mlu=4&ilr=4" target="_blank" rel="noreferrer"><span>02</span><h3>WhatsApp Community</h3><p>Join the JYC community.</p>↗</a><div className="contact-card"><span>03</span><h3>Website Creator</h3><p>{data.creator.name} · {data.creator.role}</p><div className="social-row"><a href={data.creator.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href={data.creator.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href={data.creator.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p>{data.creator.email}</p></div></div><div className="contact-form-container reveal"><div className="contact-form-card"><div className="contact-form-head"><span className="eyebrow">SEND A MESSAGE</span><h3>Write to JYC.</h3><p>Your message is not sent to a live server from this preview — this is a simulated submission.</p></div>{sent?<div className="contact-form-success" role="status"><b>Thanks, {form.name.split(' ')[0]||'friend'}!</b><p>Your message has been received (simulated). JYC channels are the best way to reach the club for now.</p><button className="btn" onClick={()=>{setSent(false);setForm({name:'',email:'',message:''})}}>Send another message</button></div>:<form className="contact-form" onSubmit={submit} noValidate><label><span>Name</span><input name="name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Your full name" required autoComplete="name"/></label><label><span>Email</span><input name="email" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="you@email.com" required autoComplete="email"/></label><label><span>Message</span><textarea name="message" rows="5" value={form.message} onChange={e=>setForm({...form,message:e.target.value})} placeholder="How can JYC help you?" required/></label><button className="btn primary" type="submit" disabled={sending}>{sending?'Sending…':'Send message →'}</button></form>}</div></div></section>}
 function GuidePage({data}){
  const nav=useNavigate();
  const steps=[

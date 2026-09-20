@@ -19,10 +19,9 @@ export function InteractivePhoenix({sceneUrl='',stats={}}){
       <span className="phoenix-halo"/>
       <div className="phoenix-artwork" aria-hidden="true"><img src="/jyc-phoenix-reference-hd.png" alt=""/></div>
     </div>
-    {nodes.map(([label,path,cls,count])=><button key={label} type="button" className={`phoenix-node ${cls} ${active===label?'active':''}`} onPointerEnter={()=>setActive(label)} onFocus={()=>setActive(label)} onPointerLeave={()=>setActive('')} onBlur={()=>setActive('')} onClick={()=>nav(path)} aria-label={`Explore ${label.toLowerCase()}`}>
-      <small>{Number.isFinite(Number(count))?count:0}</small><span>{label}</span><em>Explore →</em>
+    {nodes.map(([label,path,cls])=><button key={label} type="button" className={`phoenix-node ${cls} ${active===label?'active':''}`} onPointerEnter={()=>setActive(label)} onFocus={()=>setActive(label)} onPointerLeave={()=>setActive('')} onBlur={()=>setActive('')} onClick={()=>nav(path)} aria-label={`Explore ${label.toLowerCase()}`}>
+      <span>{label}</span>
     </button>)}
-    <div className="phoenix-route-hint" aria-live="polite">{active?`OPEN ${active} →`:'EXPLORE JYC'}</div>
   </div>
 }
 export function EcosystemSection({data}){
