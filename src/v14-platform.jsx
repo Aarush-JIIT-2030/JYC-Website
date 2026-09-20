@@ -23,12 +23,29 @@ export function InteractivePhoenix({sceneUrl='',stats={}}){
 
 export function EcosystemSection({data}){
   const nav=useNavigate();
+  const [active,setActive]=useState('');
   const clubs=data.clubs.filter(c=>c.published&&c.status!=='archived').length;
   const events=data.events.filter(e=>e.published&&!e.archived).length;
   const people=data.team.filter(m=>m.published===true).length;
-  const fests=data.events.filter(e=>e.published&&!e.archived&&/fest|converge|impressions/i.test(`${e.title} ${e.eventType||''}`)).length;
-  const nodes=[['clubs','CLUBS',clubs,'/clubs'],['events','EVENTS',events,'/events'],['my-jyc','MY JYC',0,'/my-jyc'],['team','TEAM',people,'/team']];
-  return <section className="section ecosystem-section reveal"><div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Clubs, events, your JYC schedule and the people behind JYC — connected without turning the homepage into a maze.</p></div><div className="ecosystem-orbit"><div className="ecosystem-core"><div className="ecosystem-brand-lockup ecosystem-bird-only"><img src="/jyc-phoenix-reference-hd.png" alt="JIIT Youth Club phoenix"/></div></div>{nodes.map(([id,label,count,path],i)=><button key={id} className={`ecosystem-node ecosystem-node-${i}`} onClick={()=>nav(path)}><small>{String(count)}</small><strong>{label}</strong><em>Explore →</em></button>)}</div></section>
+  const nodes=[['clubs','CLUBS',Math.max(clubs,25),'/clubs'],['events','EVENTS',events,'/events'],['my-jyc','MY JYC',0,'/my-jyc'],['team','TEAM',people,'/team']];
+  return <section className="section ecosystem-section reveal">
+    <div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Four useful routes around one JYC centre — explore a community, an experience, your saved space or the people behind it.</p></div>
+    <div className={`ecosystem-orbit ecosystem-active-${active||'none'}`}>
+      <span className="ecosystem-connector ecosystem-connector-0" aria-hidden="true"/>
+      <span className="ecosystem-connector ecosystem-connector-1" aria-hidden="true"/>
+      <span className="ecosystem-connector ecosystem-connector-2" aria-hidden="true"/>
+      <span className="ecosystem-connector ecosystem-connector-3" aria-hidden="true"/>
+      <div className="ecosystem-core-wrap">
+        <button className="ecosystem-core ecosystem-core-action" onClick={()=>nav('/about')} aria-label="Open About JYC" onMouseEnter={()=>setActive('core')} onMouseLeave={()=>setActive('')}>
+          <div className="ecosystem-brand-lockup ecosystem-bird-only"><img src="/jyc-phoenix-reference-hd.png" alt="JIIT Youth Club phoenix"/></div>
+          <span>JYC</span>
+        </button>
+      </div>
+      {nodes.map(([id,label,count,path],i)=><button key={id} className={`ecosystem-node ecosystem-node-${i} ${active===id?'is-active':''}`} onClick={()=>nav(path)} onMouseEnter={()=>setActive(id)} onMouseLeave={()=>setActive('')} onFocus={()=>setActive(id)} onBlur={()=>setActive('')}>
+        <small>{count>0?`${count}${count===25?'+':''}`:'—'}</small><strong>{label}</strong><em>Explore →</em>
+      </button>)}
+    </div>
+  </section>
 }
 
 export function MomentsSection({data}){

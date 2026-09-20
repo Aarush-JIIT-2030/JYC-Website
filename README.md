@@ -4,7 +4,7 @@
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V18.21.0 — Best JYC / V17 + V18 + V20 consolidation** — an animated, human-first public experience built on the V18.17 functional baseline.
+> **Release: V18.24.0 — Human JYC Final / compact public UI + night-sky identity + navigation polish + map + assistant** — an animated, human-first public experience built on the V18.17 functional baseline.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
@@ -23,7 +23,7 @@ Supporting public surfaces include **Moments, My JYC, Campus Map and the JYC FAQ
 - **Optional personal layer.** My JYC saves clubs/events without turning the public site into a dashboard.
 - **Accessible motion.** Micro-interactions respect `prefers-reduced-motion` and avoid adding a heavy animation dependency for simple effects.
 - **Human interaction.** Motion is attached to real club/event content instead of decorative animation for its own sake.
-- **Open-source inspired, locally implemented.** React Bits/Motion/Radix patterns are selectively adapted without turning the site into a component demo.
+- **Open-source inspired, locally implemented.** React Bits orbit, reveal, command-palette and navigation patterns are selectively adapted without turning the site into a component demo.
 - **Security first.** Publishable Supabase access is paired with RLS expectations, validated external URLs, CSP/security headers, secret scanning and CodeQL CI.
 
 ## Contact

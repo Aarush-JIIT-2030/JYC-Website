@@ -19,9 +19,9 @@ add('Private route noindex',main.includes("clean.startsWith('/qr/')") && meta.in
 add('Robots allows public crawling',robots.includes('Allow: /') && robots.includes('Disallow: /admin'));
 add('LLMs discovery file',llms.includes('JIIT Youth Club') && llms.includes('/clubs') && llms.includes('/events'));
 add('Sitemap generator exists',fs.existsSync(path.join(root,'scripts/generate-sitemap.mjs')));
-add('SEO pages have keyword-rich route metadata',main.includes('JIIT Clubs & Student Communities') && main.includes('JIIT Events & Campus Activities') && main.includes('JYC FAQ') || read('src/extra-features.jsx').includes('JYC FAQ') && main.includes('JIIT Fests & Flagship Events'));
+add('SEO pages have keyword-rich route metadata',main.includes('JIIT Clubs & Student Communities') && main.includes('JIIT Events & Campus Activities') && main.includes('About JIIT Youth Club') && main.includes('JIIT Fests & Flagship Events'));
 add('Fest discovery route exists',main.includes("clean==='/fests'") && llms.includes('/fests'));
-add('Service worker cache namespace updated',/CACHE_NAME\s*=\s*['"]jyc-cache-v18-21-0-best-jyc['"]/.test(read('public/sw.js')));
+add('Service worker cache namespace updated',/CACHE_NAME\s*=\s*['"]jyc-cache-v18-24-0-human-final['"]/.test(read('public/sw.js')));
 const failed=checks.filter(x=>!x.ok);
 for(const c of checks) console.log(`${c.ok?'PASS':'FAIL'}: ${c.name}${c.detail?` — ${c.detail}`:''}`);
 if(failed.length){process.exitCode=1;console.error(`SEO QA failed: ${failed.length} check(s)`)} else console.log(`PASS: SEO QA (${checks.length} checks)`);

@@ -1,14 +1,14 @@
 {
   "name": "jyc-website",
   "private": true,
-  "version": "18.21.0",
+  "version": "18.24.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "qa": "node scripts/qa-source-integrity.mjs && node scripts/qa-v18.21-best.mjs && node scripts/qa-search.mjs && node scripts/qa-security.mjs && node scripts/qa-seo.mjs && node scripts/qa-build-preflight.mjs",
-    "qa:release": "node scripts/qa-v18.21-best.mjs",
+    "qa": "node scripts/qa-source-integrity.mjs && node scripts/qa-v18.24-final.mjs && node scripts/qa-search.mjs && node scripts/qa-security.mjs && node scripts/qa-seo.mjs && node scripts/qa-build-preflight.mjs",
+    "qa:release": "node scripts/qa-v18.24-final.mjs",
     "qa:browser": "node scripts/qa-browser.mjs",
     "qa:env": "node scripts/qa-env.mjs",
     "seo:sitemap": "node scripts/generate-sitemap.mjs",
@@ -16,7 +16,7 @@
     "qa:production": "node scripts/qa-production.mjs",
     "qa:build-preflight": "node scripts/qa-build-preflight.mjs",
     "qa:best-jyc": "node scripts/qa-v18.13-best-jyc.mjs",
-    "qa:mobile-first": "node scripts/qa-v18.21-best.mjs",
+    "qa:mobile-first": "node scripts/qa-v18.24-final.mjs",
     "qa:security": "node scripts/qa-security.mjs"
   },
   "dependencies": {

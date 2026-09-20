@@ -24,3 +24,17 @@ npm run qa:browser
 6. Keep admin functionality private and separate from the public experience.
 7. Never commit `.env.local` or service-role credentials.
 8. Test 390×844 and 400×580 before considering a public UI change complete.
+
+## JYC quality gate
+
+Before opening a pull request, run:
+
+```bash
+npm ci
+npm run qa
+npm run build
+npx playwright install chromium
+npm run qa:browser
+```
+
+The `main` branch also runs the same quality gate in GitHub Actions. Keep the public website compact, mobile-first, content-led and free of placeholder/dummy JYC content. Visual experiments should not bypass the established JYC colour system or reduced-motion support.

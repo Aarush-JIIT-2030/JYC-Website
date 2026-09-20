@@ -4,12 +4,12 @@ const root=process.cwd();
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const pkg=JSON.parse(read('package.json'));
 const main=read('src/main.jsx');
-const css=read('src/v18.21-human-jyc.css');
+const css=read('src/v18.22-human-polish.css');
 const phoenix=read('src/v14-platform.jsx');
 const map=read('src/v14-platform-plus.jsx');
 const sw=read('public/sw.js');
 const checks=[
- ['version is 18.21.0',pkg.version==='18.21.0'],
+ ['version is 18.22.0',pkg.version==='18.22.0'],
  ['V15/V17 homepage sections remain',/JYCPulse data=\{data\}/.test(main)&&/ImpactStats data=\{data\}/.test(main)&&/EcosystemSection data=\{data\}/.test(main)&&/MomentsSection data=\{data\}/.test(main)],
  ['Home is first in desktop navigation',/const links=\[\['Home','\/'\]/.test(main)],
  ['Contact replaces Calendar in desktop navigation',/\['Contact','\/contact'\]\]/.test(main)&&!/const links=.*Calendar/.test(main)],
@@ -25,11 +25,11 @@ const checks=[
  ['Map is compact and mobile responsive',/campus-map-layout\{grid-template-columns:minmax/.test(css)&&/campus-map-layout\{grid-template-columns:1fr/.test(css)],
  ['No cursor-star requestAnimationFrame loop',!/requestAnimationFrame\(step\)/.test(main)],
  ['V18.18 motion layer not imported',!/v18\.18-motion\.css/.test(main)],
- ['Service worker cache bumped',sw.includes('jyc-cache-v18-21-0-best-jyc')],
+ ['Service worker cache bumped',sw.includes('jyc-cache-v18-22-0-best-jyc')],
  ['GitHub CI and security configuration exists',fs.existsSync(path.join(root,'.github/workflows/ci.yml'))&&fs.existsSync(path.join(root,'.github/workflows/codeql.yml'))&&fs.existsSync(path.join(root,'.github/dependabot.yml'))],
  ['Secrets remain ignored',/\.env\.local/.test(read('.gitignore'))&&/\.vercel\//.test(read('.gitignore'))],
  ['Official-content guard remains in README',/No surprise publishing/.test(read('README.md'))&&/Official JYC/.test(read('README.md'))],
 ];
 let failed=0;for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`);if(!ok)failed++;}
-if(failed){console.error(`V18.21 BEST QA FAILED: ${failed} check(s)`);process.exit(1)}
-console.log(`V18.21 BEST QA PASS (${checks.length} checks)`);
+if(failed){console.error(`V18.22 HUMAN JYC QA FAILED: ${failed} check(s)`);process.exit(1)}
+console.log(`V18.22 HUMAN JYC QA PASS (${checks.length} checks)`);

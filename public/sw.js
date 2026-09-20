@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jyc-cache-v18-21-0-best-jyc';
+const CACHE_NAME = 'jyc-cache-v18-24-0-human-final';
 
 const APP_SHELL = [
   '/',
