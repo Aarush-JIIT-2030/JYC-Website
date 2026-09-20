@@ -8,8 +8,7 @@ export function InteractivePhoenix({sceneUrl='',stats={}}){
   const nodes=[
     ['CLUBS','/clubs','node-one',stats.clubs],
     ['EVENTS','/events','node-two',stats.events],
-    ['TEAM','/team','node-three',stats.team],
-    ['MOMENTS','/gallery','node-four',stats.moments]
+    ['TEAM','/team','node-three',stats.team]
   ];
   return <div className="phoenix-3d-stage phoenix-calm-stage" aria-label="JYC Phoenix navigation">
     {spline&&<iframe className="phoenix-spline" title="Interactive JYC Phoenix" src={sceneUrl} loading="lazy"/>}
@@ -19,10 +18,9 @@ export function InteractivePhoenix({sceneUrl='',stats={}}){
       <span className="phoenix-halo"/>
       <div className="phoenix-artwork" aria-hidden="true"><img src="/jyc-phoenix-reference-hd.png" alt=""/></div>
     </div>
-    {nodes.map(([label,path,cls,count])=><button key={label} type="button" className={`phoenix-node ${cls} ${active===label?'active':''}`} onPointerEnter={()=>setActive(label)} onFocus={()=>setActive(label)} onPointerLeave={()=>setActive('')} onBlur={()=>setActive('')} onClick={()=>nav(path)} aria-label={`Explore ${label.toLowerCase()}`}>
-      <small>{Number.isFinite(Number(count))?count:0}</small><span>{label}</span><em>Explore →</em>
+    {nodes.map(([label,path,cls])=><button key={label} type="button" className={`phoenix-node ${cls} ${active===label?'active':''}`} onPointerEnter={()=>setActive(label)} onFocus={()=>setActive(label)} onPointerLeave={()=>setActive('')} onBlur={()=>setActive('')} onClick={()=>nav(path)} aria-label={`Explore ${label.toLowerCase()}`}>
+      <span>{label}</span>
     </button>)}
-    <div className="phoenix-route-hint" aria-live="polite">{active?`OPEN ${active} →`:'EXPLORE JYC'}</div>
   </div>
 }
 export function EcosystemSection({data}){
@@ -38,5 +36,5 @@ export function EcosystemSection({data}){
 export function MomentsSection({data}){
   const nav=useNavigate();
   const items=data.gallery.slice(0,5);
-  return <section className="section moments-section reveal"><div className="reference-section-head"><div><span className="eyebrow">JYC MOMENTS</span><h2>Real moments. Real campus.</h2><p>The visual archive grows from photos actually published by JYC.</p></div><button className="reference-view-all" onClick={()=>nav('/gallery')}>Open archive <span>→</span></button></div>{items.length?<div className="moments-editorial">{items.map((g,i)=><button key={g.id||i} className={`moment-tile moment-${i}`} onClick={()=>nav('/gallery')}><img src={g.url} loading="lazy" alt={g.caption||'JYC moment'}/><span><small>{g.association||'JYC'}</small><strong>{g.caption||'JYC moment'}</strong></span></button>)}</div>:<div className="moments-empty"><span className="eyebrow">VISUAL ARCHIVE</span><h2>Moments will appear here as JYC publishes them.</h2><p>No synthetic imagery is used as a substitute for official campus moments.</p><button className="btn secondary" onClick={()=>nav('/gallery')}>Open gallery →</button></div>}</section>
+  return <section className="section moments-section reveal"><div className="reference-section-head"><div><span className="eyebrow">JYC MOMENTS</span><h2>Real moments. Real campus.</h2><p>The visual archive grows from photos actually published by JYC.</p></div></div>{items.length?<div className="moments-editorial">{items.map((g,i)=><button key={g.id||i} className={`moment-tile moment-${i}`} onClick={()=>nav('/gallery')}><img src={g.url} loading="lazy" alt={g.caption||'JYC moment'}/><span><small>{g.association||'JYC'}</small><strong>{g.caption||'JYC moment'}</strong></span></button>)}</div>:<div className="moments-empty"><span className="eyebrow">VISUAL ARCHIVE</span><h2>Moments will appear here as JYC publishes them.</h2><p>No synthetic imagery is used as a substitute for official campus moments.</p></div>}</section>
 }
