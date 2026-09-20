@@ -1,3 +1,14 @@
-/* Site-wide breathing particles: fixed background ambience behind all content. */
-.breathing-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.85}
-@media(prefers-reduced-motion:reduce){.breathing-canvas{opacity:.55}}
+/* Site-wide breathing particles: fixed background ambience behind all content.
+   Beige/gold only, tiny, gentle, and cursor-repelled so they never sit under the reader's pointer. */
+.breathing-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.breathing-canvas i{position:absolute;border-radius:50%;background:var(--accent-gold);opacity:.4;transform:translate(-50%,-50%) scale(.45);animation:jycBreathe var(--breathe-dur,10s) ease-in-out var(--breathe-delay,0s) infinite}
+@keyframes jycBreathe{
+  0%,100%{transform:translate(calc(-50% + var(--flow-x,0px) + var(--push-x,0px)),calc(-50% + var(--flow-y,0px) + var(--push-y,0px))) scale(.35);opacity:0}
+  28%{opacity:.85}
+  45%{transform:translate(calc(-50% + var(--flow-x,0px) + var(--push-x,0px) + var(--breathe-drift,8px)),calc(-50% + var(--flow-y,0px) + var(--push-y,0px) - var(--breathe-drift,8px)*.55)) scale(1)}
+  62%{opacity:.5}
+  78%{transform:translate(calc(-50% + var(--flow-x,0px) + var(--push-x,0px)),calc(-50% + var(--flow-y,0px) + var(--push-y,0px))) scale(.72);opacity:.36}
+}
+@media(prefers-reduced-motion:reduce){.breathing-canvas{opacity:.5}.breathing-canvas i{animation:none;transform:translate(-50%,-50%) scale(.6)}}
+html[data-performance="lite"] .breathing-canvas{display:none}
+@media(max-width:760px){.breathing-canvas{opacity:.6}}

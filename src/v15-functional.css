@@ -9,3 +9,15 @@
 .registration-filters{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:10px;margin:12px 0}
 .registration-filters input,.registration-filters select{width:100%;min-height:44px;border:1px solid var(--border,#2a272b);background:var(--bg-card,#161419);color:var(--text-primary,#f7f2df);border-radius:14px;padding:0 13px}
 @media(max-width:700px){.registration-filters{grid-template-columns:1fr}}
+
+/* Home DISCOVER section: remove the translucent band background + glow so it
+   reads as a normal page section alongside the rest of the home layout. */
+.home .dark-band,
+.home-layout .dark-band{background:transparent!important}
+.home .dark-band:before,
+.home .dark-band:after,
+.home-layout .dark-band:before,
+.home-layout .dark-band:after{content:none!important;display:none!important}
+
+/* Home activities empty state: remove the translucent fill but keep the dashed border. */
+.activity-empty{background:transparent!important}
