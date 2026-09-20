@@ -28,6 +28,7 @@ import './v14-7-final-ui.css';
 import './v14-8-signature-ui.css';
 import './v14-9-senior-fixes.css';
 import './v15-functional.css';
+import './breathing-particles.css';
 import { InteractivePhoenix, EcosystemSection, DiscoverPage, MomentsSection } from './v14-platform.jsx';
 import { CampusMapPage, CertificatePage, QRSharePage, JYCFestPass } from './v14-platform-plus.jsx';
 import { MomentsPage, AgendaPage, ProjectsPage, AchievementsPage, ExperienceSettings } from './v14-final-platform.jsx';
@@ -95,6 +96,78 @@ function CustomCursor() {
   return <><span ref={dot} className="jyc-cursor-dot" /><span ref={ring} className="jyc-cursor-ring" /></>;
 }
 
+function BreathingParticles() {
+  const refs = React.useRef([]);
+  const cursor = React.useRef({ x: -9999, y: -9999 });
+  const particles = React.useMemo(() => {
+    const rand = (a, b) => a + (b - a) * Math.random();
+    return Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      size: rand(2, 5).toFixed(1),
+      x: rand(2, 98).toFixed(2),
+      y: rand(3, 97).toFixed(2),
+      dur: rand(5, 10).toFixed(1),
+      delay: rand(0, 8).toFixed(1),
+      drift: rand(4, 12).toFixed(1)
+    }));
+  }, []);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    const points = refs.current.map(el => {
+      const left = parseFloat(el?.style?.left) || 0;
+      const top = parseFloat(el?.style?.top) || 0;
+      return { x: window.innerWidth * (left / 100), y: window.innerHeight * (top / 100) };
+    });
+    const onResize = () => refs.current.forEach((el, i) => {
+      const left = parseFloat(el?.style?.left) || 0;
+      const top = parseFloat(el?.style?.top) || 0;
+      points[i] = { x: window.innerWidth * (left / 100), y: window.innerHeight * (top / 100) };
+    });
+    const R = 90, MAX = 28, W_MAX = 56;
+    const flow = refs.current.map(() => ({ x: 0, y: 0, vx: 0, vy: 0 }));
+    let raf = 0, last = performance.now();
+    const tick = now => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      const cx = cursor.current.x, cy = cursor.current.y;
+      refs.current.forEach((el, i) => {
+        if (!el) return;
+        const f = flow[i];
+        if (Math.random() < 0.03) f.vx += (Math.random() - .5) * 1.2;
+        if (Math.random() < 0.03) f.vy += (Math.random() - .5) * 1.2;
+        f.vx *= .96;
+        f.vy *= .96;
+        f.x += f.vx * dt * 90;
+        f.y += f.vy * dt * 90;
+        const mag = Math.hypot(f.x, f.y);
+        if (mag > W_MAX) { f.x *= W_MAX / mag; f.y *= W_MAX / mag }
+        let pushX = 0, pushY = 0;
+        if (finePointer) {
+          const dx = points[i].x - cx, dy = points[i].y - cy;
+          const d = Math.hypot(dx, dy);
+          if (d < R && d > 0.01) {
+            const force = (1 - d / R) * MAX;
+            pushX = (dx / d) * force;
+            pushY = (dy / d) * force;
+          }
+        }
+        el.style.setProperty('--flow-x', f.x.toFixed(1) + 'px');
+        el.style.setProperty('--flow-y', f.y.toFixed(1) + 'px');
+        el.style.setProperty('--push-x', pushX.toFixed(1) + 'px');
+        el.style.setProperty('--push-y', pushY.toFixed(1) + 'px');
+      });
+      raf = requestAnimationFrame(tick);
+    };
+    const move = e => { cursor.current.x = e.clientX; cursor.current.y = e.clientY };
+    if (finePointer) window.addEventListener('pointermove', move, { passive: true });
+    window.addEventListener('resize', onResize);
+    raf = requestAnimationFrame(tick);
+    return () => { window.removeEventListener('pointermove', move); window.removeEventListener('resize', onResize); cancelAnimationFrame(raf) };
+  }, []);
+  return <div className="breathing-canvas" aria-hidden="true">{particles.map(p => <i key={p.id} ref={el => { refs.current[p.id] = el }} style={{ left: p.x + '%', top: p.y + '%', width: p.size + 'px', height: p.size + 'px', '--breathe-dur': p.dur + 's', '--breathe-delay': p.delay + 's', '--breathe-drift': p.drift + 'px' }} />)}</div>;
+}
+
 function App() {
   const loc = useLocation(); const nav = useNavigate(); const [data, setData] = useState(empty); const [loading, setLoading] = useState(true); const [bootReady, setBootReady] = useState(false); const [error, setError] = useState(''); const [online, setOnline] = useState(() => navigator.onLine !== false); const [theme, setTheme] = useState(() => storageGet('jyc-theme') || (window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')); const [session, setSession] = useState(null); const [admin, setAdmin] = useState(null); const [toast, setToast] = useState(null);
   useEffect(() => { const on = () => setOnline(true), off = () => setOnline(false); window.addEventListener('online', on); window.addEventListener('offline', off); return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off) } }, []);
@@ -107,26 +180,30 @@ function App() {
   const notify = m => { setToast(m); setTimeout(() => setToast(null), 2600) };
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [loc.pathname]);
   useEffect(() => {
-    const nodes = [...document.querySelectorAll('.reveal')];
+    const root = document.getElementById('main-content') || document;
+    const nodes = [...root.querySelectorAll('.reveal')];
     if (!nodes.length) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      nodes.forEach(n => n.classList.add('is-visible'));
+    const reveal = n => { if (!n.classList.contains('is-visible')) n.classList.add('is-visible') };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      nodes.forEach(reveal);
       return;
     }
+    const inView = n => { const r = n.getBoundingClientRect(); return r.top < window.innerHeight - 40 && r.bottom > 0 };
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) { reveal(entry.target); observer.unobserve(entry.target) } });
     }, { threshold: .12, rootMargin: '0px 0px -40px' });
+    let raf = 0;
+    const scan = () => { root.querySelectorAll('.reveal:not(.is-visible)').forEach(n => { if (inView(n)) reveal(n) }) };
     nodes.forEach((node, index) => {
       node.style.setProperty('--reveal-delay', `${Math.min(index * 35, 280)}ms`);
-      observer.observe(node);
+      if (inView(node)) reveal(node);
+      else observer.observe(node);
     });
-    return () => observer.disconnect();
-  }, [loc.pathname, data]);
+    const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(scan) };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); cancelAnimationFrame(raf); observer.disconnect() };
+  }, [loc.pathname, data, bootReady, loading]);
   useEffect(() => { if (!('serviceWorker' in navigator)) return; if (import.meta.env.DEV) { navigator.serviceWorker.getRegistrations().then(rs => Promise.all(rs.map(r => r.unregister()))).catch(() => { }); if ('caches' in window) caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k)))).catch(() => { }); return; } navigator.serviceWorker.register('/sw.js').catch(() => { }) }, []);
   useEffect(() => { try { const key = 'jyc-pageviews'; const views = JSON.parse(storageGet(key, '{}')); views[loc.pathname] = (views[loc.pathname] || 0) + 1; views.total = (views.total || 0) + 1; storageSet(key, JSON.stringify(views)) } catch { } }, [loc.pathname]);
   useEffect(() => { if (import.meta.env.VITE_ENABLE_ANALYTICS !== 'true' || !data.flags?.analytics) return; let sessionKey = storageGet('jyc-analytics-session'); if (!sessionKey) { sessionKey = uid(); storageSet('jyc-analytics-session', sessionKey) } supabase.from('jyc_page_views').insert({ path: loc.pathname, referrer: document.referrer || null, session_key: sessionKey }).then(() => { }).catch(() => { }) }, [loc.pathname, data.flags?.analytics]);
@@ -135,7 +212,7 @@ function App() {
   const connectionNotice = (!online || error) ? <div className={`connection-notice ${readSiteCache() ? 'cached' : 'offline'} ${error === 'JYC data service is not deployed. Run supabase/FINAL-PRODUCTION-REPAIR.sql in the connected Supabase project, then refresh.' ? 'setup-needed' : ''}`} role="status"><span>{!online ? 'You are offline. JYC will keep using cached content until the connection returns.' : error === 'JYC data service is not deployed. Run supabase/FINAL-PRODUCTION-REPAIR.sql in the connected Supabase project, then refresh.' ? 'JYC data service needs setup.' : readSiteCache() ? `Showing the last saved JYC snapshot · ${formatCacheAge(siteCacheAge())}.` : 'JYC content is currently offline.'}</span><button onClick={() => window.dispatchEvent(new CustomEvent('jyc-refresh-data'))}>Refresh</button></div> : null;
   const isAdmin = loc.pathname.startsWith('/admin');
   const festActive = data.mode === 'fest' && data.fest?.active;
-  const content = <div className={festActive ? 'app-frame fest-app-active' : 'app-frame'}><CustomCursor /><ScrollProgress /><BackToTop /><SkipLink />{!isAdmin && !festActive && <><Navbar data={data} theme={theme} setTheme={setTheme} /><FirstVisitTour /></>} {connectionNotice}<div id="main-content" className={isAdmin ? 'app admin-app' : 'app'}><Routes data={data} admin={admin} session={session} setAdmin={setAdmin} commit={commit} notify={notify} /></div>{!isAdmin && !festActive && <Footer data={data} />} {toast && <div className="toast">✓ {toast}</div>}<InstallPrompt /></div>;
+  const content = <div className={festActive ? 'app-frame fest-app-active' : 'app-frame'}><BreathingParticles /><CustomCursor /><ScrollProgress /><BackToTop /><SkipLink />{!isAdmin && !festActive && <><Navbar data={data} theme={theme} setTheme={setTheme} /><FirstVisitTour /></>} {connectionNotice}<div id="main-content" className={isAdmin ? 'app admin-app' : 'app'}><Routes data={data} admin={admin} session={session} setAdmin={setAdmin} commit={commit} notify={notify} /></div>{!isAdmin && !festActive && <Footer data={data} />} {toast && <div className="toast">✓ {toast}</div>}<InstallPrompt /></div>;
   return <MaintenanceGate data={isAdmin ? { maintenance: { on: false } } : data}>{content}</MaintenanceGate>
 }
 
