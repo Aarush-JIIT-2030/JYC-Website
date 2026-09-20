@@ -11,10 +11,10 @@ The repository already contains the SPA rewrite in `vercel.json`, so direct rout
 Do not put Supabase service-role keys or other secrets in `VITE_*` variables. Only the public Supabase URL and anonymous key belong in the client environment.
 
 
-## V13.4 public experience
+## Current public experience
 
 - Production should be left publicly accessible; Vercel Authentication should not protect the production domain.
-- `/download` is a public in-site handoff page for browser access, PWA installation, GitHub and source download.
-- `/downloads/jyc-website-source.zip` is served as a normal public download asset.
+- `/download` is a legacy route and now redirects to the JYC Guide; the public product no longer exposes a source-download utility page.
+- The source repository remains the canonical place for project code and deployment documentation.
 - Preview deployments may remain protected; Vercel documents that production and preview protection can be configured separately.
 - The website itself never needs a visitor to sign into Vercel.

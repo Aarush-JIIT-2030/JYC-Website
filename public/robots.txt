@@ -4,5 +4,13 @@ Disallow: /admin
 Disallow: /login
 Disallow: /my-jyc
 Disallow: /notifications
+Disallow: /settings
+Disallow: /agenda
+Disallow: /projects/submit
+Disallow: /download
+Disallow: /qr/
 
-# Add the deployed absolute sitemap URL here after the production domain is known.
+# Production build: generate this file with `npm run seo:sitemap` after setting VITE_SITE_URL.
+# Then verify the deployed sitemap in Google Search Console.
+
+# Production: add the absolute sitemap URL after the real domain is configured.

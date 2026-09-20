@@ -34,12 +34,18 @@ Deno.serve(async (req) => {
     if (!user) return json({ error: 'Authentication required.' }, 401, origin)
 
     const { data: caller } = await adminClient.from('jyc_admins').select('role,is_active').eq('user_id', user.id).maybeSingle()
-    if (!caller?.is_active || caller.role !== 'super_admin') return json({ error: 'Only Super Admin can manage administrators.' }, 403, origin)
+    if (!caller?.is_active) return json({ error: 'Administrator access is inactive.' }, 403, origin)
 
     const contentLength = Number(req.headers.get('Content-Length') || 0)
-    if (contentLength > 20000) return json({ error: 'Request is too large.' }, 413, origin)
-
     const body = await req.json()
+
+    if (body.action === 'health') {
+      const { error: dbError } = await adminClient.from('jyc_admins').select('user_id').limit(1)
+      return json({ ok: !dbError, database: dbError ? 'error' : 'ok', service: 'admin-management' }, dbError ? 500 : 200, origin)
+    }
+
+    if (caller.role !== 'super_admin') return json({ error: 'Only Super Admin can manage administrators.' }, 403, origin)
+    if (contentLength > 20000) return json({ error: 'Request is too large.' }, 413, origin)
 
     if (body.action === 'list') {
       const { data, error } = await adminClient.from('jyc_admins').select('user_id,role,display_name,is_active,club_id').order('display_name')

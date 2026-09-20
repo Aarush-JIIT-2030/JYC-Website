@@ -1,10 +1,11 @@
-const CACHE_NAME = 'jyc-cache-v15-functional-platform';
+const CACHE_NAME = 'jyc-cache-v18-16-0-runtime-complete';
 
 const APP_SHELL = [
   '/',
   '/offline.html',
   '/manifest.json',
-  '/jyc-logo-circle.png'
+  '/jyc-logo-circle.png',
+  '/jyc-phoenix-reference-hd.png'
 ];
 
 self.addEventListener('install', (event) => {

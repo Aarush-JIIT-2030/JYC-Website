@@ -70,15 +70,21 @@ export function subscribeSaved(callback) {
 }
 
 export function googleCalendarUrl(event) {
-  const compact = (date, time, fallback = '000000') => {
+  const compact = (date, time, fallback = '00:00') => {
     if (!date) return '';
     const d = String(date).replaceAll('-', '');
-    const t = String(time || fallback).replace(':', '').padEnd(4, '0').slice(0, 4);
-    return `${d}T${t}00`;
+    const raw = String(time || fallback).trim();
+    const [hhRaw, mmRaw] = raw.split(':');
+    const hh = String(Math.max(0, Math.min(23, Number(hhRaw || 0)))).padStart(2, '0');
+    const mm = String(Math.max(0, Math.min(59, Number(mmRaw || 0)))).padStart(2, '0');
+    return `${d}T${hh}${mm}00`;
   };
   const start = compact(event.date, event.start);
-  const end = compact(event.date, event.end || event.start, '2359');
   if (!start) return '';
+  const startDate = new Date(`${event.date}T${event.start || '09:00'}:00`);
+  const endDate = event.end ? new Date(`${event.date}T${event.end}:00`) : new Date(startDate.getTime() + 60 * 60 * 1000);
+  const end = event.end ? compact(event.date, event.end) : compact(event.date, endDate.toTimeString().slice(0,5));
+  if (!end) return '';
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: event.title || 'JYC Event',
@@ -131,7 +137,11 @@ export function armLocalReminder(event) {
   if (reminderTimers.has(event.id)) window.clearTimeout(reminderTimers.get(event.id));
   const delay = new Date(reminder.reminderAt).getTime() - Date.now();
   if (!Number.isFinite(delay) || delay <= 0) return;
-  if (delay > 2147483647) return;
+  if (delay > 2147483647) {
+    const timer = window.setTimeout(() => armLocalReminder(event), 2147483647);
+    reminderTimers.set(event.id, timer);
+    return;
+  }
   const timer = window.setTimeout(async () => {
     try {
       if ('Notification' in window && Notification.permission === 'granted') {
@@ -145,27 +155,6 @@ export function armLocalReminder(event) {
     } finally { clearLocalReminder(event.id); }
   }, delay);
   reminderTimers.set(event.id, timer);
-}
-
-export async function subscribeToPush(userId = null) {
-  if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) throw new Error('Web push is not supported in this browser.');
-  const vapid = import.meta.env.VITE_VAPID_PUBLIC_KEY;
-  if (!vapid) throw new Error('VITE_VAPID_PUBLIC_KEY is not configured yet.');
-  const permission = Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
-  if (permission !== 'granted') throw new Error('Notification permission was not granted.');
-  const registration = await navigator.serviceWorker.ready;
-  let subscription = await registration.pushManager.getSubscription();
-  if (!subscription) subscription = await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(vapid) });
-  const { error } = await supabase.from('jyc_push_subscriptions').upsert({ endpoint: subscription.endpoint, subscription: subscription.toJSON(), user_id: userId || null }, { onConflict: 'endpoint' });
-  if (error) throw error;
-  return subscription;
-}
-
-function urlBase64ToUint8Array(base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-  const raw = atob(base64);
-  return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
 }
 
 export function armStoredReminders(events = []) {

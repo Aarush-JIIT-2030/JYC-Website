@@ -165,3 +165,18 @@ html[data-theme="dark"] .search-modal{background:rgba(24,22,29,.72)!important}
 @media (max-width:700px){
   .hero .logo-core img[src*="jyc-phoenix-reference"]{width:74%!important;height:74%!important;object-fit:contain!important;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--accent-red) 24%,transparent))!important}
 }
+
+/* V17 reliability UI: accessible confirmations and richer feedback without adding a new visual language. */
+.confirm-overlay{position:fixed;inset:0;z-index:6000;display:grid;place-items:center;padding:20px;background:rgba(8,7,10,.66);backdrop-filter:blur(14px);animation:v17FadeIn .18s ease both}
+.confirm-dialog{width:min(500px,100%);border:1px solid var(--border-tech);border-radius:24px;background:var(--bg-card);box-shadow:0 30px 90px rgba(0,0,0,.45);padding:28px;animation:v17DialogIn .22s var(--ease) both}
+.confirm-dialog h2{font:700 clamp(28px,5vw,40px)/1 'Space Grotesk';letter-spacing:-.045em;margin:9px 0 12px}
+.confirm-dialog p{margin:0;color:var(--text-muted);line-height:1.65;font-size:14px;max-width:60ch}
+.confirm-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:24px;flex-wrap:wrap}
+.toast{display:flex;align-items:center;gap:9px;max-width:min(440px,calc(100vw - 32px));border:1px solid color-mix(in srgb,var(--text-primary) 15%,transparent);padding:12px 16px!important;line-height:1.35}
+.toast span{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font:800 11px 'Space Grotesk';background:var(--accent-red);color:#fff;flex:0 0 auto}
+.toast-error{background:var(--accent-red);color:#fff;border-color:transparent}
+.toast-error span{background:#fff;color:var(--accent-red)}
+@keyframes v17FadeIn{from{opacity:0}to{opacity:1}}
+@keyframes v17DialogIn{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+@media(max-width:600px){.confirm-dialog{padding:22px;border-radius:20px}.confirm-actions{display:grid;grid-template-columns:1fr}.confirm-actions .btn{width:100%}.toast{right:16px;bottom:84px}}
+@media(prefers-reduced-motion:reduce){.confirm-overlay,.confirm-dialog{animation:none}}

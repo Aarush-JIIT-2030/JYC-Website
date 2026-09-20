@@ -1,202 +1,170 @@
-# JYC Website — V14.2 Platform Pass
+# JIIT Youth Club — Official Website
 
-V14.2 builds on the senior interaction pass with an interactive phoenix stage, JYC ecosystem navigation, metadata-driven Discover, editorial Moments, magnetic mobile navigation, pill-first controls, dynamic viewport counters, responsive 3D tilt, and a footer-only admin entry.
+[![JYC CI](https://github.com/coolbandariya/JYC-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/coolbandariya/JYC-Website/actions/workflows/ci.yml) [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)](https://vite.dev/) [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=fff)](https://supabase.com/)
 
-The project remains data-first: empty states do not invent clubs, events, people, or photographs.
+> **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
+>
+> **Release: V18.11.2 build hotfix** — production-build and stale-cache fixes on top of the V18.11 final product pass.
 
-## New platform surfaces
-- `/discover` — interest-based discovery from published club metadata.
-- Interactive hero phoenix depth/tilt and orbit system.
-- JYC Ecosystem on the homepage.
-- JYC Moments editorial archive preview.
-- Real-data hero counters with one-time count-up.
+JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
-## Verification
-Run `npm install` and `npm run build` locally before deployment. The packaging environment used for this release could not complete npm dependency installation because the registry request timed out, so a production build is not claimed as verified here.
-# JIIT Youth Club — Sector 128
+## Product map
 
-Official JYC website for JIIT Sector 128, Noida.
+**Home → Clubs → Events → Team → Contact → More → Search**
 
-A responsive React + Vite experience with a Supabase content layer, role-based Control Center, club pages, events, gallery, recruitment/auditions, notifications, Fest Mode and a GitHub/Vercel-ready deployment structure.
+Supporting public surfaces include **Gallery, Calendar, My JYC and the JYC Guide**. Fests are intentionally not part of the normal navigation: they appear only when an authorized editor switches the public experience into **Fest mode**. Recruitment is intentionally homepage-only and can be surfaced only when the JYC editor-controlled recruitment flag allows it.
 
-> **Ready to Soar**
+### Public experience principles
 
-## Highlights
+- **Club first.** This is a club website, not a generic student dashboard.
+- **Search is relevance-first.** Exact title matches are deliberately ranked above metadata, fuzzy matches and shortcuts.
+- **No surprise publishing.** Admin drafts remain drafts until an authorized person publishes them.
+- **Optional personal layer.** My JYC saves clubs/events without turning the public site into a dashboard.
+- **Accessible motion.** Micro-interactions respect `prefers-reduced-motion` and avoid adding a heavy animation dependency for simple effects.
 
-- Premium JYC light/dark interface using the approved beige, black, red and gold palette.
-- Public pages: Home, About, Clubs, Club Detail, Events, Event Detail, Gallery, Team, Contact.
-- Flexible Club pages with optional sections, leadership, projects, achievements, recruitment, auditions, events and gallery.
-- Events with upcoming/live/past states, search, filters, calendar, reminders, sharing, QR and registration.
-- Dedicated full-site **Fest Mode**: when activated by JYC, the public experience switches to the fest visual shell and live programme.
-- Recruitment and Auditions stay on individual club pages and dedicated hubs — they are not shown on the homepage.
-- Homepage CMS with editable copy, visibility controls and drag-style section ordering.
-- Supabase Auth, Storage, RLS, content reviews, versions, activity logs and scoped admin permissions.
-- Installable PWA shell, browser notification architecture, analytics and error reporting.
-- Route/vendor code splitting so the admin CMS is not part of the initial public download.
-- GitHub Actions build check and Vercel security headers.
+## Contact
 
-## Roles
+The public Contact page keeps the official JYC channels and website creator details together:
 
-- **Super Admin** — full Control Center access.
-- **JYC Editor** — operational editorial access to clubs, events and gallery.
-- **Club Admin** — manages only the assigned club, its events and its gallery.
-- **Specialist admins** — scoped to their assigned content area.
+- Instagram: `@jiityouthclub128`
+- JYC WhatsApp community group
+- JYC / website contact email
+- Website creator: Kaustubh Dua — LinkedIn, GitHub, Instagram and email
+
+Update the live contact values in the site data before production if any official channel changes.
+
+## Tech stack
+
+- React 19
+- Vite 8
+- React Router
+- Supabase Auth / Postgres / Storage / Edge Functions
+- CSS-first interaction layer
+- Service worker for the cached public shell
+
+## Repository layout
+
+```text
+src/                         React application + UI system
+src/lib/                     Search, Supabase and UI utilities
+src/*.css                    Layered public/admin design system
+supabase/                    SQL, RLS and Edge Functions
+scripts/                     Product, release, SEO and regression QA
+docs/                        Architecture and product notes
+.github/                     CI, issues, PR workflow and repository metadata
+public/                     PWA shell, media and downloadable source archive
+```
 
 ## Local development
 
-### 1. Install Node.js
-
-Use Node.js 20.19+.
-
-### 2. Configure environment
-
-Copy `.env.example` to `.env.local`:
-
-```env
-VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
-VITE_VAPID_PUBLIC_KEY=YOUR_VAPID_PUBLIC_KEY
-```
-
-Never put a Supabase secret/service-role key or VAPID private key in frontend environment variables.
-
-### 3. Install dependencies
-
 ```bash
 npm install
-```
-
-### 4. Run locally
-
-```bash
 npm run dev
 ```
 
-### 5. Production build
+Production build:
 
 ```bash
 npm run build
-npm run preview
 ```
 
-## Supabase setup
-
-Run the SQL files in this order in the Supabase SQL Editor:
-
-1. `supabase/00-core-migration.sql`
-2. `supabase/relational-v2.sql`
-3. `supabase/platform-v3.sql`
-4. `supabase/platform-v4-fix.sql`
-5. `supabase/final-role-hardening.sql`
-
-If an older development database contains the accidental starter **Abhivyakti** record, also run:
-
-```text
-supabase/maintenance/00-remove-legacy-demo-data.sql
-```
-
-The application itself does not seed Abhivyakti or other demo clubs.
-
-### Edge Functions
-
-Deploy privileged functions from `supabase/functions/` with the Supabase CLI:
+Full static/product QA:
 
 ```bash
-npx supabase functions deploy admin-management
-npx supabase functions deploy send-notification
-npx supabase functions deploy backup-site-data
+npm run qa
 ```
 
-Configure server-side secrets in Supabase. Never expose the service-role/secret key in the Vite application.
+The release also has a focused navigation/contact regression check:
 
-## GitHub
-
-This package is intentionally cleaned for a repository:
-
-```text
-.github/                 CI workflow
-public/                  logo, manifest, service worker, robots
-src/                     React application
-supabase/                migrations, RLS and Edge Functions
-.env.example             environment template
-.gitignore               local/build exclusions
-index.html
-package.json
-package-lock.json
-vite.config.js
-vercel.json
-README.md
-PRODUCTION-SETUP.md
-SECURITY.md
-ADMIN-ROLE-MATRIX.md
-SUPABASE-FUNCTIONS.md
+```bash
+node scripts/qa-v19-8-contact-nav.mjs
 ```
 
-Not included:
+## Search behavior
 
-- `node_modules/`
-- `dist/`
-- `.env.local`
-- temporary QA reports
-- duplicate legacy migration files
+The search engine in `src/lib/search.js` uses a deterministic relevance model. The order is intentionally:
 
-## Deployment
+1. exact title
+2. title starts with the query
+3. phrase inside title
+4. all query words in title
+5. title word prefixes
+6. fuzzy title match
+7. metadata / description
+8. intent shortcuts
 
-1. Push the project to GitHub.
-2. Import the repository into Vercel.
-3. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`.
-4. Add `VITE_VAPID_PUBLIC_KEY` only after Web Push is configured.
-5. Run the production build.
-6. Test desktop and mobile routes.
-7. Connect the official JYC domain when available.
+The UI labels the first ranked result **BEST MATCH** and supports keyboard navigation with `Ctrl/Cmd + K`, `/`, arrow keys, Enter and Escape.
 
-## Content policy for the project
+## Admin publishing model
 
-The public content store intentionally starts empty. Add only approved JYC clubs, categories, team members, events, announcements and gallery media through the Control Center.
+Content follows:
 
-The creator credit is fixed to the approved website creator profile and is not editable from the JYC Control Center.
+**Draft → AI recommendation (optional) → Preview → Save → Publish**
 
-## Website creator
+AI suggestions are never auto-published. Staff access is kept under the Control Center and protected by the existing authorization flow.
 
-**Kaustubh Dua — Website Creator**
+### Public mode control
 
-The creator profile is intentionally protected in the application.
+The Control Center can switch between:
+
+- **Standard JYC mode** — normal club/event website
+- **Fest mode** — enables the dedicated fest experience and its public discoverability
+
+Only the authorized super-admin path can change the public mode.
+
+## Open-source UI approach
+
+The site uses dependency-free CSS motion patterns rather than adding another animation runtime just for micro-interactions. The design work takes inspiration from open-source component ecosystems such as React Bits and shadcn/ui while keeping the actual JYC implementation inside this repository. The current deep-polish pass adds Phoenix depth, spotlight sweeps, stronger focus states and contact-card motion without adding a runtime dependency.
+
+See [`docs/OPEN-SOURCE-UI-NOTES.md`](docs/OPEN-SOURCE-UI-NOTES.md) for the references and implementation notes.
+
+## GitHub workflow
+
+- CI runs on pushes and pull requests.
+- Product QA, SEO QA and build verification run before merge/deployment.
+- Bug reports and content issues have dedicated issue templates.
+- Pull requests use a review checklist.
+- Keep public content data separate from credentials and secrets.
+
+## Current release
+
+**V18.11.0 — Final Product Pass**
+
+This release preserves the strongest JYC platform features while repairing runtime contracts, restoring admin workspaces, and consolidating the Phoenix/cursor/calendar/search experience.
+
+See [`V18.11-FINAL-PRODUCT-PASS.md`](V18.11-FINAL-PRODUCT-PASS.md) for the release-specific changes.
+
+## Verification note
+
+Static/regression QA was run for this release. Browser QA is included as a dev dependency; after `npm install`, run `npx playwright install chromium`, start Vite with `npm run dev`, then run `npm run qa:browser`. The packaging environment cannot provide the local native Vite binding.
+
+## Official site
+
+https://jycjiit.vercel.app
 
 
-V6.2 POLISH
-- Fixed search modal layering via document portal
-- Escape key, click-outside, close button, Ctrl/Cmd+K and / shortcuts
-- Search body scroll lock, clear control, result counts and improved empty state
-- Improved light mode surfaces and contrast using approved JYC palette
-- Added focus-visible accessibility treatment
+## Release quality gates
 
-## V13.4 reference UI
+Before a release reaches `main`:
 
-The public UI now uses the red phoenix reference mark, a compact desktop header, a five-item mobile bottom navigation, improved search, and a responsive dark/light visual system.
+1. `npm run build`
+2. `npm run qa`
+3. Browser pass across Home, Clubs, Club Detail, Events, Event Detail, Team, Gallery, Calendar, Contact, More/Search and Admin
+4. Verify console has no runtime-breaking errors
+5. Verify exact-title search remains the first result
+6. Verify a newly published admin event appears on Events + Calendar
+7. Verify Fest mode and homepage-only Recruitment rules
+8. Verify desktop, tablet and mobile layouts
 
-### Public download / self-host
+### Signature JYC interactions
 
-Open `/download` on the deployed site. It explains:
+- Phoenix hero with pointer depth
+- Three Phoenix doors: Communities / Experiences / People
+- Custom red/gold cursor on precise pointers
+- Gallery lightbox with keyboard navigation
+- Event share, Google Calendar, `.ics`, reminders and QR
+- Combined JYC + official academic calendar
+- Club follow/save layer in My JYC
+- Staff Control Center with draft/review/publish workflow
 
-- public browser access without a Vercel account;
-- phone/PWA installation;
-- GitHub source;
-- the downloadable source ZIP at `/downloads/jyc-website-source.zip`;
-- Vercel Drop/self-hosting.
-
-The production domain itself must be public in Vercel Deployment Protection settings. Code cannot override an account/project-level Vercel access gate.
-
-
-## V13.5 Reference UI Overhaul
-
-The latest UI pass aligns the public website more closely with the supplied JIIT Youth Club reference: compact desktop chrome, circular phoenix brand treatment, warm cream/dark themes, a tighter hero/orbit composition, compact “What’s Next” event strip, five-item mobile navigation, a right-side mobile More drawer, and a closer admin dashboard treatment.
-
-The implementation keeps the existing Supabase/CMS data model and does not add the excluded “This Week at JYC” section.
-
-## V13.8 Animated Reference Polish
-
-The latest UI pass adds visibly moving orbital rings and light nodes to the phoenix hero, subtle star/network motion, desktop pointer-depth parallax, a live next-event countdown strip, and native share/clipboard actions on club and event detail pages. The implementation keeps the existing Supabase/PWA/admin architecture and adapts open-source UI interaction patterns without adding a runtime UI dependency.
-
-## V13.9 product polish
-
-V13.9 adds a theme-aware custom cursor for fine pointers, an improved first-visit guide, and Fest Mode 2.0. Fest Mode now includes a live board, countdown, programme search and category filters, archive/schedule views, announcement and result panels, share/calendar actions, and a five-item mobile dock. Fest programme records can carry dates, times, descriptions and optional detail links. Reduced-motion and touch-device fallbacks remain enabled.
+The repository deliberately favors a small, understandable React/CSS system over a large animation dependency. Open-source references are documented in `docs/OPEN-SOURCE-UI-NOTES.md`.

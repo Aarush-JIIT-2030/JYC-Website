@@ -1,12 +1,22 @@
 {
   "name": "jyc-website",
   "private": true,
-  "version": "15.0.0",
+  "version": "18.16.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "qa": "node scripts/qa-v18.16-runtime-completeness.mjs && node scripts/qa-v18.14-mobile-first.mjs && node scripts/qa-v18.13-best-jyc.mjs && node scripts/qa-build-preflight.mjs",
+    "qa:release": "node scripts/qa-v18.16-runtime-completeness.mjs",
+    "qa:browser": "node scripts/qa-browser.mjs",
+    "qa:env": "node scripts/qa-env.mjs",
+    "seo:sitemap": "node scripts/generate-sitemap.mjs",
+    "qa:seo": "node scripts/qa-seo.mjs",
+    "qa:production": "node scripts/qa-production.mjs",
+    "qa:build-preflight": "node scripts/qa-build-preflight.mjs",
+    "qa:best-jyc": "node scripts/qa-v18.13-best-jyc.mjs",
+    "qa:mobile-first": "node scripts/qa-v18.16-runtime-completeness.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.116.0",
@@ -15,5 +25,11 @@
     "react-dom": "19.3.0",
     "react-router-dom": "7.18.4",
     "vite": "8.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
