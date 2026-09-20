@@ -35,6 +35,11 @@ export function relevanceScore({title='',meta='',text='',type='',query=''}){
   let score=0;
   // Exact title is the absolute top priority.
   if(t===q)return 1000000;
+  // Brand/entity matches are deliberately strong so the official JYC/JIIT pages
+  // surface before generic descriptive matches.
+  if((t==='jiit youth club'||t==='jyc'||t==='jiit jyc')&&(/\bjyc\b|\bjiit\b/.test(q)))score+=94000;
+  if(t==='jiit youth club'&&/\bjyc\b/.test(q))score+=120000;
+  if((t.includes('jiit youth club')||t.includes('jyc'))&&(/\bjyc\b|\bjiit\b/.test(q)))score+=18000;
   if(t.startsWith(q))score+=85000;
   if(t.includes(q))score+=65000;
   const exactTitleTokens=qt.filter(token=>tt.includes(token)).length;

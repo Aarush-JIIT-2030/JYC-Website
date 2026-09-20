@@ -3,26 +3,23 @@ import {useNavigate} from 'react-router-dom';
 
 export function InteractivePhoenix({sceneUrl='',stats={}}){
   const nav=useNavigate();
-  const [active,setActive]=useState('');
   const spline=String(sceneUrl||'').startsWith('https://prod.spline.design/');
   const nodes=[
-    ['CLUBS','/clubs','node-one',stats.clubs],
-    ['EVENTS','/events','node-two',stats.events],
-    ['TEAM','/team','node-three',stats.team]
+    ['CLUBS','/clubs','node-one'],
+    ['EVENTS','/events','node-two'],
+    ['TEAM','/team','node-three']
   ];
   return <div className="phoenix-3d-stage phoenix-calm-stage" aria-label="JYC Phoenix navigation">
     {spline&&<iframe className="phoenix-spline" title="Interactive JYC Phoenix" src={sceneUrl} loading="lazy"/>}
-    <div className="phoenix-calm-orbit" aria-hidden="true"/>
     <div className="phoenix-calm-glow" aria-hidden="true"/>
     <div className="phoenix-3d-core phoenix-bird-only">
       <span className="phoenix-halo"/>
       <div className="phoenix-artwork" aria-hidden="true"><img src="/jyc-phoenix-reference-hd.png" alt=""/></div>
     </div>
-    {nodes.map(([label,path,cls])=><button key={label} type="button" className={`phoenix-node ${cls} ${active===label?'active':''}`} onPointerEnter={()=>setActive(label)} onFocus={()=>setActive(label)} onPointerLeave={()=>setActive('')} onBlur={()=>setActive('')} onClick={()=>nav(path)} aria-label={`Explore ${label.toLowerCase()}`}>
-      <span>{label}</span>
-    </button>)}
+    <div className="phoenix-door-rail" aria-label="JYC destinations">{nodes.map(([label,path,cls])=><button key={label} type="button" className={`phoenix-node ${cls}`} onClick={()=>nav(path)} aria-label={`Explore ${label.toLowerCase()}`}><span>{label}</span><em>Explore →</em></button>)}</div>
   </div>
 }
+
 export function EcosystemSection({data}){
   const nav=useNavigate();
   const clubs=data.clubs.filter(c=>c.published&&c.status!=='archived').length;

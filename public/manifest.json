@@ -6,7 +6,7 @@
   "display": "standalone",
   "background_color": "#0f0e11",
   "theme_color": "#0f0e11",
-  "description": "Official JIIT Youth Club experience for clubs, events and campus communities.",
+  "description": "Official JIIT Youth Club website for JIIT Noida clubs, events, people and campus moments.",
   "icons": [
     {
       "src": "/jyc-logo-circle.png",
@@ -28,9 +28,9 @@
       ]
     },
     {
-      "name": "My JYC Agenda",
-      "short_name": "Agenda",
-      "url": "/agenda",
+      "name": "JYC Clubs",
+      "short_name": "Clubs",
+      "url": "/clubs",
       "icons": [
         {
           "src": "/jyc-logo-circle.png",
@@ -39,9 +39,9 @@
       ]
     },
     {
-      "name": "JYC Discover",
-      "short_name": "Discover",
-      "url": "/discover",
+      "name": "JYC Moments",
+      "short_name": "Moments",
+      "url": "/gallery",
       "icons": [
         {
           "src": "/jyc-logo-circle.png",

@@ -1,18 +1,36 @@
 name: JYC CI
+
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
+permissions:
+  contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+
       - run: npm ci
-      - run: npm run build
+      - name: Dependency vulnerability gate
+        run: npm audit --audit-level=high
+
       - run: npm run qa
+      - run: npm run qa:seo
+      - run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser QA
+        run: npm run qa:browser

@@ -1,3 +1,15 @@
+# V18.18.0 — JYC Motion
+
+- Human-first animated public experience built on V18.17.
+- React Bits-inspired interactions without turning the site into a component demo.
+- Interactive clubs, events, moments, archive and JYC Now.
+- Search/discoverability and security hardening.
+- CodeQL + dependency audit CI.
+
+# JYC V18.17.0 — UI + Functional Refinement
+
+See `V18.17-UI-FUNCTIONAL-RELEASE.md` for the full change list.
+
 # JYC V18.16.0 — Runtime Completeness Repair
 
 ## Purpose

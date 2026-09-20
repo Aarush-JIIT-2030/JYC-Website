@@ -14,5 +14,7 @@ const ranked=rankSearchResults([
 ],'AITronics');
 ok('best match is the exact searched entity',ranked[0]?.key==='target');
 ok('prefix match follows exact title',ranked[1]?.key==='prefix');
+const brand=rankSearchResults([{key:'club',title:'JYC Technical Club',meta:'club',text:'',type:'CLUB'},{key:'home',title:'JIIT Youth Club',meta:'Official JYC website',text:'JIIT Noida clubs events',type:'PAGE'}],'JYC');
+ok('official JIIT Youth Club page leads brand search',brand[0]?.key==='home');
 if(fail.length)process.exit(1);
-console.log('Search QA complete: 5/5 checks passed.');
+console.log(`Search QA complete: ${5+1}/6 checks passed.`);

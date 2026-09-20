@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jyc-cache-v18-16-0-runtime-complete';
+const CACHE_NAME = 'jyc-cache-v18-18-0-motion';
 
 const APP_SHELL = [
   '/',

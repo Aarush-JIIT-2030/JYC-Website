@@ -4,15 +4,15 @@
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V18.11.2 build hotfix** — production-build and stale-cache fixes on top of the V18.11 final product pass.
+> **Release: V18.18.0 — JYC Motion** — an animated, human-first public experience built on the V18.17 functional baseline.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
 ## Product map
 
-**Home → Clubs → Events → Team → Contact → More → Search**
+**Home → Clubs → Events → Moments → Team → Calendar → More → Search**
 
-Supporting public surfaces include **Gallery, Calendar, My JYC and the JYC Guide**. Fests are intentionally not part of the normal navigation: they appear only when an authorized editor switches the public experience into **Fest mode**. Recruitment is intentionally homepage-only and can be surfaced only when the JYC editor-controlled recruitment flag allows it.
+Supporting public surfaces include **Moments, My JYC, Campus Map and the JYC FAQ**. Fests are intentionally not part of the normal navigation: they appear only when an authorized editor switches the public experience into **Fest mode**. Recruitment is intentionally homepage-only and can be surfaced only when the JYC editor-controlled recruitment flag allows it.
 
 ### Public experience principles
 
@@ -21,6 +21,9 @@ Supporting public surfaces include **Gallery, Calendar, My JYC and the JYC Guide
 - **No surprise publishing.** Admin drafts remain drafts until an authorized person publishes them.
 - **Optional personal layer.** My JYC saves clubs/events without turning the public site into a dashboard.
 - **Accessible motion.** Micro-interactions respect `prefers-reduced-motion` and avoid adding a heavy animation dependency for simple effects.
+- **Human interaction.** Motion is attached to real club/event content instead of decorative animation for its own sake.
+- **Open-source inspired, locally implemented.** React Bits/Motion/Radix patterns are selectively adapted without turning the site into a component demo.
+- **Security first.** Publishable Supabase access is paired with RLS expectations, validated external URLs, CSP/security headers, secret scanning and CodeQL CI.
 
 ## Contact
 
@@ -68,7 +71,7 @@ Production build:
 npm run build
 ```
 
-Full static/product QA:
+Full static/product/security QA:
 
 ```bash
 npm run qa
@@ -77,8 +80,12 @@ npm run qa
 The release also has a focused navigation/contact regression check:
 
 ```bash
-node scripts/qa-v19-8-contact-nav.mjs
+npm run qa:security
 ```
+
+## Discoverability
+
+The public site includes Organization/WebSite JSON-LD, canonical metadata, a public sitemap, robots rules and a SearchAction entry point. Brand searches such as `JYC`, `JIIT JYC` and `JIIT Youth Club` intentionally surface the official JIIT Youth Club page before generic content. This improves discoverability but does not guarantee a particular Google ranking; Search Console should be used after deployment.
 
 ## Search behavior
 

@@ -10,7 +10,4 @@ Disallow: /projects/submit
 Disallow: /download
 Disallow: /qr/
 
-# Production build: generate this file with `npm run seo:sitemap` after setting VITE_SITE_URL.
-# Then verify the deployed sitemap in Google Search Console.
-
-# Production: add the absolute sitemap URL after the real domain is configured.
+Sitemap: https://jycjiit.vercel.app/sitemap.xml
