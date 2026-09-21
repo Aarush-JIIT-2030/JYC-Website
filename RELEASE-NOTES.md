@@ -1,18 +1,26 @@
-# V18.24.0 — Human JYC Final Polish
+# V18.26.0 — Human JYC Finish
 
-- Fixed public navbar spacing and reduced header height.
-- Added interactive four-point JYC ecosystem connections around the Phoenix.
-- Contained the Phoenix aura/orbits and added a fourth restrained orbit.
-- Added a flying-Phoenix mode-switch transition with reduced-motion fallback.
-- Removed the standalone FAQ surface; quick answers now live in About JYC and JYC Assistant.
-- Added inline My JYC account sync and clearer guest/account separation.
-- Added device-calendar `.ics` export, Google Calendar links and agenda sharing.
-- Refined JYC Planner hierarchy and mobile calendar density.
-- Centered and compacted the Control Center login mark and tightened admin navigation/guide hierarchy.
-- Reworked light mode toward the approved JYC cream/ink/red/gold palette.
-- Kept dark mode's night-sky constellation treatment.
-- Removed the rejected V18.18 motion stylesheet from the runtime import chain.
-- QA script expanded for the V18.24 feature contract.
+- Reworked light mode around warm beige/paper UI accents; the Phoenix remains red as the identity mark.
+- Upgraded light/dark switching to the native View Transition API with a graceful CSS fallback and a clearer left-to-right Phoenix flight.
+- Added an interactive Fest theme palette with six skins, per-fest local persistence and a restrained transition sheen.
+- Made Fest Mode a reachable Control Center workspace for the appropriate admin roles.
+- Added the same six visual theme presets to the Control Center and persisted the admin's local theme choice.
+- Extended the admin guide, AI navigator and interactive tour with Fest Mode guidance.
+- Kept theme transitions dependency-free to avoid another runtime library and another source of performance regressions.
+- Bumped the service-worker cache to `jyc-cache-v18-26-0-human-finish`.
+- Added a V18.26 regression suite covering themes, Fest Mode, admin themes, reduced motion and runtime contracts.
+
+## QA status
+
+- Source integrity: 70 files — PASS
+- V18.26 final QA: 21/21 — PASS
+- Search QA: 6/6 — PASS
+- Security QA: 12/12 — PASS
+- SEO QA: 13/13 — PASS
+- Build preflight: PASS
+- JavaScript `.mjs` syntax checks: PASS
+
+The final production Vite build and Playwright browser run must still be executed in the user's Windows Git clone because this sandbox could not finish installing the Vite package from the npm registry.
 
 # V18.23.0 — Human JYC Final
 

@@ -41,9 +41,11 @@ export function EcosystemSection({data}){
           <span>JYC</span>
         </button>
       </div>
-      {nodes.map(([id,label,count,path],i)=><button key={id} className={`ecosystem-node ecosystem-node-${i} ${active===id?'is-active':''}`} onClick={()=>nav(path)} onMouseEnter={()=>setActive(id)} onMouseLeave={()=>setActive('')} onFocus={()=>setActive(id)} onBlur={()=>setActive('')}>
-        <small>{count>0?`${count}${count===25?'+':''}`:'—'}</small><strong>{label}</strong><em>Explore →</em>
-      </button>)}
+      {nodes.map(([id,label,count,path],i)=><div key={id} className={`ecosystem-orbit-node ecosystem-orbit-node-${i}`}>
+        <button className={`ecosystem-node ecosystem-node-${i} ${active===id?'is-active':''}`} onClick={()=>nav(path)} onMouseEnter={()=>setActive(id)} onMouseLeave={()=>setActive('')} onFocus={()=>setActive(id)} onBlur={()=>setActive('')}>
+          <small>{count>0?`${count}${count===25?'+':''}`:'—'}</small><strong>{label}</strong><em>Explore →</em>
+        </button>
+      </div>)}
     </div>
   </section>
 }

@@ -1,10 +1,10 @@
 # JIIT Youth Club — Official Website
 
-[![JYC CI](https://github.com/coolbandariya/JYC-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/coolbandariya/JYC-Website/actions/workflows/ci.yml) [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)](https://vite.dev/) [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=fff)](https://supabase.com/)
+[![JYC CI](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml/badge.svg)](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml) [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)](https://vite.dev/) [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=fff)](https://supabase.com/)
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V18.24.0 — Human JYC Final / compact public UI + night-sky identity + navigation polish + map + assistant** — an animated, human-first public experience built on the V18.17 functional baseline.
+> **Release: V18.26.0 — Human JYC Final / orbiting Phoenix + theme flight + JYC paper light mode + navigation/search repair** — an animated, human-first public experience built on the V18.17 functional baseline.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
@@ -12,7 +12,7 @@ JYC brings its **clubs, events, people, memories and official community channels
 
 **Home → Clubs → Events → Moments → Team → Contact → More → Search**
 
-Supporting public surfaces include **Moments, My JYC, Campus Map and the JYC FAQ**. Fests are intentionally not part of the normal navigation: they appear only when an authorized editor switches the public experience into **Fest mode**. Recruitment is intentionally homepage-only and can be surfaced only when the JYC editor-controlled recruitment flag allows it.
+Supporting public surfaces include **Moments, My JYC, Campus Map and JYC Planner**. Quick answers live inside About rather than behind a separate FAQ maze. Fests are intentionally not part of the normal navigation: they appear only when an authorized editor switches the public experience into **Fest mode**. Recruitment is intentionally homepage-only and can be surfaced only when the JYC editor-controlled recruitment flag allows it.
 
 ### Public experience principles
 

@@ -25,8 +25,6 @@
     <meta name="twitter:url" content="https://jycjiit.vercel.app/" />
     <link rel="icon" href="/jyc-logo-circle.png" />
     <link rel="canonical" href="https://jycjiit.vercel.app/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://ogbanmjokjlxfuktkicj.supabase.co" />
     <link rel="manifest" href="/manifest.json" />
     <title>JIIT Youth Club (JYC) — Clubs, Events & Fests | JIIT Noida</title>
@@ -41,14 +39,7 @@
     </script>
   </head>
   <body>
-    <script>
-      // Development safety: an older service worker can otherwise return a stale React/Vite module
-      // before the new app gets a chance to unregister it. This is what can surface old lazy-module errors.
-      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-        navigator.serviceWorker?.getRegistrations?.().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
-        window.caches?.keys?.().then(keys => keys.forEach(k => caches.delete(k))).catch(() => {});
-      }
-    </script>
+    <script src="/dev-cleanup.js"></script>
     <noscript>
       <main style="max-width:900px;margin:40px auto;padding:24px;font-family:system-ui,sans-serif">
         <h1>JIIT Youth Club — Clubs, Events &amp; Fests | JIIT Noida</h1>
