@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jyc-cache-v18-27-0-restoration';
+const CACHE_NAME = 'jyc-cache-v20-0-complete';
 
 const APP_SHELL = [
   '/',

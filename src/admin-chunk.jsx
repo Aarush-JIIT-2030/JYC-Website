@@ -39,7 +39,14 @@ function AdminAICopilot({title,context,onApply}){
    setResult(data?.result||data);
   }catch(e){
    const msg=String(e?.message||e||'AI service unavailable.');
-   setError(/FunctionsFetchError|Edge Function|fetch/i.test(msg)?'AI service is not deployed or OPENAI_API_KEY is not configured. The editor still works normally.':msg);
+   const localSuggestions={
+    polish:['Keep the first sentence concrete and student-facing.','Remove repeated adjectives and keep the call to action explicit.','Verify every date, venue, person and registration link before publishing.'],
+    audit:['Check that the title, date, venue and registration path are complete.','Review mobile line breaks and button labels before publishing.','Keep claims limited to facts already present in this workspace.'],
+    seo:['Use the official JYC/ JIIT context naturally in the title or description where the supplied facts support it.','Keep the page summary specific to the actual club, event or workspace.','Verify the canonical URL and social preview after publishing.'],
+    health:['No live AI review is available yet; use the local checks below.','Check missing public visuals, duplicate titles and incomplete event details.','Verify published links and registration destinations.']
+   }[nextMode]||[];
+   setResult({summary:'Local editorial checks are available while the server-side AI assistant is offline.',suggestions:localSuggestions});
+   setError('');
   }finally{setBusy(false)}
  };
  const apply=()=>{if(!result||!onApply)return;onApply(result);setOpen(false);jycToast('AI suggestions applied. Review them before saving.','success')};
@@ -52,7 +59,7 @@ function AdminAICopilot({title,context,onApply}){
   {open&&<div className="admin-ai-panel">
    <div className="admin-ai-panel-head"><div><span className="eyebrow">{mode.toUpperCase()} · {title}</span><h3>{busy?'AI is reviewing this workspace…':error?'AI needs setup':mode==='polish'?'Suggested improvements':mode==='health'?'Website health report':'Editorial review'}</h3></div><button onClick={()=>setOpen(false)} aria-label="Close AI panel">×</button></div>
    {busy&&<div className="ai-loading"><i/><i/><i/><span>Reviewing your draft for clarity, hierarchy, missing details and student-facing quality.</span></div>}
-   {error&&<div className="error-box">{error}<small>Set <code>OPENAI_API_KEY</code> and optionally <code>OPENAI_MODEL</code> in Supabase Edge Function secrets, then deploy <code>ai-content-assist</code>.</small></div>}
+   {error&&<div className="error-box"><strong>{/OPENAI_API_KEY|not deployed|service is not deployed/i.test(error)?'AI connection needs one server-side setup step.':'AI request could not be completed.'}</strong><div>{error}</div><small>For live AI assistance, configure <code>OPENAI_API_KEY</code> in the Supabase Edge Function secrets and deploy <code>ai-content-assist</code>. The admin editor remains fully usable without it.</small></div>}
    {!busy&&!error&&result&&<>
     {result.summary&&<p className="admin-ai-summary">{result.summary}</p>}
     {result.improved&&<pre className="admin-ai-preview">{JSON.stringify(result.improved,null,2)}</pre>}
@@ -150,7 +157,7 @@ function Admin({data,admin,setAdmin,commit,notify,theme,setTheme}){
         setCommandQuery('');
         setCommandOpen(true);
       }
-      if(e.key==='Escape')setCommandOpen(false);
+      if(e.key==='Escape')setCommandOpen(false);if(e.key.toLowerCase()==='n'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){setTab(role==='events_admin'?'events':role==='gallery_admin'?'gallery':role==='club_admin'?'clubs':'events');}
     };
     window.addEventListener('keydown',onKey);
     return()=>window.removeEventListener('keydown',onKey);

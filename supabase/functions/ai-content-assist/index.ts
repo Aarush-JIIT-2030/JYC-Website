@@ -1,10 +1,11 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.116.0';
 
 const allowedOrigin = (origin:string|null) => {
-  const configured = Deno.env.get('SITE_URL')?.trim();
-  if (configured && origin === configured) return origin;
-  if (origin && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return origin;
-  return configured || 'null';
+  const configured = (Deno.env.get('SITE_URLS') || Deno.env.get('SITE_URL') || '').split(',').map(x=>x.trim()).filter(Boolean);
+  const known = ['https://jyc-website-livid.vercel.app', ...configured];
+  if (origin && known.includes(origin)) return origin;
+  if (origin && /^https?:\/\/(localhost|127\.0\.1)(:\d+)?$/.test(origin)) return origin;
+  return known[0] || 'null';
 };
 const headersFor=(origin:string|null)=>({
   'Access-Control-Allow-Origin':allowedOrigin(origin),
