@@ -142,6 +142,21 @@
 .admin-command{max-height:min(720px,82dvh)!important;overflow:auto!important}
 .admin-mobile-tabs{z-index:1950!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 
+/* Light mode: footer sits dark, so the brand title must read light/beige */
+:root[data-theme="light"] .jyc-footer .footer-brand strong,
+html[data-theme="light"] .jyc-footer .footer-brand strong{color:#f6ecdb!important}
+:root[data-theme="light"] .jyc-footer .footer-brand p,
+html[data-theme="light"] .jyc-footer .footer-brand p{color:rgba(246,236,219,.78)!important}
+:root[data-theme="light"] .jyc-footer .footer-bottom small,
+html[data-theme="light"] .jyc-footer .footer-bottom small{color:#8a7861!important}
+
+/* Light mode: More sheet overlay turns translucent instead of near-black */
+:root[data-theme="light"] .more-sheet-overlay,
+html[data-theme="light"] .more-sheet-overlay{background:rgba(250,244,229,.45)!important;backdrop-filter:blur(3px)!important;-webkit-backdrop-filter:blur(3px)!important}
+
+/* Nav: keep skip-link out of flow so it does not push the nav down */
+.skip-link{position:fixed!important}
+
 /* Floating admin dock (mobile): neutralise ancestor transforms so position:fixed tracks the viewport */
 @media(max-width:900px){
   .admin-app{animation:none!important;transform:none!important;translate:none!important;rotate:none!important;scale:none!important}
