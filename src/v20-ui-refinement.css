@@ -617,3 +617,14 @@ select {
     right: 10% !important
   }
 }
+
+/* ---------- 14. Mobile nav scrim: no backdrop blur + below the open menu ---------- */
+.mobile-nav-scrim {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  z-index: 1400 !important
+}
+
+.nav-inner>nav.open {
+  z-index: 1600 !important
+}

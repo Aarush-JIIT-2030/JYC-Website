@@ -140,7 +140,16 @@
 .admin-stats>div{transition:transform .25s var(--jyc-ease),border-color .25s ease!important}
 .admin-stats>div:hover{transform:translateY(-3px)!important;border-color:var(--accent-gold)!important}
 .admin-command{max-height:min(720px,82dvh)!important;overflow:auto!important}
-.admin-mobile-tabs{z-index:1950!important}
+.admin-mobile-tabs{z-index:1950!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+/* Floating admin dock (mobile): neutralise ancestor transforms so position:fixed tracks the viewport */
+@media(max-width:900px){
+  .admin-app{animation:none!important;transform:none!important;translate:none!important;rotate:none!important;scale:none!important}
+  .admin-app .route-stage{animation:none!important;transform:none!important;translate:none!important;rotate:none!important;scale:none!important}
+  .admin-mobile-tabs{width:min(430px,calc(100% - 24px))!important;left:0!important;right:0!important;margin-inline:auto!important;height:62px!important;min-height:62px!important;max-height:62px!important;padding:6px!important;gap:4px!important;border-radius:999px!important;box-shadow:0 14px 45px rgba(0,0,0,.32),inset 0 1px 0 color-mix(in srgb,var(--text-primary) 10%,transparent)!important}
+  .admin-mobile-tabs button{height:50px!important;min-height:50px!important;border-radius:999px!important}
+  .admin-mobile-tabs .admin-create{transform:none!important}
+}
 .admin-theme-heritage{--bg-main:#eee0c7!important;--bg-card:#fff9e9!important;--text-primary:#2a2117!important;--text-muted:#756655!important;--accent-red:#a17a45!important;--accent-gold:#b68b4e!important;--border-tech:rgba(126,91,48,.25)!important}
 .admin-theme-heritage .admin-side{background:#e3d3b6!important}
 .admin-theme-heritage .admin-top{background:rgba(245,234,211,.92)!important}
