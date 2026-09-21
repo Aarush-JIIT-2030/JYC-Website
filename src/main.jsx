@@ -59,6 +59,7 @@ import './v18.23-human-final.css';
 import './v18.24-jyc-human-final.css';
 import './v18.25-human-jyc-final.css';
 import './v18.26-human-jyc-finish.css';
+import './v18.27-jyc-restoration.css';
 import { normalizeSearch, rankSearchResults } from './lib/search.js';
 import {CREATOR,JYC_CONTACTS} from './lib/site-config.js';
 import {CampusMapPage,QRSharePage} from './v14-platform-plus.jsx';
@@ -526,36 +527,61 @@ function Loading({stage='INITIALIZING',cached=false}){
 function BackToTop(){const [show,setShow]=useState(false);useEffect(()=>{const onScroll=()=>setShow(window.scrollY>520);window.addEventListener('scroll',onScroll,{passive:true});return()=>window.removeEventListener('scroll',onScroll)},[]);if(!show)return null;return <button className="back-to-top" onClick={()=>window.scrollTo({top:0,behavior:'smooth'})} aria-label="Back to top" title="Back to top">↑</button>}
 function ScrollProgress(){const [progress,setProgress]=useState(0);useEffect(()=>{const update=()=>{const d=document.documentElement;const max=d.scrollHeight-d.clientHeight;setProgress(max>0?Math.min(100,(d.scrollTop/max)*100):0)};update();window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);return()=>{window.removeEventListener('scroll',update);window.removeEventListener('resize',update)}},[]);return <div className="scroll-progress" aria-hidden="true" style={{'--scroll-progress-width':`${progress}%`}}><i/></div>}
 function Theme({theme,setTheme}){
- const switchMode=e=>{
-  if(document.body.classList.contains('theme-flight'))return;
+ const [flying,setFlying]=useState(false);
+ const flightTimer=React.useRef(null);
+ useEffect(()=>()=>window.clearTimeout(flightTimer.current),[]);
+ const switchMode=()=>{
+  if(flying)return;
   const next=theme==='dark'?'light':'dark';
-  const x=e?.clientX||window.innerWidth/2;
-  const y=e?.clientY||window.innerHeight/2;
-  document.body.classList.add('theme-flight');
+  const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const commit=()=>setTheme(next);
+  if(reduced){commit();return}
+  setFlying(true);
+  document.body.classList.add('theme-flight');
   try{
    if(document.startViewTransition){
     const transition=document.startViewTransition(commit);
-    transition.ready?.then(()=>{
-      const radius=Math.hypot(Math.max(x,window.innerWidth-x),Math.max(y,window.innerHeight-y));
-      document.documentElement.animate(
-       {clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${radius}px at ${x}px ${y}px)`]},
-       {duration:560,easing:'cubic-bezier(.22,.72,.18,1)',pseudoElement:'::view-transition-new(root)'}
-      );
-    }).catch(()=>{});
-    transition.finished?.finally(()=>window.setTimeout(()=>document.body.classList.remove('theme-flight'),260));
+    transition.finished?.finally(()=>{
+      window.clearTimeout(flightTimer.current);
+      flightTimer.current=window.setTimeout(()=>{
+       setFlying(false);
+       document.body.classList.remove('theme-flight');
+      },180);
+    });
    }else{
     commit();
-    window.setTimeout(()=>document.body.classList.remove('theme-flight'),980);
    }
   }catch{
    commit();
-   window.setTimeout(()=>document.body.classList.remove('theme-flight'),980);
   }
+  flightTimer.current=window.setTimeout(()=>{
+   setFlying(false);
+   document.body.classList.remove('theme-flight');
+  },2100);
  };
- return <button className="theme-toggle" onClick={switchMode} aria-label={`Switch to ${theme==='dark'?'light':'dark'} mode`} title={`Switch to ${theme==='dark'?'light':'dark'} mode`}>
-  <span className="theme-icon" aria-hidden="true">{theme==='dark'?'☀':'☾'}</span>
- </button>
+ const flight=flying&&<div className="jyc-flight-layer" aria-hidden="true">
+  <span className="jyc-flight-trace"/>
+  <span className="jyc-flight-bird">
+   <svg viewBox="0 0 120 84" role="presentation">
+    <g className="jyc-flight-body-group">
+     <path className="jyc-flight-tail" d="M39 47 C26 48 14 55 5 66 C20 63 31 61 44 55 C35 64 32 70 30 78 C43 67 50 59 54 51 Z"/>
+     <path className="jyc-flight-wing-back" d="M58 42 C46 24 42 10 48 3 C61 10 70 21 75 37 C70 31 65 28 60 27 C66 34 68 40 68 46 Z"/>
+     <path className="jyc-flight-body" d="M41 49 C45 34 55 28 68 31 C78 33 85 38 92 43 C85 45 79 48 73 53 C64 60 52 60 44 55 C41 53 40 51 41 49 Z"/>
+     <path className="jyc-flight-wing" d="M65 40 C70 22 83 10 103 8 C95 18 91 27 91 37 C99 32 108 30 116 32 C108 42 96 49 82 52 C75 53 69 49 65 40 Z"/>
+     <path className="jyc-flight-highlight" d="M76 38 C82 26 89 19 98 15 C91 24 89 32 89 39 C84 42 80 42 76 38 Z"/>
+     <path className="jyc-flight-feather" d="M91 42 C98 39 104 36 110 34 M87 47 C94 45 100 43 105 40 M59 43 C55 32 52 22 52 14"/>
+     <circle className="jyc-flight-eye" cx="80" cy="38" r="2.15"/>
+     <circle cx="80.5" cy="38" r=".8" fill="#3d1714"/>
+    </g>
+   </svg>
+  </span>
+ </div>;
+ return <>
+  <button className="theme-toggle" onClick={switchMode} aria-label={`Switch to ${theme==='dark'?'light':'dark'} mode`} title={`Switch to ${theme==='dark'?'light':'dark'} mode`}>
+   <span className="theme-icon" aria-hidden="true">{theme==='dark'?'☀':'☾'}</span>
+  </button>
+  {flight&&createPortal(flight,document.body)}
+ </>
 }
 function State({title,text,children,compact=false}){return <section className={`state ${compact?'compact':''}`}><div className="state-orbit"/><span className="eyebrow">JYC</span><h1>{title}</h1><p>{text}</p>{children}</section>}
 function Button({children,onClick,secondary=false,danger=false,disabled=false}){return <button disabled={disabled} className={`btn ${secondary?'secondary':''} ${danger?'danger':''}`} onClick={onClick}>{children}</button>}

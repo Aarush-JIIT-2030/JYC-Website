@@ -1,4 +1,4 @@
-# V18.26.0 — Human JYC Finish
+# V18.27.0 — Human JYC Finish
 
 - Reworked light mode around warm beige/paper UI accents; the Phoenix remains red as the identity mark.
 - Upgraded light/dark switching to the native View Transition API with a graceful CSS fallback and a clearer left-to-right Phoenix flight.
@@ -7,7 +7,7 @@
 - Added the same six visual theme presets to the Control Center and persisted the admin's local theme choice.
 - Extended the admin guide, AI navigator and interactive tour with Fest Mode guidance.
 - Kept theme transitions dependency-free to avoid another runtime library and another source of performance regressions.
-- Bumped the service-worker cache to `jyc-cache-v18-26-0-human-finish`.
+- Bumped the service-worker cache to `jyc-cache-v18-27-0-restoration`.
 - Added a V18.26 regression suite covering themes, Fest Mode, admin themes, reduced motion and runtime contracts.
 
 ## QA status

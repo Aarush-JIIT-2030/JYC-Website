@@ -4,7 +4,7 @@
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V18.26.0 — Human JYC Final / orbiting Phoenix + theme flight + JYC paper light mode + navigation/search repair** — an animated, human-first public experience built on the V18.17 functional baseline.
+> **Release: V18.27.0 — Human JYC Final / orbiting Phoenix + theme flight + JYC paper light mode + navigation/search repair** — an animated, human-first public experience built on the V18.17 functional baseline.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 

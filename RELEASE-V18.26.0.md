@@ -1,4 +1,4 @@
-# V18.26.0 — Human JYC Finish
+# V18.27.0 — Human JYC Finish
 
 ## Focus
 
@@ -29,7 +29,7 @@ This release is a finishing pass over V18.25. The goal is a more human JYC exper
 
 ## Cleanup / reliability
 
-- Service-worker cache bumped to `jyc-cache-v18-26-0-human-finish`.
+- Service-worker cache bumped to `jyc-cache-v18-27-0-restoration`.
 - Release QA updated to V18.26.
 - Browser QA points at the V18.26 journey specification.
 - No new runtime dependency was added for theme transitions; the implementation uses the platform View Transition API with fallback.
