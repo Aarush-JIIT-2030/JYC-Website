@@ -177,10 +177,10 @@
 
 /* Native View Transition: let the Phoenix own the spectacle while the UI itself stays calm. */
 ::view-transition-group(root){animation-duration:1.35s!important;animation-timing-function:cubic-bezier(.2,.72,.2,1)!important}
-::view-transition-old(root){animation:20-old-root 1.35s ease both!important}
-::view-transition-new(root){animation:20-new-root 1.35s cubic-bezier(.2,.72,.2,1) both!important}
-@keyframes 20-old-root{0%{opacity:1;transform:scale(1)}45%{opacity:.55;transform:scale(.992)}100%{opacity:0;transform:scale(.985)}}
-@keyframes 20-new-root{0%{opacity:0;transform:scale(1.015)}55%{opacity:.75}100%{opacity:1;transform:scale(1)}}
+::view-transition-old(root){animation:jyc-20-old-root 1.35s ease both!important}
+::view-transition-new(root){animation:jyc-20-new-root 1.35s cubic-bezier(.2,.72,.2,1) both!important}
+@keyframes jyc-20-old-root{0%{opacity:1;transform:scale(1)}45%{opacity:.55;transform:scale(.992)}100%{opacity:0;transform:scale(.985)}}
+@keyframes jyc-20-new-root{0%{opacity:0;transform:scale(1.015)}55%{opacity:.75}100%{opacity:1;transform:scale(1)}}
 
 /* ---------- Accessibility ---------- */
 :focus-visible{outline:2px solid var(--accent-gold)!important;outline-offset:3px!important}
