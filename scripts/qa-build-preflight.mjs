@@ -16,6 +16,9 @@ const checks=[
  ['GalleryItems is not redeclared locally', !/function GalleryItems\(\{items\}\)/.test(main)],
  ['AdminErrorBoundary import does not collide with local class', !(/class AdminErrorBoundary extends/.test(admin) && /import[^;]*\bAdminErrorBoundary\b[^;]*from ['\"]\.\/admin-extra\.jsx['\"]/.test(admin))],
  ['CSS keyframe identifiers are valid', !/@keyframes\s+[0-9]/.test(cssText) && !/animation(?:-name)?\s*:\s*[0-9]/.test(cssText)],
+ ['Production initialization does not ship demo content', main.includes("import.meta.env.DEV?publicDemoData():norm(empty)")],
+ ['Production missing-config path does not fabricate content', main.includes("if(import.meta.env.DEV)return publicDemoData();return norm(empty)")],
+ ['Multi-day events use dateEnd for lifecycle state', main.includes('const effectiveEndDate=e.dateEnd||e.date')],
 ];
 let failed=0; for(const [name,ok] of checks){ console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok) failed++; }
 if(failed){ console.error(`BUILD PREFLIGHT FAILED: ${failed} check(s)`); process.exit(1); }
