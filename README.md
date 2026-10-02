@@ -189,6 +189,17 @@ See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the c
 The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 21 supplied hub communities plus published leadership/event material when no Supabase content is available.
 
 
+## V26.1 Festival-inspired interaction pass
+
+The homepage now takes interaction cues from contemporary Indian college-fest experiences, especially the live **Rendezvous'26 — IIT Delhi** structure: category scanning, a featured experience, strong event imagery and focused discovery routes. The implementation remains JYC-specific and keeps the beige/black/white signature system.
+
+- One featured published event with poster, date, time and venue.
+- Horizontal experience/category index for fast scanning.
+- Secondary event cards beneath the feature.
+- Moments are rendered exactly once, eliminating the previous duplicate gallery block.
+- Gallery visibility now controls the Moments section.
+- No additional animation library or 3D runtime was introduced.
+
 ## Previous V24 Editorial Centered Pass
 
 The current public hero deliberately avoids a WebGL/3D bird. The visual anchor is the official JYC logo with restrained orbital motion, a soft pulse and pointer-responsive depth. This keeps the identity visible without making the hero feel like a technology demo.
