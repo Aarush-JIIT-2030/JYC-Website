@@ -189,7 +189,7 @@ See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the c
 The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 21 supplied hub communities plus published leadership/event material when no Supabase content is available.
 
 
-## V24 Editorial Centered Pass
+## Previous V24 Editorial Centered Pass
 
 The current public hero deliberately avoids a WebGL/3D bird. The visual anchor is the official JYC logo with restrained orbital motion, a soft pulse and pointer-responsive depth. This keeps the identity visible without making the hero feel like a technology demo.
 
