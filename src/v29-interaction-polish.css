@@ -46,3 +46,7 @@ html[data-theme="dark"] .public-app .jyc-bot-launcher{box-shadow:0 14px 36px rgb
  html{scroll-behavior:auto!important}
  .public-app *, .public-app *::before, .public-app *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 }
+
+
+/* V31 production health state */
+.health-warn{color:var(--jyc-accent,#9b7542)!important}
