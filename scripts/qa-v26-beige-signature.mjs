@@ -18,6 +18,7 @@ const check=(name,ok)=>{
 
 check('V26 stylesheet is the last JS visual import',main.includes("import './jyc-editorial-centered.css';")&&main.includes("import './v26-beige-signature.css';")&&main.indexOf("v26-beige-signature.css")>main.indexOf("jyc-editorial-centered.css"));
 check('V27 editorial stylesheet is loaded by the document shell',index.includes('/src/v27-editorial-polish.css'));
+check('V27.1 surfaces the live JYC pulse',main.includes('<JYCPulse data={data}/>')&&css.includes('.pulse-strip')&&css.includes('.pulse-items'));
 check('homepage uses a compact curated layout',main.includes("layout:['intro','agentic','events','activities','clubs','moments','hubPhotoWall','hubStories','team','cta']")||main.includes("layout:['intro','events','activities','clubs','moments','hubPhotoWall','hubStories','team','cta']")||main.includes("layout:['intro','agentic','events','clubs','moments','team','cta']")&&main.includes('const baseLayout=[...new Set(normalizedLayout.filter(x=>render[x]))]'));
 check('Moments is rendered once through the layout',!main.includes('<div className="home-photo-story"><MomentsSection data={data}/></div>')&&main.includes('moments:<MomentsSection data={data}/>'));
 check('fest-style event spotlight is data-driven',main.includes('jyc-festival-index')&&main.includes('jyc-feature-event')&&main.includes('featured.poster'));
@@ -27,6 +28,7 @@ check('homepage exposes live/next event state',main.includes('jyc-now-strip')&&m
 check('legacy ecosystem bird identity is replaced by JYC logo',main.includes('ecosystem-logo-only')||main.includes('jyc-logo-circle.png'));
 check('gallery visibility controls Moments',main.includes("x==='moments'||x==='hubPhotoWall")&&main.includes('h.showGallery===false'));
 check('gallery maps to the single moments section',main.includes("x==='gallery'?'moments'")&&main.includes("moments:<MomentsSection data={data}/>"));
+check('editorial journal is rendered without the legacy duplicate hub story grid',main.includes('journal:<section')&&main.includes("'journal','hubPhotoWall'")&&main.includes("x!=='hubStories"));
 check('hero contains the JYC logo, not a 3D bird',main.includes('hero-logo-stage')&&main.includes('<img src={logo}')&&!main.includes('Falcon3DLayer')&&!main.includes('v23.7-falcon-3d.jsx'));
 check('team identity uses the JYC logo',main.includes('team-hero-identity')&&main.includes('team-closeout-mark')&&!main.includes('team-hero-bird'));
 check('assistant does not auto-open on page load',!main.includes("window.setTimeout(()=>window.dispatchEvent(new CustomEvent('jyc-open-agentic'))"));
@@ -39,7 +41,7 @@ check('legacy public bird/orbit layers are disabled',css.includes('.public-app .
 check('live assistant does not depend on deleted 3D assets',!main.includes('model-viewer')&&!main.includes('1780401615106-dmagefsj.glb')&&!main.includes('useModelViewerLoader'));
 check('production data does not inject demo content when Supabase is configured',main.includes('allowContentFallback:false')&&main.includes('return mergePublicFallback(stripLegacySeed(data||empty),{allowContentFallback:false})'));
 check('runtime metadata uses JYC logo rather than Phoenix artwork',extra.includes('jyc-logo-circle.png')&&!extra.includes('jyc-phoenix-reference-hd.png'));
-check('service worker cache is versioned for V27 and logo-led',sw.includes('jyc-cache-v27-0-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
+check('service worker cache is versioned for V27.1 and logo-led',sw.includes('jyc-cache-v27-1-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
 check('Agentic AI 2026 content is complete',main.includes('Cybersecurity')&&main.includes('Healthcare')&&main.includes('Natural Language Processing')&&main.includes('Open Innovation')&&main.includes('discord.gg/K6vrFAhMA')&&main.includes('unstop.com/o/XAfa40i'));
 check('About section exposes the five-family ecosystem',main.includes('home-about-ecosystem')&&main.includes('FIVE FAMILIES · 21 COMMUNITIES'));
@@ -48,7 +50,7 @@ check('loading screen keeps the JYC logo and responsive boot state',main.include
 check('V20 split hero keeps copy left and logo right on desktop',css.includes('grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)!important')&&css.includes('.home .hero-logo-stage{width:min(500px,42vw)!important'));
 check('global public text has explicit active-theme contrast',css.includes('.public-app h1,.public-app h2')&&css.includes('html[data-theme="dark"] .public-app .card h3'));
 check('homepage hierarchy is centered',css.includes('.home .section-head')&&css.includes('.home .jyc-feature-copy{align-items:center!important;text-align:center!important}'));
-check('release version is V27',pkg.version==='27.0.0');
+check('release version is V27.1',pkg.version==='27.1.0');
 
 if(fail)process.exit(1);
 console.log(`V26 BEIGE SIGNATURE QA: ${pass}/${pass+fail} passed.`);
