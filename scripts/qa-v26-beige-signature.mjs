@@ -18,10 +18,10 @@ const check=(name,ok)=>{
   else{console.error(`FAIL: ${name}`);fail++}
 };
 
-check('V26 stylesheet is the last JS visual import',main.includes("import './jyc-editorial-centered.css';")&&main.includes("import './v26-beige-signature.css';")&&main.indexOf("v26-beige-signature.css")>main.indexOf("jyc-editorial-centered.css"));
-check('V27 editorial stylesheet is loaded by the document shell',index.includes('/src/v27-editorial-polish.css'));
+check('V26 visual foundation is loaded before final interaction layers',main.includes("import './v26-beige-signature.css';")&&main.includes("import './v28-editorial-system.css';")&&main.includes("import './v29-interaction-polish.css';")&&main.indexOf("v26-beige-signature.css")<main.indexOf("v28-editorial-system.css")&&main.indexOf("v28-editorial-system.css")<main.indexOf("v29-interaction-polish.css"));
+check('Production HTML does not reference stale source CSS',!index.includes('/src/v27-editorial-polish.css'));
 check('V27.1 surfaces the live JYC pulse',main.includes('<JYCPulse data={data}/>')&&css.includes('.pulse-strip')&&css.includes('.pulse-items'));
-check('V29 interaction layer is loaded after V28',main.includes("import './v29-interaction-polish.css';")&&v29.includes('--jyc-v29-focus')&&v29.includes('.theme-toggle'));
+check('V29 interaction layer is loaded once after V28',main.includes("import './v29-interaction-polish.css';")&&main.match(/import '\.\/v29-interaction-polish\.css';/g)?.length===1&&v29.includes('--jyc-v29-focus')&&v29.includes('.theme-toggle'));
 check('V29 removes loading orbit/ring decoration',v29.includes('.loading-orbit,.public-app .loading-ring{display:none!important}')||v29.includes('.public-app .loading-orbit,.public-app .loading-ring{display:none!important}'));
 check('V29 keeps day/night controls visually coherent',v29.includes('.public-app .theme-toggle')&&v29.includes('html[data-theme="dark"] .public-app .theme-icon'));
 check('V29 adds keyboard focus and reduced-motion safeguards',v29.includes(':focus-visible')&&v29.includes('@media(prefers-reduced-motion:reduce)'));
@@ -67,7 +67,7 @@ check('loading screen keeps the JYC logo and responsive boot state',main.include
 check('V20 split hero keeps copy left and logo right on desktop',css.includes('grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)!important')&&css.includes('.home .hero-logo-stage{width:min(500px,42vw)!important'));
 check('global public text has explicit active-theme contrast',css.includes('.public-app h1,.public-app h2')&&css.includes('html[data-theme="dark"] .public-app .card h3'));
 check('homepage hierarchy is centered',css.includes('.home .section-head')&&css.includes('.home .jyc-feature-copy{align-items:center!important;text-align:center!important}'));
-check('release version is V29.0',pkg.version==='29.0.0');
+check('release version is V30.0',pkg.version==='30.0.0');
 
 if(fail)process.exit(1);
 console.log(`V26 BEIGE SIGNATURE QA: ${pass}/${pass+fail} passed.`);
