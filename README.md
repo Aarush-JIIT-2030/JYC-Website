@@ -4,7 +4,7 @@
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V24.0.0 — Editorial Centered / Logo-led Hero / Responsive UI** — a club-first, event-first public experience for JIIT Youth Club Sector 128.
+> **Release: V26.0.0 — Beige Signature / Centered UI / Compact Public Experience** — a club-first, event-first public experience for JIIT Youth Club Sector 128.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
@@ -23,6 +23,8 @@ Supporting public surfaces include **Moments, My JYC, Campus Map and JYC Planner
 - **Optional personal layer.** My JYC saves clubs/events without turning the public site into a dashboard.
 - **Accessible motion.** Micro-interactions respect `prefers-reduced-motion` and avoid adding a heavy animation dependency for simple effects.
 - **Human interaction.** Motion is attached to real club/event content instead of decorative animation for its own sake.
+- **Signature palette.** Public UI uses JYC beige with black/white neutrals; legacy accent colours are overridden by the final visual layer.
+- **Compact rhythm.** Homepage sections are curated instead of automatically appending every historical module, preventing duplicated content and dead space.
 - **Open-source inspired, locally implemented.** React Bits orbit, reveal, command-palette and navigation patterns are selectively adapted without turning the site into a component demo.
 - **Security first.** Publishable Supabase access is paired with RLS expectations, validated external URLs, CSP/security headers, secret scanning and CodeQL CI.
 
@@ -122,7 +124,7 @@ Only the authorized super-admin path can change the public mode.
 
 ## Open-source UI approach
 
-The site uses dependency-free CSS motion patterns rather than adding another animation runtime just for micro-interactions. The design work takes inspiration from open-source component ecosystems such as React Bits and shadcn/ui while keeping the actual JYC implementation inside this repository. The current deep-polish pass adds Phoenix depth, spotlight sweeps, stronger focus states and contact-card motion without adding a runtime dependency.
+The site uses dependency-free CSS motion patterns rather than adding another animation runtime just for micro-interactions. The design work takes inspiration from open-source component ecosystems such as React Bits and shadcn/ui while keeping the actual JYC implementation inside this repository. The current visual pass uses a logo-led hero, editorial image grid, compact cards, stronger focus states and restrained CSS motion without adding a runtime dependency.
 
 See [`docs/OPEN-SOURCE-UI-NOTES.md`](docs/OPEN-SOURCE-UI-NOTES.md) for the references and implementation notes.
 
@@ -136,11 +138,11 @@ See [`docs/OPEN-SOURCE-UI-NOTES.md`](docs/OPEN-SOURCE-UI-NOTES.md) for the refer
 
 ## Current release
 
-**V24.0.0 — Editorial Centered Release**
+**V26.0.0 — Beige Signature Release**
 
-This release preserves the strongest JYC platform features while consolidating the public visual system around a centered, logo-led hero, restrained motion, photography, calendar and search.
+This release preserves the strongest JYC platform features while tightening the public visual system around JYC beige, black and white, a centered logo-led hero, compact section rhythm, curated homepage content and stronger photography hierarchy.
 
-See [`RELEASE-V24.0.0.md`](RELEASE-V24.0.0.md) for the release-specific changes.
+See [`RELEASE-V26.0.0.md`](RELEASE-V26.0.0.md) for the release-specific changes.
 
 ## Verification note
 
@@ -167,7 +169,7 @@ Before a release reaches `main`:
 ### Signature JYC interactions
 
 - Logo-led hero with restrained pointer depth
-- Three Phoenix doors: Communities / Experiences / People
+- Compact homepage hierarchy: intro → events → clubs → moments → team → CTA
 - Lightweight hover and focus motion without a decorative custom cursor
 - Gallery lightbox with keyboard navigation
 - Event share, Google Calendar, `.ics`, reminders and QR
