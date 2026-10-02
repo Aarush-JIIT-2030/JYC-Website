@@ -232,7 +232,7 @@ function Admin({data,admin,setAdmin,commit,notify,theme,setTheme}){
             </div>
           </div>
           <button className="icon-btn command-trigger" onClick={()=>{setCommandQuery('');setCommandOpen(true)}}><span>Quick Find</span><kbd>⌘K</kbd></button>
-          <span className="live-db">LIVE DATABASE <i/></span>
+          <span className="live-db">{supabase.__configured&&navigator.onLine?'LIVE DATABASE':'OFFLINE / CACHED'} <i/></span>
           <button className="icon-btn" onClick={()=>location.reload()}>↻ Refresh</button>
           <Button secondary onClick={()=>window.open('/', '_blank', 'noopener,noreferrer')}>Preview ↗</Button>
         </div>
