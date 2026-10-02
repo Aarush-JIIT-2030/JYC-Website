@@ -44,6 +44,9 @@ check('Agentic AI 2026 content is complete',main.includes('Cybersecurity')&&main
 check('About section exposes the five-family ecosystem',main.includes('home-about-ecosystem')&&main.includes('FIVE FAMILIES · 21 COMMUNITIES'));
 check('assistant is theme-safe in dark mode',css.includes('.assistant-panel-modern')&&css.includes('html[data-theme="dark"] .assistant-panel-modern')&&css.includes('.assistant-search'));
 check('loading screen keeps the JYC logo and responsive boot state',main.includes('loading-mark')&&main.includes('loading-tagline')&&css.includes('.loading-mark img'));
+check('V20 split hero keeps copy left and logo right on desktop',css.includes('grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)!important')&&css.includes('.home .hero-logo-stage{width:min(500px,42vw)!important'));
+check('global public text has explicit active-theme contrast',css.includes('.public-app h1,.public-app h2')&&css.includes('html[data-theme="dark"] .public-app .card h3'));
+check('homepage hierarchy is centered',css.includes('.home .section-head')&&css.includes('.home .jyc-feature-copy{align-items:center!important;text-align:center!important}');
 check('release version is V26.3',pkg.version==='26.3.0');
 
 if(fail)process.exit(1);
