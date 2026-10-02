@@ -8,7 +8,7 @@ const allowedOrigin = (origin:string|null) => {
   return known[0] || 'null';
 };
 const headersFor=(origin:string|null)=>({
-  'Access-Control-Allow-Origin':allowedOrigin(origin),
+  'Access-Control-Allow-Origin':allowedOrigin(origin) || 'null',
   'Access-Control-Allow-Headers':'authorization, x-client-info, apikey, content-type',
   'Access-Control-Allow-Methods':'POST, OPTIONS',
   'Vary':'Origin'
@@ -21,6 +21,7 @@ Deno.serve(async(req)=>{
   const origin=req.headers.get('Origin');
   if(req.method==='OPTIONS')return new Response('ok',{headers:headersFor(origin)});
   if(req.method!=='POST')return json({error:'POST only.'},405,origin);
+  if(!allowedOrigin(origin))return json({error:'Origin not allowed.'},403,origin);
   const auth=req.headers.get('Authorization');
   if(!auth)return json({error:'Administrator authentication is required.'},401,origin);
   const supabaseUrl=Deno.env.get('SUPABASE_URL'),serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),openaiKey=Deno.env.get('OPENAI_API_KEY');
@@ -33,6 +34,8 @@ Deno.serve(async(req)=>{
   if(!admin)return json({error:'This account is not authorized for AI content assistance.'},403,origin);
   let body:any;try{body=await req.json()}catch{return json({error:'Invalid JSON request.'},400,origin)}
   const action=['polish','audit','seo','health'].includes(body?.action)?body.action:'audit';
+  const contentLength=Number(req.headers.get('Content-Length')||0);
+  if(contentLength>24000)return json({error:'Request is too large.'},413,origin);
   const context=body?.context&&typeof body.context==='object'?body.context:{};
   const serialized=JSON.stringify(context);
   if(serialized.length>18000)return json({error:'AI workspace input is too large. Open a smaller draft or reduce the amount of context.'},413,origin);
