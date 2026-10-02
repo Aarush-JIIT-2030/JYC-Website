@@ -435,7 +435,7 @@ function useAgenticPopup(){
 function JYCBotLauncher({onOpen}){ 
  const [motion,setMotion]=useState('');
  useEffect(()=>{const modes=['wave','bounce','pulse'];let timers=[];const run=()=>{const mode=modes[Math.floor(Math.random()*modes.length)];setMotion(mode);timers.push(window.setTimeout(()=>setMotion(''),1100));timers.push(window.setTimeout(run,7200+Math.floor(Math.random()*5000)))};const first=window.setTimeout(run,2600);return()=>{window.clearTimeout(first);timers.forEach(clearTimeout)}} ,[]);
- return createPortal(<button className={`jyc-bot-launcher is-${motion||'idle'}`} onClick={onOpen} aria-label="Open JYC Assistant" title="JYC Assistant"><span className="jyc-bot-model-wrap" aria-hidden="true"><span className="jyc-bot-3d" data-glb-slot="/assets/jyc-bot.glb"><span className="jyc-bot-head"><i/><i/><b/></span><span className="jyc-bot-body"><em>JYC</em></span><span className="jyc-bot-arm jyc-bot-arm-left"/><span className="jyc-bot-arm jyc-bot-arm-right"/><span className="jyc-bot-base"/></span></span><span className="jyc-bot-spark" aria-hidden="true"/></button>,document.body);
+ return createPortal(<button className={`jyc-bot-launcher is-${motion||'idle'}`} onClick={onOpen} aria-label="Open JYC Assistant" title="JYC Assistant"><span className="jyc-bot-model-wrap" aria-hidden="true"><span className="jyc-bot-3d"><span className="jyc-bot-head"><i/><i/><b/></span><span className="jyc-bot-body"><em>JYC</em></span><span className="jyc-bot-arm jyc-bot-arm-left"/><span className="jyc-bot-arm jyc-bot-arm-right"/><span className="jyc-bot-base"/></span></span><span className="jyc-bot-spark" aria-hidden="true"/></button>,document.body);
 }
 function Navbar({data,admin,theme,setTheme}){
  const nav=useNavigate();const loc=useLocation();
