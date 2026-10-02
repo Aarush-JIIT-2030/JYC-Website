@@ -2,7 +2,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.116.0';
 
 const allowedOrigin = (origin:string|null) => {
   const configured = (Deno.env.get('SITE_URLS') || Deno.env.get('SITE_URL') || '').split(',').map(x=>x.trim()).filter(Boolean);
-  const known = ['https://jyc-website-livid.vercel.app', ...configured];
+  const known = ['https://jycjiit.vercel.app','https://jyc-website-livid.vercel.app', ...configured];
   if (origin && known.includes(origin)) return origin;
   if (origin && /^https?:\/\/(localhost|127\.0\.1)(:\d+)?$/.test(origin)) return origin;
   return known[0] || 'null';
@@ -37,7 +37,7 @@ Deno.serve(async(req)=>{
   const serialized=JSON.stringify(context);
   if(serialized.length>18000)return json({error:'AI workspace input is too large. Open a smaller draft or reduce the amount of context.'},413,origin);
   const prompt=`${system}\n\nTASK: ${action}\nWORKSPACE: ${body?.type||'workspace'}\nDATA:\n${serialized}`;
-  const model=Deno.env.get('OPENAI_MODEL')||'gpt-5.6-luna';
+  const model=Deno.env.get('OPENAI_MODEL')||'gpt-6-luna';
   const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${openaiKey}`},body:JSON.stringify({model,input:prompt,max_output_tokens:1800})});
   if(!response.ok){const detail=await response.text();return json({error:`AI provider error (${response.status}).`,detail:detail.slice(0,500)},502,origin)}
   const payload=await response.json();
