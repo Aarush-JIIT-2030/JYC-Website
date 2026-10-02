@@ -9,7 +9,6 @@ import './jyc-editorial-centered.css';
 import './v26-beige-signature.css';
 import './v28-editorial-system.css';
 import './v29-interaction-polish.css';
-import './v29-interaction-polish.css';
 import {JYC_HUB_CONTENT, JYC_HUB_FAMILIES, hubProfile} from './v21-hub-content.js';
 import {hubDetails} from './v23.6-hub-details.js';
 import {hubIdentity,eventIdentity} from './hub-identities.js';
