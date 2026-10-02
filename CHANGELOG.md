@@ -1,3 +1,13 @@
+## V31.0.0 — Production Hardening
+
+- Production builds no longer initialize or recover fabricated demo content when Supabase configuration is absent.
+- Development-only demo data remains available for local UI work.
+- Multi-day events now use dateEnd when determining upcoming/live/past state.
+- Admin Control Center database indicators now distinguish connected state from offline/cached operation.
+- AI Content Copilot now rejects untrusted origins and oversized requests before calling the OpenAI API.
+- Production preflight now verifies the no-demo production path and multi-day event lifecycle contract.
+- Service-worker cache rotated to jyc-cache-v31-0-0.
+
 ## V30.0.0 — Production Finalization
 
 - Removed the duplicate V29 interaction stylesheet import from the active application entry.
