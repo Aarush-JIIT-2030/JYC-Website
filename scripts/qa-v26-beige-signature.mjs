@@ -22,6 +22,8 @@ check('V27 editorial stylesheet is loaded by the document shell',index.includes(
 check('V27.1 surfaces the live JYC pulse',main.includes('<JYCPulse data={data}/>')&&css.includes('.pulse-strip')&&css.includes('.pulse-items'));
 check('V28 editorial system is loaded after V26',main.includes("import './v28-editorial-system.css';")&&v28.includes('--jyc-v28-accent')&&v28.includes('about-hero-v28'));
 check('V28 removes artificial hero dead space',v28.includes('.home .hero{min-height:auto!important;height:auto!important')&&v28.includes('.home .hero-art{height:min(430px,48vw)!important}'));
+check('V28 removes legacy orbital hero rings',v28.includes('.home .hero-logo-ring,.home .hero-logo-ring-b{display:none!important}'));
+check('V28 keeps the logo as the hero anchor',v28.includes('.home .hero-logo-stage')&&v28.includes('.home .hero-logo-stage img'));
 check('About page is a connected editorial journey',main.includes('about-hero-v28')&&main.includes('about-family-grid-v28')&&main.includes('about-flow-grid-v28')&&main.includes('about-programme-grid-v28')&&main.includes('about-next-v28'));
 check('About page links to Clubs, Events, Team and Gallery',main.includes("nav('/clubs')")&&main.includes("nav('/events')")&&main.includes("nav('/team')")&&main.includes("nav('/gallery')"));
 check('V28 gives light/dark modes explicit coordinated surfaces',v28.includes('html[data-theme="dark"]')&&v28.includes('--jyc-v28-paper:#151515')&&v28.includes('--jyc-v28-surface:#0b0b0b')&&v28.includes('--jyc-v28-accent:#a47b43'));
