@@ -8,6 +8,7 @@ const css=read('src/v26-beige-signature.css');
 const index=read('index.html');
 const pkg=JSON.parse(read('package.json'));
 const v28=read('src/v28-editorial-system.css');
+const v29=read('src/v29-interaction-polish.css');
 const extra=read('src/extra-features.jsx');
 const sw=read('public/sw.js');
 
@@ -20,6 +21,11 @@ const check=(name,ok)=>{
 check('V26 stylesheet is the last JS visual import',main.includes("import './jyc-editorial-centered.css';")&&main.includes("import './v26-beige-signature.css';")&&main.indexOf("v26-beige-signature.css")>main.indexOf("jyc-editorial-centered.css"));
 check('V27 editorial stylesheet is loaded by the document shell',index.includes('/src/v27-editorial-polish.css'));
 check('V27.1 surfaces the live JYC pulse',main.includes('<JYCPulse data={data}/>')&&css.includes('.pulse-strip')&&css.includes('.pulse-items'));
+check('V29 interaction layer is loaded after V28',main.includes("import './v29-interaction-polish.css';")&&v29.includes('--jyc-v29-focus')&&v29.includes('.theme-toggle'));
+check('V29 removes loading orbit/ring decoration',v29.includes('.loading-orbit,.public-app .loading-ring{display:none!important}')||v29.includes('.public-app .loading-orbit,.public-app .loading-ring{display:none!important}'));
+check('V29 keeps day/night controls visually coherent',v29.includes('.public-app .theme-toggle')&&v29.includes('html[data-theme="dark"] .public-app .theme-icon'));
+check('V29 adds keyboard focus and reduced-motion safeguards',v29.includes(':focus-visible')&&v29.includes('@media(prefers-reduced-motion:reduce)'));
+check('V29 keeps mobile assistant above the dock',v29.includes('.public-app .jyc-bot-launcher{right:14px!important;bottom:82px!important}'));
 check('V28 editorial system is loaded after V26',main.includes("import './v28-editorial-system.css';")&&v28.includes('--jyc-v28-accent')&&v28.includes('about-hero-v28'));
 check('V28 removes artificial hero dead space',v28.includes('.home .hero{min-height:auto!important;height:auto!important')&&v28.includes('.home .hero-art{height:min(430px,48vw)!important}'));
 check('V28 removes legacy orbital hero rings',v28.includes('.home .hero-logo-ring,.home .hero-logo-ring-b{display:none!important}'));
@@ -52,7 +58,7 @@ check('legacy public bird/orbit layers are disabled',css.includes('.public-app .
 check('live assistant does not depend on deleted 3D assets',!main.includes('model-viewer')&&!main.includes('1780401615106-dmagefsj.glb')&&!main.includes('useModelViewerLoader'));
 check('production data does not inject demo content when Supabase is configured',main.includes('allowContentFallback:false')&&main.includes('return mergePublicFallback(stripLegacySeed(data||empty),{allowContentFallback:false})'));
 check('runtime metadata uses JYC logo rather than Phoenix artwork',extra.includes('jyc-logo-circle.png')&&!extra.includes('jyc-phoenix-reference-hd.png'));
-check('service worker cache is versioned for V28 and logo-led',sw.includes('jyc-cache-v28-0-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
+check('service worker cache is versioned for V29 and logo-led',sw.includes('jyc-cache-v29-0-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
 check('Agentic AI 2026 content is complete',main.includes('Cybersecurity')&&main.includes('Healthcare')&&main.includes('Natural Language Processing')&&main.includes('Open Innovation')&&main.includes('discord.gg/K6vrFAhMA')&&main.includes('unstop.com/o/XAfa40i'));
 check('About section exposes the five-family ecosystem',main.includes('home-about-ecosystem')&&main.includes('FIVE FAMILIES · 21 COMMUNITIES'));
@@ -61,7 +67,7 @@ check('loading screen keeps the JYC logo and responsive boot state',main.include
 check('V20 split hero keeps copy left and logo right on desktop',css.includes('grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)!important')&&css.includes('.home .hero-logo-stage{width:min(500px,42vw)!important'));
 check('global public text has explicit active-theme contrast',css.includes('.public-app h1,.public-app h2')&&css.includes('html[data-theme="dark"] .public-app .card h3'));
 check('homepage hierarchy is centered',css.includes('.home .section-head')&&css.includes('.home .jyc-feature-copy{align-items:center!important;text-align:center!important}'));
-check('release version is V28.0',pkg.version==='28.0.0');
+check('release version is V29.0',pkg.version==='29.0.0');
 
 if(fail)process.exit(1);
 console.log(`V26 BEIGE SIGNATURE QA: ${pass}/${pass+fail} passed.`);
