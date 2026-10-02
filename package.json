@@ -1,7 +1,7 @@
 {
   "name": "jyc-website",
   "private": true,
-  "version": "26.3.0",
+  "version": "27.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -31,5 +31,7 @@
   "devDependencies": {
     "@playwright/test": "^1.55.0"
   },
-  "engines": { "node": ">=22" }
+  "engines": {
+    "node": ">=22"
+  }
 }
