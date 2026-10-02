@@ -54,12 +54,12 @@ const PUBLIC_ACTIVITIES=[
  {title:'Industry & alumni interaction',text:'JYC creates routes for students to connect with mentors, alumni and professional communities.'},
  {title:'Teamwork & responsibility',text:'The hub model turns ideas into shared campus experiences through collaboration.'}
 ];
-function mergePublicFallback(d){
+function mergePublicFallback(d,{allowContentFallback=true}={}){
  const x=norm(d||{});
  const fallbackClubs=Object.entries(JYC_HUB_CONTENT).map(([name,p],i)=>({id:`hub-${slug(name)}`,name,type:p.family==='Technical'?'Technical':'Non-Technical',category:p.focus,description:p.summary,about:p.detail,interests:[p.family,p.focus],published:true,status:'published',pinned:i<5,theme:'jyc',banner:HUB_PHOTO_MAP[name]?.[0]||'',hubPhotos:HUB_PHOTO_MAP[name]||[]}));
  const galleryMap=new Map([...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY,...PUBLIC_GALLERY_FALLBACK].map(g=>[g.id,g]));
  (x.gallery||[]).forEach(g=>galleryMap.set(g.id||`${g.url}-${g.caption}`,g));
- return {...x,clubs:x.clubs?.length?x.clubs:fallbackClubs,events:x.events?.length?x.events:PUBLIC_EVENT_FALLBACK,gallery:[...galleryMap.values()],team:x.team?.length?x.team:PUBLIC_TEAM_FALLBACK,homepage:{...x.homepage,activities:Array.isArray(x.homepage?.activities)&&x.homepage.activities.length?x.homepage.activities:PUBLIC_ACTIVITIES}};
+ return {...x,clubs:allowContentFallback&&x.clubs?.length===0?fallbackClubs:x.clubs,events:allowContentFallback&&x.events?.length===0?PUBLIC_EVENT_FALLBACK:x.events,gallery:allowContentFallback?[...galleryMap.values()]:x.gallery,team:allowContentFallback&&x.team?.length===0?PUBLIC_TEAM_FALLBACK:x.team,homepage:{...x.homepage,activities:Array.isArray(x.homepage?.activities)&&x.homepage.activities.length?x.homepage.activities:PUBLIC_ACTIVITIES}};
 }
 const TEAM_LOCAL_PHOTOS={
  'devansh tripathi':'/assets/team/campaign/devansh-tripathi.webp','amrit kumar':'/assets/team/campaign/amrit-kumar.webp','daksh sachdeva':'/assets/team/campaign/daksh-sachdeva.webp','saksham kotia':'/assets/team/campaign/saksham-kotia.webp','asmi srivastava':'/assets/team/campaign/asmi-srivastava.webp','juhi hatuka':'/assets/team/campaign/juhi-hatuka.webp','pratik kumar':'/assets/team/campaign/pratik-kumar.webp','divye bajaj':'/assets/team/divye-bajaj.webp','revant srivastava':'/assets/team/campaign/revant-srivastava.webp','aradhyaa singh':'/assets/team/campaign/aradhyaa-singh.webp','vansh mahajan':'/assets/team/campaign/vansh-mahajan.webp','shriya singh':'/assets/team/campaign/shriya-singh.webp'
@@ -113,7 +113,7 @@ function norm(d){
   }
 }
 function stripLegacySeed(d){const x=norm(d);const isLegacyClub=c=>String(c?.id||'').toLowerCase()==='abhivyakti'&&String(c?.name||'').toLowerCase().trim()==='abhivyakti';const legacyIds=new Set(x.clubs.filter(isLegacyClub).map(c=>String(c.id)));if(!legacyIds.size)return x;return {...x,clubs:x.clubs.filter(c=>!legacyIds.has(String(c.id))),events:x.events.filter(e=>!legacyIds.has(String(e.clubId))&&String(e.club||'').toLowerCase().trim()!=='abhivyakti'),gallery:x.gallery.filter(g=>!legacyIds.has(String(g.clubId))&&String(g.association||'').toLowerCase().trim()!=='abhivyakti')}}
-async function loadData(){if(supabase.__configured===false){const cached=readSiteCache();const usable=cached&&((cached.clubs||[]).length||(cached.events||[]).length||(cached.team||[]).length);return mergePublicFallback(stripLegacySeed(usable?cached:publicDemoData()))}const {data,error}=await supabase.rpc('jyc_read_site_data');if(error){const message=String(error.message||'');const missingRpc=/Could not find the function public\.jyc_read_site_data|function public\.jyc_read_site_data|PGRST202|404|Not Found/i.test(message);if(missingRpc){const e=new Error('JYC data service is not deployed. Run supabase/FINAL-PRODUCTION-REPAIR.sql in the connected Supabase project, then refresh.');e.code='JYC_RPC_MISSING';throw e}throw error}const remote=mergePublicFallback(stripLegacySeed(data||empty));const hasPublic=remote.clubs.length||remote.events.length||remote.team.length||remote.gallery.length;return hasPublic?remote:publicDemoData()}
+async function loadData(){if(supabase.__configured===false){const cached=readSiteCache();const usable=cached&&((cached.clubs||[]).length||(cached.events||[]).length||(cached.team||[]).length);return mergePublicFallback(stripLegacySeed(usable?cached:publicDemoData()),{allowContentFallback:true})}const {data,error}=await supabase.rpc('jyc_read_site_data');if(error){const message=String(error.message||'');const missingRpc=/Could not find the function public\\.jyc_read_site_data|function public\\.jyc_read_site_data|PGRST202|404|Not Found/i.test(message);if(missingRpc){const e=new Error('JYC data service is not deployed. Run supabase/FINAL-PRODUCTION-REPAIR.sql in the connected Supabase project, then refresh.');e.code='JYC_RPC_MISSING';throw e}throw error}return mergePublicFallback(stripLegacySeed(data||empty),{allowContentFallback:false})}
 async function saveData(next,user,action,entity='site',id='main'){const payload=norm(next);let result=await supabase.rpc('jyc_save_site_data',{p_data:payload,p_action:action,p_entity_type:entity,p_entity_id:String(id||'main')});if(result.error&&/Could not find the function public\.jyc_save_site_data|schema cache/i.test(result.error.message||'')){result=await supabase.rpc('jyc_save_site_data',{p_action:action,p_data:payload,p_entity_id:String(id||'main'),p_entity_type:entity})}if(result.error)throw result.error;return stripLegacySeed(result.data)}
 async function compressImage(file){if(file.size<900*1024)return file;const bitmap=await createImageBitmap(file);const max=2200;const scale=Math.min(1,max/Math.max(bitmap.width,bitmap.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));const ctx=canvas.getContext('2d');ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.82));return blob?new File([blob],(file.name.replace(/\.[^.]+$/,'')||'image')+'.webp',{type:'image/webp'}):file}
 async function uploadMedia(file,folder='general'){if(!file)throw Error('Choose an image first.');if(!file.type.startsWith('image/'))throw Error('Only image files are allowed.');if(file.size>8*1024*1024)throw Error('Image must be 8 MB or smaller.');const optimized=await compressImage(file);const path=`${folder}/${uid()}.webp`;const {error}=await supabase.storage.from('jyc-media').upload(path,optimized,{cacheControl:'31536000',upsert:false,contentType:'image/webp'});if(error)throw error;const {data}=supabase.storage.from('jyc-media').getPublicUrl(path);return data.publicUrl}
@@ -377,7 +377,7 @@ function Routes({data,admin,session,setAdmin,commit,notify,theme,setTheme}){
  if(clean==='/')return <>{schema}<Home data={data}/></>;
  if(clean==='/about')return <>{schema}<About data={data}/></>;if(clean==='/clubs')return <>{schema}<Clubs data={data}/></>;if(club)return <>{schema}<ClubDetail data={data} id={slugId} virtualName={hubKey||undefined}/></>;
  if(clean==='/events')return <>{schema}<Events data={data}/></>;if(clean==='/fests')return isFestMode(data)?<>{schema}<FestsPage data={data}/></>:<Navigate to="/events" replace/>;if(event&&parts[2]==='register')return <>{schema}<RegistrationPage data={data} id={slugId} session={session}/></>;if(event)return <>{schema}<EventDetail data={data} id={slugId} session={session}/></>;
- if(clean==='/gallery')return <>{schema}<Gallery data={data}/></>;if(clean==='/team')return <>{schema}<Team data={data}/></>;if(clean==='/contact')return <>{schema}<Contact data={data}/></>;if(clean==='/archive')return <ArchivePage data={data}/>;if(clean==='/recruitment')return <>{schema}<RecruitmentHub data={data}/></>;if(clean==='/my-jyc')return <MyJYC data={data} session={session}/>;if(clean==='/calendar')return <>{schema}<CalendarPage data={data}/></>;if(clean==='/planner')return <Navigate to="/events" replace/>;if(clean==='/notifications')return <Navigate to="/my-jyc" replace/>;if(clean==='/login')return <Navigate to="/my-jyc" replace/>;if(clean==='/download')return <Navigate to="/about" replace/>;if(clean==='/discover')return <Navigate to="/clubs" replace/>;if(clean==='/map')return <>{schema}<CampusMapPage data={data}/></>;if(clean.startsWith('/qr/'))return <QRSharePage data={data}/>;if(clean==='/moments')return <Navigate to="/gallery" replace/>;if(clean==='/agenda')return <Navigate to="/my-jyc" replace/>;if(clean==='/projects'||clean==='/projects/submit')return <Navigate to="/clubs" replace/>;if(clean==='/achievements'||clean==='/settings')return <Navigate to="/about" replace/>;if(clean==='/resources')return <Navigate to="/about" replace/>;if(clean==='/guide')return <Navigate to="/about" replace/>;if(clean==='/admin')return <Admin data={data} admin={admin} setAdmin={setAdmin} commit={commit} notify={notify} theme={theme} setTheme={setTheme}/>;return <section className="section page not-found-page"><div className="not-found-art"><span>404</span><i aria-hidden="true">JYC</i></div><span className="eyebrow">JYC · ROUTE MISSED</span><h1>The Phoenix missed this route.</h1><p>The page you requested is not part of the published JYC experience.</p><div className="detail-actions"><Button onClick={()=>nav('/')}>Return home</Button><Button secondary onClick={()=>nav('/clubs')}>Explore clubs</Button></div></section>
+ if(clean==='/gallery')return <>{schema}<Gallery data={data}/></>;if(clean==='/team')return <>{schema}<Team data={data}/></>;if(clean==='/contact')return <>{schema}<Contact data={data}/></>;if(clean==='/archive')return <ArchivePage data={data}/>;if(clean==='/recruitment')return <>{schema}<RecruitmentHub data={data}/></>;if(clean==='/my-jyc')return <MyJYC data={data} session={session}/>;if(clean==='/calendar')return <>{schema}<CalendarPage data={data}/></>;if(clean==='/planner')return <Navigate to="/events" replace/>;if(clean==='/notifications')return <Navigate to="/my-jyc" replace/>;if(clean==='/login')return <Navigate to="/my-jyc" replace/>;if(clean==='/download')return <Navigate to="/about" replace/>;if(clean==='/discover')return <Navigate to="/clubs" replace/>;if(clean==='/map')return <>{schema}<CampusMapPage data={data}/></>;if(clean.startsWith('/qr/'))return <QRSharePage data={data}/>;if(clean==='/moments')return <Navigate to="/gallery" replace/>;if(clean==='/agenda')return <Navigate to="/my-jyc" replace/>;if(clean==='/projects'||clean==='/projects/submit')return <Navigate to="/clubs" replace/>;if(clean==='/achievements'||clean==='/settings')return <Navigate to="/about" replace/>;if(clean==='/resources')return <Navigate to="/about" replace/>;if(clean==='/guide')return <Navigate to="/about" replace/>;if(clean==='/admin')return <Admin data={data} admin={admin} setAdmin={setAdmin} commit={commit} notify={notify} theme={theme} setTheme={setTheme}/>;return <section className="section page not-found-page"><div className="not-found-art"><span>404</span><i aria-hidden="true">JYC</i></div><span className="eyebrow">JYC · ROUTE MISSED</span><h1>This route is not part of the published JYC experience.</h1><p>The page you requested is not part of the published JYC experience.</p><div className="detail-actions"><Button onClick={()=>nav('/')}>Return home</Button><Button secondary onClick={()=>nav('/clubs')}>Explore clubs</Button></div></section>
 }
 function NavIcon({kind}){const paths={home:'M3 10.5 12 3l9 7.5M5.5 9.5V21h13V9.5M9 21v-6h6v6',clubs:'M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8-1.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20a5.5 5.5 0 0 1 11 0M14 20a6 6 0 0 1 7.5 0',events:'M7 3v4M17 3v4M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z',gallery:'M4 5h16v14H4zM4 16l4-4 3 3 2-2 5 5M15 9h.01',team:'M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8-1.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20a5.5 5.5 0 0 1 11 0M14 20a6 6 0 0 1 7.5 0',more:'M5 7h14M5 12h14M5 17h14',search:'M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.5-2 5 5'};return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={paths[kind]||paths.more}/></svg>}
 function AgenticAIPopup({close}){
@@ -428,43 +428,11 @@ function useAgenticPopup(){
  },[open]);
  return [open,()=>setOpen(false)]
 }
-function useModelViewerLoader(){
- useEffect(()=>{
-  if(window.customElements?.get('model-viewer'))return;
-  if(document.querySelector('script[data-jyc-model-viewer]'))return;
-  const script=document.createElement('script');
-  script.type='module';
-  script.src='https://unpkg.com/@google/model-viewer@4.1.0/dist/model-viewer.min.js';
-  script.dataset.jycModelViewer='true';
-  script.async=true;
-  document.head.appendChild(script);
- },[]);
-}
 function JYCBotLauncher({onOpen}){
  const [motion,setMotion]=useState('');
- useModelViewerLoader();
- useEffect(()=>{
-  const modes=['roll','wave','bounce','jump'];
-  let timer;
-  const run=()=>{
-   const mode=modes[Math.floor(Math.random()*modes.length)];
-   setMotion(mode);
-   window.clearTimeout(timer);
-   timer=window.setTimeout(()=>setMotion(''),1100);
-   timer=window.setTimeout(run,6200+Math.floor(Math.random()*6200));
-  };
-  const first=window.setTimeout(run,2600);
-  return()=>{window.clearTimeout(first);window.clearTimeout(timer)};
- },[]);
- return createPortal(<button className={`jyc-bot-launcher is-${motion||'idle'}`} onClick={onOpen} aria-label="Open JYC Assistant" title="JYC Assistant">
-   <span className="jyc-bot-model-wrap" aria-hidden="true">
-    <model-viewer class="jyc-bot-model" src="/assets/1780401615106-dmagefsj.glb" camera-controls="false" disable-zoom="true" interaction-prompt="none" autoplay="true" shadow-intensity="0.35" exposure="1.05" environment-image="neutral" camera-orbit="0deg 75deg 2.2m" field-of-view="30deg" loading="lazy"></model-viewer>
-    <span className="jyc-bot-fallback"><span className="jyc-bot-face"><i className="jyc-bot-antenna"/><b className="jyc-bot-wave-arm"/></span></span>
-   </span>
-   <span className="jyc-bot-spark" aria-hidden="true"/>
- </button>,document.body);
+ useEffect(()=>{const modes=['wave','bounce','pulse'];let timers=[];const run=()=>{const mode=modes[Math.floor(Math.random()*modes.length)];setMotion(mode);timers.push(window.setTimeout(()=>setMotion(''),1100));timers.push(window.setTimeout(run,7200+Math.floor(Math.random()*5000)))};const first=window.setTimeout(run,3200);return()=>{window.clearTimeout(first);timers.forEach(clearTimeout)}} ,[]);
+ return createPortal(<button className={`jyc-bot-launcher is-${motion||'idle'}`} onClick={onOpen} aria-label="Open JYC Assistant" title="JYC Assistant"><span className="jyc-bot-model-wrap" aria-hidden="true"><span className="jyc-bot-logo-orb"><img src={logo} alt="" /></span><span className="jyc-bot-fallback"><span className="jyc-bot-face"><i className="jyc-bot-antenna"/><b className="jyc-bot-wave-arm"/></span></span></span><span className="jyc-bot-spark" aria-hidden="true"/></button>,document.body);
 }
-
 function Navbar({data,admin,theme,setTheme}){
  const nav=useNavigate();const loc=useLocation();
  const [open,setOpen]=useState(false),[moreOpen,setMoreOpen]=useState(false),[search,setSearch]=useState(false),[assistant,setAssistant]=useState(false),[homeSection,setHomeSection]=useState('hero');
