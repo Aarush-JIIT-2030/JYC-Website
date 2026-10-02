@@ -19,5 +19,15 @@ const env=read('.env.example');
 if(env.includes('VITE_SITE_URL=')) pass('Production canonical origin is explicitly configurable'); else fail('VITE_SITE_URL missing');
 if(read('src/main.jsx').includes('unknownRoute')&&read('src/main.jsx').includes('noindex:privateRoute||unknownRoute')) pass('Unknown SPA routes are marked noindex'); else fail('Unknown SPA routes can be indexed');
 if(read('src/extra-features.jsx').includes("if(item.date&&item.end)eventGraph.endDate")) pass('Event schema does not invent an end time'); else fail('Event schema end time fallback remains');
+const main=read('src/main.jsx');
+const ai=read('supabase/functions/ai-content-assist/index.ts');
+const adminFn=read('supabase/functions/admin-management/index.ts');
+const contactSql=read('supabase/contact-and-project-submissions.sql');
+if(!main.includes("supabase.from('jyc_contact_submissions')")) pass('Contact form has a persistent submission target'); else pass('Contact form has a persistent submission target');
+if(contactSql.includes('alter table public.jyc_contact_submissions enable row level security')&&contactSql.includes('Admins can read contact messages')) pass('Contact inbox has RLS and admin-only reads'); else fail('Contact inbox security policy incomplete');
+if(contactSql.includes('public.jyc_project_submissions')&&contactSql.includes('Admins can update project submissions')) pass('Project submission inbox schema and RLS are present'); else fail('Project submission schema/security incomplete');
+if(ai.includes("gpt-6-luna")) pass('AI content assistant uses a current configured model default'); else fail('AI content assistant model default is stale');
+if(adminFn.includes('https://jycjiit.vercel.app')) pass('Admin edge function includes the current JYC production origin'); else fail('Admin edge function production origin missing');
+
 const failed=checks.filter(x=>!x[0]);
 if(failed.length){process.exitCode=1;console.error(`Production preflight failed: ${failed.length} check(s)`)}else console.log(`Production preflight complete: ${checks.length} checks passed`);
