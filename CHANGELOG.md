@@ -1,5 +1,15 @@
 # Changelog
 
+## 27.2.0 — Community Identity System
+
+- Connected every fallback club profile to the supplied hub image archive, including extra presentation images where available.
+- Strengthened individual club identity cards with distinct motifs, signatures, muted accent systems and source photography.
+- Added distinct event identities for Dron-O-War, Converge, Ebullience, Induction, Ethnic Day, Farewell and Hackathons.
+- Added a source-grounded JYC programme index to the Events page using the supplied hub presentation material.
+- Connected event detail galleries to matching supplied presentation photography where the association is supported by the source data.
+- Added responsive identity styling for club and event detail pages.
+- Bumped release to V27.2 and rotated the service-worker cache.
+
 ## 27.1.0 — Editorial Pulse
 
 - Added a compact JYC Pulse rail for live/upcoming activity, club count and recruitment signals.
