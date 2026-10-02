@@ -25,12 +25,12 @@ const PUBLIC_TEAM_FALLBACK=[
  {id:'revant-srivastava',name:'Revant Srivastava',role:'Executive Head',published:true,bio:'Executive leadership supporting JYC communities, programmes and student experiences.',photo:'/assets/team/revant-srivastava.webp'},
  {id:'aradhyaa-singh',name:'Aradhyaa Singh',role:'Executive Head',published:true,bio:'Executive leadership supporting JYC communities, programmes and student experiences.',photo:'/assets/team/aradhyaa-singh.webp'},
  {id:'vansh-mahajan',name:'Vansh Mahajan',role:'Executive Head',published:true,bio:'Executive leadership supporting JYC communities, programmes and student experiences.',photo:'/assets/team/vansh-mahajan.webp'},
- {id:'shriya-singh',name:'Shriya Singh',role:'Executive Head',published:true,bio:'Executive leadership supporting JYC communities, programmes and student experiences.',photo:'/assets/team/shriya-singh.webp'}
+ {id:'shriya-singh',name:'Shriya Singh',role:'Executive Head',published:true,bio:'Executive leadership supporting JYC communities, programmes and student experiences.',photo:'/assets/team/shriya-singh.webp'},
+ {id:'faculty-vinay-anand-tikkiwal',name:'Dr. Vinay Anand Tikkiwal',role:'Faculty Advisor',published:true,bio:'Faculty advisor supporting the JYC student ecosystem.',photo:''},
+ {id:'faculty-pankaj-kumar-srivastava',name:'Dr. Pankaj Kumar Srivastava',role:'Faculty Advisor',published:true,bio:'Faculty advisor supporting the JYC student ecosystem.',photo:''},
+ {id:'harisha',name:'Harisha',role:'Creative Head',published:true,bio:'Leads creative coordination across JYC programmes and campus experiences.',photo:''},
+ {id:'dhruv-choudhary',name:'Dhruv Choudhary',role:'Management Head',published:true,bio:'Supports management and execution across JYC activities.',photo:''}
 ];
-  {id:'faculty-vinay-anand-tikkiwal',name:'Dr. Vinay Anand Tikkiwal',role:'Faculty Advisor',published:true,bio:'Faculty advisor supporting the JYC student ecosystem.',photo:''},
-  {id:'faculty-pankaj-kumar-srivastava',name:'Dr. Pankaj Kumar Srivastava',role:'Faculty Advisor',published:true,bio:'Faculty advisor supporting the JYC student ecosystem.',photo:''},
-  {id:'harisha',name:'Harisha',role:'Creative Head',published:true,bio:'Leads creative coordination across JYC programmes and campus experiences.',photo:''},
-  {id:'dhruv-choudhary',name:'Dhruv Choudhary',role:'Management Head',published:true,bio:'Supports management and execution across JYC activities.',photo:''},
 const PUBLIC_GALLERY_FALLBACK=[
  {id:'hub-ebullience-25',url:'/assets/home/ebullience.webp',caption:"Ebullience '25 · Freshers' welcome experience",association:'JYC · Ebullience',year:'2025'},
  {id:'hub-dronowar-1',url:'/assets/home/dron-o-war-1.webp',caption:'Dron-O-War · glimpses from the JYC hub material',association:'Dronotics · Dron-O-War',year:'2026'},
