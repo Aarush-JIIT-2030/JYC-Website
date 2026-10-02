@@ -4,7 +4,7 @@
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V23.0.0 — Final JYC public experience / Agentic AI bridge / Phoenix hero / centered responsive UI** — a club-first, event-first public experience for JIIT Youth Club Sector 128.
+> **Release: V24.0.0 — Editorial Centered / Logo-led Hero / Responsive UI** — a club-first, event-first public experience for JIIT Youth Club Sector 128.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
@@ -136,11 +136,11 @@ See [`docs/OPEN-SOURCE-UI-NOTES.md`](docs/OPEN-SOURCE-UI-NOTES.md) for the refer
 
 ## Current release
 
-**V23.0.0 — Final Release**
+**V24.0.0 — Editorial Centered Release**
 
-This release preserves the strongest JYC platform features while repairing runtime contracts, restoring admin workspaces, and consolidating the Phoenix/cursor/calendar/search experience.
+This release preserves the strongest JYC platform features while consolidating the public visual system around a centered, logo-led hero, restrained motion, photography, calendar and search.
 
-See [`RELEASE-V23.0.0-FINAL.md`](RELEASE-V23.0.0-FINAL.md) for the release-specific changes.
+See [`RELEASE-V24.0.0.md`](RELEASE-V24.0.0.md) for the release-specific changes.
 
 ## Verification note
 
@@ -166,9 +166,9 @@ Before a release reaches `main`:
 
 ### Signature JYC interactions
 
-- Phoenix hero with pointer depth
+- Logo-led hero with restrained pointer depth
 - Three Phoenix doors: Communities / Experiences / People
-- Custom red/gold cursor on precise pointers
+- Lightweight hover and focus motion without a decorative custom cursor
 - Gallery lightbox with keyboard navigation
 - Event share, Google Calendar, `.ics`, reminders and QR
 - Combined JYC + official academic calendar
