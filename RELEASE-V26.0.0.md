@@ -54,3 +54,9 @@ For browser verification:
     npx playwright install chromium
     npm run dev
     npm run qa:browser
+
+## V26.1 — Rendezvous-inspired interaction pass
+
+The latest pass also studies the live **Rendezvous'26, IIT Delhi** information architecture: a strong editorial home, a compact event/genre index, a featured experience, dedicated day/pronite storytelling, and participation-oriented subpages. JYC borrows the interaction principles — hierarchy, event discovery, category scanning and image-led storytelling — without copying Rendezvous branding or its visual palette.
+
+The official Rendezvous'26 site currently separates the experience into home, registration, pronites, pre-RDV, accommodation, CreatorVerse and other focused routes. Its homepage also exposes experience genres and a prominent featured-event rhythm. The JYC implementation adapts that approach into the JYC beige/black/white system and keeps content driven by published JYC data.
