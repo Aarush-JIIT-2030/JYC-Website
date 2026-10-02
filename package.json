@@ -17,7 +17,8 @@
     "qa:build-preflight": "node scripts/qa-build-preflight.mjs",
     "qa:best-jyc": "npm run qa",
     "qa:mobile-first": "npm run qa",
-    "qa:security": "node scripts/qa-security.mjs"
+    "qa:security": "node scripts/qa-security.mjs",
+    "prebuild": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.116.0",
