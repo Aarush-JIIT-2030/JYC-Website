@@ -23,7 +23,13 @@ async function loadDynamic(){
 }
 
 if(!site){
-  console.warn('SEO sitemap: VITE_SITE_URL/SITE_URL is not configured; writing a build-safe placeholder-free sitemap is skipped.');
+  if(fs.existsSync(out)) fs.rmSync(out,{force:true});
+  const robots=path.join(root,'public','robots.txt');
+  if(fs.existsSync(robots)){
+    const robotsText=fs.readFileSync(robots,'utf8').replace(/\n?Sitemap:.*\n?/gi,'\n').trimEnd()+'\n';
+    fs.writeFileSync(robots,robotsText);
+  }
+  console.warn('SEO sitemap: production origin is not configured; sitemap generation skipped safely.');
   process.exit(0);
 }
 await loadDynamic();
