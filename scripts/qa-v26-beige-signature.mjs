@@ -19,6 +19,8 @@ check('homepage uses a compact curated layout',main.includes("layout:['intro','e
 check('gallery maps to the single moments section',main.includes("x==='gallery'?'moments'")&&main.includes("moments:<MomentsSection data={data}/>"));
 check('hero contains the JYC logo, not a 3D bird',main.includes('hero-logo-stage')&&main.includes('<img src={logo}')&&!main.includes('Falcon3DLayer')&&!main.includes('v23.7-falcon-3d.jsx'));
 check('team identity uses the JYC logo',main.includes('team-hero-identity')&&main.includes('team-closeout-mark')&&!main.includes('team-hero-bird'));
+check('assistant does not auto-open on page load',!main.includes("window.setTimeout(()=>window.dispatchEvent(new CustomEvent('jyc-open-agentic'))"));
+check('legacy atmospheric decoration is hidden',css.includes('.public-app .site-atmosphere')&&css.includes('.public-app .constellation-field'));
 check('no Phoenix artwork is used for social previews',index.includes('og:image" content="/jyc-logo-circle.png"')&&index.includes('twitter:image" content="/jyc-logo-circle.png"'));
 check('V26 palette is beige + neutral black/white',css.includes('--jyc-beige:#a47b43')&&css.includes('--jyc-black:#090909')&&css.includes('--jyc-white:#fffdf8'));
 check('homepage hero is compact and responsive',css.includes('min-height:calc(100svh - 72px)')&&css.includes('@media(max-width:700px)'));
