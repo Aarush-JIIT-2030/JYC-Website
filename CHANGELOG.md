@@ -11,20 +11,6 @@
 - Tightened responsive density and dark-mode surface contrast.
 - Added V28 visual QA coverage and rotated the service-worker cache.
 
-
-## 28.0.0 — Centered Editorial System
-
-- Rebuilt the public visual system around one coordinated warm-neutral JYC palette for light and dark modes.
-- Removed the artificial full-screen hero minimum that created excessive empty space.
-- Centered major public hierarchy, cards, controls and page headers for a consistent reading experience.
-- Rebuilt About JYC as a connected journey: purpose, principles, five-family ecosystem, organisational flow, major programme rhythm, vision/mission and next-step navigation.
-- Added direct pathways between About, Clubs, Events, Team and Gallery so pages behave as one ecosystem rather than isolated routes.
-- Added source-grounded programme storytelling using the supplied JYC material without inventing current dates or registrations.
-- Tightened responsive density and dark-mode surface contrast.
-- Added V28 visual QA coverage and rotated the service-worker cache.
-
-# Changelog
-
 ## 27.2.0 — Community Identity System
 
 - Connected every fallback club profile to the supplied hub image archive, including extra presentation images where available.
