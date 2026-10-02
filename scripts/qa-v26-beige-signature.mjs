@@ -17,7 +17,7 @@ const check=(name,ok)=>{
 };
 
 check('V26 stylesheet is the last public visual import',main.includes("import './jyc-editorial-centered.css';")&&main.includes("import './v26-beige-signature.css';")&&main.indexOf("v26-beige-signature.css")>main.indexOf("jyc-editorial-centered.css"));
-check('homepage uses a compact curated layout',main.includes("layout:['intro','events','clubs','moments','team','cta']")&&main.includes("const layout=[...new Set(normalizedLayout.filter(x=>render[x]))]"));
+check('homepage uses a compact curated layout',main.includes("layout:['intro','agentic','events','clubs','moments','team','cta']")&&main.includes("const layout=[...new Set(normalizedLayout.filter(x=>render[x]))]"));
 check('Moments is rendered once through the layout',!main.includes('<div className="home-photo-story"><MomentsSection data={data}/></div>')&&main.includes('moments:<MomentsSection data={data}/>'));
 check('fest-style event spotlight is data-driven',main.includes('jyc-festival-index')&&main.includes('jyc-feature-event')&&main.includes('featured.poster'));
 check('homepage event discovery has interactive families',main.includes("eventFilter")&&main.includes("filteredEvents")&&main.includes("setEventFilter"));
@@ -38,9 +38,13 @@ check('legacy public bird/orbit layers are disabled',css.includes('.public-app .
 check('live assistant does not depend on deleted 3D assets',!main.includes('model-viewer')&&!main.includes('1780401615106-dmagefsj.glb')&&!main.includes('useModelViewerLoader'));
 check('production data does not inject demo content when Supabase is configured',main.includes('allowContentFallback:false')&&main.includes('return mergePublicFallback(stripLegacySeed(data||empty),{allowContentFallback:false})'));
 check('runtime metadata uses JYC logo rather than Phoenix artwork',extra.includes('jyc-logo-circle.png')&&!extra.includes('jyc-phoenix-reference-hd.png'));
-check('service worker cache is versioned for V26.2 and logo-led',sw.includes('jyc-cache-v26-3-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
+check('service worker cache is versioned for V26.3 and logo-led',sw.includes('jyc-cache-v26-3-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
-check('release version is V26.2',pkg.version==='26.2.0');
+check('Agentic AI 2026 content is complete',main.includes('Cybersecurity')&&main.includes('Healthcare')&&main.includes('Natural Language Processing')&&main.includes('Open Innovation')&&main.includes('discord.gg/K6vrFAhMA')&&main.includes('unstop.com/o/XAfa40i'));
+check('About section exposes the five-family ecosystem',main.includes('home-about-ecosystem')&&main.includes('FIVE FAMILIES · 21 COMMUNITIES'));
+check('assistant is theme-safe in dark mode',css.includes('.assistant-panel-modern')&&css.includes('html[data-theme="dark"] .assistant-panel-modern')&&css.includes('.assistant-search'));
+check('loading screen keeps the JYC logo and responsive boot state',main.includes('loading-mark')&&main.includes('loading-tagline')&&css.includes('.loading-mark img'));
+check('release version is V26.3',pkg.version==='26.3.0');
 
 if(fail)process.exit(1);
 console.log(`V26 BEIGE SIGNATURE QA: ${pass}/${pass+fail} passed.`);
