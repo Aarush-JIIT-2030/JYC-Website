@@ -11,6 +11,8 @@ const headersFor=(origin:string|null)=>({
 const json=(body:unknown,status=200,origin:string|null=null)=>new Response(JSON.stringify(body),{status,headers:{...headersFor(origin),'Content-Type':'application/json'}});
 function extractOutputText(payload:any){if(typeof payload?.output_text==='string')return payload.output_text;const chunks:string[]=[];for(const item of payload?.output||[])for(const content of item?.content||[])if(typeof content?.text==='string')chunks.push(content.text);return chunks.join('\n').trim()}
 function parseJson(text:string){const cleaned=text.trim().replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/```$/i,'').trim();try{return JSON.parse(cleaned)}catch{const start=cleaned.indexOf('{'),end=cleaned.lastIndexOf('}');if(start>=0&&end>start)return JSON.parse(cleaned.slice(start,end+1));throw new Error('AI returned an unreadable response.')}}
+const requestWindows = new Map<string, number[]>();
+const allowRequest = (userId:string) => { const now=Date.now(); const recent=(requestWindows.get(userId)||[]).filter(t=>now-t<60000); if(recent.length>=30)return false; recent.push(now); requestWindows.set(userId,recent); return true; };
 const system=`You are the JYC Content Copilot for a university student website at JIIT Noida. Improve editorial quality without inventing facts. Work only from supplied workspace data. Never fabricate dates, venues, people, links, achievements, rankings, sponsors, speakers, fees, or claims. Make copy concise, student-friendly, premium and specific. Preserve factual values unless the user supplied an obvious formatting issue. For SEO, improve titles/descriptions/keywords only from supplied facts. For health audits, identify missing/weak content, duplicates, inconsistent labels, schedule conflicts, broken-looking URLs and SEO gaps from the supplied data, but do not invent facts. Return ONLY valid JSON with this shape: {"summary":"short summary","improved":{...optional fields from the input...},"suggestions":["...","..."]}. If a field cannot be improved without missing facts, leave it unchanged and mention the missing fact in suggestions.`;
 Deno.serve(async(req)=>{
   const origin=req.headers.get('Origin');
@@ -27,6 +29,7 @@ Deno.serve(async(req)=>{
   if(!user)return json({error:'Administrator authentication is required.'},401,origin);
   const {data:admin}=await adminClient.from('jyc_admins').select('role,is_active').eq('user_id',user.id).eq('is_active',true).maybeSingle();
   if(!admin)return json({error:'This account is not authorized for AI content assistance.'},403,origin);
+  if(!allowRequest(user.id))return json({error:'AI assistant rate limit reached. Please try again in a minute.'},429,origin);
   let body:any;try{body=await req.json()}catch{return json({error:'Invalid JSON request.'},400,origin)}
   const action=['polish','audit','seo','health'].includes(body?.action)?body.action:'audit';
   const contentLength=Number(req.headers.get('Content-Length')||0);
