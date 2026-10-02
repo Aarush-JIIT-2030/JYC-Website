@@ -107,7 +107,16 @@ html[data-theme="dark"] .public-app{
   color:var(--jyc-beige)!important;
 }
 
-/* ---------- Navigation ---------- */
+/* ---------- Clean atmosphere ---------- */
+.public-app .site-atmosphere,
+.public-app .site-star-field,
+.public-app .constellation-field,
+.public-app .shooting-star,
+.public-app .light-dust,
+.public-app .atmosphere-glow{
+  display:none!important;
+}
+\n/* ---------- Navigation ---------- */
 .public-app .nav{
   height:72px!important;
   top:0!important;
