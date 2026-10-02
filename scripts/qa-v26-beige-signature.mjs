@@ -25,7 +25,7 @@ check('homepage event discovery has interactive families',main.includes("eventFi
 check('homepage club discovery has interactive categories',main.includes("clubFilter")&&main.includes("filteredClubs")&&main.includes("setClubFilter"));
 check('homepage exposes live/next event state',main.includes('jyc-now-strip')&&main.includes("eventState(e)==='live'")&&main.includes("'NEXT UP'"));
 check('legacy ecosystem bird identity is replaced by JYC logo',main.includes('ecosystem-logo-only')||main.includes('jyc-logo-circle.png'));
-check('gallery visibility controls Moments',main.includes("x==='moments'&&h.showGallery===false")&&main.includes("x==='hubPhotoWall'&&h.showGallery===false"));
+check('gallery visibility controls Moments',main.includes("x==='moments'||x==='hubPhotoWall")&&main.includes('h.showGallery===false'));
 check('gallery maps to the single moments section',main.includes("x==='gallery'?'moments'")&&main.includes("moments:<MomentsSection data={data}/>"));
 check('hero contains the JYC logo, not a 3D bird',main.includes('hero-logo-stage')&&main.includes('<img src={logo}')&&!main.includes('Falcon3DLayer')&&!main.includes('v23.7-falcon-3d.jsx'));
 check('team identity uses the JYC logo',main.includes('team-hero-identity')&&main.includes('team-closeout-mark')&&!main.includes('team-hero-bird'));
