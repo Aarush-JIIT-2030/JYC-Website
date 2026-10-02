@@ -9,5 +9,3 @@ Disallow: /agenda
 Disallow: /projects/submit
 Disallow: /download
 Disallow: /qr/
-
-Sitemap: https://jycjiit.vercel.app/sitemap.xml
