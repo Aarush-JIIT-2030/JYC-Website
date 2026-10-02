@@ -8,6 +8,8 @@ Run migrations in this order:
 3. `platform-v3.sql`
 4. `platform-v4-fix.sql`
 5. `final-role-hardening.sql`
+6. `platform-v5-production.sql`
+7. `contact-and-project-submissions.sql`
 
 For an existing development database containing the accidental starter club, run:
 
@@ -21,8 +23,6 @@ Edge Functions:
 
 Keep all privileged secrets server-side in Supabase.
 
-6. `platform-v5-production.sql`
-7. `contact-and-project-submissions.sql`
 
 V5 is the production-read hardening pass. It makes public content reads go through `jyc_read_site_data()` so unpublished/admin-only JSON content is not exposed to anonymous clients, and it adds account-linked event registrations with owner/admin RLS.
 
