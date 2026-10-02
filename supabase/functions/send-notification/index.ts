@@ -2,8 +2,7 @@ import webpush from 'npm:web-push'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const allowedOrigins = new Set(
-  (Deno.env.get('SITE_ORIGINS') || Deno.env.get('SITE_ORIGIN') || 'http://localhost:5173')
-    .split(',')
+  ['https://jycjiit.vercel.app','https://jyc-website-livid.vercel.app','http://localhost:5173', ...(Deno.env.get('SITE_ORIGINS') || Deno.env.get('SITE_ORIGIN') || '').split(',')]
     .map((x) => x.trim())
     .filter(Boolean)
 )
