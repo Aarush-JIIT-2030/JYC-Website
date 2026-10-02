@@ -7,6 +7,7 @@ const main=read('src/main.jsx');
 const css=read('src/v26-beige-signature.css');
 const index=read('index.html');
 const pkg=JSON.parse(read('package.json'));
+const v28=read('src/v28-editorial-system.css');
 const extra=read('src/extra-features.jsx');
 const sw=read('public/sw.js');
 
@@ -19,6 +20,13 @@ const check=(name,ok)=>{
 check('V26 stylesheet is the last JS visual import',main.includes("import './jyc-editorial-centered.css';")&&main.includes("import './v26-beige-signature.css';")&&main.indexOf("v26-beige-signature.css")>main.indexOf("jyc-editorial-centered.css"));
 check('V27 editorial stylesheet is loaded by the document shell',index.includes('/src/v27-editorial-polish.css'));
 check('V27.1 surfaces the live JYC pulse',main.includes('<JYCPulse data={data}/>')&&css.includes('.pulse-strip')&&css.includes('.pulse-items'));
+check('V28 editorial system is loaded after V26',main.includes("import './v28-editorial-system.css';")&&v28.includes('--jyc-v28-accent')&&v28.includes('about-hero-v28'));
+check('V28 removes artificial hero dead space',v28.includes('.home .hero{min-height:auto!important;height:auto!important')&&v28.includes('.home .hero-art{height:min(430px,48vw)!important}'));
+check('About page is a connected editorial journey',main.includes('about-hero-v28')&&main.includes('about-family-grid-v28')&&main.includes('about-flow-grid-v28')&&main.includes('about-programme-grid-v28')&&main.includes('about-next-v28'));
+check('About page links to Clubs, Events, Team and Gallery',main.includes("nav('/clubs')")&&main.includes("nav('/events')")&&main.includes("nav('/team')")&&main.includes("nav('/gallery')"));
+check('V28 gives light/dark modes explicit coordinated surfaces',v28.includes('html[data-theme="dark"]')&&v28.includes('--jyc-v28-paper:#151515')&&v28.includes('--jyc-v28-surface:#0b0b0b')&&v28.includes('--jyc-v28-accent:#a47b43'));
+check('V28 keeps all major page hierarchy centered',v28.includes('.public-app .section-head{text-align:center')&&v28.includes('.team-hero-panel{text-align:center')&&v28.includes('.contact-card{text-align:center'));
+check('V28 responsive grids collapse without empty columns',v28.includes('@media(max-width:700px)')&&v28.includes('.about-family-grid-v28,.about-flow-grid-v28,.about-programme-grid-v28,.about-principles-v28{grid-template-columns:1fr!important}'));
 check('V27.2 gives clubs and events distinct identities',main.includes('eventIdentity(e.title||e.club')&&main.includes('club-identity-mini')&&css.includes('.supplied-event-programme')&&css.includes('.club-identity-page'));
 check('homepage uses a compact curated layout',main.includes("layout:['intro','agentic','events','activities','clubs','moments','hubPhotoWall','hubStories','team','cta']")||main.includes("layout:['intro','events','activities','clubs','moments','hubPhotoWall','hubStories','team','cta']")||main.includes("layout:['intro','agentic','events','clubs','moments','team','cta']")&&main.includes('const baseLayout=[...new Set(normalizedLayout.filter(x=>render[x]))]'));
 check('Moments is rendered once through the layout',!main.includes('<div className="home-photo-story"><MomentsSection data={data}/></div>')&&main.includes('moments:<MomentsSection data={data}/>'));
@@ -51,7 +59,7 @@ check('loading screen keeps the JYC logo and responsive boot state',main.include
 check('V20 split hero keeps copy left and logo right on desktop',css.includes('grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)!important')&&css.includes('.home .hero-logo-stage{width:min(500px,42vw)!important'));
 check('global public text has explicit active-theme contrast',css.includes('.public-app h1,.public-app h2')&&css.includes('html[data-theme="dark"] .public-app .card h3'));
 check('homepage hierarchy is centered',css.includes('.home .section-head')&&css.includes('.home .jyc-feature-copy{align-items:center!important;text-align:center!important}'));
-check('release version is V27.1',pkg.version==='27.2.0');
+check('release version is V28.0',pkg.version==='28.0.0');
 
 if(fail)process.exit(1);
 console.log(`V26 BEIGE SIGNATURE QA: ${pass}/${pass+fail} passed.`);
