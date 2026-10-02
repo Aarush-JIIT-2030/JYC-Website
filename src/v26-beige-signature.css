@@ -1350,3 +1350,379 @@ html[data-theme="dark"] .assistant-panel-modern .assistant-search input::placeho
   .home .hero-logo-stage{width:min(310px,84vw)!important}
   .home .hero-stats{grid-template-columns:repeat(2,1fr)!important}
 }
+
+
+/* ================================================================
+   V26.6 — VISUAL STORYTELLING / JYC INNOVATION-INSPIRED PASS
+   Source direction: JIIT Innovation's clear hero → activity → events
+   → archive → team → gallery rhythm, reinterpreted for JYC.
+   ================================================================ */
+
+/* Strong editorial rhythm: alternate warm paper and near-white surfaces
+   so long pages remain readable without introducing extra colours. */
+html[data-theme="light"] .home-layout>.section:nth-child(odd){
+  background:rgba(255,253,248,.28)!important;
+}
+html[data-theme="light"] .home-layout>.section:nth-child(even){
+  background:rgba(238,228,209,.22)!important;
+}
+html[data-theme="dark"] .home-layout>.section:nth-child(odd){
+  background:rgba(255,255,255,.012)!important;
+}
+html[data-theme="dark"] .home-layout>.section:nth-child(even){
+  background:rgba(164,123,67,.018)!important;
+}
+
+/* Activity cards become visual "what we do" tiles instead of text dumps. */
+.home .activity-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+}
+.home .activity-card{
+  position:relative!important;
+  min-height:210px!important;
+  padding:28px 24px 24px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-end!important;
+  align-items:center!important;
+  isolation:isolate;
+}
+.home .activity-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(164,123,67,.13),transparent 52%),
+    linear-gradient(180deg,transparent 25%,rgba(23,20,17,.025) 100%);
+}
+.home .activity-card>span{
+  position:absolute!important;
+  top:18px!important;
+  left:18px!important;
+  width:38px!important;height:38px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid var(--border-tech)!important;
+  border-radius:50%!important;
+  color:var(--jyc-beige)!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+.home .activity-card h3{
+  max-width:15ch!important;
+  margin:0 0 8px!important;
+  font-size:24px!important;
+  line-height:1!important;
+}
+.home .activity-card p{
+  max-width:34ch!important;
+  margin:0 auto!important;
+}
+.home .activity-card button{
+  margin-top:16px!important;
+  color:var(--jyc-beige)!important;
+  font-weight:850!important;
+}
+
+/* Innovation-style flagship event treatment: poster + editorial information. */
+.home .jyc-feature-event{
+  width:min(1060px,100%)!important;
+  margin:26px auto 18px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(300px,.78fr)!important;
+  min-height:430px!important;
+  border:1px solid var(--border-tech)!important;
+  border-radius:26px!important;
+  overflow:hidden!important;
+  background:var(--bg-card)!important;
+  box-shadow:0 20px 60px rgba(23,20,17,.08)!important;
+}
+.home .jyc-feature-copy{
+  padding:clamp(28px,4vw,54px)!important;
+  justify-content:center!important;
+}
+.home .jyc-feature-copy h3{
+  max-width:11ch!important;
+  font-size:clamp(34px,5vw,64px)!important;
+  line-height:.92!important;
+  letter-spacing:-.065em!important;
+}
+.home .jyc-feature-poster{
+  min-height:100%!important;
+  background:var(--jyc-beige-soft)!important;
+}
+.home .jyc-feature-poster img{
+  width:100%!important;height:100%!important;
+  min-height:430px!important;
+  object-fit:cover!important;
+  display:block!important;
+}
+.home .reference-event-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+
+/* Make event cards feel like discoverable experiences, not poster dumps. */
+.home .event-card .event-poster{
+  min-height:240px!important;
+}
+.home .event-card .card-body{
+  padding:20px!important;
+  text-align:center!important;
+  align-items:center!important;
+}
+.home .event-card .event-card-meta{
+  justify-content:center!important;
+}
+
+/* Photo wall: the supplied PDF imagery becomes a visual narrative. */
+.home .hub-photo-wall-section{
+  overflow:hidden!important;
+}
+.home .hub-photo-wall{
+  width:min(1120px,100%)!important;
+  margin-inline:auto!important;
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  grid-auto-rows:92px!important;
+  gap:10px!important;
+}
+.home .hub-photo-wall-item{
+  position:relative!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  background:var(--bg-card)!important;
+  cursor:pointer!important;
+}
+.home .hub-photo-wall-item img{
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+  filter:saturate(.9) contrast(1.02)!important;
+  transition:transform .55s var(--jyc-ease),filter .4s ease!important;
+}
+.home .hub-photo-wall-item::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 30%,rgba(9,9,9,.78) 100%);
+  pointer-events:none;
+}
+.home .hub-photo-wall-item>span{
+  position:absolute!important;
+  z-index:2!important;
+  left:14px!important;right:14px!important;bottom:12px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  text-align:center!important;
+  color:#fff!important;
+}
+.home .hub-photo-wall-item small{
+  color:#e2c28e!important;
+  font-size:8px!important;
+  letter-spacing:.13em!important;
+  font-weight:900!important;
+}
+.home .hub-photo-wall-item strong{
+  color:#fff!important;
+  font-size:11px!important;
+  line-height:1.2!important;
+}
+.home .hub-photo-wall-item:hover img{
+  transform:scale(1.06)!important;
+  filter:saturate(1) contrast(1.05)!important;
+}
+.home .hub-photo-wall-item:nth-child(1),
+.home .hub-photo-wall-item:nth-child(8),
+.home .hub-photo-wall-item:nth-child(13){grid-column:span 5;grid-row:span 3}
+.home .hub-photo-wall-item:nth-child(2),
+.home .hub-photo-wall-item:nth-child(7),
+.home .hub-photo-wall-item:nth-child(12),
+.home .hub-photo-wall-item:nth-child(16){grid-column:span 3;grid-row:span 2}
+.home .hub-photo-wall-item:nth-child(3),
+.home .hub-photo-wall-item:nth-child(4),
+.home .hub-photo-wall-item:nth-child(5),
+.home .hub-photo-wall-item:nth-child(6),
+.home .hub-photo-wall-item:nth-child(9),
+.home .hub-photo-wall-item:nth-child(10),
+.home .hub-photo-wall-item:nth-child(11),
+.home .hub-photo-wall-item:nth-child(14),
+.home .hub-photo-wall-item:nth-child(15),
+.home .hub-photo-wall-item:nth-child(17),
+.home .hub-photo-wall-item:nth-child(18){grid-column:span 2;grid-row:span 2}
+
+/* Hub story cards: editorial split between image and readable copy. */
+.home .hub-story-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+.home .hub-story-card{
+  display:flex!important;
+  flex-direction:column!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+.home .hub-story-card img{
+  width:100%!important;height:190px!important;
+  object-fit:cover!important;
+  display:block!important;
+}
+.home .hub-story-copy{
+  padding:20px 18px 22px!important;
+  display:flex!important;
+  flex:1!important;
+  flex-direction:column!important;
+  align-items:center!important;
+}
+.home .hub-story-copy h3{
+  margin:8px 0!important;
+  font-size:25px!important;
+}
+.home .hub-story-copy p{
+  max-width:32ch!important;
+  margin:0 auto!important;
+}
+.home .hub-story-copy button{
+  margin-top:auto!important;
+  padding-top:15px!important;
+  color:var(--jyc-beige)!important;
+  font-weight:850!important;
+}
+
+/* Make the five-family strip read like a visual index. */
+.home .home-about-family,
+.home .home-about-programmes{
+  width:min(100%,1050px)!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+.home .home-about-family>div,
+.home .home-about-programmes>div{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:center!important;
+  gap:8px!important;
+}
+.home .home-about-family>div>span,
+.home .home-about-programmes>div>span{
+  padding:11px 15px!important;
+  border:1px solid var(--border-tech)!important;
+  border-radius:999px!important;
+  background:var(--bg-card)!important;
+  color:var(--text-primary)!important;
+}
+.home .home-about-family>div>span b{
+  color:var(--jyc-beige)!important;
+  margin-right:7px!important;
+}
+
+/* Visual team preview — photographs carry the section. */
+.home .home-team-preview{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+.home .home-team-preview>.reference-section-head{
+  grid-column:1/-1!important;
+}
+.home .home-team-card{
+  overflow:hidden!important;
+  padding:0!important;
+}
+.home .home-team-photo{
+  height:310px!important;
+  overflow:hidden!important;
+}
+.home .home-team-photo img{
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+  transition:transform .6s var(--jyc-ease)!important;
+}
+.home .home-team-card:hover .home-team-photo img{transform:scale(1.045)!important}
+.home .home-team-card>div:last-child{
+  padding:18px!important;
+}
+.home .home-team-card>div:last-child,
+.home .home-team-card>div:last-child *{text-align:center!important}
+
+/* Homepage "JYC now" becomes a clear action rail. */
+.home .jyc-now-strip{
+  width:min(1060px,100%)!important;
+  margin:0 auto 14px!important;
+  min-height:58px!important;
+  padding:10px 16px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex-wrap:wrap!important;
+  gap:10px 18px!important;
+  border:1px solid var(--border-tech)!important;
+  border-radius:999px!important;
+  background:var(--bg-card)!important;
+}
+.home .jyc-now-strip strong{color:var(--text-primary)!important}
+.home .jyc-now-strip small{color:var(--text-muted)!important}
+.home .jyc-now-strip button{
+  color:var(--jyc-beige)!important;
+  font-weight:900!important;
+}
+
+/* Archive-inspired visual index. */
+.home .past-grid{
+  width:min(1000px,100%)!important;
+  margin-inline:auto!important;
+}
+.home .past-card{
+  text-align:center!important;
+}
+.home .past-card>div{align-items:center!important}
+
+/* Better section reading rhythm. */
+.home .section-head h2,
+.home .reference-section-head h2{
+  max-width:15ch!important;
+}
+.home .section-head p,
+.home .reference-section-head p{
+  max-width:62ch!important;
+}
+.home .section-head .eyebrow,
+.home .reference-section-head .eyebrow{
+  display:block!important;
+}
+
+/* Mobile: preserve the editorial hierarchy without making a tiny collage. */
+@media(max-width:1000px){
+  .home .hub-story-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .home .home-team-preview{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .home .jyc-feature-event{grid-template-columns:1fr!important}
+  .home .jyc-feature-poster img{min-height:320px!important}
+}
+@media(max-width:700px){
+  .home .activity-grid,
+  .home .reference-event-grid,
+  .home .home-team-preview,
+  .home .hub-story-grid{grid-template-columns:1fr!important}
+  .home .activity-card{min-height:180px!important}
+  .home .hub-photo-wall{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-auto-rows:170px!important;
+  }
+  .home .hub-photo-wall-item,
+  .home .hub-photo-wall-item:nth-child(n){
+    grid-column:span 1!important;
+    grid-row:span 1!important;
+  }
+  .home .hub-photo-wall-item:nth-child(1),
+  .home .hub-photo-wall-item:nth-child(8),
+  .home .hub-photo-wall-item:nth-child(13){
+    grid-column:span 2!important;
+  }
+  .home .jyc-now-strip{border-radius:18px!important}
+}
