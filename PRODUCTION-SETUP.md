@@ -28,6 +28,7 @@ Deploy:
 npx supabase functions deploy admin-management
 npx supabase functions deploy send-notification
 npx supabase functions deploy backup-site-data
+npx supabase functions deploy ai-content-assist
 ```
 
 Privileged secrets belong only in Supabase Edge Function secrets.
