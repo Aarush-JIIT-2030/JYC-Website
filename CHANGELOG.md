@@ -1,5 +1,15 @@
 # Changelog
 
+## 29.0.0 — Interaction & Accessibility Polish
+
+- Added a final interaction layer after V28 instead of introducing another competing design system.
+- Removed remaining loading-screen orbital/ring decoration.
+- Reworked the day/night control into a clearer, theme-aware control.
+- Added stronger keyboard focus treatment and consistent reduced-motion handling.
+- Harmonised navigation, mobile dock, assistant launcher, buttons, cards, gallery crops and footer surfaces.
+- Kept the assistant clear of the mobile navigation dock.
+- Rotated the service-worker cache and extended visual QA.
+
 ## 28.0.0 — Centered Editorial System
 
 - Rebuilt the public visual system around one coordinated warm-neutral JYC palette for light and dark modes.
