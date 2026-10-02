@@ -1200,3 +1200,27 @@ html[data-theme="light"] .loading{background:radial-gradient(circle at 50% 42%,r
 .home-about-family span b{color:var(--jyc-beige)!important;font-size:8px!important}
 .home-about-programmes span{color:var(--text-muted)!important}
 @media(max-width:700px){.home-about-ecosystem{grid-template-columns:1fr!important}}
+
+/* ---------- Day / Night mode polish ---------- */
+html,body,#root,.public-app,.home,.public-app .card,.public-app .nav,.theme-toggle,.search-trigger{
+  transition:background-color .45s ease,color .35s ease,border-color .35s ease,box-shadow .45s ease!important;
+}
+.public-app .theme-toggle{
+  min-width:82px!important;height:42px!important;gap:8px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+}
+.public-app .theme-toggle .theme-icon{font-size:14px!important;color:var(--jyc-beige)!important}
+.public-app .theme-toggle .theme-label{font-size:9px!important;letter-spacing:.1em!important}
+html[data-theme="light"] .public-app .theme-toggle{background:#f7efe2!important;color:#2b241c!important}
+html[data-theme="dark"] .public-app .theme-toggle{background:#151412!important;color:#f7f2e9!important;border-color:rgba(164,123,67,.28)!important}
+html[data-theme="dark"] .public-app .section-head h2,
+html[data-theme="dark"] .public-app .reference-section-head h2,
+html[data-theme="dark"] .public-app .club-card h3,
+html[data-theme="dark"] .public-app .event-card h3,
+html[data-theme="dark"] .public-app .hub-directory-card strong{color:#f7f2e9!important}
+html[data-theme="dark"] .public-app input,
+html[data-theme="dark"] .public-app textarea,
+html[data-theme="dark"] .public-app select{background:#121212!important;color:#f7f2e9!important;border-color:rgba(255,253,248,.14)!important}
+html[data-theme="dark"] .public-app .home-about-family,
+html[data-theme="dark"] .public-app .home-about-programmes,
+html[data-theme="dark"] .public-app .jyc-structure-block{background:#11110f!important}
