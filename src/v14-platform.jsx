@@ -1,18 +1,9 @@
 import React,{useMemo,useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-export function InteractivePhoenix({sceneUrl='',stats={}}){
-  return <div className="phoenix-3d-stage phoenix-depth-stage" aria-label="JYC Phoenix hero visual">
-    <div className="phoenix-calm-glow" aria-hidden="true"/>
-    <div className="phoenix-depth-stack" aria-hidden="true">
-      <span className="phoenix-depth phoenix-depth-back"><img src="/jyc-phoenix-reference-hd.png" alt=""/></span>
-      <span className="phoenix-depth phoenix-depth-mid"><img src="/jyc-phoenix-reference-hd.png" alt=""/></span>
-      <span className="phoenix-depth phoenix-depth-front"><img src="/jyc-phoenix-reference-hd.png" alt=""/></span>
-    </div>
-    <span className="phoenix-halo" aria-hidden="true"/>
-  </div>
+export function InteractivePhoenix(){
+  return <div className="phoenix-3d-stage phoenix-depth-stage" aria-label="JIIT Youth Club identity"><div className="ecosystem-brand-lockup ecosystem-logo-only"><img src="/jyc-logo-circle.png" alt="JIIT Youth Club"/></div></div>
 }
-
 export function EcosystemSection({data}){
   const nav=useNavigate();
   const [active,setActive]=useState('');
