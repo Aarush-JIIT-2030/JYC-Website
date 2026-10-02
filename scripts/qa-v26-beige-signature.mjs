@@ -38,7 +38,7 @@ check('legacy public bird/orbit layers are disabled',css.includes('.public-app .
 check('live assistant does not depend on deleted 3D assets',!main.includes('model-viewer')&&!main.includes('1780401615106-dmagefsj.glb')&&!main.includes('useModelViewerLoader'));
 check('production data does not inject demo content when Supabase is configured',main.includes('allowContentFallback:false')&&main.includes('return mergePublicFallback(stripLegacySeed(data||empty),{allowContentFallback:false})'));
 check('runtime metadata uses JYC logo rather than Phoenix artwork',extra.includes('jyc-logo-circle.png')&&!extra.includes('jyc-phoenix-reference-hd.png'));
-check('service worker cache is versioned for V26.2 and logo-led',sw.includes('jyc-cache-v26-2-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
+check('service worker cache is versioned for V26.2 and logo-led',sw.includes('jyc-cache-v26-3-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
 check('release version is V26.2',pkg.version==='26.2.0');
 
