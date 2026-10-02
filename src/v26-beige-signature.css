@@ -784,3 +784,71 @@ html[data-theme="dark"] .public-app .btn:not(.secondary){
   .home .reference-event-grid .card:nth-child(2){transform:none!important}
 }
 @media(prefers-reduced-motion:reduce){.home .jyc-festival-index>span{animation:none!important}}
+
+
+/* ---------- V26.2 campus discovery layer ---------- */
+.home .jyc-now-strip{
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr) auto auto!important;
+  align-items:center!important;
+  gap:12px!important;
+  width:100%!important;
+  margin:0 0 14px!important;
+  padding:11px 14px!important;
+  border:1px solid var(--border-tech)!important;
+  border-radius:12px!important;
+  background:rgba(164,123,67,.055)!important;
+}
+.home .jyc-now-strip strong{font-size:13px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.home .jyc-now-strip small{font-size:9px!important;color:var(--text-muted)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.home .jyc-now-strip button{
+  border:0!important;background:transparent!important;color:var(--jyc-beige)!important;
+  font-size:9px!important;font-weight:900!important;letter-spacing:.08em!important;text-transform:uppercase!important;
+  cursor:pointer!important;padding:4px!important;
+}
+.jyc-now-status{
+  display:inline-flex!important;align-items:center!important;gap:7px!important;
+  color:var(--jyc-beige)!important;font-size:8px!important;font-weight:900!important;letter-spacing:.12em!important;
+  white-space:nowrap!important;
+}
+.jyc-now-status i{width:6px!important;height:6px!important;border-radius:50%!important;background:var(--jyc-beige)!important;box-shadow:0 0 0 4px rgba(164,123,67,.12)!important}
+.jyc-now-status.live i{animation:jycNowPulse 1.5s ease-in-out infinite!important}
+@keyframes jycNowPulse{50%{transform:scale(1.35);box-shadow:0 0 0 7px rgba(164,123,67,.06)}}
+.home .jyc-festival-index>button{
+  flex:0 0 auto!important;display:flex!important;align-items:center!important;gap:8px!important;min-height:42px!important;
+  padding:0 16px!important;border:0!important;border-right:1px solid var(--border-tech)!important;
+  background:transparent!important;color:var(--text-muted)!important;cursor:pointer!important;
+  font-size:9px!important;font-weight:850!important;letter-spacing:.08em!important;text-transform:uppercase!important;white-space:nowrap!important;
+}
+.home .jyc-festival-index>button:hover,
+.home .jyc-festival-index>button.is-active{color:var(--jyc-ink)!important;background:rgba(164,123,67,.08)!important}
+html[data-theme="dark"] .home .jyc-festival-index>button:hover,
+html[data-theme="dark"] .home .jyc-festival-index>button.is-active{color:#fff!important}
+.home .jyc-festival-index>button b{color:var(--jyc-beige)!important;font-size:8px!important}
+.home .jyc-club-index{
+  display:flex!important;align-items:center!important;gap:7px!important;width:100%!important;
+  margin:-8px 0 18px!important;overflow-x:auto!important;scrollbar-width:none!important;padding-bottom:2px!important;
+}
+.home .jyc-club-index::-webkit-scrollbar{display:none}
+.home .jyc-club-index>span{
+  flex:0 0 auto!important;color:var(--text-muted)!important;font-size:8px!important;font-weight:900!important;
+  letter-spacing:.12em!important;text-transform:uppercase!important;margin-right:3px!important;
+}
+.home .jyc-club-index>button{
+  flex:0 0 auto!important;padding:7px 11px!important;border:1px solid var(--border-tech)!important;border-radius:999px!important;
+  background:transparent!important;color:var(--text-muted)!important;cursor:pointer!important;font-size:9px!important;font-weight:800!important;
+}
+.home .jyc-club-index>button:hover,
+.home .jyc-club-index>button.is-active{
+  color:var(--jyc-ink)!important;border-color:rgba(164,123,67,.55)!important;background:rgba(164,123,67,.1)!important;
+}
+html[data-theme="dark"] .home .jyc-club-index>button:hover,
+html[data-theme="dark"] .home .jyc-club-index>button.is-active{color:#fff!important}
+@media(max-width:760px){
+  .home .jyc-now-strip{grid-template-columns:auto minmax(0,1fr) auto!important;gap:8px!important}
+  .home .jyc-now-strip small{grid-column:2 / 3!important}
+  .home .jyc-now-strip button{grid-column:3!important;grid-row:1 / span 2!important}
+  .home .jyc-festival-index{margin-bottom:14px!important}
+  .home .jyc-festival-index>button,.home .jyc-festival-index>span{padding-inline:11px!important}
+  .home .jyc-club-index{margin-top:-4px!important}
+}
