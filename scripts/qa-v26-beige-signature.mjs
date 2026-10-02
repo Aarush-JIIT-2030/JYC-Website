@@ -25,7 +25,7 @@ check('homepage event discovery has interactive families',main.includes("eventFi
 check('homepage club discovery has interactive categories',main.includes("clubFilter")&&main.includes("filteredClubs")&&main.includes("setClubFilter"));
 check('homepage exposes live/next event state',main.includes('jyc-now-strip')&&main.includes("eventState(e)==='live'")&&main.includes("'NEXT UP'"));
 check('legacy ecosystem bird identity is replaced by JYC logo',main.includes('ecosystem-logo-only')||main.includes('jyc-logo-circle.png'));
-check('gallery visibility controls Moments',main.includes("(x==='moments'&&h.showGallery===false)"));
+check('gallery visibility controls Moments',main.includes("x==='moments'&&h.showGallery===false")&&main.includes("x==='hubPhotoWall'&&h.showGallery===false"));
 check('gallery maps to the single moments section',main.includes("x==='gallery'?'moments'")&&main.includes("moments:<MomentsSection data={data}/>"));
 check('hero contains the JYC logo, not a 3D bird',main.includes('hero-logo-stage')&&main.includes('<img src={logo}')&&!main.includes('Falcon3DLayer')&&!main.includes('v23.7-falcon-3d.jsx'));
 check('team identity uses the JYC logo',main.includes('team-hero-identity')&&main.includes('team-closeout-mark')&&!main.includes('team-hero-bird'));
@@ -39,7 +39,7 @@ check('legacy public bird/orbit layers are disabled',css.includes('.public-app .
 check('live assistant does not depend on deleted 3D assets',!main.includes('model-viewer')&&!main.includes('1780401615106-dmagefsj.glb')&&!main.includes('useModelViewerLoader'));
 check('production data does not inject demo content when Supabase is configured',main.includes('allowContentFallback:false')&&main.includes('return mergePublicFallback(stripLegacySeed(data||empty),{allowContentFallback:false})'));
 check('runtime metadata uses JYC logo rather than Phoenix artwork',extra.includes('jyc-logo-circle.png')&&!extra.includes('jyc-phoenix-reference-hd.png'));
-check('service worker cache is versioned for V26.3 and logo-led',sw.includes('jyc-cache-v27-0-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
+check('service worker cache is versioned for V27 and logo-led',sw.includes('jyc-cache-v27-0-0')&&sw.includes('/jyc-logo-circle.png')&&!sw.includes('/jyc-phoenix-reference-hd.png'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
 check('Agentic AI 2026 content is complete',main.includes('Cybersecurity')&&main.includes('Healthcare')&&main.includes('Natural Language Processing')&&main.includes('Open Innovation')&&main.includes('discord.gg/K6vrFAhMA')&&main.includes('unstop.com/o/XAfa40i'));
 check('About section exposes the five-family ecosystem',main.includes('home-about-ecosystem')&&main.includes('FIVE FAMILIES · 21 COMMUNITIES'));
