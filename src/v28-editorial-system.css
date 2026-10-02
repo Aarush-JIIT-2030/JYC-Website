@@ -233,3 +233,7 @@ html[data-theme="dark"] .about-next-v28{background:linear-gradient(135deg,#15151
 @media(prefers-reduced-motion:reduce){
   .about-family-grid-v28 button,.public-app .btn{transition:none!important}
 }
+
+/* V28: remove legacy orbital rings; keep the logo itself as the visual anchor. */
+.home .hero-logo-ring,.home .hero-logo-ring-b{display:none!important}
+.home .hero-logo-stage::before{opacity:.7!important}
