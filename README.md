@@ -185,3 +185,42 @@ See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the c
 ## V22 final UI repair
 
 The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 21 supplied hub communities plus published leadership/event material when no Supabase content is available.
+
+
+## V24 Editorial Centered Pass
+
+The current public hero deliberately avoids a WebGL/3D bird. The visual anchor is the official JYC logo with restrained orbital motion, a soft pulse and pointer-responsive depth. This keeps the identity visible without making the hero feel like a technology demo.
+
+### Design references used
+
+- [JIIT Innovation](https://www.innovationjiit.in/) — clear institutional hierarchy, strong event/archive structure and photography-led content.
+- [React Bits](https://reactbits.dev/get-started/index) — inspiration for restrained reveal, hover and micro-interaction patterns; the JYC implementation remains CSS-first and dependency-light.
+
+### V24 visual rules
+
+- centered max-width layout across desktop and mobile
+- beige / black / white JYC visual system
+- official JYC logo as the hero visual anchor
+- no decorative 3D bird/WebGL layer in the public hero
+- real JYC photography over generic stock/AI imagery
+- readable type with strong contrast and predictable spacing
+- motion attached to content: reveal, hover, logo breathing and subtle depth
+- prefers-reduced-motion support is mandatory
+
+### Visual system
+
+![JYC centered hero direction](docs/assets/jyc-hero-direction.svg)
+
+![JYC editorial architecture](docs/assets/jyc-architecture.svg)
+
+### Release verification
+
+Run:
+
+~~~bash
+npm install
+npm run build
+npm run qa
+~~~
+
+Then verify the home page at mobile widths (320–600px), tablet widths (768–1024px) and desktop widths (1280px+). The hero should show the JYC logo, not the former Falcon/Phoenix 3D scene.
