@@ -158,15 +158,6 @@ function SiteAtmosphere(){
 
 function App(){const loc=useLocation();const nav=useNavigate();const [data,setData]=useState(publicDemoData());const [loading,setLoading]=useState(true);const [bootReady,setBootReady]=useState(false);const [bootStage,setBootStage]=useState('INITIALIZING');const [error,setError]=useState('');const [online,setOnline]=useState(()=>navigator.onLine!==false);const [theme,setTheme]=useState(()=>storageGet('jyc-theme','light')==='dark'?'dark':'light');const [session,setSession]=useState(null);const [admin,setAdmin]=useState(null);const [toast,setToast]=useState(null);const [confirm,setConfirm]=useState(null);
  const [agenticOpen,closeAgentic]=useAgenticPopup();
- useEffect(()=>{
-   if(!bootReady||loc.pathname.startsWith('/admin'))return;
-   const path=loc.pathname.replace(/\/$/,'')||'/';
-   const isHome=path==='/';
-   const isEvents=path==='/events'||path.startsWith('/events/');
-   if(!isHome&&!isEvents)return;
-   const timer=window.setTimeout(()=>window.dispatchEvent(new CustomEvent('jyc-open-agentic')) ,420);
-   return()=>window.clearTimeout(timer);
- },[bootReady,loc.pathname]);
  useEffect(()=>{const onToast=e=>notify(e.detail?.message||'',e.detail?.type||'success');const onConfirm=e=>setConfirm(e.detail||null);window.addEventListener('jyc-toast',onToast);window.addEventListener('jyc-confirm',onConfirm);return()=>{window.removeEventListener('jyc-toast',onToast);window.removeEventListener('jyc-confirm',onConfirm)}},[]);
  useEffect(()=>{const on=()=>setOnline(true),off=()=>setOnline(false);window.addEventListener('online',on);window.addEventListener('offline',off);return()=>{window.removeEventListener('online',on);window.removeEventListener('offline',off)}},[]);
  useEffect(()=>{document.documentElement.dataset.theme=theme;storageSet('jyc-theme',theme);document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#090a0d':'#eee5d3');},[theme]);
