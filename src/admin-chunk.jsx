@@ -249,7 +249,7 @@ function Admin({data,admin,setAdmin,commit,notify,theme,setTheme}){
         <button onClick={()=>setCommandOpen(true)}>☰<span>More</span></button>
       </div>
 
-      {tab==='overview'&&<AdminOverview data={data} setTab={setTab} allowedTabs={items.map(x=>x[0])}/>} 
+      {tab==='overview'&&<AdminOverview data={data} setTab={setTab} allowedTabs={items.map(x=>x[0])} connected={supabase.__configured&&navigator.onLine}/>} 
       {tab==='clubs'&&<ManageClubs data={data} commit={commit} clubScoped={clubScoped} clubId={admin.clubId} role={role}/>} 
       {tab==='events'&&<ManageEvents data={data} commit={commit} clubScoped={clubScoped} clubId={admin.clubId} role={role}/>}
       {tab==='fest'&&<ManageFest data={data} commit={commit}/>} 
