@@ -1,5 +1,13 @@
 # Changelog
 
+## 27.1.0 — Editorial Pulse
+
+- Added a compact JYC Pulse rail for live/upcoming activity, club count and recruitment signals.
+- Activated the JYC Journal as the homepage editorial storytelling layer.
+- Added a responsive 12-column editorial story layout with lead/supporting story hierarchy.
+- Removed the legacy duplicate hub-story grid from the homepage path while retaining the underlying content for archive use.
+- Rotated the service-worker cache and expanded release QA for V27.1.
+
 ## 23.0.0 — Final Agentic Bridge Release
 
 - Auto-opens the Agentic AI bridge on fresh JYC home/Events route loads for both new and returning users.
