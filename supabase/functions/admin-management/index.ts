@@ -1,8 +1,8 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const allowedOrigins = new Set(
-  (Deno.env.get('SITE_ORIGINS') || 'http://localhost:5173')
-    .split(',')
+  ['https://jycjiit.vercel.app','https://jyc-website-livid.vercel.app','http://localhost:5173', ...(Deno.env.get('SITE_ORIGINS') || '').split(',')]
+    .filter(Boolean)
     .map((x) => x.trim())
     .filter(Boolean)
 )
