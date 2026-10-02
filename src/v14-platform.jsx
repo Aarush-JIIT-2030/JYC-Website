@@ -2,7 +2,7 @@ import React,{useMemo,useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 export function InteractivePhoenix(){
-  return <div className="phoenix-3d-stage phoenix-depth-stage" aria-label="JIIT Youth Club identity"><div className="ecosystem-brand-lockup ecosystem-logo-only"><img src="/jyc-logo-circle.png" alt="JIIT Youth Club"/></div></div>
+  return <div className="jyc-identity-stage" aria-label="JIIT Youth Club identity"><div className="ecosystem-brand-lockup ecosystem-logo-only"><img src="/jyc-logo-circle.png" alt="JIIT Youth Club"/></div></div>
 }
 export function EcosystemSection({data}){
   const nav=useNavigate();
