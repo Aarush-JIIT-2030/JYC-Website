@@ -1,12 +1,6 @@
-const CACHE_NAME = 'jyc-cache-v26-2-0';
+const CACHE_NAME = 'jyc-cache-v26-3-0';
 
-const APP_SHELL = [
-  '/',
-  '/offline.html',
-  '/manifest.json',
-  '/jyc-logo-circle.png',
-  '/jyc-logo-circle.png'
-];
+const APP_SHELL = ['/', '/offline.html', '/manifest.json', '/jyc-logo-circle.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
@@ -14,38 +8,28 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => Promise.all(
-      keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-    ))
-  );
+  event.waitUntil(caches.keys().then((keys) => Promise.all(
+    keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+  )));
   self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-
   const request = event.request;
-  const isNavigation = request.mode === 'navigate';
-
-  if (isNavigation) {
+  if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          return response;
-        })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match('/').then((shell) => shell || caches.match('/offline.html'))))
+      fetch(request).then((response) => {
+        if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put(request, response.clone()));
+        return response;
+      }).catch(() => caches.match(request).then((cached) => cached || caches.match('/').then((shell) => shell || caches.match('/offline.html'))))
     );
     return;
   }
-
   event.respondWith(
     caches.match(request).then((cached) => cached || fetch(request).then((response) => {
       if (response.ok && new URL(request.url).origin === self.location.origin) {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, response.clone()));
       }
       return response;
     }).catch(() => Response.error()))
@@ -71,16 +55,14 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   const candidate = new URL(event.notification.data?.url || '/', self.location.origin);
   const target = candidate.origin === self.location.origin ? candidate.href : self.location.origin + '/';
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      for (const client of clientList) {
-        if ('focus' in client) {
-          try { client.navigate(target); } catch {}
-          return client.focus();
-        }
+  event.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+    for (const client of clientList) {
+      if ('focus' in client) {
+        try { client.navigate(target); } catch {}
+        return client.focus();
       }
-      if (clients.openWindow) return clients.openWindow(target);
-      return undefined;
-    })
-  );
+    }
+    if (clients.openWindow) return clients.openWindow(target);
+    return undefined;
+  }));
 });
