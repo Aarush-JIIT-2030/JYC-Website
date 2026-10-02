@@ -1,3 +1,12 @@
+## V30.0.0 — Production Finalization
+
+- Removed the duplicate V29 interaction stylesheet import from the active application entry.
+- Removed the stale /src/v27-editorial-polish.css production HTML reference; the stylesheet stack is now owned by the Vite application bundle.
+- Rotated the service-worker cache namespace to jyc-cache-v30-0-0.
+- Synchronized package.json and package-lock.json release metadata and Node engine requirements.
+- Updated SEO and visual QA contracts so the release checks validate the actual V30 runtime stack rather than superseded V27/V29 assumptions.
+- Kept the beige/black/white visual system, centered layout, V20 split hero, logo-led loading experience, reduced-motion support and responsive navigation intact.
+
 # Changelog
 
 ## 29.0.0 — Interaction & Accessibility Polish
