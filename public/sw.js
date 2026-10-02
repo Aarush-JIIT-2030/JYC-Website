@@ -1,11 +1,11 @@
-const CACHE_NAME = 'jyc-cache-v20-0-complete';
+const CACHE_NAME = 'jyc-cache-v26-2-0';
 
 const APP_SHELL = [
   '/',
   '/offline.html',
   '/manifest.json',
   '/jyc-logo-circle.png',
-  '/jyc-phoenix-reference-hd.png'
+  '/jyc-logo-circle.png'
 ];
 
 self.addEventListener('install', (event) => {
