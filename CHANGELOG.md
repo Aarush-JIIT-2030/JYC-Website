@@ -1,4 +1,4 @@
-# Changelog
+# Changelog\n\n## 28.0.0 — Centered Editorial System\n\n- Rebuilt the public visual system around one coordinated warm-neutral JYC palette for light and dark modes.\n- Removed the artificial full-screen hero minimum that created excessive empty space.\n- Centered major public hierarchy, cards, controls and page headers for a consistent reading experience.\n- Rebuilt About JYC as a connected journey: purpose, principles, five-family ecosystem, organisational flow, major programme rhythm, vision/mission and next-step navigation.\n- Added direct pathways between About, Clubs, Events, Team and Gallery so pages behave as one ecosystem rather than isolated routes.\n- Added source-grounded programme storytelling using the supplied JYC material without inventing current dates or registrations.\n- Tightened responsive density and dark-mode surface contrast.\n- Added V28 visual QA coverage and rotated the service-worker cache.\n\n# Changelog
 
 ## 27.2.0 — Community Identity System
 
