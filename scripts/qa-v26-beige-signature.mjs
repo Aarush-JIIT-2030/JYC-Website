@@ -7,6 +7,8 @@ const main=read('src/main.jsx');
 const css=read('src/v26-beige-signature.css');
 const index=read('index.html');
 const pkg=JSON.parse(read('package.json'));
+const extra=read('src/extra-features.jsx');
+const sw=read('public/sw.js');
 
 let pass=0,fail=0;
 const check=(name,ok)=>{
