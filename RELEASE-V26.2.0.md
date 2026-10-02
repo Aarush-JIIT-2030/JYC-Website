@@ -69,3 +69,19 @@ The official Rendezvous'26 site currently separates the experience into home, re
 - Kept event and club content sourced from published data only.
 - Replaced the remaining ecosystem phoenix identity with the official JYC logo.
 - Added responsive CSS and regression checks for the new discovery layer.
+
+
+## Production hardening audit
+
+- Removed the live assistant's dependency on the retired 3D/model-viewer runtime and deleted retired Phoenix assets.
+- Prevented configured production builds from injecting demo clubs/events/team/gallery records when the CMS is empty.
+- Replaced Phoenix metadata fallbacks with the JYC logo.
+- Versioned the service-worker cache and kept offline HTML fallback limited to navigations.
+- Made sitemap generation deployment-origin aware and stopped shipping the stale hardcoded sitemap.
+- Added production-safe contact and project submission tables with RLS.
+- Updated Edge Function production origins and the AI assistant's default model.
+- Expanded the main QA gate with production, runtime-contract and functional checks.
+
+### Remaining infrastructure blocker
+
+The configured JYC Supabase project (jyc-website) is currently inactive. The connected Supabase account cannot restore it because it has reached the free-plan active-project limit. The application code is production-hardened, but the live site is **not launch-ready until the JYC backend is active** or the deployment is repointed to an active JYC Supabase project.
