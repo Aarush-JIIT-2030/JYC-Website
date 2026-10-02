@@ -9,6 +9,8 @@ Run these files in Supabase SQL Editor, in order:
 3. `supabase/platform-v3.sql`
 4. `supabase/platform-v4-fix.sql`
 5. `supabase/final-role-hardening.sql`
+6. `supabase/platform-v5-production.sql`
+7. `supabase/contact-and-project-submissions.sql`
 
 For an existing development project that still shows the accidental starter club **Abhivyakti**, run:
 
