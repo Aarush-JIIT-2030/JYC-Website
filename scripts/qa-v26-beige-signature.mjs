@@ -18,6 +18,10 @@ check('V26 stylesheet is the last public visual import',main.includes("import '.
 check('homepage uses a compact curated layout',main.includes("layout:['intro','events','clubs','moments','team','cta']")&&main.includes("const layout=[...new Set(normalizedLayout.filter(x=>render[x]))]"));
 check('Moments is rendered once through the layout',!main.includes('<div className="home-photo-story"><MomentsSection data={data}/></div>')&&main.includes('moments:<MomentsSection data={data}/>'));
 check('fest-style event spotlight is data-driven',main.includes('jyc-festival-index')&&main.includes('jyc-feature-event')&&main.includes('featured.poster'));
+check('homepage event discovery has interactive families',main.includes("eventFilter")&&main.includes("filteredEvents")&&main.includes("setEventFilter"));
+check('homepage club discovery has interactive categories',main.includes("clubFilter")&&main.includes("filteredClubs")&&main.includes("setClubFilter"));
+check('homepage exposes live/next event state',main.includes('jyc-now-strip')&&main.includes("eventState(e)==='live'")&&main.includes("'NEXT UP'"));
+check('legacy ecosystem bird identity is replaced by JYC logo',main.includes('ecosystem-logo-only')||main.includes('jyc-logo-circle.png'));
 check('gallery visibility controls Moments',main.includes("(x==='moments'&&h.showGallery===false)"));
 check('gallery maps to the single moments section',main.includes("x==='gallery'?'moments'")&&main.includes("moments:<MomentsSection data={data}/>"));
 check('hero contains the JYC logo, not a 3D bird',main.includes('hero-logo-stage')&&main.includes('<img src={logo}')&&!main.includes('Falcon3DLayer')&&!main.includes('v23.7-falcon-3d.jsx'));
