@@ -27,6 +27,21 @@ export const JYC_HUB_IDENTITIES = {
   JSA:{accent:'#65765a',motif:'PLAY & REPRESENT',signature:'Sport, competition, teamwork and campus representation',traits:['Cricket','Football','Basketball']}
 };
 
+export const JYC_EVENT_IDENTITIES = {
+  'Dron-O-War':{accent:'#5f725c',motif:'FLIGHT · ROBOTICS',signature:'Drones, engineering and competitive flight',traits:['Aerial Robotics','Competition','Engineering']},
+  'Converge':{accent:'#826b4f',motif:'CAMPUS · FESTIVAL',signature:'Communities, stages and student collaboration',traits:['Annual Fest','Communities','Performance']},
+  'Ebullience':{accent:'#8a7052',motif:'WELCOME · CULTURE',signature:'New beginnings, performances and campus energy',traits:['Freshers','Culture','Community']},
+  'Induction':{accent:'#7c6e58',motif:'WELCOME · JIIT',signature:'The first chapter of campus life',traits:['Orientation','Community','Belonging']},
+  'Ethnic Day':{accent:'#906d4d',motif:'CULTURE · EXPRESSION',signature:'Tradition, style and campus expression',traits:['Culture','Fashion','Performance']},
+  'Farewell':{accent:'#766753',motif:'MEMORY · MILESTONE',signature:'Celebrating journeys and campus memories',traits:['Celebration','Community','Memories']},
+  'Hackathons':{accent:'#68715f',motif:'BUILD · COMPETE',signature:'Ideas turned into working technology',traits:['Innovation','Build','Competition']}
+};
+
+export function eventIdentity(name){
+  const key=Object.keys(JYC_EVENT_IDENTITIES).find(k=>String(name||'').toLowerCase().includes(k.toLowerCase()));
+  return JYC_EVENT_IDENTITIES[key]||hubIdentity(name);
+}
+
 export function hubIdentity(name){
   const key=Object.keys(JYC_HUB_IDENTITIES).find(k=>k.toLowerCase()===String(name||'').trim().toLowerCase());
   return JYC_HUB_IDENTITIES[key]||{accent:'#9b7542',motif:'JYC COMMUNITY',signature:'A student community within JYC',traits:[]};
