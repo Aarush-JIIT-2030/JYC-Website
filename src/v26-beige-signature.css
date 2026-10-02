@@ -1224,3 +1224,129 @@ html[data-theme="dark"] .public-app select{background:#121212!important;color:#f
 html[data-theme="dark"] .public-app .home-about-family,
 html[data-theme="dark"] .public-app .home-about-programmes,
 html[data-theme="dark"] .public-app .jyc-structure-block{background:#11110f!important}
+
+
+/* ================================================================
+   V26.5 — CONTRAST + CENTERED EDITORIAL HERO
+   ================================================================ */
+.public-app,.public-app .section,.public-app .page,.public-app .home-layout,.public-app .home-photo-story{color:var(--text-primary)!important}
+.public-app h1,.public-app h2,.public-app h3,.public-app h4,.public-app h5,.public-app h6,.public-app strong,.public-app b,.public-app label{color:var(--text-primary)!important}
+.public-app p,.public-app li,.public-app small{color:var(--text-muted)!important}
+.public-app .eyebrow,.public-app .section-head .eyebrow,.public-app .tag,.public-app .club-index,.public-app .assistant-index{color:var(--jyc-beige)!important}
+
+html[data-theme="light"] .public-app .card,
+html[data-theme="light"] .public-app .section,
+html[data-theme="light"] .public-app .home-team-card,
+html[data-theme="light"] .public-app .club-card,
+html[data-theme="light"] .public-app .event-card,
+html[data-theme="light"] .public-app .activity-card{color:#171411!important}
+html[data-theme="light"] .public-app .card h1,
+html[data-theme="light"] .public-app .card h2,
+html[data-theme="light"] .public-app .card h3,
+html[data-theme="light"] .public-app .card strong,
+html[data-theme="light"] .public-app .home-team-card h3,
+html[data-theme="light"] .public-app .club-card h3{color:#171411!important}
+html[data-theme="light"] .public-app .card p,
+html[data-theme="light"] .public-app .home-team-card p,
+html[data-theme="light"] .public-app .club-card p{color:#6f665c!important}
+
+html[data-theme="dark"] .public-app,
+html[data-theme="dark"] .home{color:#f7f2e9!important}
+html[data-theme="dark"] .public-app .section,
+html[data-theme="dark"] .public-app .page,
+html[data-theme="dark"] .public-app .card,
+html[data-theme="dark"] .public-app .activity-card,
+html[data-theme="dark"] .public-app .home-team-card,
+html[data-theme="dark"] .public-app .club-card,
+html[data-theme="dark"] .public-app .event-card,
+html[data-theme="dark"] .public-app .contact-card,
+html[data-theme="dark"] .public-app .hub-story-card{color:#f7f2e9!important}
+html[data-theme="dark"] .public-app .card h1,
+html[data-theme="dark"] .public-app .card h2,
+html[data-theme="dark"] .public-app .card h3,
+html[data-theme="dark"] .public-app .card h4,
+html[data-theme="dark"] .public-app .card strong,
+html[data-theme="dark"] .public-app .home-team-card h3,
+html[data-theme="dark"] .public-app .club-card h3,
+html[data-theme="dark"] .public-app .event-card h3{color:#f7f2e9!important}
+html[data-theme="dark"] .public-app .card p,
+html[data-theme="dark"] .public-app .home-team-card p,
+html[data-theme="dark"] .public-app .club-card p,
+html[data-theme="dark"] .public-app .event-card p,
+html[data-theme="dark"] .public-app .section-head p{color:#b9b0a4!important}
+
+/* Assistant and search surfaces never become white in dark mode. */
+html[data-theme="light"] .assistant-panel-modern{background:#f8f1e4!important;color:#171411!important}
+html[data-theme="dark"] .assistant-panel-modern{background:linear-gradient(180deg,#141310,#0c0c0b)!important;color:#f7f2e9!important;border-color:rgba(164,123,67,.32)!important}
+html[data-theme="dark"] .assistant-panel-modern *{color:#f7f2e9}
+html[data-theme="dark"] .assistant-panel-modern .assistant-head p,
+html[data-theme="dark"] .assistant-panel-modern .assistant-results small,
+html[data-theme="dark"] .assistant-panel-modern .assistant-results em,
+html[data-theme="dark"] .assistant-panel-modern .assistant-foot{color:#b9b0a4!important}
+html[data-theme="dark"] .assistant-panel-modern .assistant-search{background:#090909!important;border-color:rgba(164,123,67,.3)!important}
+html[data-theme="dark"] .assistant-panel-modern .assistant-search input{color:#f7f2e9!important}
+html[data-theme="dark"] .assistant-panel-modern .assistant-search input::placeholder{color:#8f877c!important}
+
+/* V20-inspired split hero: copy on the left, logo on the right. */
+.home .hero{
+  grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)!important;
+  align-items:center!important;
+  gap:clamp(36px,7vw,104px)!important;
+  min-height:clamp(620px,calc(100svh - 72px),780px)!important;
+  padding:70px 0 58px!important;
+}
+.home .hero-copy{
+  width:min(620px,100%)!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+  justify-self:center!important;
+}
+.home .hero-copy .eyebrow,.home .hero-copy h1,.home .hero-copy h4,.home .hero-copy>p{text-align:center!important}
+.home .hero-copy h1{margin:15px auto 16px!important;max-width:11ch!important}
+.home .hero-rule{margin:0 auto 16px!important}
+.home .hero-copy>p{margin:0 auto!important;max-width:54ch!important}
+.home .hero-actions{justify-content:center!important;align-items:center!important}
+.home .hero-stats{width:100%!important;max-width:680px!important;margin:30px auto 0!important}
+.home .hero-stats>div{text-align:center!important}
+.home .hero-art{width:100%!important;height:min(560px,46vw)!important;min-height:390px!important;justify-self:center!important}
+.home .hero-logo-stage{width:min(500px,42vw)!important;min-width:340px!important;max-width:500px!important}
+.home .hero-logo-stage img{width:55%!important}
+.home .hero-logo-caption{bottom:2%!important}
+
+/* Center the editorial hierarchy across the site. */
+.home .section-head,.public-app .reference-section-head{
+  width:100%!important;text-align:center!important;display:grid!important;justify-items:center!important;
+}
+.home .section-head>div:first-child,.public-app .reference-section-head>div:first-child{max-width:760px!important}
+.home .section-head p,.public-app .reference-section-head p{margin-inline:auto!important}
+.home .principles,.home .home-about-ecosystem,.home .activity-grid,.home .club-grid,.home .home-team-preview,.home .reference-event-grid,.home .moments-editorial,.home .jyc-feature-event{margin-inline:auto!important}
+.home .principles>div,.home .home-about-family,.home .home-about-programmes,.home .activity-card,.home .club-card,.home .home-team-card{text-align:center!important}
+.home .home-about-family>div,.home .home-about-programmes>div{justify-content:center!important}
+.home .club-card .card-body,.home .club-card .club-card-footer{text-align:center!important}
+.home .club-card .club-logo{margin-inline:auto!important}
+.home .club-card .club-card-footer{justify-content:center!important}
+.home .jyc-feature-event{text-align:center!important}
+.home .jyc-feature-copy{align-items:center!important;text-align:center!important}
+.home .jyc-feature-copy>p{margin-inline:auto!important}
+.home .jyc-feature-meta{justify-content:center!important}
+.home .jyc-feature-copy .btn{margin-inline:auto!important}
+.public-app .compact-page-head,.public-app .archive-hero,.public-app .events-page-head,.public-app .clubs-page-head{text-align:center!important}
+.public-app .page-stat-row,.public-app .filter-row,.public-app .category-row,.public-app .chip-row{justify-content:center!important}
+.public-app .event-card,.public-app .club-card,.public-app .archive-club,.public-app .past-card,.public-app .contact-card{text-align:center!important}
+.public-app .event-card .card-body,.public-app .club-card .card-body{align-items:center!important}
+.public-app .event-card .event-actions,.public-app .club-card .club-card-footer{justify-content:center!important}
+
+/* Desktop keeps the V20 split; tablet/mobile stack cleanly. */
+@media(max-width:900px){
+  .home .hero{grid-template-columns:1fr!important;min-height:auto!important;padding-top:52px!important}
+  .home .hero-copy{max-width:720px!important}
+  .home .hero-art{order:2!important;height:390px!important;min-height:340px!important}
+  .home .hero-logo-stage{width:min(390px,82vw)!important;min-width:0!important}
+}
+@media(max-width:600px){
+  .home .hero{width:calc(100% - 24px)!important;padding:34px 0 42px!important;gap:0!important}
+  .home .hero-copy h1{font-size:clamp(48px,14vw,74px)!important}
+  .home .hero-art{height:320px!important;min-height:300px!important}
+  .home .hero-logo-stage{width:min(310px,84vw)!important}
+  .home .hero-stats{grid-template-columns:repeat(2,1fr)!important}
+}
