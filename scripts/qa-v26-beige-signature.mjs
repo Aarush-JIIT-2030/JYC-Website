@@ -17,7 +17,7 @@ const check=(name,ok)=>{
 };
 
 check('V26 stylesheet is the last public visual import',main.includes("import './jyc-editorial-centered.css';")&&main.includes("import './v26-beige-signature.css';")&&main.indexOf("v26-beige-signature.css")>main.indexOf("jyc-editorial-centered.css"));
-check('homepage uses a compact curated layout',main.includes("layout:['intro','events','activities','clubs','moments','hubPhotoWall','hubStories','team','cta']")||main.includes("layout:['intro','agentic','events','clubs','moments','team','cta']")&&main.includes('const baseLayout=[...new Set(normalizedLayout.filter(x=>render[x]))]'));
+check('homepage uses a compact curated layout',main.includes("layout:['intro','agentic','events','activities','clubs','moments','hubPhotoWall','hubStories','team','cta']")||main.includes("layout:['intro','events','activities','clubs','moments','hubPhotoWall','hubStories','team','cta']")||main.includes("layout:['intro','agentic','events','clubs','moments','team','cta']")&&main.includes('const baseLayout=[...new Set(normalizedLayout.filter(x=>render[x]))]'));
 check('Moments is rendered once through the layout',!main.includes('<div className="home-photo-story"><MomentsSection data={data}/></div>')&&main.includes('moments:<MomentsSection data={data}/>'));
 check('fest-style event spotlight is data-driven',main.includes('jyc-festival-index')&&main.includes('jyc-feature-event')&&main.includes('featured.poster'));
 check('homepage event discovery has interactive families',main.includes("eventFilter")&&main.includes("filteredEvents")&&main.includes("setEventFilter"));
