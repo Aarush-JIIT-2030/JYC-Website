@@ -6,6 +6,7 @@ import {supabase} from './lib/supabase';
 import {jycToast} from './lib/ui';
 import './v23.6-consolidated.css';
 import './jyc-editorial-centered.css';
+import './v26-beige-signature.css';
 import {JYC_HUB_CONTENT, JYC_HUB_FAMILIES, hubProfile} from './v21-hub-content.js';
 import {hubDetails} from './v23.6-hub-details.js';
 import {hubIdentity} from './hub-identities.js';
