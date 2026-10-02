@@ -34,7 +34,7 @@ check('homepage hero is compact and responsive',css.includes('min-height:calc(10
 check('moment gallery prevents empty image space',css.includes('grid-auto-rows:145px')&&css.includes('object-fit:cover'));
 check('legacy public bird/orbit layers are disabled',css.includes('.public-app .team-hero-bird')&&css.includes('.public-app .phoenix-model-viewer{display:none!important}'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
-check('release version is V26',pkg.version==='26.0.0');
+check('release version is V26.2',pkg.version==='26.2.0');
 
 if(fail)process.exit(1);
 console.log(`V26 BEIGE SIGNATURE QA: ${pass}/${pass+fail} passed.`);
