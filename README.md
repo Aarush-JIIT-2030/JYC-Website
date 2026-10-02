@@ -4,7 +4,7 @@
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
 >
-> **Release: V26.0.0 — Beige Signature / Centered UI / Compact Public Experience** — a club-first, event-first public experience for JIIT Youth Club Sector 128.
+> **Release: V26.2.0 — Beige Signature / Campus Discovery / Compact Public Experience** — a club-first, event-first public experience for JIIT Youth Club Sector 128.
 
 JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
 
@@ -188,6 +188,17 @@ See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the c
 
 The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 21 supplied hub communities plus published leadership/event material when no Supabase content is available.
 
+
+## V26.2 Campus discovery pass
+
+The public homepage now behaves more like a living campus directory while keeping JYC's own visual language:
+
+- **JYC Now** surfaces the currently live event or the next published experience using the event's real date/time state.
+- **Experience filters** let visitors scan published upcoming events by event family without leaving the homepage.
+- **Club filters** let visitors narrow the homepage club preview by published type/category.
+- Event and club discovery remains data-driven; the UI does not fabricate categories or records.
+- The ecosystem identity uses the official JYC logo rather than the former phoenix artwork.
+- Mobile filtering stays horizontally scrollable and compact so discovery does not create large empty blocks.
 
 ## V26.1 Festival-inspired interaction pass
 
