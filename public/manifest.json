@@ -48,17 +48,6 @@
           "sizes": "512x512"
         }
       ]
-    },
-    {
-      "name": "JYC Planner",
-      "short_name": "Planner",
-      "url": "/planner",
-      "icons": [
-        {
-          "src": "/jyc-logo-official.webp",
-          "sizes": "512x512"
-        }
-      ]
     }
   ]
 }
