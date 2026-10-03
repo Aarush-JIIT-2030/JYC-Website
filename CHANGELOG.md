@@ -1,3 +1,19 @@
+## V35.0.0 — Archive-media editorial pass
+
+- Added an interactive 21-community source-media directory with hover/focus previews.
+- Added an event timeline preview tied to deterministic event identities.
+- Tightened archive discovery without introducing decorative filler.
+
+## V34.0.0 — Source-first visual overhaul
+
+- Every maintained JYC community now has its own visual signature and source-media treatment within the shared JYC beige/black/white system.
+- Every event receives a deterministic visual identity; flagship events retain named presets.
+- Live Supabase club records are enriched with supplied hub photography and source-grounded profile copy instead of losing the static source layer whenever the database is populated.
+- Source gallery material is merged into the public gallery alongside published records.
+- Added higher-quality photo overrides for extracted hub presentation assets and story-image fallbacks where available.
+- Tightened centered alignment, page density, image crops, card sizing and mobile grids to remove accidental empty space without fabricating content.
+- Added QA coverage for the source media index and deterministic event identity fallback.
+
 ## V33.3.0 — Distinct hub & event identity system
 
 - Reconciled the public ecosystem with the supplied All Hubs material: **21 named communities across 5 families**.

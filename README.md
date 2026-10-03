@@ -150,7 +150,7 @@ See [`docs/OPEN-SOURCE-UI-NOTES.md`](docs/OPEN-SOURCE-UI-NOTES.md) for the refer
 
 ## Current release
 
-**V31.0.0 — Public Experience Release**
+**V34.0.0 — Source-first visual overhaul**
 
 This release preserves the strongest JYC platform features while tightening the public visual system around JYC beige, black and white, a centered logo-led hero, compact section rhythm, curated homepage content and stronger photography hierarchy.
 
@@ -198,7 +198,7 @@ See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the c
 
 ## V22 final UI repair
 
-The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 20 maintained hub communities plus published leadership/event material when no Supabase content is available.
+The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 21 maintained hub communities plus published leadership/event material when no Supabase content is available.
 
 
 ## V26.2 Campus discovery pass
@@ -273,3 +273,26 @@ The V26.2 audit also removed several release blockers: stale Phoenix/model-viewe
 The public website is now organized around the approved JYC-128 information architecture: Home, About JYC, Hubs, Events, Event Details, Gallery/Archive, Team, Announcements, Achievements, Contact and controlled recruitment entry points. The final visual layer keeps JYC beige, black and white across day/night modes, centers the public composition, improves image treatment, strengthens mobile layouts, and uses restrained content-linked motion rather than decorative effects.
 
 The supplied 2026–27 JYC hub material is treated as the content source for the 21-community ecosystem and leadership structure. Public fallback content is used only for approved supplied material; fabricated statistics are not used as marketing copy.
+
+
+## V34.0 source-first visual overhaul
+
+- Every maintained JYC community keeps its own visual signature while remaining inside the shared beige / black / white system.
+- Every published event receives a deterministic visual identity; flagship events also have named presets.
+- Supplied hub photography is now merged into live public club records even when Supabase already contains clubs, so source imagery is not hidden behind the empty-database fallback path.
+- The public gallery keeps source-grounded hub material alongside live gallery records.
+- Added a source media index that prioritises higher-quality extracted presentation assets and falls back to supplied hub-story imagery where available.
+- Tightened public page rhythm, centered alignment, image crops, card density and mobile layouts to remove accidental empty zones without adding filler content.
+- Added source-media and event-identity QA contracts.
+
+### Research-informed design direction
+
+The pass uses structural inspiration from JIIT Innovation's event/archive hierarchy, GDG JIIT's programme-first community presentation, OSDC's community storytelling, and editorial/archive gallery patterns. These references informed information architecture and density only; JYC source imagery and content remain the authority for JYC facts.
+
+
+## V35.0 archive-media editorial pass
+
+- Added a desktop editorial hub directory with live source-photo preview and keyboard focus behavior.
+- Added a compact event timeline preview where every event retains its own visual identity and poster when available.
+- Preserved the centered, compact JYC visual system on mobile.
+- Source-photo coverage continues to prefer extracted All Hubs assets and never invents a club-specific photograph.
