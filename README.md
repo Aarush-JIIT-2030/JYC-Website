@@ -12,6 +12,8 @@ V33.2 adds family-aware event discovery, a compact evidence rail on every hub pa
 
 # JIIT Youth Club — Official Website
 
+**Current release: V35.1.0 — production hardening + hub discovery polish.**
+
 [![JYC CI](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml/badge.svg)](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml) [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)](https://vite.dev/) [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=fff)](https://supabase.com/)
 
 > **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
@@ -296,3 +298,13 @@ The pass uses structural inspiration from JIIT Innovation's event/archive hierar
 - Added a compact event timeline preview where every event retains its own visual identity and poster when available.
 - Preserved the centered, compact JYC visual system on mobile.
 - Source-photo coverage continues to prefer extracted All Hubs assets and never invents a club-specific photograph.
+
+
+## V35.1.0 — Production hardening
+
+- Synchronized release, lockfile, QA and service-worker cache metadata.
+- Made source-gallery fallback IDs deterministic so renders and QA remain reproducible.
+- Normalized hub-media override lookup so all maintained override keys resolve consistently.
+- Sanitized public announcement links before opening external destinations.
+- Corrected Google Calendar export for multi-day events by honoring `dateEnd`.
+- Reduced loading-screen orbital decoration and tightened small-screen hero spacing.
