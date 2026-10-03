@@ -1,3 +1,13 @@
+## V33.1.0 — JYC Orientation Experience
+
+- Added a source-grounded JYC 2026–27 ecosystem explorer using the supplied Orientation / All Hubs material.
+- Added an at-a-glance section for organisation, families, named communities and year-round experience.
+- Added five family explorers with direct hub navigation.
+- Added the supplied organisational model: Faculty Advisor → Apex Body → Hubs & Societies → Student Volunteers → Festival Committees.
+- Added the major programme rhythm from the supplied orientation material.
+- Corrected public copy that implied an unsupported fixed “21” count; the current named list contains 20 communities and the UI now derives the count from the maintained source list.
+- Kept operational/current data separate from orientation source material.
+
 ## V33.0.0 — Public Experience Overhaul
 
 - Reworked the public visual system around the supplied JYC logo beige (#F5D894), with explicit high-contrast light and dark modes.
