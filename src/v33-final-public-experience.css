@@ -450,3 +450,5 @@ html[data-theme="dark"] .public-app .nav nav button.active{
   .event-filter-panel{display:grid;grid-template-columns:1fr;gap:10px}
   .event-filter-panel label{min-width:0}
 }
+
+.public-app .gallery-grid .gallery-item img,.public-app .archive-story-photo img,.public-app .jyc-feature-poster img,.public-app .about-programme-image img,.public-app .club-card-visual img,.public-app .team-photo-editorial img,.public-app .home-team-photo img{object-fit:cover!important;object-position:center!important}
