@@ -11,6 +11,18 @@ const pkg=JSON.parse(read('package.json'));
 const sw=read('public/sw.js');
 const hubContent=read('src/v21-hub-content.js');
 
+const hasExactUrl=(content,{protocol,hostname,pathname})=>{
+  const matches=content.match(/https?:\/\/[^\s"'`<>)]+/g)??[];
+  return matches.some(raw=>{
+    try{
+      const u=new URL(raw);
+      return u.protocol===protocol&&u.hostname===hostname&&u.pathname===pathname;
+    }catch{
+      return false;
+    }
+  });
+};
+
 let pass=0,fail=0;
 const check=(name,ok)=>{if(ok){console.log('PASS: '+name);pass++}else{console.error('FAIL: '+name);fail++}};
 
@@ -26,7 +38,7 @@ check('Team hierarchy is explicit',main.includes('Faculty → Apex → Core → 
 check('About exposes requested principles',main.includes('WHAT WE STAND FOR')&&main.includes('about-principles-v33'));
 check('Gallery supports year discovery',extra.includes('gallery-years')&&extra.includes("const years=['All'"));
 check('Event details support structured extra information',main.includes('e.rules?.length')&&main.includes('e.eligibility')&&main.includes('e.prizes?.length')&&main.includes('e.faqs?.length'));
-check('Contact includes official JIIT campus context',main.includes('contact-location')&&main.includes('https://www.jiit.ac.in/contact-us'));
+check('Contact includes official JIIT campus context',main.includes('contact-location')&&hasExactUrl(main,{protocol:'https:',hostname:'www.jiit.ac.in',pathname:'/contact-us'}));
 check('mobile layout stays compact',css.includes('@media(max-width:560px)')&&css.includes('grid-template-columns:1fr'));
 check('image treatment uses non-distorting crops',css.includes('object-fit:cover!important')&&css.includes('object-position:center'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
