@@ -4,7 +4,7 @@
 - Added source navigation on hub detail pages so visitors can jump directly to supplied hub-story material.
 - Added family-level filtering to the Events page across Cultural, Technical, Creative, Literary and Sports communities.
 - Removed the remaining current-site copy that asserted an unsupported fixed 21-community count.
-- Aligned hub identity documentation with the maintained 20-community source list.
+- Aligned hub identity documentation with the maintained 21-community source list.
 - Repaired package-lock release metadata so package.json, lockfile, QA and service-worker cache agree on V33.2.0.
 - Added production QA coverage for hub evidence, family discovery and source-count consistency.
 
@@ -15,7 +15,7 @@
 - Added five family explorers with direct hub navigation.
 - Added the supplied organisational model: Faculty Advisor → Apex Body → Hubs & Societies → Student Volunteers → Festival Committees.
 - Added the major programme rhythm from the supplied orientation material.
-- Corrected public copy that implied an unsupported fixed “21” count; the current named list contains 20 communities and the UI now derives the count from the maintained source list.
+- Corrected public copy that implied an unsupported fixed “21” count; the current named list contains 21 communities and the UI now derives the count from the maintained source list.
 - Kept operational/current data separate from orientation source material.
 
 ## V33.0.0 — Public Experience Overhaul
