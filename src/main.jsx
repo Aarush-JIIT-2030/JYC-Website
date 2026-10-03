@@ -865,15 +865,43 @@ function HubDirectory({data}){
  const nav=useNavigate();
  const entries=Object.entries(JYC_HUB_CONTENT);
  const [active,setActive]=useState(entries[0]?.[0]||'');
+ const [family,setFamily]=useState('All');
  const activeMedia=sourceHubMedia(active);
- return <section className="hub-directory reveal"><div className="hub-directory-head"><div><span className="eyebrow">JYC HUB DIRECTORY · SOURCE MEDIA</span><h2>Twenty-one communities. Twenty-one identities.</h2><p className="small-copy">Move through the maintained All Hubs archive. Each row exposes its own visual language and, where extracted, the actual supplied photography behind that community.</p></div><span>{entries.length} communities</span></div>
- <div className="hub-family-row">{JYC_HUB_FAMILIES.map(x=><span key={x}>{x}</span>)}</div>
- <div className="hub-directory-stage">
-  <div className="hub-directory-list">{entries.map(([name,p],i)=>{const live=data.clubs.find(c=>String(c.name||'').trim().toLowerCase()===name.toLowerCase());const identity=hubIdentity(name);const media=sourceHubMedia(name);return <button key={name} className={`hub-directory-card ${active===name?'is-active':''}`} style={{'--hub-accent':identity.accent,'--hub-accent-soft':`color-mix(in srgb, ${identity.accent} 12%, transparent)`}} onMouseEnter={()=>setActive(name)} onFocus={()=>setActive(name)} onClick={()=>nav(live?'/clubs/'+slug(live.name):'/clubs/'+slug(name))}><span className="hub-directory-index">{String(i+1).padStart(2,'0')}</span><span className="hub-directory-copy"><small>{p.family} · {p.focus}</small><strong>{name}</strong><em>{identity.signature}</em></span><span className="hub-directory-count">{media.photos.length?media.photos.length+' photos':'source profile'} ↗</span></button>})}</div>
-  <aside className="hub-directory-preview" aria-live="polite" style={{'--hub-accent':hubIdentity(active).accent,'--hub-accent-soft':`color-mix(in srgb, ${hubIdentity(active).accent} 14%, transparent)`}}><div className="hub-preview-image">{activeMedia.photos[0]?<img src={activeMedia.photos[0]} alt={active+' supplied JYC visual'} loading="lazy"/>:<div className="hub-preview-fallback"><span className="hub-identity-glyph">{hubIdentity(active).glyph}</span><strong>{active}</strong><small>Source slide available in the supplied All Hubs material</small></div>}<span>{activeMedia.photos.length?activeMedia.photos.length+' source visuals':'SOURCE PROFILE'}</span></div><div className="hub-preview-copy"><span className="eyebrow">{activeMedia.family||'JYC COMMUNITY'} · {activeMedia.focus||'COMMUNITY'}</span><h3>{active}</h3><p>{activeMedia.summary||'Source-grounded community profile.'}</p><div>{(hubIdentity(active).traits||[]).slice(0,4).map(x=><span key={x}>{x}</span>)}</div><button className="text-link" onClick={()=>nav('/clubs/'+slug(active))}>Open full profile →</button></div></aside>
- </div></section>
+ const visibleEntries=family==='All'?entries:entries.filter(([,p])=>p.family===family);
+ const photoBacked=entries.filter(([name])=>sourceHubMedia(name).photos.length>0).length;
+ const activeIdentity=hubIdentity(active);
+ useEffect(()=>{if(!visibleEntries.some(([name])=>name===active))setActive(visibleEntries[0]?.[0]||'')},[family]);
+ return <section className="hub-directory reveal">
+  <div className="hub-directory-head">
+   <div><span className="eyebrow">JYC HUB DIRECTORY · SOURCE MEDIA</span><h2>Twenty-one communities. Twenty-one identities.</h2><p className="small-copy">Move through the maintained All Hubs archive. The directory separates verified source photography from identity-led profiles instead of substituting unrelated images.</p></div>
+   <div className="hub-directory-stats"><span><b>{entries.length}</b> communities</span><span><b>{photoBacked}</b> photo-backed</span><span><b>{entries.length-photoBacked}</b> profile-led</span></div>
+  </div>
+  <div className="hub-family-row" role="tablist" aria-label="Filter communities by family">
+   <button type="button" className={family==='All'?'is-active':''} onClick={()=>setFamily('All')}>All <b>{entries.length}</b></button>
+   {JYC_HUB_FAMILIES.map(x=><button type="button" className={family===x?'is-active':''} key={x} onClick={()=>setFamily(x)}>{x} <b>{entries.filter(([,p])=>p.family===x).length}</b></button>)}
+  </div>
+  <div className="hub-directory-stage">
+   <div className="hub-directory-list" role="list">
+    {visibleEntries.map(([name,p],i)=>{
+      const live=data.clubs.find(c=>String(c.name||'').trim().toLowerCase()===name.toLowerCase());
+      const identity=hubIdentity(name); const media=sourceHubMedia(name);
+      return <button type="button" key={name} className={`hub-directory-card ${active===name?'is-active':''}`} style={{'--hub-accent':identity.accent,'--hub-accent-soft':`color-mix(in srgb, ${identity.accent} 12%, transparent)`}} onMouseEnter={()=>setActive(name)} onFocus={()=>setActive(name)} onClick={()=>nav(live?'/clubs/'+slug(live.name):'/clubs/'+slug(name))}>
+       <span className="hub-directory-index">{String(entries.findIndex(([n])=>n===name)+1).padStart(2,'0')}</span>
+       <span className="hub-directory-copy"><small>{p.family} · {p.focus}</small><strong>{name}</strong><em>{identity.signature}</em></span>
+       <span className="hub-directory-count">{media.photos.length?media.photos.length+' photos':'profile-led'} ↗</span>
+      </button>
+    })}
+   </div>
+   <aside className="hub-directory-preview" aria-live="polite" style={{'--hub-accent':activeIdentity.accent,'--hub-accent-soft':`color-mix(in srgb, ${activeIdentity.accent} 14%, transparent)`}}>
+    <div className="hub-preview-image">
+     {activeMedia.photos[0]?<img src={activeMedia.photos[0]} alt={active+' supplied JYC visual'} loading="lazy"/>:<div className="hub-preview-fallback"><span className="hub-identity-glyph">{activeIdentity.glyph}</span><strong>{active}</strong><small>Source profile is available; standalone photography has not been extracted for this community.</small></div>}
+     <span>{activeMedia.photos.length?activeMedia.photos.length+' source visuals':'PROFILE-LED SOURCE'}</span>
+    </div>
+    <div className="hub-preview-copy"><span className="eyebrow">{activeMedia.family||'JYC COMMUNITY'} · {activeMedia.focus||'COMMUNITY'}</span><h3>{active}</h3><p>{activeMedia.summary||'Source-grounded community profile.'}</p><div>{(activeIdentity.traits||[]).slice(0,4).map(x=><span key={x}>{x}</span>)}</div><button type="button" className="text-link" onClick={()=>nav('/clubs/'+slug(active))}>Open full profile →</button></div>
+   </aside>
+  </div>
+ </section>
 }
-
 function ClubCard({c,index=0}){
  const nav=useNavigate();
  const identity=hubIdentity(c.name);
