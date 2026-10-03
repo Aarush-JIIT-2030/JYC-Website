@@ -8,6 +8,8 @@ const extra=read('src/extra-features.jsx');
 const pkg=JSON.parse(read('package.json'));
 const socials=read('src/jyc-socials.js');
 const config=read('src/public-v1/config.js');
+const siteConfig=read('src/lib/site-config.js');
+const index=read('index.html');
 const checks=[];
 const add=(name,ok)=>checks.push({name,ok:Boolean(ok)});
 
@@ -39,6 +41,8 @@ add('Contact form does not claim success when Supabase is unconfigured',main.inc
 add('Contact form has name/email/message fields',main.includes('name="name"')&&main.includes('name="email"')&&main.includes('name="message"'));
 add('Homepage What JYC Does covers the senior categories',config.includes("title:'Cultural'")&&config.includes("title:'Technical'")&&config.includes("title:'Literary'")&&config.includes("title:'Sports'")&&config.includes("title:'Management'")&&config.includes("title:'Social Outreach'")&&config.includes("title:'Workshops'")&&config.includes("title:'Competitions'"));
 add('JYC social identity uses the publicly verified handle',socials.includes("instagramHandle: '@jiityouthclub'")&&socials.includes("verifiedBy: 'https://linktr.ee/jiityouthclub'"));
+add('JYC contact config uses the publicly verified handle',siteConfig.includes("instagram:'https://www.instagram.com/jiityouthclub/'")&&!siteConfig.includes('instagram.com/jiityouthclub128/'));
+add('Organization JSON-LD uses the publicly verified handle',index.includes('https://www.instagram.com/jiityouthclub/')&&!index.includes('https://www.instagram.com/jiityouthclub128/'));
 add('Club cards surface verified social actions',main.includes('club-socials')&&main.includes('socialProfile(c.name)'));
 add('Production does not use demo fallback content',main.includes('allowContentFallback:false')&&main.includes('return norm(empty)'));
 
