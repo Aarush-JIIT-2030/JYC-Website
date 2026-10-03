@@ -417,3 +417,9 @@ html[data-theme="dark"] .public-app .nav nav button.active{
  .jyc-family-card p{min-height:0}
  .jyc-structure-steps{grid-template-columns:1fr}
 }
+
+/* Family explorer controls */
+.clubs-page .hub-spectrum-tags button{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;text-align:left;display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:12px;transition:background .25s,transform .25s}
+.clubs-page .hub-spectrum-tags button:hover{background:color-mix(in srgb,var(--jyc33-brand) 9%,transparent);transform:translateY(-2px)}
+.clubs-page .hub-spectrum-tags button.is-active{background:var(--jyc33-brand);color:#171411}
+.clubs-page .hub-spectrum-tags button b{font-size:10px;opacity:.7}
