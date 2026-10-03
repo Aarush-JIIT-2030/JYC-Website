@@ -883,3 +883,29 @@ html[data-theme="dark"] .public-app .nav nav button.active{
  .event-jai-qr{margin:auto}
  .event-jai-contact{justify-content:center}
 }
+
+.hub-directory-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.hub-directory-stats{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.hub-directory-stats span{display:inline-flex;align-items:baseline;gap:6px;padding:9px 11px;border:1px solid var(--jyc33-line);border-radius:999px;background:color-mix(in srgb,var(--jyc33-surface) 82%,transparent);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--jyc33-muted)}
+.hub-directory-stats b{color:var(--jyc33-ink);font-size:13px}
+.hub-family-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0}
+.hub-family-row button{appearance:none;border:1px solid var(--jyc33-line);background:transparent;color:var(--jyc33-muted);border-radius:999px;padding:9px 12px;font:inherit;font-size:11px;cursor:pointer;transition:.25s ease}
+.hub-family-row button b{margin-left:5px;color:var(--jyc33-ink);font-size:10px}
+.hub-family-row button:hover,.hub-family-row button.is-active{background:var(--jyc33-brand);border-color:var(--jyc33-brand);color:#171411;transform:translateY(-1px)}
+.hub-family-row button:hover b,.hub-family-row button.is-active b{color:#171411}
+.hub-directory-list{max-height:680px;overflow:auto;scrollbar-width:thin;overscroll-behavior:contain}
+.hub-directory-card{min-height:74px}
+.hub-directory-preview{position:sticky;top:92px}
+.hub-preview-fallback small{max-width:240px;text-align:center;line-height:1.5}
+@media (max-width:900px){
+ .hub-directory-head{align-items:center;flex-direction:column;text-align:center}
+ .hub-directory-stats{justify-content:center}
+ .hub-directory-preview{position:relative;top:auto}
+ .hub-directory-list{max-height:none}
+}
+@media (max-width:600px){
+ .hub-directory-stats{width:100%}
+ .hub-directory-stats span{flex:1;justify-content:center}
+ .hub-family-row{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;scrollbar-width:none}
+ .hub-family-row button{flex:0 0 auto}
+}
