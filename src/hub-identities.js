@@ -59,7 +59,8 @@ function presetForEvent(name){
   return key?EVENT_PRESETS[key]:null;
 }
 function familyForClub(name){
-  const key=Object.keys(BASE).find(k=>normName(k)===normName(name));
+  const raw=normName(name);
+  const key=Object.keys(BASE).find(k=>raw===normName(k)||raw.includes(normName(k)));
   return key?BASE[key]:null;
 }
 
