@@ -1,3 +1,9 @@
+## V35.0.0 — Archive-media editorial pass
+
+- Added an interactive 21-community source-media directory with hover/focus previews.
+- Added an event timeline preview tied to deterministic event identities.
+- Tightened archive discovery without introducing decorative filler.
+
 ## V34.0.0 — Source-first visual overhaul
 
 - Every maintained JYC community now has its own visual signature and source-media treatment within the shared JYC beige/black/white system.
