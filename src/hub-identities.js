@@ -58,6 +58,23 @@ function presetForEvent(name){
   const key=Object.keys(EVENT_PRESETS).find(k=>raw.includes(normName(k)));
   return key?EVENT_PRESETS[key]:null;
 }
+const EVENT_VISUALS=[
+  {accent:'#4F675C',shape:'grid',glyph:'01',display:'BUILD',surface:'cool'},
+  {accent:'#806447',shape:'wave',glyph:'♫',display:'STAGE',surface:'warm'},
+  {accent:'#6A6250',shape:'circuit',glyph:'◈',display:'SYSTEM',surface:'cool'},
+  {accent:'#765A4F',shape:'poster',glyph:'◆',display:'VISUAL',surface:'warm'},
+  {accent:'#526A5E',shape:'nodes',glyph:'⌘',display:'CONNECT',surface:'cool'},
+  {accent:'#8A6846',shape:'burst',glyph:'✦',display:'MOMENT',surface:'warm'},
+  {accent:'#596B61',shape:'network',glyph:'∿',display:'IDEAS',surface:'cool'},
+  {accent:'#705C4E',shape:'frame',glyph:'◇',display:'PRESENCE',surface:'warm'},
+  {accent:'#55685A',shape:'court',glyph:'◎',display:'PLAY',surface:'cool'},
+  {accent:'#7B6547',shape:'pattern',glyph:'✳',display:'CULTURE',surface:'warm'},
+  {accent:'#5D685B',shape:'flight',glyph:'△',display:'MOTION',surface:'cool'},
+  {accent:'#805D4C',shape:'film',glyph:'▣',display:'STORY',surface:'warm'}
+];
+const hashEvent=v=>{let h=2166136261;for(const ch of String(v||'')){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0};
+const eventSeed=name=>EVENT_VISUALS[hashEvent(normName(name))%EVENT_VISUALS.length];
+
 function familyForClub(name){
   const raw=normName(name);
   const key=Object.keys(BASE).find(k=>raw===normName(k)||raw.includes(normName(k)));
@@ -68,24 +85,16 @@ export function eventIdentity(input,clubName=''){
   const name=typeof input==='string'?input:(input?.title||input?.name||'');
   const club=typeof input==='object'?(input?.club||input?.organiser||clubName):clubName;
   const preset=presetForEvent(name);
-  if(preset)return {...preset,name,kind:'event',club};
   const parent=familyForClub(club);
-  const familyAccent=parent?.accent||'#6B604E';
   const eventType=typeof input==='object'?(input?.eventType||'EVENT'):'EVENT';
-  return {
-    accent:familyAccent,
-    motif:`${parent?.display||'JYC'} / ${String(eventType).toUpperCase()}`,
-    signature:parent?`${parent.signature} · ${eventType}`:`A JYC event within the campus programme · ${eventType}`,
-    traits:parent?.traits||['Community','Campus','JYC'],
-    glyph:parent?.glyph||'◆',
-    surface:parent?.surface||'warm',
-    shape:parent?.shape||'event',
-    display:parent?.display||'EVENT',
-    kind:'event',
-    club
-  };
+  if(preset){
+    return {...preset,name,kind:'event',club,glyph:preset.glyph||eventSeed(name).glyph,display:preset.display||eventSeed(name).display,surface:preset.surface||eventSeed(name).surface};
+  }
+  const visual=eventSeed(name);
+  const familyLabel=parent?.display||String(eventType).toUpperCase();
+  const eventLabel=String(name||'JYC EVENT').trim().toUpperCase();
+  return {...visual,name,kind:'event',club,motif:familyLabel+' / '+visual.display+' / '+String(eventType).toUpperCase(),signature:parent?(eventLabel+' · '+parent.signature):(eventLabel+' · JYC campus experience'),traits:[String(eventType).trim()||'EVENT',...(parent?.traits||['Community','Campus'])].slice(0,4)};
 }
-
 export function hubIdentity(name){
   const key=Object.keys(BASE).find(k=>normName(k)===normName(name));
   return BASE[key]||{accent:'#806A4A',motif:'JYC COMMUNITY',signature:'A student community within JYC',traits:['Community','Campus','Participation'],glyph:'◆',surface:'warm',shape:'community',display:'JYC'};
