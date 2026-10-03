@@ -37,6 +37,10 @@ const PUBLIC_TEAM_FALLBACK=[
  {id:'harisha',name:'Harisha',role:'Creative Head',published:true,bio:'Leads creative coordination across JYC programmes and campus experiences.',photo:''},
  {id:'dhruv-choudhary',name:'Dhruv Choudhary',role:'Management Head',published:true,bio:'Supports management and execution across JYC activities.',photo:''}
 ];
+const JAI_OFFICIAL_MEDIA=[
+ {id:'jai-2026-summit-identity',url:'https://www.jiityouthclub128.in/imgs/ai-summit.png',caption:'JAI 2026 · Jaypee Agentic AI International Summit identity',association:'JAI 2026',year:'2026'},
+ {id:'jai-2026-agentic-hackathon',url:'https://www.jiityouthclub128.in/imgs/ai-agent-face.png',caption:'JAI 2026 · Agentic AI Hackathon official artwork',association:'JAI 2026 · Hackathon',year:'2026'}
+];
 const PUBLIC_GALLERY_FALLBACK=[
  {id:'hub-ebullience-25',url:'/assets/home/ebullience.webp',caption:"Ebullience '25 · Freshers' welcome experience",association:'JYC · Ebullience',year:'2025'},
  {id:'hub-dronowar-1',url:'/assets/home/dron-o-war-1.webp',caption:'Dron-O-War · glimpses from the JYC hub material',association:'Dronotics · Dron-O-War',year:'2026'},
@@ -70,7 +74,7 @@ function mergePublicFallback(d,{allowContentFallback=true}={}){
  const baseClubs=allowContentFallback&&x.clubs?.length===0?fallbackClubs:x.clubs;
  const clubs=enrichSourceClubs(baseClubs);
  const sourceGallery=mergeSourceGallery(x.gallery);
- const gallery=sourceGallery.length?sourceGallery:(allowContentFallback?[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY,...PUBLIC_GALLERY_FALLBACK]:x.gallery);
+ const gallery=sourceGallery.length?sourceGallery:(allowContentFallback?[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY,...JAI_OFFICIAL_MEDIA,...PUBLIC_GALLERY_FALLBACK]:x.gallery);
  const fallbackFeatured=PUBLIC_EVENT_FALLBACK.find(e=>e.id==='agentic-ai-2026');
  const liveEvents=Array.isArray(x.events)?x.events:[];
  const events=allowContentFallback&&fallbackFeatured
