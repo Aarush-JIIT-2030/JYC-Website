@@ -173,7 +173,6 @@ function SiteAtmosphere(){
 }
 
 function App(){const loc=useLocation();const nav=useNavigate();const [data,setData]=useState(()=>import.meta.env.DEV?publicDemoData():norm(empty));const [loading,setLoading]=useState(true);const [bootReady,setBootReady]=useState(false);const [bootStage,setBootStage]=useState('INITIALIZING');const [error,setError]=useState('');const [online,setOnline]=useState(()=>navigator.onLine!==false);const [theme,setTheme]=useState(()=>storageGet('jyc-theme','light')==='dark'?'dark':'light');const [session,setSession]=useState(null);const [admin,setAdmin]=useState(null);const [toast,setToast]=useState(null);const [confirm,setConfirm]=useState(null);
- const [agenticOpen,closeAgentic]=useAgenticPopup();
  useEffect(()=>{const onToast=e=>notify(e.detail?.message||'',e.detail?.type||'success');const onConfirm=e=>setConfirm(e.detail||null);window.addEventListener('jyc-toast',onToast);window.addEventListener('jyc-confirm',onConfirm);return()=>{window.removeEventListener('jyc-toast',onToast);window.removeEventListener('jyc-confirm',onConfirm)}},[]);
  useEffect(()=>{const on=()=>setOnline(true),off=()=>setOnline(false);window.addEventListener('online',on);window.addEventListener('offline',off);return()=>{window.removeEventListener('online',on);window.removeEventListener('offline',off)}},[]);
  useEffect(()=>{document.documentElement.dataset.theme=theme;storageSet('jyc-theme',theme);document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#090a0d':'#eee5d3');},[theme]);
@@ -426,54 +425,8 @@ function Routes({data,admin,session,setAdmin,commit,notify,theme,setTheme}){
  if(clean==='/achievements')return <Achievements data={data}/>;if(clean==='/join-jyc')return <JoinJYC/>;if(clean==='/recruitment')return recruitmentEnabled(data)?<>{schema}<RecruitmentHub data={data}/></>:<Navigate to="/clubs" replace/>;if(clean==='/my-jyc')return <MyJYC data={data} session={session}/>;if(clean==='/calendar'||clean==='/event-calendar')return <>{schema}<CalendarPage data={data}/></>;if(clean==='/planner')return <Navigate to="/events" replace/>;if(clean==='/notifications')return <Navigate to="/my-jyc" replace/>;if(clean==='/login')return <Navigate to="/my-jyc" replace/>;if(clean==='/download')return <Navigate to="/about" replace/>;if(clean==='/discover')return <Navigate to="/clubs" replace/>;if(clean==='/map')return <>{schema}<CampusMapPage data={data}/></>;if(clean.startsWith('/qr/'))return <QRSharePage data={data}/>;if(clean==='/moments')return <Navigate to="/gallery" replace/>;if(clean==='/agenda')return <Navigate to="/my-jyc" replace/>;if(clean==='/projects'||clean==='/projects/submit')return <Navigate to="/clubs" replace/>;if(clean==='/settings')return <Navigate to="/about" replace/>;if(clean==='/resources')return <Navigate to="/about" replace/>;if(clean==='/guide')return <Navigate to="/about" replace/>;if(clean==='/admin')return <Admin data={data} admin={admin} setAdmin={setAdmin} commit={commit} notify={notify} theme={theme} setTheme={setTheme}/>;return <section className="section page not-found-page"><div className="not-found-art"><span>404</span><i aria-hidden="true">JYC</i></div><span className="eyebrow">JYC · ROUTE MISSED</span><h1>This route is not part of the published JYC experience.</h1><p>The page you requested is not part of the published JYC experience.</p><div className="detail-actions"><Button onClick={()=>nav('/')}>Return home</Button><Button secondary onClick={()=>nav('/clubs')}>Explore clubs</Button></div></section>
 }
 function NavIcon({kind}){const paths={home:'M3 10.5 12 3l9 7.5M5.5 9.5V21h13V9.5M9 21v-6h6v6',clubs:'M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8-1.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20a5.5 5.5 0 0 1 11 0M14 20a6 6 0 0 1 7.5 0',events:'M7 3v4M17 3v4M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z',gallery:'M4 5h16v14H4zM4 16l4-4 3 3 2-2 5 5M15 9h.01',team:'M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8-1.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20a5.5 5.5 0 0 1 11 0M14 20a6 6 0 0 1 7.5 0',more:'M5 7h14M5 12h14M5 17h14',search:'M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.5-2 5 5'};return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={paths[kind]||paths.more}/></svg>}
-function AgenticAIPopup({close}){
- return <div className="agentic-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="agentic-popup-title" aria-describedby="agentic-popup-description" onMouseDown={e=>{if(e.target===e.currentTarget)close()}}>
-  <div className="agentic-popup">
-   <button className="agentic-popup-close" onClick={close} aria-label="Close Agentic AI announcement">×</button>
-   <div className="agentic-popup-visual" aria-hidden="true">
-    <span className="agentic-grid"/>
-    <span className="agentic-scanline"/>
-    <span className="agentic-orb agentic-orb-a"/>
-    <span className="agentic-orb agentic-orb-b"/>
-    <span className="agentic-orb agentic-orb-c"/>
-    <span className="agentic-node agentic-node-a"/>
-    <span className="agentic-node agentic-node-b"/>
-    <span className="agentic-node agentic-node-c"/>
-    <span className="agentic-node agentic-node-d"/>
-    <span className="agentic-wire wire-a"/>
-    <span className="agentic-wire wire-b"/>
-    <span className="agentic-wire wire-c"/>
-    <div className="agentic-mark"><small>JAI</small><strong>AGENTIC</strong><em>AI 2026</em></div>
-    <div className="agentic-visual-footer"><span>HUMAN × MACHINE</span><span>30—31 OCT</span></div>
-   </div>
-   <div className="agentic-popup-copy">
-    <span className="agentic-kicker"><i/> JAYPEE AGENTIC AI INTERNATIONAL SUMMIT · JAI 2026</span>
-    <h2 id="agentic-popup-title">Enter the agentic era.</h2>
-    <p id="agentic-popup-description">A dedicated Agentic AI experience is waiting for you. Discover the summit, its ideas, programme and participation details on the event's own experience.</p>
-    <div className="agentic-popup-meta"><span>30–31 October 2026</span><span>JIIT Wish Town · Sector 128</span></div>
-    <div className="agentic-popup-actions"><a className="agentic-primary" href="https://demo-agentic-ai-website.vercel.app/" target="_blank" rel="noopener noreferrer">Enter Agentic AI ↗</a><button className="agentic-secondary" onClick={close}>Continue to JYC</button></div>
-    <small className="agentic-popup-note">This bridge appears whenever JYC is opened or an event detail page is opened. It does not depend on first-visit status.</small>
-   </div>
-  </div>
- </div>
-}
-function useAgenticPopup(){
- const [open,setOpen]=useState(false);
- useEffect(()=>{
-  const fn=()=>setOpen(true);
-  const esc=e=>{if(e.key==='Escape')setOpen(false)};
-  window.addEventListener('jyc-open-agentic',fn);
-  window.addEventListener('keydown',esc);
-  return()=>{window.removeEventListener('jyc-open-agentic',fn);window.removeEventListener('keydown',esc)};
- },[]);
- useEffect(()=>{
-  if(!open)return;
-  const previous=document.body.style.overflow;
-  document.body.style.overflow='hidden';
-  return()=>{document.body.style.overflow=previous};
- },[open]);
- return [open,()=>setOpen(false)]
-}
+
+
 function Navbar({data,admin,theme,setTheme}){
  const nav=useNavigate();const loc=useLocation();
  const [open,setOpen]=useState(false),[moreOpen,setMoreOpen]=useState(false),[search,setSearch]=useState(false),[assistant,setAssistant]=useState(false),[homeSection,setHomeSection]=useState('hero');
@@ -775,7 +728,7 @@ function Home({data}){
   hubStories:<section id="hub-stories" className="section hub-stories-section reveal" key="hubStories"><div className="reference-section-head"><div><span className="eyebrow">FROM THE SUPPLIED HUB MATERIAL</span><h2>More of JYC, from the communities themselves.</h2><p>Stories, programmes and visual material gathered from the supplied JYC hub presentations.</p></div><button className="reference-view-all" onClick={()=>nav('/clubs')}>Explore all hubs <span>→</span></button></div><div className="hub-story-grid">{PDF_HUB_STORIES.map((story,i)=><article className={`hub-story-card hub-story-${i%6}`} key={story.name}><img src={story.image} alt={`${story.name} · ${story.focus}`} loading="lazy"/><div className="hub-story-copy"><span className="tag">{story.family} · {story.focus}</span><h3>{story.name}</h3><p>{story.text}</p><button onClick={()=>nav('/clubs/'+slug(story.name))}>Open hub →</button></div></article>)}</div></section>,
   hubPhotoWall:<section className="section hub-photo-wall-section reveal" key="hubPhotoWall"><div className="reference-section-head"><div><span className="eyebrow">FROM THE HUB ARCHIVE</span><h2>More faces, stages, teams and work.</h2><p>A compact visual wall assembled from the supplied JYC hub presentations.</p></div><button className="reference-view-all" onClick={()=>nav("/gallery")}>Open full gallery <span>→</span></button></div><div className="hub-photo-wall">{PDF_HUB_EXTRA_GALLERY.slice(0,18).map((g,i)=><button className={`hub-photo-wall-item wall-${i%8}`} key={g.id} onClick={()=>nav("/gallery")}><img src={g.url} alt={g.caption} loading="lazy"/><span><small>{g.association}</small><strong>{g.caption.split(" · ")[1]||g.caption}</strong></span></button>)}</div></section>,
   journal:<section className="section jyc-journal-section reveal" key="journal"><div className="reference-section-head"><div><span className="eyebrow">JYC STORIES</span><h2>Communities, captured in their own work.</h2><p>A visual editorial record built from the supplied JYC hub presentations — clubs, performances, technical work and campus experiences.</p></div><button className="reference-view-all" onClick={()=>nav("/archive")}>Open JYC archive <span>→</span></button></div><div className="jyc-journal-grid">{PDF_HUB_STORIES.slice(0,8).map((story,i)=><article className={`jyc-journal-card journal-${i%8}`} key={story.name}><img src={story.image} alt={`${story.name} · ${story.focus}`} loading="lazy"/><div><span className="tag">{story.family} · {story.focus}</span><h3>{story.name}</h3><p>{story.text}</p><button onClick={()=>nav("/clubs/"+slug(story.name))}>Read hub story ↗</button></div></article>)}</div></section>,
-  agentic:<section className="section agentic-home-band reveal" key="agentic"><div className="agentic-home-inner"><div><span className="eyebrow">FEATURED EXPERIENCE · OCTOBER 2026</span><h2>Jaypee Agentic AI 2026.</h2><p>Human intelligence meets agentic possibilities. Open the dedicated experience for highlights, areas, audience and participation.</p></div><button className="btn" onClick={()=>window.dispatchEvent(new CustomEvent('jyc-open-agentic'))}>Explore Agentic AI ↗</button></div></section>,
+  agentic:<section className="section agentic-home-band reveal" key="agentic"><div className="agentic-home-inner"><div><span className="eyebrow">FEATURED EXPERIENCE · OCTOBER 2026</span><h2>Jaypee Agentic AI 2026.</h2><p>Human intelligence meets agentic possibilities. Open the dedicated experience for highlights, areas, audience and participation.</p></div><a className="btn" href="/events/jai-2026-jaypee-agentic-ai-hackathon">Explore Agentic AI ↗</a></div></section>,
   team:<section id="team" className="section home-team-preview reveal" key="team"><div className="reference-section-head"><div><span className="eyebrow">THE PEOPLE BEHIND JYC</span><h2>Meet the people who move JYC.</h2><p>Student leadership and the people behind the communities, events and campus experiences.</p></div><button className="reference-view-all" onClick={()=>nav('/team')}>Meet the team <span>→</span></button></div>{data.team.filter(m=>m.published===true).slice(0,6).map((m,i)=><article className={`home-team-card home-team-collage-${i%6}`} key={m.id||i}><div className="home-team-photo">{teamPhotoFor(m)?<img src={teamPhotoFor(m)} alt={m.name||'JYC team member'} loading="lazy"/>:<img src={logo} alt="JIIT Youth Club logo"/>}</div><div><span className="tag">{m.role||m.position||'JYC Team'}</span><h3>{m.name||'JYC Team Member'}</h3>{(m.bio||m.description)&&<p>{m.bio||m.description}</p>}</div></article>)}</section>,
   cta:<section className="section cta reveal" key="cta"><span className="eyebrow">{h.ctaEyebrow||'READY TO SOAR'}</span><h2>{h.ctaTitle||'One campus. Many ways to belong.'}</h2><p>{h.ctaText||'Explore the public JYC experience and find your next community.'}</p><Button onClick={()=>nav('/clubs')}>{h.ctaButton||'Explore JYC ↗'}</Button></section>
  };
