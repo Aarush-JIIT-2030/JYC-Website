@@ -68,7 +68,8 @@ async function dbWrite(items){
 export default async function handler(req,res){
  if(req.method!=='GET'){res.status(405).json({error:'Method not allowed'});return}
  const sync=req.query?.sync==='1';
- if(sync&&!process.env.JYC_SYNC_SECRET){res.status(503).json({error:'Sync is not configured'});return}\n if(sync&&req.headers['x-jyc-sync-secret']!==process.env.JYC_SYNC_SECRET){res.status(401).json({error:'Unauthorized'});return}
+ if(sync&&!process.env.JYC_SYNC_SECRET){res.status(503).json({error:'Sync is not configured'});return}
+if(sync&&req.headers['x-jyc-sync-secret']!==process.env.JYC_SYNC_SECRET){res.status(401).json({error:'Unauthorized'});return}
  if(!sync&&memory.items.length&&Date.now()-memory.at<CACHE_MS){res.setHeader('Cache-Control','s-maxage=900, stale-while-revalidate=1800');res.status(200).json({items:memory.items,live:true,cached:true});return}
  try{
   let items=await collect();
