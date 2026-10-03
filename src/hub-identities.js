@@ -1,4 +1,4 @@
-/* JYC IDENTITY SYSTEM · V33.3
+/* JYC IDENTITY SYSTEM · V33.3 · 21 maintained community signatures
    Each community and event gets a distinct visual language while remaining inside
    the shared JYC beige / black / white editorial system.
    Accent colours are deliberately muted and source-led; they are not replacement brands.
