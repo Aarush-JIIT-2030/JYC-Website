@@ -10,6 +10,7 @@ const index=read('index.html');
 const pkg=JSON.parse(read('package.json'));
 const sw=read('public/sw.js');
 const hubContent=read('src/v21-hub-content.js');
+const sourceMedia=read('src/jyc-source-media.js');
 
 const hasExactUrl=(content,{protocol,hostname,pathname})=>{
   const matches=content.match(/https?:\/\/[^\s"'`<>)]+/g)??[];
@@ -57,7 +58,7 @@ check('hub identity comment matches maintained count',read('src/hub-identities.j
 check('all 21 hub identities are represented',maintainedHubCount===21&&read('src/hub-identities.js').includes('21 maintained community signatures'));
 check('event identity system covers supplied flagship events',read('src/hub-identities.js').includes('Dron-O-War')&&read('src/hub-identities.js').includes('Converge')&&read('src/hub-identities.js').includes('Code Clash')&&main.includes('eventIdentity(e)'));
 check('event detail carries its own identity lockup',main.includes('event-identity-lockup')&&main.includes('event-identity-panel'));
-check('release metadata is synchronized',pkg.version==='33.3.0');
+check('release metadata is synchronized',pkg.version==='34.0.0');
 
 if(fail)process.exit(1);
 console.log(`V33 public visual QA: ${pass}/${pass+fail} passed.`);
