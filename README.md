@@ -288,3 +288,11 @@ The supplied 2026–27 JYC hub material is treated as the content source for the
 ### Research-informed design direction
 
 The pass uses structural inspiration from JIIT Innovation's event/archive hierarchy, GDG JIIT's programme-first community presentation, OSDC's community storytelling, and editorial/archive gallery patterns. These references informed information architecture and density only; JYC source imagery and content remain the authority for JYC facts.
+
+
+## V35.0 archive-media editorial pass
+
+- Added a desktop editorial hub directory with live source-photo preview and keyboard focus behavior.
+- Added a compact event timeline preview where every event retains its own visual identity and poster when available.
+- Preserved the centered, compact JYC visual system on mobile.
+- Source-photo coverage continues to prefer extracted All Hubs assets and never invents a club-specific photograph.
