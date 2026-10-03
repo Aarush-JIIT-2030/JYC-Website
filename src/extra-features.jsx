@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {supabase} from './lib/supabase';
 import {jycToast,jycConfirm} from './lib/ui';
 import {JYC_CONTACTS} from './lib/site-config.js';
+import {JYC_HUB_CONTENT,JYC_HUB_FAMILIES} from './v21-hub-content.js';
 import {hasLocalReminder,scheduleEventReminder,clearLocalReminder,subscribeSaved,isSaved,setSaved,googleCalendarUrl} from './v15-functional.js';
 
 const savedKeys={club:'jyc-saved-club-',event:'jyc-saved-event-'};
@@ -274,13 +275,19 @@ export function RegistrationPage({data,id,session}){const event=data.events.find
  const [filtersOpen,setFiltersOpen]=useState(()=>typeof window!=='undefined'?window.innerWidth>900:false);
  const [albums,setAlbums]=useState([]);
  useEffect(()=>{let alive=true;supabase.from('jyc_media_albums').select('id,name,slug,cover_url').eq('is_published',true).order('created_at',{ascending:false}).then(({data:rows})=>{if(alive)setAlbums(rows||[])});return()=>{alive=false}},[]);
+ const collectionOf=g=>{
+  const association=String(g?.association||'').trim().toLowerCase();
+  const hub=Object.keys(JYC_HUB_CONTENT).find(name=>association===name.toLowerCase()||association.includes(name.toLowerCase()));
+  return hub?JYC_HUB_CONTENT[hub].family:'';
+ };
  const items=(data.gallery||[])
-  .filter(g=>filter==='All'||g.association===filter||g.type===filter)
+  .filter(g=>filter==='All'||g.association===filter||g.type===filter||collectionOf(g)===filter)
   .filter(g=>year==='All'||String(g.year||g.date||'').startsWith(String(year)))
   .filter(g=>album==='All'||String(g.albumId||g.album_id||'')===String(album));
- const types=['All',...new Set((data.gallery||[]).map(g=>g.association||g.type).filter(Boolean))];
+ const curatedCollections=['JYC Archive','Converge','Ebullience','Dron-O-War'];
+ const types=['All',...JYC_HUB_FAMILIES,...curatedCollections];
  const years=['All',...new Set((data.gallery||[]).map(g=>String(g.year||g.date||'').slice(0,4)).filter(Boolean))].sort((a,b)=>a==='All'?-1:b==='All'?1:String(b).localeCompare(String(a)));
- return <section className="section page gallery-page unified-public-page v40-gallery-page"><div className="feature-hero"><span className="eyebrow">JYC VISUAL ARCHIVE</span><h1>Moments worth keeping.</h1><p>A visual record of the people, places, stages and communities that make JIIT campus life feel like JYC.</p><div className="v40-gallery-stats"><span><b>{items.length}</b> visible moments</span><span><b>{years.filter(x=>x!=='All').length}</b> years</span><span><b>{albums.length}</b> published albums</span><span><b>128</b> campus</span></div></div><div className="gallery-controls"><button type="button" className={`filter-toggle ${filtersOpen?'active':''}`} onClick={()=>setFiltersOpen(v=>!v)} aria-expanded={filtersOpen}>Filters <span>{filtersOpen?'−':'+'}</span></button></div>{filtersOpen&&<div className="gallery-filter reveal"><div className="gallery-years" aria-label="Gallery years">{years.map(x=><button className={year===x?'active':''} key={x} onClick={()=>setYear(x)}>{x==='All'?'All years':x}</button>)}</div>{types.map(x=><button className={filter===x?'active':''} key={x} onClick={()=>setFilter(x)}>{x}</button>)}{albums.length>0&&<div className="gallery-albums" aria-label="Gallery albums"><button className={album==='All'?'active':''} onClick={()=>setAlbum('All')}>All photos</button>{albums.map(a=><button className={String(album)===String(a.id)?'active':''} key={a.id} onClick={()=>setAlbum(a.id)}>{a.name}</button>)}</div>}</div>}{items.length?<GalleryItems items={items}/>:<div className="feature-empty"><strong>No images match these filters.</strong><span>Official JYC images will appear here after an administrator publishes them.</span></div>}</section>
+ return <section className="section page gallery-page unified-public-page v40-gallery-page"><div className="feature-hero"><span className="eyebrow">JYC VISUAL ARCHIVE</span><h1>Moments worth keeping.</h1><p>A visual record of the people, places, stages and communities that make JIIT campus life feel like JYC.</p><div className="v40-gallery-stats"><span><b>{items.length}</b> visible moments</span><span><b>{years.filter(x=>x!=='All').length}</b> years</span><span><b>{albums.length}</b> published albums</span><span><b>{JYC_HUB_FAMILIES.length}</b> hub families</span></div><div className="gallery-source-ledger"><span>SOURCE ARCHIVE</span><strong>JYC hub presentations · maintained public media · published albums</strong><small>Source visuals remain labelled in the lightbox and are never presented as synthetic event photography.</small></div></div><div className="gallery-controls"><button type="button" className={`filter-toggle ${filtersOpen?'active':''}`} onClick={()=>setFiltersOpen(v=>!v)} aria-expanded={filtersOpen}>Filters <span>{filtersOpen?'−':'+'}</span></button></div>{filtersOpen&&<div className="gallery-filter reveal"><div className="gallery-years" aria-label="Gallery years">{years.map(x=><button className={year===x?'active':''} key={x} onClick={()=>setYear(x)}>{x==='All'?'All years':x}</button>)}</div>{types.map(x=><button className={filter===x?'active':''} key={x} onClick={()=>setFilter(x)}>{x}</button>)}{albums.length>0&&<div className="gallery-albums" aria-label="Gallery albums"><button className={album==='All'?'active':''} onClick={()=>setAlbum('All')}>All photos</button>{albums.map(a=><button className={String(album)===String(a.id)?'active':''} key={a.id} onClick={()=>setAlbum(a.id)}>{a.name}</button>)}</div>}</div>}{items.length?<GalleryItems items={items}/>:<div className="feature-empty"><strong>No images match these filters.</strong><span>Official JYC images will appear here after an administrator publishes them.</span></div>}</section>
 }
 export function GalleryItems({items}){
  const [activeIndex,setActiveIndex]=useState(null);
