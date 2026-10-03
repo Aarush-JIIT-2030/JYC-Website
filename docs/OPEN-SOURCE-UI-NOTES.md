@@ -1,34 +1,48 @@
-# Open-source UI references
+# JYC UI & product references
 
-JYC V18.10 uses the strongest patterns from earlier JYC UI passes and selectively adapts open-source interaction ideas. The implementation remains owned by the repository rather than depending on a large animation runtime.
+This document records reference patterns used for the maintained JYC website. References inform information architecture, accessibility and interaction quality; JYC does not copy their visual identity.
 
-## External references reviewed
+## Open-source interaction references
 
-- React Bits — animated React components and micro-interactions: https://github.com/DavidHDev/react-bits
-- shadcn/ui — accessible, copy-owned component patterns: https://github.com/shadcn-ui/ui
-- Motion — animation primitives for React/JavaScript: https://github.com/motiondivision/motion
-- Foundation Motion UI — CSS/Sass motion patterns: https://github.com/foundation/motion-ui
+- React Bits — selective micro-interaction ideas.
+- shadcn/ui — accessible, composable UI patterns.
+- Motion — principles for restrained state transitions.
+- Foundation Motion UI — reduced-motion-friendly animation patterns.
 
-## Campus/product references reviewed
+## JIIT / 128-campus references
 
-- IIT Bombay Students' Gymkhana / InstiApp — organizations, events and people as the core student-activity model.
-- IIT Kharagpur Technology Students' Gymkhana — committees/communities, events and current council/people.
+- JIIT official 2026 admission material — current club/community naming and JYC 128 context.
+- JIIT Innovation — event/archive, registration, team, project and gallery patterns.
+- CICR — focused 128-campus club architecture: mission, capabilities, projects, events, community and contact.
+- Current JYC 128 public activity — major event experiences such as Converge and JAI.
 
-JYC does not copy those sites. They inform information architecture and interaction priorities only.
+## Comparable student-activity references
 
-## What JYC adapted
+- BMU Nexus — club discovery, event discovery and participation-oriented information architecture.
+- ISI Bangalore Student Activities — searchable club directory, representatives, events, “get listed” and correction workflows.
 
-- relevance-first search with exact-title dominance
-- keyboard-first search and focus states
-- editorial card hierarchy and restrained motion
-- Phoenix depth/orbit interaction
-- three Phoenix doors: Communities / Experiences / People
-- custom cursor on precise pointers
-- gallery lightbox with keyboard navigation
-- calendar source switching between JYC and academic dates
+## What JYC should retain
+
+- relevance-first global search
+- editorial card hierarchy
+- strong club/event identity without visual fragmentation
+- keyboard-first interaction
+- semantic controls and visible focus states
+- gallery/lightbox accessibility
+- calendar integration
 - mobile-first admin navigation
-- reduced-motion fallbacks
+- reduced-motion support
+- Phoenix as a restrained signature identity
+
+## What the maintained experience deliberately avoids
+
+- custom cursor as a primary interaction
+- persistent decorative flight effects
+- excessive orbit systems
+- animation-heavy first viewport
+- generic AI-dashboard aesthetics
+- synthetic content presented as official JYC records
 
 ## Accessibility rule
 
-Decorative motion is reduced or disabled under `prefers-reduced-motion: reduce`. The custom cursor is disabled on coarse/touch pointers so it never replaces the native touch interaction.
+Motion must remain subordinate to content and is reduced under `prefers-reduced-motion: reduce`. Native pointer, keyboard and touch interaction must remain complete without decorative interaction layers.
