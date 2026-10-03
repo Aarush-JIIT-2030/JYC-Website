@@ -12,7 +12,7 @@ const checks=[
  ['loading uses JYC identity mark',main.includes('loading-v41-mark-wrap')&&main.includes('<LogoImage alt="JIIT Youth Club"/>')],
  ['v41 stylesheet is wired through public system',publicCss.includes("@import '../v41-club-experience.css';")],
  ['v41 stylesheet has reduced motion contract',css.includes('@media(prefers-reduced-motion:reduce)')],
- ['v41 stylesheet has mobile contract',css.includes('@media(max-width:680px)')],
+ ['v41 stylesheet has mobile contract',css.includes('@media (max-width:680px)')],
  ['v41 stylesheet uses senior logo palette',css.includes('var(--jyc-navy)')&&css.includes('var(--jyc-champagne)')&&css.includes('var(--jyc-ivory)')],
  ['no custom cursor added',!css.includes('cursor:none')&&!main.includes('custom-cursor')],
 ];
