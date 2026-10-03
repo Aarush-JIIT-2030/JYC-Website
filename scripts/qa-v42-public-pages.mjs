@@ -22,7 +22,7 @@ const checks=[
  ['JYC maintains 21 communities',Object.keys({}).length===0&&((hub.match(/^\s{2}(?:'[^']+'|[A-Za-z][^:]+):\{/gm)||[]).length===21)],
  ['PDF archive modules are wired',main.includes('PDF_HUB_GALLERY')&&main.includes('PDF_HUB_EXTRA_GALLERY')&&main.includes('PDF_HUB_PROGRAMME')],
  ['V42 stylesheet wired through public system',publicCss.includes("@import '../v42-public-pages.css';")],
- ['V42 has responsive layouts',css.includes('@media (max-width:1000px)')&&css.includes('@media (max-width:680px)')],
+ ['V42 has responsive layouts',css.includes('@media(max-width:1000px)')&&css.includes('@media(max-width:680px)')],
  ['V42 respects reduced motion',css.includes('@media (prefers-reduced-motion:reduce)')],
  ['V42 stays within JYC palette',css.includes('var(--jyc-navy)')&&css.includes('var(--jyc-champagne)')&&css.includes('var(--jyc-ivory)')],
  ['No custom cursor introduced',!css.includes('cursor:none')&&!main.includes('custom-cursor')],
