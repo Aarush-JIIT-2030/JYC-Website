@@ -15,6 +15,7 @@ const scripts = [
   'qa-sql-contract.mjs',
   'qa-architecture.mjs',
   'qa-logo-theme.mjs',
+  'qa-v41-club-experience.mjs',
   'qa-final-product.mjs',
   'qa-data-integrity.mjs',
   'qa-accessibility-contract.mjs',
