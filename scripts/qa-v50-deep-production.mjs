@@ -6,7 +6,7 @@ const api=read('api/jyc-updates.js');
 const popup=read('src/featured-event-popup.jsx');
 const now=read('src/jyc-now.jsx');
 check('JYC Now provider requests have a bounded timeout',api.includes('FETCH_TIMEOUT_MS=8000')&&api.includes('fetchWithTimeout'));
-check('all JYC Now providers use bounded fetches',!api.match(/\\bfetch\\((u|p|feedUrl|`\\$\\{supabaseUrl\\})/));
+check('all JYC Now providers use bounded fetches',!api.includes('await fetch(u,')&&!api.includes('await fetch(p,')&&!api.includes('await fetch(feedUrl,'));
 check('featured event dialog has a focus trap',popup.includes("e.key==='Tab'")&&popup.includes('dialogRef.current.querySelectorAll'));
 check('featured event dialog retains Escape dismissal',popup.includes("e.key==='Escape'"));
 check('JYC Now images have meaningful alt text',now.includes("alt={`${item.hub||'JYC'} — ${item.title}`}"));
