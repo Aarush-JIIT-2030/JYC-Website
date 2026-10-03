@@ -1,3 +1,11 @@
+# JYC Website — V33.2 production public experience
+
+> Current release: **33.2.0** · branch: `v33-jyc-public-experience-overhaul`
+
+The public JYC experience uses one restrained beige / black / white visual system across light and dark modes. The maintained source list currently contains **20 named communities** grouped into five families: Cultural, Technical, Creative, Literary and Sports. The site deliberately separates supplied orientation/archive context from live operational records published through the JYC Control Center.
+
+V33.2 adds family-aware event discovery, a compact evidence rail on every hub page, explicit source navigation, synchronized release/cache metadata, and QA coverage for those contracts.
+
 # JIIT Youth Club — Official Website
 
 [![JYC CI](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml/badge.svg)](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml) [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)](https://vite.dev/) [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=fff)](https://supabase.com/)
@@ -186,7 +194,7 @@ See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the c
 
 ## V22 final UI repair
 
-The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 21 supplied hub communities plus published leadership/event material when no Supabase content is available.
+The final public shell uses one warm paper/beige visual language across Home, Clubs, Events, Team and supporting public pages. The primary navigation no longer contains a separate Participate CTA. Returning visitors are kept in the light JYC theme, the assistant launcher is intentionally compact and static, and local/GitHub preview has a grounded public fallback for the 20 maintained hub communities plus published leadership/event material when no Supabase content is available.
 
 
 ## V26.2 Campus discovery pass
