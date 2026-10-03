@@ -49,7 +49,7 @@ check('verified leadership content remains source-grounded',main.includes('Dr. V
 check('production path does not fabricate demo content',main.includes('allowContentFallback:false')&&main.includes('return norm(empty)'));
 check('JYC logo remains the public hero identity',main.includes('hero-logo-stage')&&main.includes('<img src={logo}'));
 check('SEO/social preview remains logo-led',index.includes('og:image" content="/jyc-logo-circle.png"')&&index.includes('twitter:image" content="/jyc-logo-circle.png"'));
-check('service worker cache is current',sw.includes('jyc-cache-v34-0-0'));
+check('service worker cache is current',sw.includes('jyc-cache-v35-0-0'));
 const maintainedHubCount=(hubContent.match(/^\s{2}(?:'[^']+'|[A-Za-z][^:]+):\{/gm)||[]).length;
 check('orientation source count stays internally consistent',main.includes('21 communities')&&main.includes("Object.keys(JYC_HUB_CONTENT).length")&&maintainedHubCount===21);
 check('hub detail exposes source and live evidence layers',main.includes('hub-evidence-rail')&&main.includes('club-source')&&main.includes('Published JYC records provide the live layer'));
@@ -60,7 +60,9 @@ check('event identity system covers supplied flagship events',read('src/hub-iden
 check('event detail carries its own identity lockup',main.includes('event-identity-lockup')&&main.includes('event-identity-panel'));
 check('source-first hub media helper exists',sourceMedia.includes('enrichSourceClubs')&&sourceMedia.includes('mergeSourceGallery')&&sourceMedia.includes('QUALITY_OVERRIDES'));
 check('event identity fallback is deterministic',read('src/hub-identities.js').includes('EVENT_VISUALS')&&read('src/hub-identities.js').includes('hashEvent')&&read('src/hub-identities.js').includes('eventSeed'));
-check('release metadata is synchronized',pkg.version==='34.0.0');
+check('hub directory editorial preview exists',main.includes('hub-directory-stage')&&main.includes('hub-directory-preview')&&main.includes('onMouseEnter={()=>setActive(name)}'));
+check('event timeline preview exists',main.includes('EventTimelinePreview')&&main.includes('event-timeline-row'));
+check('release metadata is synchronized',pkg.version==='35.0.0');
 
 if(fail)process.exit(1);
 console.log(`V33 public visual QA: ${pass}/${pass+fail} passed.`);
