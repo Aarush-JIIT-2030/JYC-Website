@@ -34,8 +34,8 @@ check('verified leadership content remains source-grounded',main.includes('Dr. V
 check('production path does not fabricate demo content',main.includes('allowContentFallback:false')&&main.includes('return norm(empty)'));
 check('JYC logo remains the public hero identity',main.includes('hero-logo-stage')&&main.includes('<img src={logo}'));
 check('SEO/social preview remains logo-led',index.includes('og:image" content="/jyc-logo-circle.png"')&&index.includes('twitter:image" content="/jyc-logo-circle.png"'));
-check('service worker cache is current',sw.includes('jyc-cache-v33-0-0'));
-check('release metadata is synchronized',pkg.version==='33.0.0');
+check('service worker cache is current',sw.includes('jyc-cache-v33-1-0'));
+check('release metadata is synchronized',pkg.version==='33.1.0');
 
 if(fail)process.exit(1);
 console.log(`V33 public visual QA: ${pass}/${pass+fail} passed.`);
