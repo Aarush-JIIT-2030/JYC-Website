@@ -1,19 +1,38 @@
-# JIIT Youth Club (JYC)
+# JIIT Youth Club 128 — Official Website
 
-JIIT Youth Club is the student-led campus ecosystem for JIIT Noida. The public JYC website is the canonical place to discover published student clubs, events, fests, moments and campus activity.
+JIIT Youth Club 128 is the student-led central coordinating body for major college events, fests and inter-society activities at JIIT Wish Town Campus, Sector 128, Noida.
+
+The public website is the official organisational source for published JYC information: identity, leadership, clubs and hubs, events, achievements, announcements, gallery/memories and contact.
 
 ## Core public pages
-- / — JIIT Youth Club home: clubs, events, fests and student activity discovery.
-- /clubs — official published JIIT student clubs and communities.
-- /events — official published JYC events, workshops, competitions and campus activities.
-- /fests — official published JYC fests and flagship campus events.
-- /calendar — JYC events calendar.
-- /gallery — official JYC moments and event/fest photo archive.
-- /about — JYC purpose, communities and quick-start answers.
-- /team — public JYC team information.
+
+- / — JYC 128 home
+- /about — About JYC
+- /leadership — JYC 128 leadership and organisational structure
+- /clubs — official published clubs and hubs
+- /events — official published JYC events
+- /events/:id — event details, registration, rules, FAQs, results and recap
+- /gallery — official event and club memories
+- /achievements — documented JYC achievements
+- /announcements — official JYC notices, registrations, results and updates
+- /join-jyc — recruitment destination; currently Coming Soon unless an official cycle is published
+- /contact — official contact channels and query form
 
 ## Canonical content rule
-Only content published by JYC administrators should be treated as official. Dynamic club and event pages are canonical when they are published and publicly accessible.
 
-## Search terms
-JIIT Youth Club, JYC, JIIT JYC, JIIT Youth Club Noida, official JIIT Youth Club website, JYC Sector 128, JIIT Noida clubs, JIIT clubs, clubs in JIIT Noida, JIIT club list, JIIT student clubs, JIIT societies, JIIT student communities, JIIT events, JIIT event calendar, JIIT campus events, JIIT fests, JIIT fest, JIIT annual fest, JIIT cultural fest, JIIT technical fest, Impressions JIIT, Converge JIIT, JIIT club recruitment, JIIT campus activities, JIIT extracurricular activities, JIIT campus life, JIIT Youth Club events.
+Only content published by authorised JYC editors should be treated as current official information. Historical brochures, supplied presentations and archived material are context unless re-verified.
+
+Current records should be sourced and, where applicable, carry a last-verified date.
+
+## Organisation vocabulary
+
+JIIT Youth Club 128, JYC 128, JIIT Youth Club, JIIT Wish Town Campus, Sector 128, Noida, JYC leadership, JYC clubs, JYC hubs, JYC events, JYC fests, JYC achievements, JYC gallery, JYC announcements.
+
+## Product boundary
+
+This site is an official JYC organisational website. It is not an academic portal, attendance system, student-help portal, campus utility dashboard or social-network clone.
+
+## Official identity
+
+Instagram: @jiityouthclub
+LinkedIn: JIIT Youth Club
