@@ -8,13 +8,12 @@ if(pkg.version!=='49.0.0')fail('package version must be 49.0.0');
 if(lock.version!=='49.0.0'||lock.packages?.['']?.version!=='49.0.0')fail('lockfile root version must be 49.0.0');
 const main=read('src/main.jsx'),socials=read('src/jyc-socials.js'),hubs=read('src/v21-hub-content.js'),api=read('api/jyc-updates.js'),index=read('index.html'),theme=read('src/jyc-logo-final-theme.css');
 const requiredHubs=['Fortissimo','BDS','VamUnique','Panache','RPH','CICR','Innovation','Zencoders','JODC','CypherX','Arcadia','Neural Nexus','GDG','Dronotics','Aakriti','Aura','Cinekala','Abhivyakti','Prismatic','Eloquence','JSA'];
-const keyPattern=hub=>new RegExp("[\\\"']?"+hub.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\for(const hub of requiredHubs){if(!hubs.includes(hub))fail('hub missing from canonical content: '+hub);if(!socials.includes("'"+hub+"':"))fail('hub missing from social registry: '+hub);}')+"[\\\"']?\\\\s*:");\nfor(const hub of requiredHubs){if(!hubs.includes(hub))fail('hub missing from canonical content: '+hub);if(!keyPattern(hub).test(socials))fail('hub missing from social registry: '+hub);}
+for(const hub of requiredHubs){if(!hubs.includes(hub))fail('hub missing from canonical content: '+hub);if(!(socials.includes(hub+':')||socials.includes("'"+hub+"':")||socials.includes('"'+hub+'":')))fail('hub missing from social registry: '+hub);}
 for(const route of ['/','/about','/history','/clubs','/events','/fests','/team','/gallery','/contact','/calendar','/recruitment','/updates'])if(!main.includes("'"+route+"'"))fail('public route contract missing: '+route);
 if(!main.includes('unknownRoute'))fail('unknown-route handling is missing');
 if(!main.includes('noindex:privateRoute||unknownRoute'))fail('unknown/private routes must not be indexed');
 if(!index.includes('rel="canonical"')||!index.includes('application/ld+json'))fail('index SEO contract missing');
 if(!api.includes('sync&&!process.env.JYC_SYNC_SECRET')||!api.includes("sync&&req.headers['x-jyc-sync-secret']"))fail('sync endpoint guard missing');
-if(!api.includes('sync&&!process.env.JYC_SYNC_SECRET'))fail('sync endpoint must fail closed when secret is absent');
 if(!api.includes("process.env.JYC_LINKEDIN_VERSION||'202609'"))fail('LinkedIn connector must default to 202609');
 if(/custom-cursor|cursor-dot/i.test(theme))fail('custom cursor styling is present in final theme');
 if(!theme.includes('.hero-logo-ring')||!theme.includes('display:none!important'))fail('rejected orbital UI is not explicitly disabled');
