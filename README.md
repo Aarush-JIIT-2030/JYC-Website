@@ -1,3 +1,7 @@
+## V33.3 — Distinct hub & event identities
+
+The maintained JYC ecosystem now follows the supplied 2026–27 All Hubs material: **21 named communities across five families**. Every community has a distinct but restrained visual identity, while events receive their own event-domain language and inherit their organiser identity when no specific preset exists. The shared JYC beige / black / white system remains the foundation, so identity adds recognition without turning the site into 21 unrelated mini-sites.
+
 # JYC Website — V33.2 production public experience
 
 > Current release: **33.2.0** · branch: `v33-jyc-public-experience-overhaul`
