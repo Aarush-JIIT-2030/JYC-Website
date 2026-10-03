@@ -35,6 +35,7 @@ Apply the ordered files in `supabase/migrations/` after the existing bootstrap/r
 1. `202610030001_production_hardening.sql`
 2. `202610030002_ai_hardening.sql`
 3. `202610030003_campus_verification.sql`
+4. `202610030004_media_write_boundary.sql`
 
 Run the backup/restore drill documented in `docs/PRODUCTION-BACKUP-RESTORE.md` before treating a new production environment as recoverable.
 
