@@ -11,6 +11,7 @@ The public website is the official organisational source for published JYC infor
 - /leadership — JYC 128 leadership and organisational structure
 - /clubs — official published clubs and hubs
 - /events — official published JYC events
+- /fests — official published JYC fests and flagship events
 - /events/:id — event details, registration, rules, FAQs, results and recap
 - /gallery — official event and club memories
 - /achievements — documented JYC achievements
