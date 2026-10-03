@@ -909,3 +909,42 @@ html[data-theme="dark"] .public-app .nav nav button.active{
  .hub-family-row{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;scrollbar-width:none}
  .hub-family-row button{flex:0 0 auto}
 }
+
+
+/* V35.1 production hardening
+   Keep the approved editorial system calm on first paint and compact on small screens.
+*/
+.loading-orbit,.loading-ring{
+  display:none!important;
+}
+.home .hero::after{
+  animation:none!important;
+}
+@media (max-width:700px){
+  .home .hero{
+    padding-block:28px 26px!important;
+  }
+  .home .hero::after{
+    inset:2% 3% 1%!important;
+    border-radius:24px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .public-app *,
+  .public-app *::before,
+  .public-app *::after,
+  .loading *,
+  .site-atmosphere *{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.001ms!important;
+  }
+}
+.public-app a[target="_blank"],
+.public-app button,
+.public-app input,
+.public-app textarea,
+.public-app select{
+  -webkit-tap-highlight-color:transparent;
+}
