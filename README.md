@@ -242,3 +242,10 @@ Provider credentials must never use a `VITE_` prefix or appear in browser code.
 - Featured JAI 2026 popup appears on every fresh public website visit, including returning visitors, with official site, Unstop registration and Discord actions.
 - Club social identities are maintained in `src/jyc-socials.js`; only publicly verified handles are added, with hub-PDF provenance where applicable.
 - Public hub/profile pages continue to use supplied All Hubs material and source photography rather than invented club facts.
+
+
+## Current release
+
+**V49 — Production Finish** is the current release candidate. It adds the final interaction layer, mobile resilience, fail-closed JYC Now synchronization, connector versioning, and the production-finish QA contract.
+
+See RELEASE-V49-PRODUCTION-FINISH.md.

@@ -31,7 +31,7 @@ async function linkedin(hub,org){
  const token=process.env.LINKEDIN_ACCESS_TOKEN;if(!token||!org)return [];
  const author=String(org).startsWith('urn:li:organization:')?String(org):'urn:li:organization:'+String(org);
  const u=new URL('https://api.linkedin.com/rest/posts');u.searchParams.set('q','author');u.searchParams.set('author',author);u.searchParams.set('count','8');u.searchParams.set('sortBy','LAST_MODIFIED');
- const r=await fetch(u,{headers:{Authorization:'Bearer '+token,'X-Restli-Protocol-Version':'2.0.0','Linkedin-Version':process.env.JYC_LINKEDIN_VERSION||'202606'}});
+ const r=await fetch(u,{headers:{Authorization:'Bearer '+token,'X-Restli-Protocol-Version':'2.0.0','Linkedin-Version':process.env.JYC_LINKEDIN_VERSION||'202609'}});
  if(!r.ok)throw Error('LinkedIn '+r.status);
  const data=await r.json();
  return (data.elements||[]).filter(x=>x.lifecycleState==='PUBLISHED').map(x=>({externalId:x.id,hub,platform:'LinkedIn',type:x.content?.media?'Post':'Update',title:cleanText(x.commentary).split('. ')[0]||hub+' LinkedIn update',summary:cleanText(x.commentary).slice(0,220),publishedAt:x.publishedAt?new Date(x.publishedAt).toISOString():x.createdAt?new Date(x.createdAt).toISOString():'',url:'https://www.linkedin.com/feed/update/'+encodeURIComponent(x.id),image:'',verified:true}));
@@ -68,7 +68,8 @@ async function dbWrite(items){
 export default async function handler(req,res){
  if(req.method!=='GET'){res.status(405).json({error:'Method not allowed'});return}
  const sync=req.query?.sync==='1';
- if(sync&&process.env.JYC_SYNC_SECRET&&req.headers['x-jyc-sync-secret']!==process.env.JYC_SYNC_SECRET){res.status(401).json({error:'Unauthorized'});return}
+ if(sync&&!process.env.JYC_SYNC_SECRET){res.status(503).json({error:'Sync is not configured'});return}
+if(sync&&req.headers['x-jyc-sync-secret']!==process.env.JYC_SYNC_SECRET){res.status(401).json({error:'Unauthorized'});return}
  if(!sync&&memory.items.length&&Date.now()-memory.at<CACHE_MS){res.setHeader('Cache-Control','s-maxage=900, stale-while-revalidate=1800');res.status(200).json({items:memory.items,live:true,cached:true});return}
  try{
   let items=await collect();
