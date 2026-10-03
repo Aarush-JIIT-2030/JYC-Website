@@ -489,6 +489,7 @@ html[data-theme="dark"] .public-app .nav nav button.active{
 .club-identity-page,.event-identity-page,.event-identity-card{
   --identity-ink:var(--jyc33-ink);
 }
+.club-identity-page,.event-identity-page{position:relative;}
 .club-identity-page::before,.event-identity-page::before{
   content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--hub-accent);
   opacity:.75;pointer-events:none;
