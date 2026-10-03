@@ -599,3 +599,120 @@ html[data-theme="dark"] .public-app .nav nav button.active{
   .hub-identity-traits span{font-size:9px}
   .event-identity-lockup{align-items:flex-start}
 }
+
+
+/* ================================================================
+   V34 · SOURCE-FIRST / CENTERED PUBLIC EXPERIENCE
+   Inspiration: JIIT Innovation's clear event hierarchy, GDG JIIT's
+   programme-first community structure, OSDC's community storytelling,
+   and editorial archive patterns. No copied visual assets.
+   ================================================================ */
+:root{
+  --jyc34-paper:#fbf8ef;
+  --jyc34-ink:#171512;
+  --jyc34-muted:#6e685e;
+  --jyc34-line:rgba(23,21,18,.12);
+  --jyc34-beige:#F5D894;
+  --jyc34-beige-soft:rgba(245,216,148,.18);
+  --jyc34-radius:20px;
+  --jyc34-content:min(1240px,calc(100% - 40px));
+}
+[data-theme="dark"],.dark{
+  --jyc34-paper:#11100e;
+  --jyc34-ink:#f7f1e4;
+  --jyc34-muted:#aaa398;
+  --jyc34-line:rgba(247,241,228,.14);
+  --jyc34-beige-soft:rgba(245,216,148,.10);
+}
+
+/* One alignment rule across the public experience. */
+.public-app .section,.public-app .page,.public-app .feature-page,.public-app .unified-public-page{width:var(--jyc34-content)!important;margin-inline:auto!important;text-align:center;}
+.public-app .section-head,.public-app .reference-section-head,.public-app .compact-page-head,.public-app .feature-hero,.public-app .archive-hero,.public-app .team-hero-panel,.public-app .about-hero,.public-app .contact-hero{margin-inline:auto!important;text-align:center!important;}
+.public-app .section-head p,.public-app .reference-section-head p,.public-app .feature-hero p,.public-app .large-copy,.public-app .page p{margin-inline:auto;}
+.public-app .section{padding-block:clamp(28px,4vw,46px)!important;}
+.public-app .page{padding-top:18px!important;padding-bottom:38px!important;}
+.public-app .section+.section{margin-top:0!important;}
+.public-app h1,.public-app h2,.public-app h3,.public-app h4,.public-app p,.public-app .eyebrow,.public-app .tag{overflow-wrap:anywhere;}
+
+/* Compact grids: fill the canvas without manufacturing blank blocks. */
+.public-app .activity-grid,.public-app .club-grid,.public-app .event-grid,.public-app .feature-grid,.public-app .team-grid,.public-app .gallery-grid,.public-app .archive-story-grid{align-items:stretch;}
+.public-app .activity-card,.public-app .club-card,.public-app .event-card,.public-app .feature-card,.public-app .team-card,.public-app .gallery-item,.public-app .archive-story{min-height:0!important;height:auto!important;}
+.public-app .club-grid,.public-app .event-grid,.public-app .feature-grid{grid-auto-rows:1fr;}
+.public-app .club-card,.public-app .event-card,.public-app .feature-card{display:flex!important;flex-direction:column!important;justify-content:flex-start!important;}
+.public-app .club-card .card-body,.public-app .event-card .card-body,.public-app .feature-card .card-body{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.public-app .club-card-footer,.public-app .event-card-footer,.public-app .feature-actions{margin-top:auto!important;justify-content:center!important;}
+
+/* Club identity: distinct but still recognisably JYC. */
+.public-app .club-identity-card{overflow:hidden;position:relative;isolation:isolate;}
+.public-app .club-identity-card:after{content:"";position:absolute;inset:auto -10% -52% auto;width:220px;height:220px;border-radius:50%;border:1px solid var(--hub-accent-line);background:var(--hub-accent-soft);pointer-events:none;z-index:-1;}
+.public-app .club-identity-mini{display:grid;gap:5px;justify-items:center;text-align:center;width:100%;}
+.public-app .club-identity-mini>span{display:inline-flex;align-items:center;justify-content:center;gap:7px;color:var(--hub-accent);font:900 8px/1 var(--jyc-font,system-ui);letter-spacing:.15em;text-transform:uppercase;}
+.public-app .club-identity-mini>b{max-width:34ch;font-size:12px;line-height:1.35;}
+.public-app .club-identity-mini>small{color:var(--text-muted,var(--jyc34-muted));font-size:9px;letter-spacing:.06em;}
+.public-app .hub-identity-glyph{display:inline-grid;place-items:center;min-width:27px;height:27px;padding:0 6px;border:1px solid var(--hub-accent-line);border-radius:9px;background:var(--hub-accent-soft);color:var(--hub-accent);font:900 10px/1 ui-monospace,SFMono-Regular,monospace;}
+.public-app .hub-identity-mark{align-items:center!important;text-align:center!important;}
+.public-app .hub-identity-display{display:inline-flex;align-items:center;justify-content:center;gap:8px;color:var(--hub-accent);font-size:9px!important;letter-spacing:.16em;text-transform:uppercase;}
+.public-app .hub-identity-mark>b{max-width:58ch;text-align:center;}
+.public-app .hub-identity-mark>small{display:block;color:var(--text-muted,var(--jyc34-muted));font-size:9px;letter-spacing:.05em;}
+.public-app .hub-identity-traits{justify-content:center!important;}
+
+/* Source photography becomes a real media rail rather than a single banner. */
+.public-app .hub-source-photo-strip{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px!important;}
+.public-app .hub-source-photo-strip figure{margin:0;min-width:0;position:relative;overflow:hidden;border:1px solid var(--jyc34-line);border-radius:14px;background:var(--bg-card,var(--jyc34-paper));}
+.public-app .hub-source-photo-strip img{display:block;width:100%;height:150px;object-fit:cover;aspect-ratio:4/3;transition:transform .3s ease,filter .3s ease;}
+.public-app .hub-source-photo-strip figure:hover img{transform:scale(1.035);filter:saturate(1.03);}
+.public-app .hub-source-photo-strip figcaption{padding:7px 8px;color:var(--text-muted,var(--jyc34-muted));font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;}
+
+/* Image reliability: never let missing/slow images create collapsed or awkward cards. */
+.public-app img{max-width:100%;}
+.public-app .club-card-visual,.public-app .event-poster,.public-app .event-detail-poster,.public-app .club-detail-hero{background-color:color-mix(in srgb,var(--hub-accent,#806A4A) 8%,var(--bg-card,var(--jyc34-paper)))!important;background-repeat:no-repeat!important;background-position:center!important;background-size:cover!important;}
+.public-app .club-card-visual{min-height:180px!important;}
+.public-app .event-poster{min-height:170px!important;}
+.public-app .gallery-grid .gallery-item img,.public-app .archive-story-photo img{display:block;width:100%;height:100%;object-fit:cover;}
+
+/* Events: every title gets a deterministic visual signature, not organiser-only styling. */
+.public-app .event-identity-card{position:relative;overflow:hidden;border-top:2px solid var(--hub-accent)!important;}
+.public-app .event-identity-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:var(--identity-shape),linear-gradient(135deg,var(--hub-accent-soft),transparent 68%);opacity:.55;mix-blend-mode:multiply;}
+[data-theme="dark"] .public-app .event-identity-card:before,.dark .public-app .event-identity-card:before{mix-blend-mode:screen;opacity:.32;}
+.public-app .event-identity-card>*{position:relative;z-index:1;}
+.public-app .event-identity-lockup,.public-app .event-identity-signature{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;}
+.public-app .event-identity-lockup .hub-identity-glyph{flex:0 0 auto;}
+.public-app .event-identity-panel{margin:22px auto!important;text-align:center!important;}
+.public-app .event-identity-panel>*{margin-inline:auto!important;}
+
+/* About / archive / contact pages use dense editorial blocks instead of tall empty heroes. */
+.public-app .about-hero,.public-app .archive-hero,.public-app .contact-hero,.public-app .feature-hero{min-height:0!important;padding-block:24px!important;}
+.public-app .archive-summary,.public-app .home-about-ecosystem,.public-app .event-context-grid,.public-app .hub-detail-columns{align-items:stretch;}
+.public-app .archive-summary>div,.public-app .home-about-family,.public-app .home-about-programmes{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.public-app .archive-year-strip>div,.public-app .home-about-family>div,.public-app .home-about-programmes>div{justify-content:center!important;}
+.public-app .archive-event{align-items:center!important;text-align:center!important;}
+.public-app .archive-event>div{display:grid;justify-items:center;text-align:center;}
+.public-app .archive-event>b{justify-self:center!important;}
+
+/* No decorative scroll zones / giant spacer sections. */
+.public-app .home-layout,.public-app .home .section,.public-app .home-layout>*{min-height:0!important;}
+.public-app .home .hero,.public-app .home .hero-inner,.public-app .home .hero-art{min-height:0!important;}
+.public-app .home .hero{padding-block:clamp(26px,5vw,58px)!important;}
+.public-app .home .cta{margin-block:24px 30px!important;padding:34px 22px!important;}
+
+/* Mobile: one-column media, centred controls, no horizontal dead zones. */
+@media(max-width:900px){
+  :root{--jyc34-content:calc(100% - 28px);}
+  .public-app .section{padding-block:26px!important;}
+  .public-app .hub-source-photo-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+  .public-app .hub-source-photo-strip img{height:145px;}
+  .public-app .club-grid,.public-app .event-grid,.public-app .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+}
+@media(max-width:620px){
+  :root{--jyc34-content:calc(100% - 22px);}
+  .public-app .club-grid,.public-app .event-grid,.public-app .feature-grid,.public-app .activity-grid{grid-template-columns:1fr!important;}
+  .public-app .hub-source-photo-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;}
+  .public-app .hub-source-photo-strip img{height:125px;}
+  .public-app .club-card-visual{min-height:155px!important;}
+  .public-app .event-poster{min-height:150px!important;}
+  .public-app .section-head h2,.public-app .reference-section-head h2{font-size:clamp(27px,8vw,40px)!important;}
+  .public-app .btn,.public-app button,.public-app a{max-width:100%;}
+}
+@media(prefers-reduced-motion:reduce){
+  .public-app .hub-source-photo-strip img{transition:none!important;}
+}
