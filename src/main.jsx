@@ -12,6 +12,7 @@ import './v29-interaction-polish.css';
 import './v32-public-production-overhaul.css';
 import './v33-final-public-experience.css';
 import './v36-depth-polish.css';
+import './jyc-logo-theme.css';
 import {JYC_HUB_CONTENT, JYC_HUB_FAMILIES, hubProfile} from './v21-hub-content.js';
 import {JYC_ORIENTATION_FAMILIES,JYC_ORIENTATION_LAYERS,JYC_ORIENTATION_EVENTS,JYC_ORIENTATION_AT_A_GLANCE} from './jyc-orientation-insights.js';
 import {hubDetails} from './v23.6-hub-details.js';
