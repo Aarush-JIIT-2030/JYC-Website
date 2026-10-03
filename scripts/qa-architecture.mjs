@@ -9,7 +9,7 @@ const vercel=JSON.parse(read('vercel.json'));
 const manifest=JSON.parse(read('public/manifest.json'));
 const failures=[]; const warnings=[];
 const check=(ok,msg)=>{if(!ok)failures.push(msg)}; const warn=(ok,msg)=>{if(!ok)warnings.push(msg)};
-check((main.match(/import ['\"].*\\.css['\"];?/g)||[]).length===1,'main.jsx must expose exactly one public CSS entry point');
+check((main.match(/import ['\"].*\.css['\"];?/g)||[]).length===1,'main.jsx must expose exactly one public CSS entry point');
 check(main.includes("import './styles/public-system.css';"),'main.jsx must import the consolidated public CSS entry');
 check(!main.includes('https://jycjiit.vercel.app')&&!main.includes('jyc-website-livid.vercel.app'),'main.jsx contains a legacy Vercel origin');
 check(!admin.includes('https://jycjiit.vercel.app')&&!admin.includes('jyc-website-livid.vercel.app'),'admin-chunk.jsx contains a legacy Vercel origin');
