@@ -1,48 +1,91 @@
-/* JYC HUB IDENTITIES
-   One JYC visual system, 20 maintained community signatures.
-   The accents are intentionally muted so a hub feels unique without becoming
-   a separate branded website. Copy is descriptive and based on supplied hub material.
+/* JYC IDENTITY SYSTEM · V33.3
+   Each community and event gets a distinct visual language while remaining inside
+   the shared JYC beige / black / white editorial system.
+   Accent colours are deliberately muted and source-led; they are not replacement brands.
 */
-export const JYC_HUB_IDENTITIES = {
-  Fortissimo:{accent:'#806b52',motif:'SOUND & PERFORMANCE',signature:'Music, ensemble and stage presence',traits:['Music','Performance','Ensemble']},
-  BDS:{accent:'#98734f',motif:'RHYTHM & CULTURE',signature:'Bhangra, energy and group performance',traits:['Bhangra','Dance','Culture']},
-  VamUnique:{accent:'#876d58',motif:'MOVEMENT & EXPRESSION',signature:'Dance across contemporary and classical styles',traits:['Hip Hop','Contemporary','Bollywood']},
-  Panache:{accent:'#92704f',motif:'STYLE & PRESENTATION',signature:'Fashion, confidence and visual presence',traits:['Fashion','Styling','Performance']},
-  RPH:{accent:'#64745f',motif:'LOGIC & COMPETITION',signature:'Algorithms, problem solving and competitive programming',traits:['DSA','Competitive Programming','Code Clash']},
-  CICR:{accent:'#64745b',motif:'BUILD & PROTOTYPE',signature:'Robotics, electronics and hands-on engineering',traits:['Robotics','Prototyping','Projects']},
-  Innovation:{accent:'#82724b',motif:'IDEAS & BUILDING',signature:'Innovation, mentorship and entrepreneurship',traits:['Innovation','Mentorship','Entrepreneurship']},
-  Zencoders:{accent:'#68715f',motif:'CODE & CREATE',signature:'Programming practice, development and collaborative learning',traits:['Programming','Development','Coding']},
-  JODC:{accent:'#68775b',motif:'OPEN & COLLABORATE',signature:'Open-source contribution and developer collaboration',traits:['Open Source','Repositories','Contribution']},
-  CypherX:{accent:'#6c705f',motif:'SECURE & THINK',signature:'Cybersecurity awareness, practical learning and CTFs',traits:['Cybersecurity','CTF','Awareness']},
-  Arcadia:{accent:'#74684f',motif:'PLAY & COMPETE',signature:'Esports, gaming challenges and community',traits:['Esports','Gaming','AR/VR']},
-  'Neural Nexus':{accent:'#63745b',motif:'LEARN & INTELLIGENTLY BUILD',signature:'Artificial intelligence, machine learning and projects',traits:['AI / ML','Hackathons','Research']},
-  GDG:{accent:'#6f735d',motif:'DEVELOP & CONNECT',signature:'Developer community, events and practical technology',traits:['Developer Community','Events','Technology']},
-  Dronotics:{accent:'#61765e',motif:'FLIGHT & ENGINEERING',signature:'Drones, aerial robotics and technical competition',traits:['Drones','Aerial Robotics','Dron-O-War']},
-  Aakriti:{accent:'#927452',motif:'MAKE & IMAGINE',signature:'Fine art, visual craft and campus installations',traits:['Fine Arts','Craft','Installations']},
-  Aura:{accent:'#69745f',motif:'SEE & DOCUMENT',signature:'Photography, event coverage and visual storytelling',traits:['Photography','Photo Walks','Archive']},
-  Cinekala:{accent:'#7d6c55',motif:'FRAME & TELL',signature:'Film, visual storytelling and screen culture',traits:['Film','Storytelling','Visuals']},
-  Abhivyakti:{accent:'#856b52',motif:'PERFORM & EXPRESS',signature:'Dramatics, theatre and storytelling through performance',traits:['Dramatics','Theatre','Performance']},
-  Prismatic:{accent:'#7b6c58',motif:'DESIGN & COMMUNICATE',signature:'Graphic design, visual systems and creative collaboration',traits:['Graphic Design','Visual Storytelling','Projects']},
-  Eloquence:{accent:'#806c55',motif:'WRITE & SPEAK',signature:'Writing, debate, anchoring and literary expression',traits:['Writing','Speaking','Debate']},
-  JSA:{accent:'#65765a',motif:'PLAY & REPRESENT',signature:'Sport, competition, teamwork and campus representation',traits:['Cricket','Football','Basketball']}
+const BASE={
+  Fortissimo:{accent:'#7A6046',motif:'SOUND / PERFORMANCE',signature:'Music, ensemble and stage presence',traits:['Music','Performance','Ensemble'],glyph:'♫',surface:'warm',shape:'wave',display:'EDITORIAL'},
+  BDS:{accent:'#8A6348',motif:'RHYTHM / CULTURE',signature:'Bhangra, energy and group performance',traits:['Bhangra','Dance','Culture'],glyph:'✦',surface:'warm',shape:'pulse',display:'ENERGY'},
+  VamUnique:{accent:'#765E55',motif:'MOVEMENT / EXPRESSION',signature:'Dance across contemporary and classical styles',traits:['Hip Hop','Contemporary','Bollywood'],glyph:'↗',surface:'warm',shape:'motion',display:'MOVEMENT'},
+  Panache:{accent:'#916743',motif:'STYLE / PRESENTATION',signature:'Fashion, confidence and visual presence',traits:['Fashion','Styling','Performance'],glyph:'◇',surface:'warm',shape:'frame',display:'FASHION'},
+  RPH:{accent:'#4F6959',motif:'LOGIC / COMPETITION',signature:'Algorithms, problem solving and competitive programming',traits:['DSA','Competitive Programming','Code Clash'],glyph:'01',surface:'cool',shape:'grid',display:'SYSTEMS'},
+  CICR:{accent:'#4D625A',motif:'BUILD / PROTOTYPE',signature:'Robotics, electronics and hands-on engineering',traits:['Robotics','Prototyping','Projects'],glyph:'◈',surface:'cool',shape:'circuit',display:'ENGINEERING'},
+  Innovation:{accent:'#7A6840',motif:'IDEAS / BUILDING',signature:'Innovation, mentorship and entrepreneurship',traits:['Innovation','Mentorship','Entrepreneurship'],glyph:'↗',surface:'warm',shape:'spark',display:'IDEAS'},
+  Zencoders:{accent:'#586B59',motif:'CODE / CREATE',signature:'Programming practice, development and collaborative learning',traits:['Programming','Development','Coding'],glyph:'<>',surface:'cool',shape:'terminal',display:'CODE'},
+  JODC:{accent:'#536C5B',motif:'OPEN / COLLABORATE',signature:'Open-source contribution and developer collaboration',traits:['Open Source','Repositories','Contribution'],glyph:'⌘',surface:'cool',shape:'nodes',display:'OPEN SOURCE'},
+  CypherX:{accent:'#4D605D',motif:'SECURE / THINK',signature:'Cybersecurity awareness, practical learning and CTFs',traits:['Cybersecurity','CTF','Awareness'],glyph:'⌁',surface:'cool',shape:'shield',display:'SECURITY'},
+  Arcadia:{accent:'#665C48',motif:'PLAY / COMPETE',signature:'Esports, gaming challenges and community',traits:['Esports','Gaming','AR/VR'],glyph:'+ ',surface:'warm',shape:'pixel',display:'ESPORTS'},
+  'Neural Nexus':{accent:'#526A61',motif:'LEARN / INTELLIGENTLY BUILD',signature:'Artificial intelligence, machine learning and projects',traits:['AI / ML','Hackathons','Research'],glyph:'∿',surface:'cool',shape:'network',display:'AI / ML'},
+  GDG:{accent:'#6C684F',motif:'DEVELOP / CONNECT',signature:'Developer community, events and practical technology',traits:['Developer Community','Events','Technology'],glyph:'●',surface:'warm',shape:'dots',display:'DEVELOPER'},
+  Dronotics:{accent:'#52695A',motif:'FLIGHT / ENGINEERING',signature:'Drones, aerial robotics and technical competition',traits:['Drones','Aerial Robotics','Dron-O-War'],glyph:'△',surface:'cool',shape:'flight',display:'AERIAL'},
+  Aakriti:{accent:'#8A6849',motif:'MAKE / IMAGINE',signature:'Fine art, visual craft and campus installations',traits:['Fine Arts','Craft','Installations'],glyph:'✎',surface:'warm',shape:'brush',display:'FINE ARTS'},
+  Aura:{accent:'#5F6C60',motif:'SEE / DOCUMENT',signature:'Photography, event coverage and visual storytelling',traits:['Photography','Photo Walks','Archive'],glyph:'◉',surface:'cool',shape:'lens',display:'PHOTOGRAPHY'},
+  Cinekala:{accent:'#725B4D',motif:'FRAME / TELL',signature:'Film, visual storytelling and screen culture',traits:['Film','Storytelling','Visuals'],glyph:'▣',surface:'warm',shape:'film',display:'FILM'},
+  Abhivyakti:{accent:'#805B4D',motif:'PERFORM / EXPRESS',signature:'Dramatics, theatre and storytelling through performance',traits:['Dramatics','Theatre','Performance'],glyph:'◐',surface:'warm',shape:'stage',display:'DRAMATICS'},
+  Prismatic:{accent:'#6D5D55',motif:'DESIGN / COMMUNICATE',signature:'Graphic design, visual systems and creative collaboration',traits:['Graphic Design','Visual Storytelling','Projects'],glyph:'◆',surface:'warm',shape:'poster',display:'DESIGN'},
+  Eloquence:{accent:'#765E4E',motif:'WRITE / SPEAK',signature:'Writing, debate, anchoring and literary expression',traits:['Writing','Speaking','Debate'],glyph:'“',surface:'warm',shape:'quote',display:'LITERARY'},
+  JSA:{accent:'#526A58',motif:'PLAY / REPRESENT',signature:'Sport, competition, teamwork and campus representation',traits:['Cricket','Football','Basketball'],glyph:'◎',surface:'cool',shape:'court',display:'SPORTS'}
 };
 
-export const JYC_EVENT_IDENTITIES = {
-  'Dron-O-War':{accent:'#5f725c',motif:'FLIGHT · ROBOTICS',signature:'Drones, engineering and competitive flight',traits:['Aerial Robotics','Competition','Engineering']},
-  'Converge':{accent:'#826b4f',motif:'CAMPUS · FESTIVAL',signature:'Communities, stages and student collaboration',traits:['Annual Fest','Communities','Performance']},
-  'Ebullience':{accent:'#8a7052',motif:'WELCOME · CULTURE',signature:'New beginnings, performances and campus energy',traits:['Freshers','Culture','Community']},
-  'Induction':{accent:'#7c6e58',motif:'WELCOME · JIIT',signature:'The first chapter of campus life',traits:['Orientation','Community','Belonging']},
-  'Ethnic Day':{accent:'#906d4d',motif:'CULTURE · EXPRESSION',signature:'Tradition, style and campus expression',traits:['Culture','Fashion','Performance']},
-  'Farewell':{accent:'#766753',motif:'MEMORY · MILESTONE',signature:'Celebrating journeys and campus memories',traits:['Celebration','Community','Memories']},
-  'Hackathons':{accent:'#68715f',motif:'BUILD · COMPETE',signature:'Ideas turned into working technology',traits:['Innovation','Build','Competition']}
+export const JYC_HUB_IDENTITIES=BASE;
+
+const EVENT_PRESETS={
+  'Dron-O-War':{accent:'#4E675D',motif:'FLIGHT / BATTLES',signature:'Aerial robotics, precision and competition',traits:['Drones','Engineering','Competition'],shape:'flight'},
+  'Converge':{accent:'#876746',motif:'CAMPUS / CONVERGENCE',signature:'Communities, stages and student collaboration',traits:['Annual Fest','Communities','Performance'],shape:'converge'},
+  'Ebullience':{accent:'#966D4D',motif:'WELCOME / FIRST CHAPTER',signature:'New beginnings, performances and campus energy',traits:['Freshers','Culture','Community'],shape:'burst'},
+  'Induction':{accent:'#746753',motif:'WELCOME / ORIENTATION',signature:'The first chapter of campus life',traits:['Orientation','Community','Belonging'],shape:'path'},
+  'Ethnic Day':{accent:'#946844',motif:'CULTURE / EXPRESSION',signature:'Tradition, style and campus expression',traits:['Culture','Fashion','Performance'],shape:'pattern'},
+  'Farewell':{accent:'#705D50',motif:'MEMORY / MILESTONE',signature:'Celebrating journeys and campus memories',traits:['Celebration','Community','Memories'],shape:'memory'},
+  'Hackathon':{accent:'#53685C',motif:'BUILD / COMPETE',signature:'Ideas turned into working technology',traits:['Innovation','Build','Competition'],shape:'grid'},
+  'Code Clash':{accent:'#4B6359',motif:'CODE / PRESSURE',signature:'Speed, accuracy and algorithmic problem solving',traits:['DSA','Competitive Programming','Time Limits'],shape:'terminal'},
+  'TechTonic':{accent:'#52645D',motif:'ROBOTICS / IMPACT',signature:'Hands-on engineering and competitive robotics',traits:['Robotics','Build','Competition'],shape:'circuit'},
+  'Circuit Rush':{accent:'#5A6755',motif:'CIRCUIT / SPEED',signature:'Electronics, control and technical problem solving',traits:['Electronics','Robotics','Challenge'],shape:'circuit'},
+  'Robo Soccer':{accent:'#4C665C',motif:'ROBOTICS / PLAY',signature:'Autonomous machines, strategy and competition',traits:['Robotics','Strategy','Competition'],shape:'court'},
+  'Top Gun Challenge':{accent:'#5A6A5C',motif:'FLIGHT / PRECISION',signature:'Simulation, reflexes and aerial decision-making',traits:['Flight Simulation','Precision','Competition'],shape:'flight'},
+  'RIDE Hack':{accent:'#78663F',motif:'IDEAS / IMPACT',signature:'Innovation, entrepreneurship and real-world problem solving',traits:['Hackathon','Innovation','Entrepreneurship'],shape:'spark'},
+  'Innovate':{accent:'#7D6840',motif:'IDEATE / BUILD',signature:'Ideas, prototypes and entrepreneurial thinking',traits:['Ideation','Prototype','Innovation'],shape:'spark'},
+  'CodeAI':{accent:'#566A61',motif:'CODE / INTELLIGENCE',signature:'Applied AI, coding and technical experimentation',traits:['AI','Coding','Challenge'],shape:'network'},
+  'BITBOX':{accent:'#5B6558',motif:'BUILD / DEVELOP',signature:'Developer skills, experimentation and community',traits:['Development','Technology','Community'],shape:'nodes'},
+  'Climate Data Hackathon':{accent:'#5C6A55',motif:'DATA / CLIMATE',signature:'Data-driven ideas for environmental challenges',traits:['Data','Climate','Innovation'],shape:'network'},
+  'Jaypee Agentic AI':{accent:'#596B66',motif:'AGENTS / AUTONOMY',signature:'Reasoning, tools, multi-agent systems and applied AI',traits:['Agentic AI','Hackathon','Multi-agent'],shape:'network'}
 };
 
-export function eventIdentity(name){
-  const key=Object.keys(JYC_EVENT_IDENTITIES).find(k=>String(name||'').toLowerCase().includes(k.toLowerCase()));
-  return JYC_EVENT_IDENTITIES[key]||hubIdentity(name);
+export const JYC_EVENT_IDENTITIES=EVENT_PRESETS;
+
+const normName=v=>String(v||'').trim().toLowerCase();
+function presetForEvent(name){
+  const raw=normName(name);
+  const key=Object.keys(EVENT_PRESETS).find(k=>raw.includes(normName(k)));
+  return key?EVENT_PRESETS[key]:null;
+}
+function familyForClub(name){
+  const key=Object.keys(BASE).find(k=>normName(k)===normName(name));
+  return key?BASE[key]:null;
+}
+
+export function eventIdentity(input,clubName=''){
+  const name=typeof input==='string'?input:(input?.title||input?.name||'');
+  const club=typeof input==='object'?(input?.club||input?.organiser||clubName):clubName;
+  const preset=presetForEvent(name);
+  if(preset)return {...preset,name,kind:'event',club};
+  const parent=familyForClub(club);
+  const familyAccent=parent?.accent||'#6B604E';
+  const eventType=typeof input==='object'?(input?.eventType||'EVENT'):'EVENT';
+  return {
+    accent:familyAccent,
+    motif:`${parent?.display||'JYC'} / ${String(eventType).toUpperCase()}`,
+    signature:parent?\`${parent.signature} · ${eventType}\`:\`A JYC event within the campus programme · ${eventType}\`,
+    traits:parent?.traits||['Community','Campus','JYC'],
+    glyph:parent?.glyph||'◆',
+    surface:parent?.surface||'warm',
+    shape:parent?.shape||'event',
+    display:parent?.display||'EVENT',
+    kind:'event',
+    club
+  };
 }
 
 export function hubIdentity(name){
-  const key=Object.keys(JYC_HUB_IDENTITIES).find(k=>k.toLowerCase()===String(name||'').trim().toLowerCase());
-  return JYC_HUB_IDENTITIES[key]||{accent:'#9b7542',motif:'JYC COMMUNITY',signature:'A student community within JYC',traits:[]};
+  const key=Object.keys(BASE).find(k=>normName(k)===normName(name));
+  return BASE[key]||{accent:'#806A4A',motif:'JYC COMMUNITY',signature:'A student community within JYC',traits:['Community','Campus','Participation'],glyph:'◆',surface:'warm',shape:'community',display:'JYC'};
 }
