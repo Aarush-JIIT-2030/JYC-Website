@@ -25,6 +25,7 @@ const checks=[
   [main.includes('PDF_HUB_EXTRA_GALLERY')&&main.includes('PDF_HUB_STORIES'),'source archive remains wired into the public experience'],
   [admin.includes('AdminVerification')&&admin.includes("tab==='verification'"),'admin verification workflow is wired into the control center'],
   [admin.includes("'verification'")&&adminExtra.includes('source URL is required'),'verification queue is exposed and evidence is required in the editor'],
+  [!adminExtra.match(/verified_by\\s*:|verified_at\\s*:/),'verification editor cannot choose verifier identity or timestamp'],
   [fs.existsSync('supabase/migrations/202610030005_publication_verification_guard.sql'),'publication verification guard migration exists'],
   [fs.existsSync('supabase/migrations/202610030007_verification_trust_contract.sql'),'verification trust contract migration exists'],
   [fs.existsSync('supabase/migrations/202610030008_verification_identity_audit.sql'),'verification identity audit migration exists'],
