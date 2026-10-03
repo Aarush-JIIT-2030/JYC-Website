@@ -531,11 +531,11 @@ html[data-theme="dark"] .public-app .nav nav button.active{
   border-color:color-mix(in srgb,var(--hub-accent) 28%,var(--jyc33-line))!important;
 }
 .club-card-premium.club-identity-card .club-card-visual{
-  position:relative;background-image:var(--identity-shape)!important;
+  position:relative;background-color:color-mix(in srgb,var(--hub-accent) 8%,var(--jyc33-surface-2));
   border-bottom:1px solid color-mix(in srgb,var(--hub-accent) 25%,var(--jyc33-line));
 }
 .club-card-premium.club-identity-card .club-card-visual::after{
-  content:"";position:absolute;inset:0;background:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 20%,transparent),transparent 60%);pointer-events:none;
+  content:"";position:absolute;inset:0;background:var(--identity-shape),linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 20%,transparent),transparent 60%);pointer-events:none;
 }
 .club-identity-card .club-logo,.club-identity-card .club-index{position:relative;z-index:1}
 .club-identity-mini{border-left:2px solid var(--hub-accent);padding-left:9px;margin:0 0 9px}
@@ -545,11 +545,11 @@ html[data-theme="dark"] .public-app .nav nav button.active{
   border-color:color-mix(in srgb,var(--hub-accent) 28%,var(--jyc33-line))!important;
 }
 .event-identity-card .event-poster{
-  position:relative;background-image:var(--identity-shape)!important;background-color:var(--jyc33-surface-2);
+  position:relative;background-color:var(--jyc33-surface-2);
   border-bottom:2px solid color-mix(in srgb,var(--hub-accent) 35%,var(--jyc33-line));
 }
 .event-identity-card .event-poster::after{
-  content:"";position:absolute;inset:0;background:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 16%,transparent),transparent 62%);pointer-events:none;
+  content:"";position:absolute;inset:0;background:var(--identity-shape),linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 16%,transparent),transparent 62%);pointer-events:none;
 }
 .event-identity-card .event-poster>*{position:relative;z-index:1}
 .event-domain-mark{
