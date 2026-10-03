@@ -9,6 +9,7 @@ const css=read('src/v33-final-public-experience.css');
 const index=read('index.html');
 const pkg=JSON.parse(read('package.json'));
 const sw=read('public/sw.js');
+const hubContent=read('src/v21-hub-content.js');
 
 let pass=0,fail=0;
 const check=(name,ok)=>{if(ok){console.log('PASS: '+name);pass++}else{console.error('FAIL: '+name);fail++}};
@@ -36,7 +37,8 @@ check('production path does not fabricate demo content',main.includes('allowCont
 check('JYC logo remains the public hero identity',main.includes('hero-logo-stage')&&main.includes('<img src={logo}'));
 check('SEO/social preview remains logo-led',index.includes('og:image" content="/jyc-logo-circle.png"')&&index.includes('twitter:image" content="/jyc-logo-circle.png"'));
 check('service worker cache is current',sw.includes('jyc-cache-v33-3-0'));
-check('orientation source count stays internally consistent',main.includes('currently names 21 communities')&&main.includes("Object.keys(JYC_HUB_CONTENT).length"));
+const maintainedHubCount=(hubContent.match(/^\s{2}(?:'[^']+'|[A-Za-z][^:]+):\{/gm)||[]).length;
+check('orientation source count stays internally consistent',main.includes('21 communities')&&main.includes("Object.keys(JYC_HUB_CONTENT).length")&&maintainedHubCount===21);
 check('hub detail exposes source and live evidence layers',main.includes('hub-evidence-rail')&&main.includes('club-source')&&main.includes('Published JYC records provide the live layer'));
 check('events support family-level discovery',main.includes("[family,setFamily]=useState('All')")&&main.includes('eventFamily(e.club)===family')&&main.includes('All families'));
 check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('21 maintained community signatures'));
