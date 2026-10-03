@@ -347,3 +347,16 @@ html[data-theme="dark"] .public-app .nav nav button.active{
   .join-jyc-page .join-soon-hero{padding:30px 18px;border-radius:24px}
   .gallery-page .gallery-filter .gallery-years{justify-content:flex-start}
 }
+
+/* Event detail information blocks: ready for rules, eligibility, prizes and FAQs. */
+.event-extended-info{margin-top:24px}
+.event-extended-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.event-extended-grid>article{padding:22px;border:1px solid var(--jyc33-line);border-radius:20px;background:var(--jyc33-surface);box-shadow:var(--jyc33-shadow)}
+.event-extended-grid>article h3{margin:7px 0 9px}
+.event-extended-grid>article p{margin:0;line-height:1.65}
+.event-extended-grid .feature-list{margin:0}
+.event-faq-list details{border-top:1px solid var(--jyc33-line);padding:10px 0}
+.event-faq-list details:first-child{border-top:0}
+.event-faq-list summary{cursor:pointer;font-weight:800;color:var(--jyc33-ink)}
+.event-faq-list p{padding-top:7px}
+@media(max-width:700px){.event-extended-grid{grid-template-columns:1fr}}
