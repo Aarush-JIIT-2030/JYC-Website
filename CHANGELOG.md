@@ -1,3 +1,13 @@
+## V33.2.0 — Hub Evidence & Discovery Pass
+
+- Added a compact hub evidence rail to every public community profile, separating orientation/source context from live published JYC records.
+- Added source navigation on hub detail pages so visitors can jump directly to supplied hub-story material.
+- Added family-level filtering to the Events page across Cultural, Technical, Creative, Literary and Sports communities.
+- Removed the remaining current-site copy that asserted an unsupported fixed 21-community count.
+- Aligned hub identity documentation with the maintained 20-community source list.
+- Repaired package-lock release metadata so package.json, lockfile, QA and service-worker cache agree on V33.2.0.
+- Added production QA coverage for hub evidence, family discovery and source-count consistency.
+
 ## V33.1.0 — JYC Orientation Experience
 
 - Added a source-grounded JYC 2026–27 ecosystem explorer using the supplied Orientation / All Hubs material.
