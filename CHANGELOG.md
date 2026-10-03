@@ -1,3 +1,15 @@
+## V33.0.0 — Public Experience Overhaul
+
+- Reworked the public visual system around the supplied JYC logo beige (#F5D894), with explicit high-contrast light and dark modes.
+- Added a dedicated Join JYC destination with a clear Coming Soon state.
+- Added homepage latest-updates discovery and stronger cross-page pathways.
+- Rebuilt the public Team hierarchy as Faculty → Apex → Core → Clubs & Hubs.
+- Added explicit About principles and a clearer public information architecture.
+- Added year-based Gallery filtering and structured Event Details support for eligibility, rules, prizes and FAQs.
+- Expanded Contact with official LinkedIn and Sector 128 campus context.
+- Rotated the service-worker cache to jyc-cache-v33-0-0.
+- Updated release QA contracts for the V33 visual system.
+
 ## V31.0.0 — Production Hardening
 
 - Production builds no longer initialize or recover fabricated demo content when Supabase configuration is absent.
