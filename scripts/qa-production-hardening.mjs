@@ -13,6 +13,7 @@ if(!migrations.includes('202610030002_ai_hardening.sql')) failures.push('AI hard
 if(!migrations.includes('202610030003_campus_verification.sql')) failures.push('campus verification migration is missing');
 if(!migrations.includes('202610030004_media_write_boundary.sql')) failures.push('media write-boundary migration is missing');
 if(!migrations.includes('202610030007_verification_trust_contract.sql')) failures.push('verification trust-contract migration is missing');
+if(!migrations.includes('202610030008_verification_identity_audit.sql')) failures.push('verification identity-audit migration is missing');
 if(!migrations.includes('202610030005_publication_verification_guard.sql')) failures.push('publication verification guard migration is missing');
 if(!migrations.includes('202610030006_publication_guard_insert_fix.sql')) failures.push('publication guard insert-fix migration is missing');
 if(!migrations.includes('202610030003_campus_verification.sql')) failures.push('campus verification migration is missing');
