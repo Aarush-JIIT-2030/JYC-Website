@@ -27,6 +27,7 @@ const checks=[
   [admin.includes("'verification'")&&adminExtra.includes('source URL is required'),'verification queue is exposed and evidence is required in the editor'],
   [fs.existsSync('supabase/migrations/202610030005_publication_verification_guard.sql'),'publication verification guard migration exists'],
   [fs.existsSync('supabase/migrations/202610030007_verification_trust_contract.sql'),'verification trust contract migration exists'],
+  [fs.existsSync('supabase/migrations/202610030008_verification_identity_audit.sql'),'verification identity audit migration exists'],
   [fs.existsSync('supabase/tests/database/jyc_security_rls.test.sql'),'database RLS regression suite exists']
 ];
 let failed=false;
