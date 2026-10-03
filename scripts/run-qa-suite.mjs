@@ -23,7 +23,8 @@ const scripts = [
   'qa-repo-hygiene.mjs',
   'qa-v45-social-bot.mjs',
   'qa-v47-jyc-now.mjs',
-  'qa-v49-production-finish.mjs'
+  'qa-v49-production-finish.mjs',
+  'qa-v50-deep-production.mjs'
 ];
 
 for (const script of scripts) {
