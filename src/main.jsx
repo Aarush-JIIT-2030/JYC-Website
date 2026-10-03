@@ -3,16 +3,9 @@ import {createRoot} from 'react-dom/client';
 import {createPortal} from 'react-dom';
 import {BrowserRouter,Navigate,useLocation,useNavigate} from 'react-router-dom';
 import {supabase} from './lib/supabase';
+import {uploadJycMedia} from './lib/media.js';
 import {jycToast} from './lib/ui';
-import './v23.6-consolidated.css';
-import './jyc-editorial-centered.css';
-import './v26-beige-signature.css';
-import './v28-editorial-system.css';
-import './v29-interaction-polish.css';
-import './v32-public-production-overhaul.css';
-import './v33-final-public-experience.css';
-import './v36-depth-polish.css';
-import './jyc-logo-theme.css';
+import './styles/public-system.css';
 import {JYC_HUB_CONTENT, JYC_HUB_FAMILIES, hubProfile} from './v21-hub-content.js';
 import {JYC_ORIENTATION_FAMILIES,JYC_ORIENTATION_LAYERS,JYC_ORIENTATION_EVENTS,JYC_ORIENTATION_AT_A_GLANCE} from './jyc-orientation-insights.js';
 import {hubDetails} from './v23.6-hub-details.js';
@@ -22,6 +15,7 @@ import {PDF_HUB_EXTRA_GALLERY,PDF_HUB_PROGRAMME} from './pdf-hub-extra.js';
 import {enrichSourceClubs,mergeSourceGallery,sourceHubMedia} from './jyc-source-media.js';
 import {JYC_EVENT_CATEGORIES,JYC_COMMUNITY_DISCOVERY,JYC_PUBLIC_ACTIVITIES} from './public-v1/config.js';
 import {JYC_SOCIALS,festSocialProfile,socialProfile} from './jyc-socials.js';
+import {JYC_CONTACTS} from './lib/site-config.js';
 
 const PUBLIC_TEAM_FALLBACK=[
  {id:'devansh-tripathi',name:'Devansh Tripathi',role:'General Secretary',published:true,bio:'A prominent face of JYC 128, contributing across student societies spanning leadership, creativity, innovation, culture, literature, design and technology.',photo:'/assets/team/devansh-tripathi.webp'},
@@ -138,7 +132,7 @@ function stripLegacySeed(d){const x=norm(d);const isLegacyClub=c=>String(c?.id||
 async function loadData(){if(supabase.__configured===false){const cached=readSiteCache();const usable=cached&&((cached.clubs||[]).length||(cached.events||[]).length||(cached.team||[]).length);if(usable)return mergePublicFallback(stripLegacySeed(cached),{allowContentFallback:false});if(import.meta.env.DEV)return publicDemoData();return norm(empty)}const {data,error}=await supabase.rpc('jyc_read_site_data');if(error){const message=String(error.message||'');const missingRpc=/Could not find the function public\.jyc_read_site_data|function public\.jyc_read_site_data|PGRST202|404|Not Found/i.test(message);if(missingRpc){const e=new Error('JYC data service is not deployed. Run supabase/FINAL-PRODUCTION-REPAIR.sql in the connected Supabase project, then refresh.');e.code='JYC_RPC_MISSING';throw e}throw error}return mergePublicFallback(stripLegacySeed(data||empty),{allowContentFallback:false})}
 async function saveData(next,user,action,entity='site',id='main'){const payload=norm(next);let result=await supabase.rpc('jyc_save_site_data',{p_data:payload,p_action:action,p_entity_type:entity,p_entity_id:String(id||'main')});if(result.error&&/Could not find the function public\.jyc_save_site_data|schema cache/i.test(result.error.message||'')){result=await supabase.rpc('jyc_save_site_data',{p_action:action,p_data:payload,p_entity_id:String(id||'main'),p_entity_type:entity})}if(result.error)throw result.error;return stripLegacySeed(result.data)}
 async function compressImage(file){if(file.size<900*1024)return file;const bitmap=await createImageBitmap(file);const max=2200;const scale=Math.min(1,max/Math.max(bitmap.width,bitmap.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));const ctx=canvas.getContext('2d');ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.82));return blob?new File([blob],(file.name.replace(/\.[^.]+$/,'')||'image')+'.webp',{type:'image/webp'}):file}
-async function uploadMedia(file,folder='general'){if(!file)throw Error('Choose an image first.');if(!file.type.startsWith('image/'))throw Error('Only image files are allowed.');if(file.size>8*1024*1024)throw Error('Image must be 8 MB or smaller.');const optimized=await compressImage(file);const path=`${folder}/${uid()}.webp`;const {error}=await supabase.storage.from('jyc-media').upload(path,optimized,{cacheControl:'31536000',upsert:false,contentType:'image/webp'});if(error)throw error;const {data}=supabase.storage.from('jyc-media').getPublicUrl(path);return data.publicUrl}
+async function uploadMedia(file,folder='general'){if(!file)throw Error('Choose an image first.');if(!file.type.startsWith('image/'))throw Error('Only image files are allowed.');if(file.size>8*1024*1024)throw Error('Image must be 8 MB or smaller.');const optimized=await compressImage(file);return uploadJycMedia(optimized,folder)}
 async function enablePushNotifications(){if(!('serviceWorker' in navigator)||!('PushManager' in window))throw Error('Web push is not supported in this browser.');const vapid=import.meta.env.VITE_VAPID_PUBLIC_KEY;if(!vapid)throw Error('VITE_VAPID_PUBLIC_KEY is not configured yet.');const permission=await Notification.requestPermission();if(permission!=='granted')throw Error('Notification permission was not granted.');const registration=await navigator.serviceWorker.ready;let subscription=await registration.pushManager.getSubscription();if(!subscription)subscription=await registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlBase64ToUint8Array(vapid)});const {data:userData}=await supabase.auth.getUser();const {error}=await supabase.from('jyc_push_subscriptions').upsert({endpoint:subscription.endpoint,subscription:subscription.toJSON(),user_id:userData?.user?.id||null},{onConflict:'endpoint'});if(error)throw error;return true}
 function urlBase64ToUint8Array(base64String){const padding='='.repeat((4-base64String.length%4)%4);const base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');const raw=atob(base64);return Uint8Array.from([...raw].map(c=>c.charCodeAt(0)))}
 
@@ -219,7 +213,7 @@ function App(){const loc=useLocation();const nav=useNavigate();const [data,setDa
   if(!bootReady)return <Loading stage={bootStage} cached={Boolean(readSiteCache())}/>;
   const connectionNotice=(!online||error)?<div className={`connection-notice ${readSiteCache()?'cached':'offline'} ${error==='JYC data service is not deployed. Run supabase/FINAL-PRODUCTION-REPAIR.sql in the connected Supabase project, then refresh.'?'setup-needed':''}`} role="status"><span>{!online?'You are offline. JYC will keep using cached content until the connection returns.':error==='JYC data service is not deployed. Run supabase/FINAL-PRODUCTION-REPAIR.sql in the connected Supabase project, then refresh.'?'JYC data service needs setup.':readSiteCache()?`Showing the last saved JYC snapshot · ${formatCacheAge(siteCacheAge())}.`:'JYC content is currently offline.'}</span><button onClick={()=>window.dispatchEvent(new CustomEvent('jyc-refresh-data'))}>Refresh</button></div>:null;
  const isAdmin=loc.pathname.startsWith('/admin');
- const content=<div className="app-frame"><SiteAtmosphere/><ScrollProgress/><BackToTop/><SkipLink/>{!isAdmin&&<><Navbar data={data} admin={admin} theme={theme} setTheme={setTheme}/><FirstVisitTour/></>} {connectionNotice}<div id="main-content" className={isAdmin?'app admin-app':'app public-app'}><div className="route-stage" key={`${loc.pathname}${loc.search}`}><Routes data={data} admin={admin} session={session} setAdmin={setAdmin} commit={commit} notify={notify} theme={theme} setTheme={setTheme}/></div></div>{!isAdmin&&<Footer data={data} admin={admin}/>} {toast&&<div className={`toast toast-${toast.type||'success'}`} role="status"><span>{toast.type==='error'?'!':'✓'}</span>{toast.message}</div>} {confirm&&<ConfirmDialog request={confirm} onClose={ok=>{confirm.resolve?.(ok);setConfirm(null)}}/>}{agenticOpen&&<AgenticAIPopup close={closeAgentic}/>}<InstallPrompt/></div>;
+ const content=<div className="app-frame"><SiteAtmosphere/><ScrollProgress/><BackToTop/><SkipLink/>{!isAdmin&&<><Navbar data={data} admin={admin} theme={theme} setTheme={setTheme}/><FirstVisitTour/></>} {connectionNotice}<div id="main-content" className={isAdmin?'app admin-app':'app public-app'}><div className="route-stage" key={`${loc.pathname}${loc.search}`}><Routes data={data} admin={admin} session={session} setAdmin={setAdmin} commit={commit} notify={notify} theme={theme} setTheme={setTheme}/></div></div>{!isAdmin&&<Footer data={data} admin={admin}/>} {toast&&<div className={`toast toast-${toast.type||'success'}`} role="status"><span>{toast.type==='error'?'!':'✓'}</span>{toast.message}</div>} {confirm&&<ConfirmDialog request={confirm} onClose={ok=>{confirm.resolve?.(ok);setConfirm(null)}}/>}<InstallPrompt/></div>;
  return <MaintenanceGate data={isAdmin?{maintenance:{on:false}}:data}>{content}</MaintenanceGate>}
 
 function ClubDetail({data,id,virtualName}){
@@ -480,11 +474,6 @@ function useAgenticPopup(){
  },[open]);
  return [open,()=>setOpen(false)]
 }
-function JYCBotLauncher({onOpen}){ 
- const [motion,setMotion]=useState('');
- useEffect(()=>{const modes=['wave','bounce','pulse'];let timers=[];const run=()=>{const mode=modes[Math.floor(Math.random()*modes.length)];setMotion(mode);timers.push(window.setTimeout(()=>setMotion(''),1100));timers.push(window.setTimeout(run,7200+Math.floor(Math.random()*5000)))};const first=window.setTimeout(run,2600);return()=>{window.clearTimeout(first);timers.forEach(clearTimeout)}} ,[]);
- return createPortal(<button className={`jyc-bot-launcher is-${motion||'idle'}`} onClick={onOpen} aria-label="Open JYC Assistant" title="JYC Assistant"><span className="jyc-bot-model-wrap" aria-hidden="true"><span className="jyc-bot-3d"><span className="jyc-bot-head"><i/><i/><b/></span><span className="jyc-bot-body"><em>JYC</em></span><span className="jyc-bot-arm jyc-bot-arm-left"/><span className="jyc-bot-arm jyc-bot-arm-right"/><span className="jyc-bot-base"/></span></span><span className="jyc-bot-spark" aria-hidden="true"/></button>,document.body);
-}
 function Navbar({data,admin,theme,setTheme}){
  const nav=useNavigate();const loc=useLocation();
  const [open,setOpen]=useState(false),[moreOpen,setMoreOpen]=useState(false),[search,setSearch]=useState(false),[assistant,setAssistant]=useState(false),[homeSection,setHomeSection]=useState('hero');
@@ -531,7 +520,7 @@ function Navbar({data,admin,theme,setTheme}){
    <Theme theme={theme} setTheme={setTheme}/><button className={`hamb ${open?'open':''}`} onClick={()=>setOpen(!open)} aria-label="Menu" aria-expanded={open}><i/><i/><i/></button>
    {open&&<button className="mobile-nav-scrim" aria-label="Close navigation" onClick={()=>setOpen(false)}/>}<button className="search-trigger" onClick={()=>setSearch(true)} aria-label="Search JYC" title="Search JYC (Ctrl/Cmd + K)"><span className="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg></span><span className="search-label">Search</span><kbd>Ctrl K</kbd></button>
  </div></header>
- {createPortal(dock,document.body)}{createPortal(more,document.body)}{createPortal(<JYCBotLauncher onOpen={()=>setAssistant(true)}/>,document.body)}{searchView}{assistant&&<JYCAssistant data={data} close={()=>setAssistant(false)}/> }</>
+ {createPortal(dock,document.body)}{createPortal(more,document.body)}{searchView}{assistant&&<JYCAssistant data={data} close={()=>setAssistant(false)}/> }</>
 }
 function MobileMoreSheet({data,admin,close,openAssistant}){
  const nav=useNavigate();
