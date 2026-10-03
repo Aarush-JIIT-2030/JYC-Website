@@ -23,17 +23,15 @@ const scripts = [
   'qa-repo-hygiene.mjs',
   'qa-v45-social-bot.mjs',
   'qa-v47-jyc-now.mjs',
-'qa-v49-production-finish.mjs'
+  'qa-v49-production-finish.mjs'
 ];
 
 for (const script of scripts) {
-  console.log(`
-===== QA: ${script} =====`);
+  console.log(`\n===== QA: ${script} =====`);
   const result = spawnSync(process.execPath, [`scripts/${script}`], { stdio: 'inherit', env: process.env });
   if (result.status !== 0) {
     console.error(`::error file=scripts/${script}::QA script failed: ${script} (exit ${result.status ?? 'unknown'})`);
     process.exit(result.status || 1);
   }
 }
-console.log('
-ALL STATIC QA PASSED');
+console.log('\nALL STATIC QA PASSED');
