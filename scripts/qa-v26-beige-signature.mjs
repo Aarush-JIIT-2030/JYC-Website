@@ -4,6 +4,7 @@ import path from 'node:path';
 const root=process.cwd();
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const main=read('src/main.jsx');
+const extra=read('src/extra-features.jsx');
 const css=read('src/v33-final-public-experience.css');
 const index=read('index.html');
 const pkg=JSON.parse(read('package.json'));
@@ -22,7 +23,7 @@ check('latest updates are part of homepage',main.includes('home-latest-updates')
 check('Join JYC Coming Soon destination exists',main.includes("clean==='/join-jyc'")&&main.includes('function JoinJYC')&&main.includes('Join JYC · Coming Soon'));
 check('Team hierarchy is explicit',main.includes('Faculty → Apex → Core → Clubs & Hubs')&&main.includes('team-command-strip')&&main.includes('JYC Apex'));
 check('About exposes requested principles',main.includes('WHAT WE STAND FOR')&&main.includes('about-principles-v33'));
-check('Gallery supports year discovery',main.includes('gallery-years')&&main.includes("const years=['All'"));
+check('Gallery supports year discovery',extra.includes('gallery-years')&&extra.includes("const years=['All'"));
 check('Event details support structured extra information',main.includes('e.rules?.length')&&main.includes('e.eligibility')&&main.includes('e.prizes?.length')&&main.includes('e.faqs?.length'));
 check('Contact includes official JIIT campus context',main.includes('contact-location')&&main.includes('https://www.jiit.ac.in/contact-us'));
 check('mobile layout stays compact',css.includes('@media(max-width:560px)')&&css.includes('grid-template-columns:1fr'));
