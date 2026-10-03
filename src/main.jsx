@@ -325,7 +325,7 @@ function Events({data}){
  if(data.mode==='fest'&&data.fest?.active)return <Fest data={data}/>;
  const all=data.events.filter(e=>e.published&&!e.archived).filter(e=>!queryYear||String(e.date||'').startsWith(queryYear)).sort((a,b)=>(Number(!!b.pinned)-Number(!!a.pinned))||`${a.date} ${a.start}`.localeCompare(`${b.date} ${b.start}`));
  const clubs=[...new Set(all.map(e=>e.club).filter(Boolean))];
- const eventFamily=name=>{const key=Object.keys(JYC_HUB_CONTENT).find(k=>k.toLowerCase()===String(name||'').trim().toLowerCase());return key?JYC_HUB_CONTENT[key].family:''};
+ const eventFamily=name=>{const raw=String(name||'').trim().toLowerCase();const key=Object.keys(JYC_HUB_CONTENT).find(k=>raw===k.toLowerCase()||raw.includes(k.toLowerCase()));return key?JYC_HUB_CONTENT[key].family:''};
  const filtered=all.filter(e=>filter==='All'||e.club===filter).filter(e=>family==='All'||eventFamily(e.club)===family).filter(e=>!q||`${e.title} ${e.club} ${e.venue} ${(e.highlights||[]).join(' ')}`.toLowerCase().includes(q.toLowerCase()));
  const upcoming=filtered.filter(e=>eventState(e)!=='past'),live=filtered.filter(e=>eventState(e)==='live'),past=filtered.filter(e=>eventState(e)==='past');
  const shown=scope==='upcoming'?upcoming:scope==='live'?live:scope==='past'?past:filtered;
