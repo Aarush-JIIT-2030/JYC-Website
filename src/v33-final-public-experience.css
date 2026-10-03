@@ -778,3 +778,74 @@ html[data-theme="dark"] .public-app .nav nav button.active{
  .public-app .event-timeline-title strong{font-size:12px;}
  .public-app .event-timeline-media{width:46px;height:34px;}
 }
+
+
+/* V35.1 · JAI 2026 featured-event treatment */
+.jyc-feature-event{
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)!important;
+  align-items:stretch!important;
+}
+.jyc-feature-event .jyc-feature-copy{
+  display:flex;flex-direction:column;justify-content:center;
+}
+.jyc-feature-event .jyc-feature-poster{
+  min-height:330px!important;
+}
+.jyc-feature-event .jyc-feature-poster img{
+  object-position:center!important;
+}
+.event-detail-page .event-summit-logo{
+  width:min(260px,72%);margin:0 auto 18px;
+  padding:10px 14px;border:1px solid var(--jyc33-line);border-radius:16px;
+  background:color-mix(in srgb,var(--jyc33-surface) 88%,transparent);
+}
+.event-detail-page .event-summit-logo img{
+  display:block;width:100%;height:auto;max-height:92px;object-fit:contain;
+}
+.event-detail-page .event-track-grid,
+.event-detail-page .event-summit-stats{margin-top:22px}
+.event-detail-page .event-track-cards{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px;
+}
+.event-detail-page .event-track-cards article{
+  padding:18px;border:1px solid var(--jyc33-line);border-radius:18px;
+  background:var(--jyc33-surface);text-align:left;
+}
+.event-detail-page .event-track-cards b{
+  display:block;color:var(--jyc33-brand);font-size:10px;letter-spacing:.14em;
+}
+.event-detail-page .event-track-cards h3{margin:7px 0 6px}
+.event-detail-page .event-track-cards p{margin:0;font-size:12px;line-height:1.55}
+.event-detail-page .event-summit-stats>div{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px;
+}
+.event-detail-page .event-summit-stats span{
+  min-height:88px;padding:14px;border:1px solid var(--jyc33-line);border-radius:16px;
+  background:var(--jyc33-surface);display:flex;flex-direction:column;justify-content:center;
+  text-align:center;font-size:12px;line-height:1.4;color:var(--jyc33-ink);
+}
+.event-detail-page .event-summit-stats span b{
+  color:var(--jyc33-brand);font-size:10px;letter-spacing:.14em;margin-bottom:6px;
+}
+.event-detail-page .event-external-links{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:18px 0 6px;
+}
+.event-detail-page .event-external-links a{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 14px;border:1px solid var(--jyc33-line);border-radius:999px;
+  color:var(--jyc33-ink);text-decoration:none;background:var(--jyc33-surface);
+}
+.event-detail-page .event-external-links a:hover{
+  border-color:color-mix(in srgb,var(--jyc33-brand) 58%,transparent);
+  transform:translateY(-2px);
+}
+@media (max-width:800px){
+  .jyc-feature-event{grid-template-columns:1fr!important}
+  .jyc-feature-event .jyc-feature-poster{min-height:230px!important;order:-1}
+  .event-detail-page .event-track-cards{grid-template-columns:1fr}
+  .event-detail-page .event-summit-stats>div{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .event-detail-page .event-summit-logo{width:min(300px,92%)}
+}
+@media (max-width:480px){
+  .event-detail-page .event-summit-stats>div{grid-template-columns:1fr}
+}
