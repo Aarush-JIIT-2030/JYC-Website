@@ -9,7 +9,7 @@ const robots=read('public/robots.txt');
 const llms=read('public/llms.txt');
 const meta=read('src/extra-features.jsx');
 const main=read('src/main.jsx');
-add('Homepage title targets JIIT Youth Club + clubs/events/fests',html.includes('JIIT Youth Club (JYC) — Clubs, Events & Fests') && main.includes('Clubs, Events & Fests'));
+add('Homepage title targets JIIT Youth Club + clubs/events/fests',html.includes('JIIT Youth Club 128') && main.includes('Clubs, Events & Fests'));
 add('Organization structured data',meta.includes("'@type':'Organization'") && meta.includes('sameAs'));
 add('Event structured data',meta.includes("'@type':'Event'") && meta.includes('startDate'));
 add('Breadcrumb structured data',meta.includes("'@type':'BreadcrumbList'") && meta.includes('itemListElement'));
@@ -21,7 +21,7 @@ add('LLMs discovery file',llms.includes('JIIT Youth Club') && llms.includes('/cl
 add('Sitemap generator exists',fs.existsSync(path.join(root,'scripts/generate-sitemap.mjs')));
 add('SEO pages have keyword-rich route metadata',main.includes('JIIT Clubs & Student Communities') && main.includes('JIIT Events & Campus Activities') && main.includes('About JIIT Youth Club') && main.includes('JIIT Fests & Flagship Events'));
 add('Fest discovery route exists',main.includes("clean==='/fests'") && llms.includes('/fests'));
-add('Service worker cache namespace updated',/CACHE_NAME\s*=\s*['"]jyc-cache-v36-0-0['"]/.test(read('public/sw.js')));
+add('Service worker cache namespace updated',/CACHE_NAME\s*=\s*['"]jyc-cache-v37-0-0['"]/.test(read('public/sw.js')));
 const failed=checks.filter(x=>!x.ok);
 for(const c of checks) console.log(`${c.ok?'PASS':'FAIL'}: ${c.name}${c.detail?` — ${c.detail}`:''}`);
 if(failed.length){process.exitCode=1;console.error(`SEO QA failed: ${failed.length} check(s)`)} else console.log(`PASS: SEO QA (${checks.length} checks)`);
