@@ -423,3 +423,30 @@ html[data-theme="dark"] .public-app .nav nav button.active{
 .clubs-page .hub-spectrum-tags button:hover{background:color-mix(in srgb,var(--jyc33-brand) 9%,transparent);transform:translateY(-2px)}
 .clubs-page .hub-spectrum-tags button.is-active{background:var(--jyc33-brand);color:#171411}
 .clubs-page .hub-spectrum-tags button b{font-size:10px;opacity:.7}
+
+
+/* V33.2 — hub evidence rail + family-aware event discovery. */
+.hub-evidence-rail{
+  max-width:1120px;margin:16px auto 0;padding:22px 24px;
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(360px,1fr);gap:22px;align-items:center;
+  border:1px solid var(--jyc33-line);border-radius:24px;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--jyc33-brand) 7%,var(--jyc33-surface)),var(--jyc33-surface));
+  box-shadow:var(--jyc33-shadow);
+}
+.hub-evidence-rail h3{margin:7px 0 6px;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.025em}
+.hub-evidence-rail p{margin:0;max-width:62ch;font-size:12px;line-height:1.65;color:var(--jyc33-muted)}
+.hub-evidence-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.hub-evidence-stats span{min-height:76px;padding:13px 10px;border:1px solid var(--jyc33-line);border-radius:15px;background:color-mix(in srgb,var(--jyc33-surface) 86%,transparent);display:grid;align-content:center;text-align:center}
+.hub-evidence-stats b{font-size:12px;line-height:1.25;color:var(--jyc33-ink);overflow-wrap:anywhere}
+.hub-evidence-stats small{margin-top:5px;font-size:8px;letter-spacing:.1em;color:var(--jyc33-brand);font-weight:900}
+.event-filter-panel label{min-width:170px}
+.event-filter-panel select{width:100%;min-height:42px}
+@media(max-width:900px){
+  .hub-evidence-rail{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hub-evidence-rail{padding:18px;border-radius:20px}
+  .hub-evidence-stats{grid-template-columns:1fr 1fr}
+  .event-filter-panel{display:grid;grid-template-columns:1fr;gap:10px}
+  .event-filter-panel label{min-width:0}
+}
