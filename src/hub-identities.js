@@ -1,5 +1,5 @@
 /* JYC HUB IDENTITIES
-   One JYC visual system, 21 distinct community signatures.
+   One JYC visual system, 20 maintained community signatures.
    The accents are intentionally muted so a hub feels unique without becoming
    a separate branded website. Copy is descriptive and based on supplied hub material.
 */
