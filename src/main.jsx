@@ -11,6 +11,7 @@ import './v28-editorial-system.css';
 import './v29-interaction-polish.css';
 import './v32-public-production-overhaul.css';
 import './v33-final-public-experience.css';
+import './v36-depth-polish.css';
 import {JYC_HUB_CONTENT, JYC_HUB_FAMILIES, hubProfile} from './v21-hub-content.js';
 import {JYC_ORIENTATION_FAMILIES,JYC_ORIENTATION_LAYERS,JYC_ORIENTATION_EVENTS,JYC_ORIENTATION_AT_A_GLANCE} from './jyc-orientation-insights.js';
 import {hubDetails} from './v23.6-hub-details.js';
@@ -18,6 +19,8 @@ import {hubIdentity,eventIdentity} from './hub-identities.js';
 import {PDF_HUB_GALLERY,PDF_HUB_STORIES,HUB_PHOTO_MAP} from './pdf-hub-content.js';
 import {PDF_HUB_EXTRA_GALLERY,PDF_HUB_PROGRAMME} from './pdf-hub-extra.js';
 import {enrichSourceClubs,mergeSourceGallery,sourceHubMedia} from './jyc-source-media.js';
+import {JYC_EVENT_CATEGORIES,JYC_COMMUNITY_DISCOVERY,JYC_PUBLIC_ACTIVITIES} from './public-v1/config.js';
+import {JYC_SOCIALS,festSocialProfile,socialProfile} from './jyc-socials.js';
 
 const PUBLIC_TEAM_FALLBACK=[
  {id:'devansh-tripathi',name:'Devansh Tripathi',role:'General Secretary',published:true,bio:'A prominent face of JYC 128, contributing across student societies spanning leadership, creativity, innovation, culture, literature, design and technology.',photo:'/assets/team/devansh-tripathi.webp'},
@@ -63,19 +66,12 @@ const PUBLIC_GALLERY_FALLBACK=[
  {id:'team-pratik-campaign',url:'/assets/team/campaign/pratik-kumar.webp',caption:'Leadership campaign · Pratik Kumar',association:'JYC Team · Pratik Kumar',year:'2026'},
  {id:'team-shriya-campaign',url:'/assets/team/campaign/shriya-singh.webp',caption:'Leadership campaign · Shriya Singh',association:'JYC Team · Shriya Singh',year:'2026'}
 ];
-const PUBLIC_ACTIVITIES=[
- {title:'Organise college events',text:'JYC plans and coordinates college-wide events, fests and student activities.'},
- {title:'Connect clubs and students',text:'Technical, cultural, creative, literary and sports communities meet through one student ecosystem.'},
- {title:'Build leadership',text:'Students coordinate teams, take responsibility and learn through real campus execution.'},
- {title:'Promote talent',text:'Music, dance, dramatics, design, photography, writing, technology and sport all have space here.'},
- {title:'Industry & alumni interaction',text:'JYC creates routes for students to connect with mentors, alumni and professional communities.'},
- {title:'Teamwork & responsibility',text:'The hub model turns ideas into shared campus experiences through collaboration.'}
-];
+const PUBLIC_ACTIVITIES=JYC_PUBLIC_ACTIVITIES;
 function mergePublicFallback(d,{allowContentFallback=true}={}){
  const x=norm(d||{});
  const fallbackClubs=enrichSourceClubs(Object.entries(JYC_HUB_CONTENT).map(([name,p],i)=>({id:'hub-'+slug(name),name,type:p.family==='Technical'?'Technical':'Non-Technical',category:p.focus,description:p.summary,about:p.detail,interests:[p.family,p.focus],published:true,status:'published',pinned:i<5,theme:'jyc'})));
  const baseClubs=allowContentFallback&&x.clubs?.length===0?fallbackClubs:x.clubs;
- const clubs=enrichSourceClubs(baseClubs);
+ const clubs=enrichSourceClubs(baseClubs).map(club=>{const social=socialProfile(club.name);return social?{...club,socials:{...(club.socials||{}),instagram:club.socials?.instagram||social.instagram||'',linkedin:club.socials?.linkedin||social.linkedin||'',website:club.socials?.website||social.website||'',instagramHandle:club.socials?.instagramHandle||social.instagramHandle||'',socialVerifiedBy:social.verifiedBy||'',socialVerifiedOn:social.verifiedOn||''}}:club});
  const sourceGallery=mergeSourceGallery(x.gallery);
  const gallery=[...sourceGallery,...JAI_OFFICIAL_MEDIA,...(allowContentFallback?[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY,...PUBLIC_GALLERY_FALLBACK]:[])].filter((g,i,a)=>a.findIndex(x=>x.id===g.id)===i);
  const fallbackFeatured=PUBLIC_EVENT_FALLBACK.find(e=>e.id==='agentic-ai-2026');
@@ -99,6 +95,7 @@ function publicDemoData(){
 }
 import { normalizeSearch, rankSearchResults } from './lib/search.js';
 import {CREATOR,JYC_CONTACTS} from './lib/site-config.js';
+
 import {CampusMapPage,QRSharePage} from './v14-platform-plus.jsx';
 import {MomentsSection} from './v14-platform.jsx';
 import {SkipLink,InstallPrompt,MaintenanceGate,ErrorBoundary,MyJYC,CalendarPage,EventTools,DownloadICS,RegistrationPage,AccountLogin,JsonLd,usePageMeta,EventReminderButton,Gallery,GalleryItems,RecruitmentHub} from './extra-features.jsx';
@@ -227,7 +224,7 @@ function App(){const loc=useLocation();const nav=useNavigate();const [data,setDa
 function ClubDetail({data,id,virtualName}){
  const liveClub=findEntity(data.clubs,id);
  const virtualProfile=virtualName?JYC_HUB_CONTENT[virtualName]:null;
- const c=liveClub|| (virtualProfile?{id:`hub-${slug(virtualName)}`,name:virtualName,type:virtualProfile.family==='Technical'?'Technical':'Non-Technical',category:virtualProfile.family,description:virtualProfile.summary,about:virtualProfile.detail,interests:[virtualProfile.focus],theme:'jyc',published:true,status:'published',heads:[],achievements:[],projects:[],customSections:[],recruitment:{on:false}}:null);
+ const c=liveClub|| (virtualProfile?{id:`hub-${slug(virtualName)}`,name:virtualName,type:virtualProfile.family==='Technical'?'Technical':'Non-Technical',category:virtualProfile.family,description:virtualProfile.summary,about:virtualProfile.detail,interests:[virtualProfile.focus],theme:'jyc',published:true,status:'published',heads:[],achievements:[],projects:[],customSections:[],recruitment:{on:false},...(JYC_SOCIALS[virtualName]||{})}:null);
  if(!c||(!virtualProfile&&(!c.published||c.status==='archived')))return <section className="section page"><Back label="Back to clubs" to="/clubs"/><State title="Club not found." text="This club may be unpublished or archived."/></section>;
  const sections=[...(c.customSections||[])].filter(s=>s.visible!==false);
  const events=data.events.filter(e=>e.published&&!e.archived&&(e.clubId===c.id||e.club===c.name)).sort((a,b)=>`${a.date} ${a.start}`.localeCompare(`${b.date} ${b.start}`));
@@ -248,6 +245,7 @@ function ClubDetail({data,id,virtualName}){
    <div className="club-hero-copy"><span className="eyebrow">{c.type} · {c.category||'COMMUNITY'}</span><h1>{c.name}</h1><p>{c.description||'An official JYC community.'}</p><div className="club-hero-actions">{links[0]&&safeExternalUrl(links[0][1])&&<a className="btn secondary" href={safeExternalUrl(links[0][1])} target="_blank" rel="noopener noreferrer">Connect ↗</a>}<ShareButton title={`Share ${c.name}`}/></div></div>
    <div className="detail-logo-wrap"><div className="detail-logo">{c.logo?<img src={c.logo} alt={c.name}/>:<img src={logo} alt="JYC"/>}</div><span>JIIT · SECTOR 128</span></div>
   </div>
+  {socialProfile(c.name)&&<section className="club-social-proof reveal" aria-label={`${c.name} official social links`}><div><span className="eyebrow">OFFICIAL CONNECTIONS</span><h2>Find {c.name} where the community is active.</h2><p>These links were checked against public club, Linktree, LinkedIn or official event material. JYC keeps the profile here as the structured source of truth.</p></div><div className="club-social-proof-links">{socialProfile(c.name).instagram&&<a href={socialProfile(c.name).instagram} target="_blank" rel="noopener noreferrer"><b>Instagram</b><span>{socialProfile(c.name).instagramHandle||'Official profile'} ↗</span></a>}{socialProfile(c.name).linkedin&&<a href={socialProfile(c.name).linkedin} target="_blank" rel="noopener noreferrer"><b>LinkedIn</b><span>Official organisation page ↗</span></a>}{socialProfile(c.name).website&&<a href={socialProfile(c.name).website} target="_blank" rel="noopener noreferrer"><b>Website</b><span>{socialProfile(c.name).label||'Official website'} ↗</span></a>}</div></section>}
   {profile&&<div className="hub-profile-banner reveal"><div><span className="eyebrow">HUB PROFILE · {profile.family}</span><h2>{profile.name}</h2><p className="large-copy">{profile.detail}</p></div><div className="hub-profile-meta"><span>Focus</span><strong>{profile.focus}</strong><span>{profile.summary}</span><span>Source: supplied JYC hub orientation material; current operational details should be updated through the Control Center.</span></div></div>}
   <section className="hub-identity-rail reveal" aria-label={`${c.name} community identity`}><div className="hub-identity-mark"><span className="hub-identity-display"><i className="hub-identity-glyph">{identity.glyph||'◆'}</i>{identity.motif}</span><b>{identity.signature}</b><small>{c.sourceMediaLabel||'Source-grounded identity'}</small></div><div className="hub-identity-traits">{identity.traits.map((t,i)=><span key={t}><small>0{i+1}</small>{t}</span>)}</div><span className="hub-identity-display">{identity.display||'JYC COMMUNITY'}</span></section>
   <section className="hub-evidence-rail reveal" aria-label={`${c.name} public profile evidence`}><div><span className="eyebrow">AT A GLANCE</span><h3>Know the community before you join.</h3><p>Orientation and hub material provide the context layer. Published JYC records provide the live layer for events, recruitment and current people.</p></div><div className="hub-evidence-stats"><span><b>{profile?.family||c.type||'JYC'}</b><small>FAMILY</small></span><span><b>{profile?.focus||c.category||'Community'}</b><small>FOCUS</small></span><span><b>{detail?.activities?.length||0}</b><small>ACTIVITY AREAS</small></span><span><b>{gallery.length}</b><small>ARCHIVE ITEMS</small></span></div></section>
@@ -313,10 +311,12 @@ function Contact({data}){
  const [sending,setSending]=useState(false);
  const [submitError,setSubmitError]=useState('');
  const submit=async e=>{e.preventDefault();setSubmitError('');if(!form.name.trim()||!form.email.trim()||!form.message.trim())return;setSending(true);try{
-   if(supabase.__configured){
-     const {error}=await supabase.from('jyc_contact_submissions').insert({name:form.name.trim(),email:form.email.trim(),message:form.message.trim(),source:'public-contact'});
-     if(error)throw error;
+   if(!supabase.__configured){
+     setSubmitError('The live contact inbox is not configured yet. Please use Instagram, LinkedIn or WhatsApp below.');
+     return;
    }
+   const {error}=await supabase.from('jyc_contact_submissions').insert({name:form.name.trim(),email:form.email.trim(),message:form.message.trim(),source:'public-contact'});
+   if(error)throw error;
    setSent(true);
  }catch(err){
    console.warn('JYC contact submission unavailable:',err);
@@ -325,10 +325,9 @@ function Contact({data}){
  return <section className="section page contact-page"><Back label="Back to home" to="/"/><SectionHead eyebrow="CONTACT" title="Stay connected with JYC." text="Follow official channels for updates, events and opportunities."/><div className="contact-grid"><a className="contact-card" href="https://www.instagram.com/jiityouthclub128/" target="_blank" rel="noreferrer"><span>01</span><h3>Instagram</h3><p>@jiityouthclub128</p>↗</a><a className="contact-card" href="https://www.linkedin.com/company/jiityouthclub/" target="_blank" rel="noreferrer"><span>02</span><h3>LinkedIn</h3><p>Official JYC organisation page.</p>↗</a><a className="contact-card" href="https://chat.whatsapp.com/BUvEqpevLr6Jp44904ysht?s=cl&p=a&mlu=4&ilr=4" target="_blank" rel="noreferrer"><span>03</span><h3>WhatsApp Community</h3><p>Join the JYC community.</p>↗</a><div className="contact-card"><span>04</span><h3>Website Creator</h3><p>{data.creator.name} · {data.creator.role}</p><div className="social-row"><a href={data.creator.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href={data.creator.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href={data.creator.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p>{data.creator.email}</p></div></div><div className="contact-location reveal"><span className="eyebrow">JYC 128 · OFFICIAL CAMPUS</span><h3>Jaypee Institute of Information Technology, Sector 128</h3><p>Jaypee Wish Town Village, Sultanpur, Noida–201304, Uttar Pradesh, India.</p><a className="text-link" href="https://www.jiit.ac.in/contact-us" target="_blank" rel="noopener noreferrer">Verify campus contact details on JIIT ↗</a></div><div className="contact-form-container reveal"><div className="contact-form-card"><div className="contact-form-head"><span className="eyebrow">SEND A MESSAGE</span><h3>Write to JYC.</h3><p>Use this form to reach JYC when public submissions are enabled. Official social channels remain available below.</p></div>{sent?<div className="contact-form-success" role="status"><b>Thanks, {form.name.split(' ')[0]||'friend'}!</b><p>Your message has been received. JYC channels are also available below if you need a faster response.</p><button className="btn" onClick={()=>{setSent(false);setForm({name:'',email:'',message:''})}}>Send another message</button></div>:<form className="contact-form" onSubmit={submit} noValidate><label><span>Name</span><input name="name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Your full name" required autoComplete="name"/></label><label><span>Email</span><input name="email" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="you@email.com" required autoComplete="email"/></label><label><span>Message</span><textarea name="message" rows="5" value={form.message} onChange={e=>setForm({...form,message:e.target.value})} placeholder="How can JYC help you?" required/></label>{submitError&&<p className="contact-form-error" role="alert">{submitError}</p>}<button className="btn primary" type="submit" disabled={sending}>{sending?'Sending…':'Send message →'}</button></form>}</div></div></section>}
 function FestsPage({data}){
  const nav=useNavigate();
- const fests=data.events.filter(e=>e.published&&!e.archived&&(/fest|impressions|converge/i.test(`${e.title} ${e.eventType||''}`))).sort((a,b)=>`${a.date} ${a.start}`.localeCompare(`${b.date} ${b.start}`));
- return <section className="section page fests-page"><div className="compact-page-head reveal"><div><span className="eyebrow">JIIT Fests · JYC</span><h1>Fests that bring campus together.</h1><p>Browse officially published JIIT fests and flagship JYC events. Open a fest to find its dates, venue, organiser, programme and registration details.</p></div><div className="page-stat-row"><span><b>{fests.length}</b> published fest events</span></div></div><div className="seo-topic-panel reveal"><span className="eyebrow">CAMPUS FES​TS</span><h2>Find JIIT fests, programmes and special campus experiences.</h2><p>JYC connects student clubs and communities around technical, cultural, creative and other campus experiences. Only officially published events appear in this archive.</p><button className="btn secondary" onClick={()=>nav('/events')}>Browse all events →</button></div>{fests.length?<div className="card-grid event-grid-premium">{fests.map((e,i)=><EventCard e={e} key={e.id} index={i}/>)}</div>:<State title="No published fest events yet." text="When JYC publishes a fest or flagship event, it will appear here automatically."/>}</section>
+ const fests=data.events.filter(e=>e.published&&(/fest|impressions|converge|ebullience/i.test(`${e.title} ${e.eventType||''}`))).sort((a,b)=>`${b.date} ${b.start}`.localeCompare(`${a.date} ${a.start}`));
+ return <section className="section page fests-page"><div className="compact-page-head reveal"><div><span className="eyebrow">JIIT Fests · JYC 128</span><h1>Fests that bring campus together.</h1><p>Browse published flagship experiences, including completed editions. Each record keeps its organiser, venue, media and external links visible when supplied.</p></div><div className="page-stat-row"><span><b>{fests.length}</b> published fest records</span></div></div><div className="seo-topic-panel reveal"><span className="eyebrow">CAMPUS FESTS</span><h2>One place for the JYC fest trail.</h2><p>Converge is the Sector 128 annual cultural and technical fest, while older JIIT material also documents Impressions and other JYC-led campus programmes. Current records are labelled by date and status rather than mixed together.</p><button className="btn secondary" onClick={()=>nav('/events')}>Browse all events →</button></div><div className="fests-social-rail reveal"><span className="eyebrow">OFFICIAL FEST / ORGANISER LINKS</span><div>{fests.slice(0,8).map(e=>{const sp=festSocialProfile(e.title);return sp?<a key={e.id} href={sp.website||sp.instagram||sp.linkedin} target="_blank" rel="noopener noreferrer"><b>{e.title}</b><span>{sp.instagramHandle||sp.label||'Official link'} ↗</span></a>:null})}</div></div>{fests.length?<div className="card-grid event-grid-premium">{fests.map((e,i)=><EventCard e={e} key={e.id} index={i}/>)}</div>:<State title="No published fest events yet." text="When JYC publishes a fest or flagship event, it will appear here automatically."/>}</section>
 }
-
 function EventDirectoryList({events}){
  const nav=useNavigate();
  return <div className="event-directory-list">{events.map((event,index)=><button className="event-directory-row" key={event.id||event.title} onClick={()=>nav('/events/'+slug(event.title))}><span className="event-row-number">{String(index+1).padStart(2,'0')}</span><span className="event-row-date"><b>{fmtDate(event.date)}</b><small>{event.start||'TIME TBA'}</small></span><span className="event-row-copy"><small>{event.club||'JYC'}{event.venue?` · ${event.venue}`:''}</small><strong>{event.title}</strong><em>{event.description||'Open the official event record.'}</em></span><span className="event-row-state">{eventState(event).toUpperCase()}</span><b className="event-row-arrow" aria-hidden="true">↗</b></button>)}</div>
@@ -341,16 +340,18 @@ function Events({data}){
  const all=data.events.filter(e=>e.published&&!e.archived).filter(e=>!queryYear||String(e.date||'').startsWith(queryYear)).sort((a,b)=>(Number(!!b.pinned)-Number(!!a.pinned))||`${a.date} ${a.start}`.localeCompare(`${b.date} ${b.start}`));
  const clubs=[...new Set(all.map(e=>e.club).filter(Boolean))];
  const eventFamily=name=>{const raw=String(name||'').trim().toLowerCase();const key=Object.keys(JYC_HUB_CONTENT).find(k=>raw===k.toLowerCase()||raw.includes(k.toLowerCase()));return key?JYC_HUB_CONTENT[key].family:''};
- const filtered=all.filter(e=>filter==='All'||e.club===filter).filter(e=>family==='All'||eventFamily(e.club)===family).filter(e=>!q||`${e.title} ${e.club} ${e.venue} ${(e.highlights||[]).join(' ')}`.toLowerCase().includes(q.toLowerCase()));
+ const eventCategories=JYC_EVENT_CATEGORIES;
+ const eventCategoryOf=e=>{const raw=String(e.category||e.eventCategory||e.eventType||eventFamily(e.club)||'').trim();return raw.toLowerCase()==='social outreach'?'Social':raw;};
+ const filtered=all.filter(e=>filter==='All'||e.club===filter).filter(e=>family==='All'||eventCategoryOf(e).toLowerCase()===family.toLowerCase()).filter(e=>!q||`${e.title} ${e.club} ${e.venue} ${eventCategoryOf(e)} ${(e.highlights||[]).join(' ')}`.toLowerCase().includes(q.toLowerCase()));
  const upcoming=filtered.filter(e=>eventState(e)!=='past'),live=filtered.filter(e=>eventState(e)==='live'),past=filtered.filter(e=>eventState(e)==='past');
  const shown=scope==='upcoming'?upcoming:scope==='live'?live:scope==='past'?past:filtered;
  return <section className="section page events-page"><Breadcrumbs items={[{label:'Events'}]}/><EcosystemContextRail/><div className="compact-page-head events-page-head reveal"><div><span className="eyebrow">JYC EVENTS{queryYear?` · ${queryYear}`:''}</span><h1>What's happening.</h1><p>Upcoming, live and past JIIT events — workshops, competitions, cultural activities, club programmes and campus experiences published by JYC.</p></div><div className="page-stat-row"><span><b>{upcoming.length}</b> upcoming</span><span><b>{live.length}</b> live</span><span><b>{past.length}</b> past</span></div></div>
   <div className="event-program-band reveal"><div><span className="eyebrow">JYC EVENT PROGRAMME</span><h2>From induction to flagship experiences.</h2><p>The supplied JYC material highlights Induction, Ebullience, Hackathons, Ethnic Day, Converge, Dron-O-War and Farewell alongside periodic activities. Published event records below are the source of truth for current dates.</p></div><div className="event-program-list"><span>INDUCTION</span><span>EBULLIENCE</span><span>HACKATHONS</span><span>ETHNIC DAY</span><span>CONVERGE</span><span>DRON-O-WAR</span><span>FAREWELL</span></div></div>
   {live.length>0&&<div className="events-live-strip reveal"><span className="live-dot"/><div><small>HAPPENING NOW</small><strong>{live[0].title}</strong><span>{live[0].venue||'Venue TBA'} · {live[0].club||'JYC'}</span></div><a className="text-link" href={'/events/'+slug(live[0].title)}>Open event →</a></div>}
   <EventTimelinePreview events={filtered}/>
-  <div className="event-toolbar events-toolbar-premium reveal"><label className="event-search"><span>⌕</span><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search events..." aria-label="Search events"/>{q&&<button type="button" onClick={()=>setQ('')} aria-label="Clear event search">×</button>}</label><button type="button" className={`filter-toggle ${filtersOpen?'active':''}`} onClick={()=>setFiltersOpen(v=>!v)} aria-expanded={filtersOpen}>Filters <span>{filtersOpen?'−':'+'}</span></button><div className="seg"><button className={view==='cards'?'active':''} onClick={()=>setView('cards')}>Cards</button><button className={view==='list'?'active':''} onClick={()=>setView('list')}>List</button><button className={view==='calendar'?'active':''} onClick={()=>setView('calendar')}>Calendar</button></div></div>{filtersOpen&&<div className="event-filter-panel reveal"><label><span>Family</span><select value={family} onChange={e=>setFamily(e.target.value)}><option value="All">All families</option>{JYC_HUB_FAMILIES.map(f=><option key={f}>{f}</option>)}</select></label><label><span>Club</span><select value={filter} onChange={e=>setFilter(e.target.value)}><option value="All">All clubs</option>{clubs.map(c=><option key={c}>{c}</option>)}</select></label><button className="filter-clear" onClick={()=>{setFamily('All');setFilter('All');setQ('');setScope('upcoming')}}>Clear filters</button></div>}
+  <div className="event-toolbar events-toolbar-premium reveal"><label className="event-search"><span>⌕</span><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search events..." aria-label="Search events"/>{q&&<button type="button" onClick={()=>setQ('')} aria-label="Clear event search">×</button>}</label><button type="button" className={`filter-toggle ${filtersOpen?'active':''}`} onClick={()=>setFiltersOpen(v=>!v)} aria-expanded={filtersOpen}>Filters <span>{filtersOpen?'−':'+'}</span></button><div className="seg"><button className={view==='cards'?'active':''} onClick={()=>setView('cards')}>Cards</button><button className={view==='list'?'active':''} onClick={()=>setView('list')}>List</button><button className={view==='calendar'?'active':''} onClick={()=>setView('calendar')}>Calendar</button></div></div>{filtersOpen&&<div className="event-filter-panel reveal"><label><span>Category</span><select value={family} onChange={e=>setFamily(e.target.value)}><option value="All">All categories</option>{eventCategories.slice(1).map(f=><option key={f}>{f}</option>)}</select></label><label><span>Club</span><select value={filter} onChange={e=>setFilter(e.target.value)}><option value="All">All clubs</option>{clubs.map(c=><option key={c}>{c}</option>)}</select></label><button className="filter-clear" onClick={()=>{setFamily('All');setFilter('All');setQ('');setScope('upcoming')}}>Clear filters</button></div>}
   <section className="supplied-event-programme reveal"><div className="section-inline-head"><div><span className="eyebrow">FROM THE SUPPLIED HUB PRESENTATIONS</span><h2>The wider JYC programme.</h2><p>Programme names and visual material preserved from the supplied hub presentations. Current dates and registration remain controlled by published event records above.</p></div></div><div className="supplied-programme-grid">{PDF_HUB_PROGRAMME.map((p,i)=>{const identity=eventIdentity(p.name);return <article key={p.name} className="supplied-programme-card" style={{'--hub-accent':identity.accent,'--hub-accent-soft':`color-mix(in srgb, ${identity.accent} 12%, transparent)`}}><img src={p.image} alt={`${p.name} · supplied JYC material`} loading="lazy"/><div><span>{identity.motif}</span><h3>{p.name}</h3><p>{p.text}</p><b>{identity.signature}</b></div></article>})}</div></section>
-  {view==='calendar'?<Calendar events={filtered}/>:<><div className="event-scope-tabs reveal">{[['upcoming','Upcoming',upcoming.length],['live','Live',live.length],['past','Past',past.length],['all','All',filtered.length]].map(([id,label,count])=><button key={id} className={scope===id?'active':''} onClick={()=>setScope(id)}>{label}<b>{count}</b></button>)}</div>{view==='list'?(shown.length?<EventDirectoryList events={shown}/>:<State title={scope==='live'?'Nothing is live right now.':scope==='past'?'No past events in the archive.':'No published experiences in this view.'} text="The JYC archive and supplied programme material keep the page useful until new official event records are published."/>):(shown.length?<div className="card-grid event-grid-premium">{shown.map((e,i)=><EventCard e={e} key={e.id} index={i}/>)}</div>:<State title={scope==='live'?'Nothing is live right now.':scope==='past'?'No past events in the archive.':'No published experiences in this view.'} text="The JYC archive and supplied programme material keep the page useful until new official event records are published."/>)}</>}
+  {view==='calendar'?<Calendar events={filtered}/>:<><div className="event-scope-tabs reveal">{[['upcoming','Upcoming',upcoming.length],['live','Ongoing',live.length],['past','Completed',past.length],['all','All',filtered.length]].map(([id,label,count])=><button key={id} className={scope===id?'active':''} onClick={()=>setScope(id)}>{label}<b>{count}</b></button>)}</div>{view==='list'?(shown.length?<EventDirectoryList events={shown}/>:<State title={scope==='live'?'Nothing is ongoing right now.':scope==='past'?'No completed events in the archive.':'No published experiences in this view.'} text="The JYC archive and supplied programme material keep the page useful until new official event records are published."/>):(shown.length?<div className="card-grid event-grid-premium">{shown.map((e,i)=><EventCard e={e} key={e.id} index={i}/>)}</div>:<State title={scope==='live'?'Nothing is live right now.':scope==='past'?'No past events in the archive.':'No published experiences in this view.'} text="The JYC archive and supplied programme material keep the page useful until new official event records are published."/>)}</>}
  </section>
 }
 
@@ -369,16 +370,19 @@ function Routes({data,admin,session,setAdmin,commit,notify,theme,setTheme}){
   '/clubs':'JIIT Clubs & Student Communities | JIIT Youth Club',
   '/events':'JIIT Events & Campus Activities | JIIT Youth Club',
   '/fests':'JIIT Fests & Flagship Events | JIIT Youth Club',
-  '/team':'JIIT Youth Club Team | JYC',
+  '/team':'JYC 128 Leadership | Faculty, Apex & Core Team',
+  '/leadership':'JYC 128 Leadership | Faculty, Apex & Core Team',
+  '/gallery':'JYC Gallery | JIIT Youth Club 128',
   '/contact':'Contact JIIT Youth Club | JYC',
   '/recruitment':'JIIT Club Recruitment & Auditions | JIIT Youth Club',
   '/my-jyc':'My JYC | Published JYC content',
-  '/calendar':'JIIT Events Calendar | JIIT Youth Club (JYC)',
+  '/calendar':'JYC 128 Event Calendar | JIIT Youth Club',
+  '/event-calendar':'JYC 128 Event Calendar | JIIT Youth Club',
   '/planner':'JYC Events | JIIT Youth Club',
   '/notifications':'JYC Notifications',
   '/login':'Sign In | JIIT Youth Club',
   '/download':'JIIT Youth Club Platform',
-  '/map':'JIIT Campus Map | JYC Venues & Events',
+  '/map':'JIIT Sector 128 Campus Map | JYC Venues & Events',
   '/agenda':'My JYC Agenda | JIIT Events',
   '/achievements':'JYC Achievements & Wall of Fame | JIIT Noida',
   '/join-jyc':'Join JYC | JIIT Youth Club',
@@ -395,22 +399,24 @@ function Routes({data,admin,session,setAdmin,commit,notify,theme,setTheme}){
   '/fests':'Explore JIIT fests and flagship campus events such as officially published JYC programmes, with dates, venues, clubs and registration details when available.',
   '/resources':'JIIT Youth Club — official clubs, events, fests and community information.',
   '/guide':'About JIIT Youth Club — purpose, communities, events and campus life.',
-  '/map':'Find JIIT campus venues connected to JYC events and activities across Sector 62 and Sector 128.',
-  '/calendar':'Browse the JIIT event calendar for JIIT Youth Club events and campus activities by date.',
+  '/map':'Find JYC 128 venues and campus locations for events and activities at JIIT Sector 128.',
+  '/calendar':'Browse the JYC 128 event calendar by date, category and event status.',
   '/planner':'JYC event planning tools are not part of the public JYC editorial experience.',
   '/recruitment':'Find published JIIT club recruitment opportunities, auditions and official application links through JIIT Youth Club.',
-  '/about':'Learn what JIIT Youth Club is, how JYC connects student communities and how it supports campus activities, clubs and fests.',
-  '/contact':'Official JIIT Youth Club contact and social channels for student events, initiatives and opportunities.',
+  '/about':'Learn about JYC 128, its history and role at JIIT, its vision, mission and student-community values.',
+  '/contact':'Official JYC 128 contact details, social channels and query form.',
   '/archive':'JYC archive of published events, clubs, gallery moments and campus stories from JIIT.',
   '/announcements':'Official JYC announcements, notices, registration updates and published student-community updates.',
-  '/achievements':'JYC achievements, wall of fame, published outcomes and community milestones.',
-  '/join-jyc':'Join JYC is the upcoming student opportunity page for JIIT Youth Club. Recruitment and application details will be published here when the next cycle opens.'
+  '/gallery':'Browse the JYC 128 visual archive by event, year and published source media.',
+  '/leadership':'Meet the JYC 128 faculty advisors, apex leadership and core team.',
+  '/achievements':'JYC 128 achievements, Wall of Fame, community milestones and published outcomes.',
+  '/join-jyc':'Join JYC 128 is currently coming soon. Recruitment and application opportunities will be published here when the next official cycle opens.'
  };
  const privateRoute=['/admin','/login','/my-jyc','/notifications','/settings','/agenda','/projects/submit','/download','/planner'].includes(clean)||clean.startsWith('/qr/')||clean.endsWith('/register');
- const knownPublic=['/','/about','/clubs','/events','/fests','/gallery','/team','/contact','/archive','/calendar','/map','/achievements','/announcements','/resources','/recruitment','/join-jyc'].includes(clean)&&(clean!=='/fests'||isFestMode(data));
+ const knownPublic=['/','/about','/clubs','/events','/fests','/gallery','/team','/leadership','/contact','/archive','/calendar','/event-calendar','/map','/achievements','/announcements','/resources','/recruitment','/join-jyc'].includes(clean)&&(clean!=='/fests'||isFestMode(data));
  const knownDetail=Boolean(club||event);
  const unknownRoute=!privateRoute&&!knownPublic&&!knownDetail;
- const pageType=club?'club':event?'event':clean==='/fests'?'fests':clean==='/clubs'?'clubs':clean==='/events'?'events':clean==='/gallery'?'gallery':clean==='/team'?'team':clean==='/resources'?'resources':clean==='/announcements'?'announcements':clean==='/achievements'?'achievements':clean==='/guide'?'about':clean==='/map'?'map':clean==='/calendar'||clean==='/planner'?'calendar':clean==='/recruitment'?'recruitment':clean==='/join-jyc'?'join-jyc':clean==='/about'?'about':clean==='/contact'?'contact':'home';
+ const pageType=club?'club':event?'event':clean==='/fests'?'fests':clean==='/clubs'?'clubs':clean==='/events'?'events':clean==='/gallery'?'gallery':clean==='/team'||clean==='/leadership'?'team':clean==='/resources'?'resources':clean==='/announcements'?'announcements':clean==='/achievements'?'achievements':clean==='/guide'?'about':clean==='/map'?'map':clean==='/calendar'||clean==='/planner'?'calendar':clean==='/recruitment'?'recruitment':clean==='/join-jyc'?'join-jyc':clean==='/about'?'about':clean==='/contact'?'contact':'home';
  const canonicalPath=club?`/clubs/${slug(club.name)}`:event?`/events/${slug(event.title)}${parts[2]==='register'?'/register':''}`:clean;
  useEffect(()=>{if((club||event)&&slugId!==slug((club||event).name||(club||event).title)){const target=event?`/events/${slug(event.title)}${parts[2]==='register'?'/register':''}`:`/clubs/${slug(club.name)}`;nav(target,{replace:true});}},[slugId,club?.id,event?.id,parts[2],nav]);
  const title=club?`${club.name} | JIIT Club · JYC`:event?`${event.title} | JIIT Event · JYC`:titles[clean]||'JIIT Youth Club';
@@ -420,9 +426,9 @@ function Routes({data,admin,session,setAdmin,commit,notify,theme,setTheme}){
  if(clean==='/')return <>{schema}<Home data={data}/></>;
  if(clean==='/about')return <>{schema}<About data={data}/></>;if(clean==='/clubs')return <>{schema}<Clubs data={data}/></>;if(club)return <>{schema}<ClubDetail data={data} id={slugId} virtualName={hubKey||undefined}/></>;
  if(clean==='/events')return <>{schema}<Events data={data}/></>;if(clean==='/fests')return isFestMode(data)?<>{schema}<FestsPage data={data}/></>:<Navigate to="/events" replace/>;if(event&&parts[2]==='register')return <>{schema}<RegistrationPage data={data} id={slugId} session={session}/></>;if(event)return <>{schema}<EventDetail data={data} id={slugId} session={session}/></>;
- if(clean==='/gallery')return <>{schema}<Gallery data={data}/></>;if(clean==='/team')return <>{schema}<Team data={data}/></>;if(clean==='/contact')return <>{schema}<Contact data={data}/></>;if(clean==='/archive')return <ArchivePage data={data}/>;
+ if(clean==='/gallery')return <>{schema}<Gallery data={data}/></>;if(clean==='/team'||clean==='/leadership')return <>{schema}<Team data={data}/></>;if(clean==='/contact')return <>{schema}<Contact data={data}/></>;if(clean==='/archive')return <ArchivePage data={data}/>;
  if(clean==='/announcements')return <Announcements data={data}/>;
- if(clean==='/achievements')return <Achievements data={data}/>;if(clean==='/join-jyc')return <JoinJYC/>;if(clean==='/recruitment')return recruitmentEnabled(data)?<>{schema}<RecruitmentHub data={data}/></>:<Navigate to="/clubs" replace/>;if(clean==='/my-jyc')return <MyJYC data={data} session={session}/>;if(clean==='/calendar')return <>{schema}<CalendarPage data={data}/></>;if(clean==='/planner')return <Navigate to="/events" replace/>;if(clean==='/notifications')return <Navigate to="/my-jyc" replace/>;if(clean==='/login')return <Navigate to="/my-jyc" replace/>;if(clean==='/download')return <Navigate to="/about" replace/>;if(clean==='/discover')return <Navigate to="/clubs" replace/>;if(clean==='/map')return <>{schema}<CampusMapPage data={data}/></>;if(clean.startsWith('/qr/'))return <QRSharePage data={data}/>;if(clean==='/moments')return <Navigate to="/gallery" replace/>;if(clean==='/agenda')return <Navigate to="/my-jyc" replace/>;if(clean==='/projects'||clean==='/projects/submit')return <Navigate to="/clubs" replace/>;if(clean==='/settings')return <Navigate to="/about" replace/>;if(clean==='/resources')return <Navigate to="/about" replace/>;if(clean==='/guide')return <Navigate to="/about" replace/>;if(clean==='/admin')return <Admin data={data} admin={admin} setAdmin={setAdmin} commit={commit} notify={notify} theme={theme} setTheme={setTheme}/>;return <section className="section page not-found-page"><div className="not-found-art"><span>404</span><i aria-hidden="true">JYC</i></div><span className="eyebrow">JYC · ROUTE MISSED</span><h1>This route is not part of the published JYC experience.</h1><p>The page you requested is not part of the published JYC experience.</p><div className="detail-actions"><Button onClick={()=>nav('/')}>Return home</Button><Button secondary onClick={()=>nav('/clubs')}>Explore clubs</Button></div></section>
+ if(clean==='/achievements')return <Achievements data={data}/>;if(clean==='/join-jyc')return <JoinJYC/>;if(clean==='/recruitment')return recruitmentEnabled(data)?<>{schema}<RecruitmentHub data={data}/></>:<Navigate to="/clubs" replace/>;if(clean==='/my-jyc')return <MyJYC data={data} session={session}/>;if(clean==='/calendar'||clean==='/event-calendar')return <>{schema}<CalendarPage data={data}/></>;if(clean==='/planner')return <Navigate to="/events" replace/>;if(clean==='/notifications')return <Navigate to="/my-jyc" replace/>;if(clean==='/login')return <Navigate to="/my-jyc" replace/>;if(clean==='/download')return <Navigate to="/about" replace/>;if(clean==='/discover')return <Navigate to="/clubs" replace/>;if(clean==='/map')return <>{schema}<CampusMapPage data={data}/></>;if(clean.startsWith('/qr/'))return <QRSharePage data={data}/>;if(clean==='/moments')return <Navigate to="/gallery" replace/>;if(clean==='/agenda')return <Navigate to="/my-jyc" replace/>;if(clean==='/projects'||clean==='/projects/submit')return <Navigate to="/clubs" replace/>;if(clean==='/settings')return <Navigate to="/about" replace/>;if(clean==='/resources')return <Navigate to="/about" replace/>;if(clean==='/guide')return <Navigate to="/about" replace/>;if(clean==='/admin')return <Admin data={data} admin={admin} setAdmin={setAdmin} commit={commit} notify={notify} theme={theme} setTheme={setTheme}/>;return <section className="section page not-found-page"><div className="not-found-art"><span>404</span><i aria-hidden="true">JYC</i></div><span className="eyebrow">JYC · ROUTE MISSED</span><h1>This route is not part of the published JYC experience.</h1><p>The page you requested is not part of the published JYC experience.</p><div className="detail-actions"><Button onClick={()=>nav('/')}>Return home</Button><Button secondary onClick={()=>nav('/clubs')}>Explore clubs</Button></div></section>
 }
 function NavIcon({kind}){const paths={home:'M3 10.5 12 3l9 7.5M5.5 9.5V21h13V9.5M9 21v-6h6v6',clubs:'M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8-1.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20a5.5 5.5 0 0 1 11 0M14 20a6 6 0 0 1 7.5 0',events:'M7 3v4M17 3v4M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z',gallery:'M4 5h16v14H4zM4 16l4-4 3 3 2-2 5 5M15 9h.01',team:'M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8-1.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20a5.5 5.5 0 0 1 11 0M14 20a6 6 0 0 1 7.5 0',more:'M5 7h14M5 12h14M5 17h14',search:'M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.5-2 5 5'};return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={paths[kind]||paths.more}/></svg>}
 function AgenticAIPopup({close}){
@@ -482,8 +488,8 @@ function Navbar({data,admin,theme,setTheme}){
  const nav=useNavigate();const loc=useLocation();
  const [open,setOpen]=useState(false),[moreOpen,setMoreOpen]=useState(false),[search,setSearch]=useState(false),[assistant,setAssistant]=useState(false),[homeSection,setHomeSection]=useState('hero');
  const shortcutRef=React.useRef('');
- const routeLinks=[['Home','/'],['About','/about'],['Clubs','/clubs'],['Events','/events'],['Moments','/gallery'],['Team','/team'],['Contact','/contact']];
- const homeLinks=[['Home','hero'],['About','about'],['Clubs','clubs'],['Events','events'],['Moments','moments'],['Team','team']];
+ const routeLinks=[['Home','/'],['About','/about'],['Clubs','/clubs'],['Events','/events'],['Gallery','/gallery'],['Leadership','/leadership'],['Contact','/contact']];
+ const homeLinks=[['Home','hero'],['About','about'],['Clubs','clubs'],['Events','events'],['Gallery','moments'],['Leadership','team']];
  useEffect(()=>{
    const onKey=e=>{
      if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();setSearch(true);return}
@@ -510,8 +516,8 @@ function Navbar({data,admin,theme,setTheme}){
    return()=>observer.disconnect();
  },[loc.pathname]);
  const goHomeSection=id=>{setOpen(false);setMoreOpen(false);if(loc.pathname!=='/') {nav('/#'+id);return}document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});setHomeSection(id)};
- const dockItems=[['Home','/','home'],['Clubs','/clubs','clubs'],['Events','/events','events'],['Team','/team','team'],['More','__more','more']];
- const dockActive=loc.pathname==='/'?0:loc.pathname.startsWith('/clubs')?1:loc.pathname.startsWith('/events')?2:loc.pathname.startsWith('/team')?3:4;
+ const dockItems=[['Home','/','home'],['Clubs','/clubs','clubs'],['Events','/events','events'],['Leadership','/leadership','team'],['More','__more','more']];
+ const dockActive=loc.pathname==='/'?0:loc.pathname.startsWith('/clubs')?1:loc.pathname.startsWith('/events')?2:(loc.pathname.startsWith('/team')||loc.pathname.startsWith('/leadership'))?3:4;
  const dock=<div className="mobile-dock" style={{'--dock-index':dockActive}} aria-label="Mobile navigation"><i className="dock-active-pill" aria-hidden="true"/>{dockItems.map(([n,p,icon],i)=>{const active=i===dockActive;return <button key={n} className={active?'active':''} onClick={()=>p==='__more'?setMoreOpen(v=>!v):nav(p)} aria-current={active?'page':undefined}><span><NavIcon kind={icon}/></span><b>{n}</b></button>})}</div>;
  const more=moreOpen?<MobileMoreSheet data={data} admin={admin} close={()=>setMoreOpen(false)} openAssistant={()=>{setMoreOpen(false);setAssistant(true)}}/>:null;
  const searchView=search?<Search data={data} admin={admin} close={()=>setSearch(false)}/>:null;
@@ -548,15 +554,17 @@ function MobileMoreSheet({data,admin,close,openAssistant}){
  },[close]);
  const go=p=>{close();nav(p)};
 const explore=[
-   ['/about','About JYC','The organisation, its purpose and structure'],
-   ['/join-jyc','Join JYC','Recruitment destination · coming soon'],
-   ['/clubs','JYC Communities','Explore the official hub ecosystem'],
-   ['/events','JYC Events','Fests, competitions, performances and programmes'],
-   ['/fests','Fests','Flagship JYC campus experiences'],
-   ['/archive','JYC Archive','The published JYC story by year'],
+   ['/about','About JYC','History, vision, mission and values'],
+   ['/leadership','Leadership','Faculty, Apex and Core Team'],
+   ['/clubs','Clubs & Communities','Explore the official hub ecosystem'],
+   ['/events','Events','Upcoming, ongoing and completed experiences'],
+   ['/event-calendar','Event Calendar','Browse JYC events by date'],
+   ['/gallery','Gallery','Event memories, years and visual archive'],
+   ['/achievements','Achievements','Wall of Fame and community outcomes'],
    ['/announcements','Announcements','Registrations, notices and JYC updates'],
-   ['/achievements','Achievements','JYC wall of fame and published outcomes'],
-   ['/contact','Connect with JYC','Official public channels and contact']
+   ['/join-jyc','Join JYC','Recruitment destination · coming soon'],
+   ['/archive','Archive','The published JYC story by year'],
+   ['/contact','Contact','Official public channels and query form']
   ];
  return <div ref={sheetRef} className="more-sheet-overlay" role="dialog" aria-modal="true" aria-label="More JYC" onMouseDown={e=>{if(e.target===e.currentTarget)close()}}>
   <div className="more-sheet jyc-more-club-sheet">
@@ -826,7 +834,7 @@ function About({data}){
   <section className="about-vision-v28 reveal"><article><span className="eyebrow">VISION</span><h2>A campus where every student can find a place to participate, create, lead and belong.</h2></article><article><span className="eyebrow">MISSION</span><p>Connect students with clubs and communities, create meaningful experiences, develop leadership and teamwork, and make campus life more participatory.</p><div className="about-inline-links"><button onClick={()=>nav('/team')}>Meet the people →</button><button onClick={()=>nav('/gallery')}>See the archive →</button></div></article></section>
   <section className="about-section-title-v28 reveal" style={{marginTop:28,textAlign:'center'}}>
    <span className="eyebrow">WHAT WE STAND FOR</span>
-   <h2>Six principles that shape the JYC experience.</h2>
+   <h2>Seven principles that shape the JYC experience.</h2>
    <p>These are presented as the public-facing values of the student ecosystem; operational details remain controlled by JYC.</p>
   </section>
   <section className="about-principles-v33 reveal">
@@ -836,7 +844,8 @@ function About({data}){
     ['03','Leadership','Responsibility grows through real coordination, execution and teamwork.'],
     ['04','Innovation','Technical communities turn curiosity into projects, competitions and learning.'],
     ['05','Collaboration','Hubs, committees and volunteers create experiences together.'],
-    ['06','Inclusivity','There should be a place to discover, learn, contribute and belong.']
+    ['06','Inclusivity','There should be a place to discover, learn, contribute and belong.'],
+    ['07','Campus spirit','JYC turns participation, celebration and shared responsibility into a stronger campus community.']
    ].map(([n,t,p])=><article className="about-principle-v33" key={t}><span>{n}</span><strong>{t}</strong><p>{p}</p></article>)}
   </section>
   <div className="about-source-note reveal">Content scope: JYC 128 hub orientation material + current public JIIT information. Current event, recruitment and team records are published separately through the JYC Control Center.</div>
@@ -850,10 +859,14 @@ function Clubs({data}){
  const familyVisible=visible.filter(c=>family==='All'||familyOf(c)===family);
  const cats=[...new Set(familyVisible.filter(c=>type==='All'||c.type===type).map(c=>c.category).filter(Boolean))];
  const ints=[...new Set(familyVisible.filter(c=>type==='All'||c.type===type).flatMap(c=>c.interests||[]))];
- const list=familyVisible.filter(c=>type==='All'||c.type===type).filter(c=>cat==='All'||c.category===cat).filter(c=>interest==='All'||(c.interests||[]).includes(interest)).filter(c=>!q||`${c.name} ${c.category} ${familyOf(c)} ${(c.interests||[]).join(' ')}`.toLowerCase().includes(q.toLowerCase()));
+ const discoveryAliases=Object.fromEntries(Object.entries(JYC_COMMUNITY_DISCOVERY).map(([key,terms])=>[key.toLowerCase(),terms]));
+ const query=String(q||'').trim().toLowerCase();
+ const discoveryTerms=discoveryAliases[query]||[];
+ const list=familyVisible.filter(c=>type==='All'||c.type===type).filter(c=>cat==='All'||c.category===cat).filter(c=>interest==='All'||(c.interests||[]).includes(interest)).filter(c=>{if(!query)return true;const hay=`${c.name} ${c.category} ${familyOf(c)} ${(c.interests||[]).join(' ')} ${c.description||''} ${c.about||''}`.toLowerCase();return hay.includes(query)||discoveryTerms.some(term=>hay.includes(term))});
  const clear=()=>{setQ('');setFamily('All');setType('All');setCat('All');setInterest('All')};
  return <section className="section page clubs-page unified-public-page"><Breadcrumbs items={[{label:'Clubs'}]}/><EcosystemContextRail/><div className="compact-page-head clubs-page-head reveal"><div><span className="eyebrow">JYC CLUBS</span><h1>Find your space.</h1><p>Explore the official JYC community list through the five families defined in the supplied orientation material — then narrow by type, category or interest.</p></div><div className="page-stat-row"><span><b>{visible.length}</b> named communities</span><span><b>{JYC_HUB_FAMILIES.length}</b> families</span><span><b>{visible.filter(c=>c.type==='Technical').length}</b> technical</span></div></div>
   <div className="hub-spectrum reveal"><div><span className="eyebrow">THE JYC HUB SPECTRUM</span><h2>Start with what interests you.</h2><p>Culture, technology, creative work, literature and sport all sit inside the same JYC ecosystem. The filters below are derived from the supplied orientation list.</p></div><div className="hub-spectrum-tags">{JYC_HUB_FAMILIES.map((x,i)=><button type="button" className={family===x?'is-active':''} key={x} onClick={()=>{setFamily(x);setCat('All');setInterest('All')}}><b>{String(i+1).padStart(2,'0')}</b>{x}</button>)}</div></div>
+  <section className="find-community-panel reveal" aria-labelledby="find-community-title"><div><span className="eyebrow">FIND YOUR COMMUNITY</span><h2 id="find-community-title">Tell us what you want to build, perform, play or explore.</h2><p>Use a few interests to narrow the JYC ecosystem. This is a discovery aid—not a ranking of clubs.</p></div><div className="find-community-chips">{['Build & code','AI & robotics','Music & dance','Theatre & performance','Writing & debate','Design & media','Sports & fitness','Social impact','Leadership & events'].map(label=><button type="button" key={label} className={q.toLowerCase().includes(label.toLowerCase())?'is-active':''} onClick={()=>setQ(label)}>{label}</button>)}</div><div className="find-community-actions"><button type="button" className="btn" onClick={()=>{setQ('');setFamily('All');setType('All');setCat('All');setInterest('All');setFiltersOpen(true)}}>Show all communities</button><span>{visible.length} published communities · {JYC_HUB_FAMILIES.length} families</span></div></section>
   <div className="discover-panel discover-panel-compact reveal"><label className="club-search"><span>⌕</span><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search communities..." aria-label="Search communities"/>{q&&<button type="button" onClick={()=>setQ('')} aria-label="Clear club search">×</button>}</label><button type="button" className={`filter-toggle ${filtersOpen?'active':''}`} onClick={()=>setFiltersOpen(v=>!v)} aria-expanded={filtersOpen}>More filters <span>{filtersOpen?'−':'+'}</span></button></div>
   {filtersOpen&&<div className="club-filter-panel reveal"><div className="discover"><span>FAMILY</span>{['All',...JYC_HUB_FAMILIES].map(x=><button className={family===x?'active':''} onClick={()=>{setFamily(x);setCat('All');setInterest('All')}} key={x}>{x==='All'?'Everything':x}</button>)}</div><label><span>Type</span><select value={type} onChange={e=>setType(e.target.value)}><option value="All">All types</option>{['Technical','Non-Technical'].map(x=><option key={x}>{x}</option>)}</select></label><label><span>Category</span><select value={cat} onChange={e=>setCat(e.target.value)}><option value="All">All categories</option>{cats.map(x=><option key={x}>{x}</option>)}</select></label><label><span>Interest</span><select value={interest} onChange={e=>setInterest(e.target.value)}><option value="All">All interests</option>{ints.map(x=><option key={x}>{x}</option>)}</select></label><button className="filter-clear" onClick={clear}>Clear filters</button></div>}
   <div className="results-line"><span>{list.length} {list.length===1?'community':'communities'} found</span>{(q||family!=='All'||type!=='All'||cat!=='All'||interest!=='All')&&<button onClick={clear}>Clear filters</button>}</div>
@@ -905,8 +918,9 @@ function HubDirectory({data}){
 function ClubCard({c,index=0}){
  const nav=useNavigate();
  const identity=hubIdentity(c.name);
+ const social=socialProfile(c.name);
  const identityStyle={'--hub-accent':identity.accent,'--hub-accent-soft':`color-mix(in srgb, ${identity.accent} 14%, transparent)`,'--hub-accent-line':`color-mix(in srgb, ${identity.accent} 30%, transparent)`};
- return <Card className="club-card club-card-premium tilt-card reveal club-identity-card" data-hub={slug(c.name)} style={identityStyle} onClick={()=>nav('/clubs/'+slug(c.name))}><div className="club-card-visual" style={c.banner?{backgroundImage:`linear-gradient(135deg,var(--bg-card),transparent 65%),url(${c.banner})`}:{}}><div className="club-logo">{c.logo?<img src={c.logo} alt={`${c.name} logo`} loading="lazy"/>:<img src={logo} alt="JIIT Youth Club logo"/>}</div><span className="club-index">{String(index+1).padStart(2,'0')}</span></div><div className="card-body"><div className="club-identity-mini"><span><b className="hub-identity-glyph">{identity.glyph}</b>{identity.motif}</span><b>{identity.signature}</b>{c.sourceMediaLabel&&<small>{c.sourceMediaLabel}</small>}</div><div className="card-topline"><span className="tag">{c.type} · {c.category||'Community'}</span>{c.pinned&&<span className="pin-badge">PINNED</span>}</div><h3>{c.name}</h3><p>{c.description||'Official JYC club information will appear here.'}</p><div className="chips">{(c.interests||[]).slice(0,4).map(i=><span key={i}>{i}</span>)}</div><div className="club-card-footer"><span className="text-link">Explore club</span><span>↗</span></div></div></Card>
+ return <Card className="club-card club-card-premium tilt-card reveal club-identity-card" data-hub={slug(c.name)} style={identityStyle} onClick={()=>nav('/clubs/'+slug(c.name))}><div className="club-card-visual" style={c.banner?{backgroundImage:`linear-gradient(135deg,var(--bg-card),transparent 65%),url(${c.banner})`}:{}}><div className="club-logo">{c.logo?<img src={c.logo} alt={`${c.name} logo`} loading="lazy"/>:<img src={logo} alt="JIIT Youth Club logo"/>}</div><span className="club-index">{String(index+1).padStart(2,'0')}</span></div><div className="card-body"><div className="club-identity-mini"><span><b className="hub-identity-glyph">{identity.glyph}</b>{identity.motif}</span><b>{identity.signature}</b>{c.sourceMediaLabel&&<small>{c.sourceMediaLabel}</small>}</div><div className="card-topline"><span className="tag">{c.type} · {c.category||'Community'}</span>{c.pinned&&<span className="pin-badge">PINNED</span>}</div><h3>{c.name}</h3><p>{c.description||'Official JYC club information will appear here.'}</p><div className="chips">{(c.interests||[]).slice(0,4).map(i=><span key={i}>{i}</span>)}</div><div className="club-card-footer"><span className="text-link">Explore club</span><span>↗</span></div>{(c.socials?.instagram||c.socials?.linkedin||c.socials?.website)&&<div className="club-socials" onClick={ev=>ev.stopPropagation()}>{c.socials?.instagram&&<a href={safeExternalUrl(c.socials.instagram)||'#'} target="_blank" rel="noopener noreferrer" aria-label={`${c.name} Instagram`}>IG {c.socials.instagramHandle||'Instagram'} ↗</a>}{c.socials?.linkedin&&<a href={safeExternalUrl(c.socials.linkedin)||'#'} target="_blank" rel="noopener noreferrer" aria-label={`${c.name} LinkedIn`}>LinkedIn ↗</a>}{c.socials?.website&&<a href={safeExternalUrl(c.socials.website)||'#'} target="_blank" rel="noopener noreferrer" aria-label={`${c.name} website`}>Website ↗</a>}{social?.verifiedOn&&<small>Verified {social.verifiedOn}</small>}</div>}</div></Card>
 }
 
 function EventCard({e,index=0}){
