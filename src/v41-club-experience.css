@@ -895,3 +895,174 @@ html[data-theme="dark"] .club-detail-v41 .hub-evidence-rail{box-shadow:var(--jyc
   .club-detail-v41 .club-section-card,
   .club-detail-v41 .club-detail-hero{border-width:2px!important}
 }
+
+/* ---------- V41 loading experience ---------- */
+.loading-v41{
+  position:fixed!important;
+  inset:0!important;
+  z-index:99999!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(circle at 50% 38%,rgba(194,166,130,.13),transparent 28%),
+    linear-gradient(145deg,#0b101b,#141927 58%,#0f1420)!important;
+  color:var(--jyc-ivory)!important;
+}
+.loading-v41::before{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:1px solid rgba(194,166,130,.14);
+  border-radius:28px;
+  pointer-events:none;
+}
+.loading-v41-backdrop{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.loading-v41-backdrop span,
+.loading-v41-backdrop i,
+.loading-v41-backdrop b{
+  position:absolute;
+  display:block;
+  border-radius:50%;
+  border:1px solid rgba(194,166,130,.12);
+}
+.loading-v41-backdrop span{width:44vw;height:44vw;max-width:620px;max-height:620px;left:50%;top:42%;transform:translate(-50%,-50%);animation:v41LoaderBreath 5s ease-in-out infinite}
+.loading-v41-backdrop i{width:16px;height:16px;left:12%;top:22%;background:var(--jyc-champagne);box-shadow:0 0 32px rgba(194,166,130,.35);animation:v41LoaderDot 3.6s ease-in-out infinite}
+.loading-v41-backdrop b{width:7px;height:7px;right:14%;bottom:24%;background:var(--jyc-champagne-soft);box-shadow:0 0 22px rgba(239,227,203,.24);animation:v41LoaderDot 4.8s 1s ease-in-out infinite}
+.loading-center-v41{
+  position:relative;
+  z-index:2;
+  width:min(540px,calc(100vw - 40px));
+  display:grid;
+  justify-items:center;
+  text-align:center;
+}
+.loading-v41 .loading-kicker{
+  color:rgba(250,247,239,.66)!important;
+  letter-spacing:.18em!important;
+  font-size:9px!important;
+}
+.loading-v41-mark-wrap{
+  position:relative;
+  width:190px;height:190px;
+  display:grid;place-items:center;
+  margin:28px 0 18px;
+}
+.loading-v41-mark-wrap::before{
+  content:"";
+  position:absolute;
+  inset:20px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(194,166,130,.16),transparent 68%);
+  filter:blur(2px);
+  animation:v41LoaderGlow 3.6s ease-in-out infinite;
+}
+.loading-v41-line{
+  position:absolute;
+  height:1px;
+  width:100vw;
+  background:linear-gradient(90deg,transparent,rgba(194,166,130,.55),transparent);
+  opacity:.35;
+  transform:scaleX(.18);
+  animation:v41LoaderLine 2.8s ease-in-out infinite;
+}
+.loading-v41-line-b{transform:rotate(90deg) scaleX(.18);animation-delay:.45s}
+.loading-v41 .loading-mark{
+  position:relative!important;
+  z-index:2!important;
+  width:118px!important;height:118px!important;
+  display:grid!important;place-items:center!important;
+  border-radius:50%!important;
+  background:var(--jyc-ivory)!important;
+  border:1px solid rgba(194,166,130,.75)!important;
+  box-shadow:0 18px 60px rgba(0,0,0,.28),0 0 0 12px rgba(194,166,130,.035)!important;
+  animation:v41LoaderMark 3.8s ease-in-out infinite!important;
+}
+.loading-v41 .loading-mark img{
+  width:78%!important;height:78%!important;object-fit:contain!important;
+}
+.loading-v41 .loading-logo{display:grid!important;gap:6px!important}
+.loading-v41 .loading-logo span{
+  color:var(--jyc-ivory)!important;
+  font-size:clamp(18px,3vw,25px)!important;
+  font-weight:800!important;
+  letter-spacing:.24em!important;
+}
+.loading-v41 .loading-logo strong{
+  color:var(--jyc-champagne)!important;
+  font-size:9px!important;
+  letter-spacing:.32em!important;
+}
+.loading-v41 .loading-tagline{
+  color:rgba(250,247,239,.62)!important;
+  font-size:11px!important;
+  letter-spacing:.05em;
+}
+.loading-v41 .loading-v41-steps{
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:18px 0 10px;
+}
+.loading-v41 .loading-v41-steps span{
+  width:28px;height:28px;
+  display:grid;place-items:center;
+  border:1px solid rgba(194,166,130,.24);
+  border-radius:50%;
+  color:rgba(250,247,239,.42);
+  font-size:8px;
+  letter-spacing:.08em;
+  transition:background .4s ease,color .4s ease,border-color .4s ease,transform .4s var(--jyc-ease);
+}
+.loading-v41 .loading-v41-steps span.done{
+  color:var(--jyc-navy-deep);
+  background:var(--jyc-champagne);
+  border-color:var(--jyc-champagne);
+  transform:scale(1.08);
+}
+.loading-v41 .loading-v41-steps i{
+  width:34px;height:1px;
+  background:rgba(194,166,130,.20);
+}
+.loading-v41 .loadline{
+  width:min(360px,100%)!important;
+  height:2px!important;
+  margin-top:3px!important;
+  background:rgba(194,166,130,.16)!important;
+}
+.loading-v41 .loadline i{
+  background:linear-gradient(90deg,var(--jyc-bronze),var(--jyc-champagne),var(--jyc-ivory))!important;
+  box-shadow:0 0 18px rgba(194,166,130,.34);
+}
+.loading-v41 .loading-status{
+  margin-top:10px!important;
+  width:min(420px,100%)!important;
+}
+.loading-v41 .loading-status span:first-child{color:var(--jyc-champagne)!important}
+.loading-v41 .loading-status span:last-child{color:rgba(250,247,239,.52)!important}
+.loading-v41 .loading-foot{
+  color:rgba(250,247,239,.38)!important;
+  letter-spacing:.16em!important;
+}
+@keyframes v41LoaderBreath{0%,100%{transform:translate(-50%,-50%) scale(.92);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.04);opacity:1}}
+@keyframes v41LoaderDot{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(-10px);opacity:1}}
+@keyframes v41LoaderGlow{0%,100%{transform:scale(.85);opacity:.35}50%{transform:scale(1.08);opacity:.75}}
+@keyframes v41LoaderLine{0%,100%{transform:scaleX(.10);opacity:.12}50%{transform:scaleX(.8);opacity:.55}}
+@keyframes v41LoaderMark{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(-1deg)}}
+@media(max-width:600px){
+  .loading-v41::before{inset:10px;border-radius:20px}
+  .loading-v41-mark-wrap{width:156px;height:156px;margin:22px 0 14px}
+  .loading-v41 .loading-mark{width:96px!important;height:96px!important}
+  .loading-v41 .loading-logo span{font-size:15px!important;letter-spacing:.17em!important}
+  .loading-v41 .loading-v41-steps span{width:25px;height:25px}
+  .loading-v41 .loading-v41-steps i{width:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .loading-v41-backdrop span,.loading-v41-backdrop i,.loading-v41-backdrop b,
+  .loading-v41-mark-wrap::before,.loading-v41-line,.loading-v41 .loading-mark{animation:none!important}
+}
