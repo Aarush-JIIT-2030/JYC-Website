@@ -1,0 +1,349 @@
+/* JYC V33 — PUBLIC EXPERIENCE OVERHAUL
+   Final visual layer for the public site.
+   Brand anchor sampled from the supplied JYC logo: #F5D894.
+   Warm light mode + high-contrast carbon dark mode.
+*/
+:root{
+  --jyc33-brand:#f5d894;
+  --jyc33-brand-deep:#b8872f;
+  --jyc33-light-bg:#f7f0e4;
+  --jyc33-light-surface:#fffaf1;
+  --jyc33-light-surface-2:#eee4d3;
+  --jyc33-light-ink:#171411;
+  --jyc33-light-muted:#655d52;
+  --jyc33-light-line:rgba(23,20,17,.13);
+  --jyc33-dark-bg:#090908;
+  --jyc33-dark-surface:#141311;
+  --jyc33-dark-surface-2:#1b1916;
+  --jyc33-dark-ink:#fff9ed;
+  --jyc33-dark-muted:#c8bda9;
+  --jyc33-dark-line:rgba(245,216,148,.18);
+  --jyc33-shadow-light:0 18px 55px rgba(55,42,24,.09);
+  --jyc33-shadow-dark:0 22px 70px rgba(0,0,0,.34);
+  --jyc33-radius:24px;
+  --jyc33-ease:cubic-bezier(.22,.8,.24,1);
+}
+html[data-theme="light"]{
+  --jyc33-bg:var(--jyc33-light-bg);
+  --jyc33-surface:var(--jyc33-light-surface);
+  --jyc33-surface-2:var(--jyc33-light-surface-2);
+  --jyc33-ink:var(--jyc33-light-ink);
+  --jyc33-muted:var(--jyc33-light-muted);
+  --jyc33-line:var(--jyc33-light-line);
+  --jyc33-shadow:var(--jyc33-shadow-light);
+}
+html[data-theme="dark"]{
+  --jyc33-bg:var(--jyc33-dark-bg);
+  --jyc33-surface:var(--jyc33-dark-surface);
+  --jyc33-surface-2:var(--jyc33-dark-surface-2);
+  --jyc33-ink:var(--jyc33-dark-ink);
+  --jyc33-muted:var(--jyc33-dark-muted);
+  --jyc33-line:var(--jyc33-dark-line);
+  --jyc33-shadow:var(--jyc33-shadow-dark);
+}
+
+/* Palette contract: keep the public experience inside beige / black / white / neutrals. */
+.public-app,.home,.page{
+  --bg-main:var(--jyc33-bg)!important;
+  --bg-card:var(--jyc33-surface)!important;
+  --text-primary:var(--jyc33-ink)!important;
+  --text-muted:var(--jyc33-muted)!important;
+  --border-tech:var(--jyc33-line)!important;
+  --accent-red:var(--jyc33-brand)!important;
+  --accent-gold:var(--jyc33-brand)!important;
+  --jyc-beige:var(--jyc33-brand)!important;
+  --jyc32-accent:var(--jyc33-brand)!important;
+  --jyc-v28-accent:var(--jyc33-brand)!important;
+  --jyc32-ink:var(--jyc33-ink)!important;
+  --jyc32-muted:var(--jyc33-muted)!important;
+  --jyc32-paper:var(--jyc33-surface)!important;
+  --jyc32-surface-2:var(--jyc33-surface-2)!important;
+  --jyc32-line:var(--jyc33-line)!important;
+  color:var(--jyc33-ink)!important;
+}
+html[data-theme="light"] body,html[data-theme="light"] #root,html[data-theme="light"] .app-frame,html[data-theme="light"] .public-app{
+  background:linear-gradient(180deg,#f8f2e8 0%,#f1e7d6 58%,#eadfcf 100%)!important;
+}
+html[data-theme="dark"] body,html[data-theme="dark"] #root,html[data-theme="dark"] .app-frame,html[data-theme="dark"] .public-app{
+  background:radial-gradient(circle at 50% -10%,rgba(245,216,148,.055),transparent 34%),linear-gradient(180deg,#080807 0%,#0c0b0a 60%,#11100e 100%)!important;
+}
+
+/* Readability in both modes. */
+.public-app h1,.public-app h2,.public-app h3,.public-app h4,.public-app h5,.public-app h6,
+.public-app strong,.public-app b,.public-app label,.public-app .card-topline{
+  color:var(--jyc33-ink)!important;
+}
+.public-app p,.public-app li,.public-app small,.public-app .muted-note,.public-app .feature-empty span{
+  color:var(--jyc33-muted)!important;
+}
+.public-app .eyebrow,.public-app .tag,.public-app .text-link,.public-app .reference-view-all{
+  color:var(--jyc33-brand)!important;
+}
+.public-app ::selection{background:var(--jyc33-brand)!important;color:#171411!important}
+
+/* Navigation becomes a calm, premium glass strip. */
+.public-app .nav{
+  background:color-mix(in srgb,var(--jyc33-bg) 91%,transparent)!important;
+  border-bottom:1px solid var(--jyc33-line)!important;
+  box-shadow:0 12px 38px color-mix(in srgb,var(--jyc33-ink) 7%,transparent)!important;
+}
+.public-app .nav .brand-mark{
+  background:var(--jyc33-surface)!important;
+  border-color:var(--jyc33-line)!important;
+  box-shadow:0 8px 24px color-mix(in srgb,var(--jyc33-brand) 14%,transparent)!important;
+}
+.public-app .nav nav button.active{
+  background:var(--jyc33-brand)!important;
+  color:#171411!important;
+  border-color:var(--jyc33-brand)!important;
+}
+html[data-theme="dark"] .public-app .nav nav button.active{
+  background:color-mix(in srgb,var(--jyc33-brand) 19%,transparent)!important;
+  color:var(--jyc33-dark-ink)!important;
+  border-color:color-mix(in srgb,var(--jyc33-brand) 48%,transparent)!important;
+}
+.public-app .nav .theme-toggle,.public-app .nav .search-trigger{
+  background:var(--jyc33-surface)!important;color:var(--jyc33-ink)!important;border-color:var(--jyc33-line)!important;
+}
+.public-app .nav .theme-toggle:hover,.public-app .nav .search-trigger:hover{
+  border-color:color-mix(in srgb,var(--jyc33-brand) 60%,transparent)!important;
+  box-shadow:0 10px 28px color-mix(in srgb,var(--jyc33-brand) 13%,transparent)!important;
+}
+
+/* Buttons: beige is the brand action; text stays readable. */
+.public-app .btn:not(.secondary),.public-app .btn.primary{
+  background:var(--jyc33-brand)!important;color:#171411!important;border-color:var(--jyc33-brand)!important;
+}
+.public-app .btn.secondary{
+  background:transparent!important;color:var(--jyc33-ink)!important;border-color:var(--jyc33-line)!important;
+}
+.public-app .btn:hover{
+  transform:translateY(-3px)!important;
+  box-shadow:0 14px 32px color-mix(in srgb,var(--jyc33-brand) 17%,transparent)!important;
+}
+.public-app .btn:focus-visible,.public-app button:focus-visible,.public-app a:focus-visible,
+.public-app input:focus-visible,.public-app textarea:focus-visible,.public-app select:focus-visible{
+  outline:2px solid var(--jyc33-brand)!important;outline-offset:3px!important;
+}
+
+/* Hero: visual interest without the old over-animated feel. */
+.home .hero{
+  position:relative!important;
+  isolation:isolate!important;
+  padding-block:54px 42px!important;
+}
+.home .hero::after{
+  content:"";position:absolute;inset:4% 5% 2%;z-index:-1;border:1px solid color-mix(in srgb,var(--jyc33-brand) 18%,transparent);
+  border-radius:40px;pointer-events:none;
+  background:radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--jyc33-brand) 9%,transparent),transparent 38%);
+  animation:jyc33Breath 7s ease-in-out infinite;
+}
+.home .hero-copy h1{
+  text-shadow:0 10px 35px color-mix(in srgb,var(--jyc33-ink) 8%,transparent)!important;
+}
+.home .hero-logo-stage{
+  filter:drop-shadow(0 30px 60px color-mix(in srgb,var(--jyc33-brand) 18%,transparent))!important;
+}
+.home .hero-logo-stage::before{
+  background:radial-gradient(circle,color-mix(in srgb,var(--jyc33-brand) 34%,transparent),transparent 69%)!important;
+}
+.home .hero-logo-ring{border-color:color-mix(in srgb,var(--jyc33-brand) 50%,transparent)!important}
+.home .hero-logo-ring-b{border-color:color-mix(in srgb,var(--jyc33-brand) 34%,transparent)!important}
+.home .hero-logo-pulse{border-color:color-mix(in srgb,var(--jyc33-brand) 40%,transparent)!important}
+.home .hero-context-rail,.home .hero-quick{
+  position:relative;z-index:4;
+}
+.home .hero-quick button{
+  background:color-mix(in srgb,var(--jyc33-surface) 94%,transparent)!important;
+  border-color:var(--jyc33-line)!important;color:var(--jyc33-ink)!important;
+  transition:transform .35s var(--jyc33-ease),border-color .35s,box-shadow .35s,background .35s!important;
+}
+.home .hero-quick button:hover{
+  transform:translateY(-5px)!important;border-color:color-mix(in srgb,var(--jyc33-brand) 55%,transparent)!important;
+  box-shadow:var(--jyc33-shadow)!important;
+}
+.hero-join-soon{opacity:.86!important;cursor:not-allowed!important;filter:saturate(.8)!important}
+
+/* Premium surfaces and consistent centered composition. */
+.public-app .section,.public-app .page{position:relative}
+.public-app .section-head,.public-app .reference-section-head,.public-app .section-inline-head{
+  text-align:center!important;justify-content:center!important;justify-items:center!important;
+}
+.public-app .section-head>*,.public-app .reference-section-head>div,.public-app .section-inline-head>div{margin-inline:auto!important}
+.public-app .card,.public-app .activity-card,.public-app .jyc-journal-card,.public-app .past-card,
+.public-app .contact-card,.public-app .home-team-card,.public-app .club-section-card,
+.public-app .event-context-card,.public-app .home-about-ecosystem,.public-app .jyc-feature-event,
+.public-app .jyc-now-strip,.public-app .announcement-card,.public-app .achievement-feature,
+.public-app .feature-card,.public-app .about-intro-v28,.public-app .about-flow-v28{
+  background:linear-gradient(145deg,color-mix(in srgb,var(--jyc33-brand) 5%,var(--jyc33-surface)),var(--jyc33-surface))!important;
+  color:var(--jyc33-ink)!important;border-color:var(--jyc33-line)!important;box-shadow:var(--jyc33-shadow)!important;
+}
+.public-app .card:hover,.public-app .activity-card:hover,.public-app .jyc-journal-card:hover,
+.public-app .past-card:hover,.public-app .contact-card:hover,.public-app .home-team-card:hover,
+.public-app .announcement-card:hover,.public-app .feature-card:hover{
+  border-color:color-mix(in srgb,var(--jyc33-brand) 52%,transparent)!important;
+  transform:translateY(-5px)!important;
+}
+
+/* Subtle image art direction: consistent crops, contrast and brand veil. */
+.public-app .gallery-grid .gallery-item,.public-app .archive-story-photo,
+.public-app .jyc-feature-poster,.public-app .about-programme-image,
+.public-app .club-card-visual,.public-app .team-photo-editorial,.public-app .home-team-photo{
+  overflow:hidden!important;background:var(--jyc33-surface-2)!important;
+}
+.public-app .gallery-grid .gallery-item img,.public-app .archive-story-photo img,
+.public-app .jyc-feature-poster img,.public-app .about-programme-image img,
+.public-app .club-card-visual img,.public-app .team-photo-editorial img,.public-app .home-team-photo img{
+  filter:saturate(.93) contrast(1.06)!important;
+  transition:transform .65s var(--jyc33-ease),filter .65s var(--jyc33-ease)!important;
+}
+.public-app .gallery-grid .gallery-item:hover img,.public-app .archive-story-photo:hover img,
+.public-app .jyc-feature-poster:hover img,.public-app .about-programme-image:hover img{
+  transform:scale(1.045)!important;filter:saturate(1.02) contrast(1.08)!important;
+}
+.public-app .gallery-grid .gallery-item::after,.public-app .archive-story-photo::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.22));
+  opacity:.6;transition:opacity .35s ease;
+}
+.public-app .gallery-grid .gallery-item:hover::after,.public-app .archive-story-photo:hover::after{opacity:.35}
+
+/* New homepage update rail. */
+.home .home-latest-updates{padding-top:34px!important}
+.home .home-latest-updates .latest-update-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px;
+}
+.home .latest-update-card{
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:20px 22px;
+  border:1px solid var(--jyc33-line);border-radius:20px;background:var(--jyc33-surface);
+  color:var(--jyc33-ink);box-shadow:var(--jyc33-shadow);text-decoration:none;
+  transition:transform .35s var(--jyc33-ease),border-color .35s,box-shadow .35s;
+}
+.home .latest-update-card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--jyc33-brand) 55%,transparent)}
+.home .latest-update-card .latest-index{font-size:10px;font-weight:900;letter-spacing:.12em;color:var(--jyc33-brand)}
+.home .latest-update-card strong{display:block;color:var(--jyc33-ink);font-size:15px}
+.home .latest-update-card small{display:block;color:var(--jyc33-muted);margin-top:5px}
+.home .latest-update-card b{color:var(--jyc33-brand);font-size:18px}
+.home .latest-update-head{display:flex;align-items:end;justify-content:space-between;gap:18px}
+.home .latest-update-head .reference-view-all{white-space:nowrap}
+
+/* About: make the requested principles / vision / mission hierarchy unmistakable. */
+.about-page .about-principles-v33{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:22px;
+}
+.about-page .about-principle-v33{
+  min-height:150px;padding:20px 16px;border:1px solid var(--jyc33-line);border-radius:18px;background:var(--jyc33-surface);
+  display:grid;align-content:center;gap:8px;text-align:center;transition:transform .35s var(--jyc33-ease),border-color .35s;
+}
+.about-page .about-principle-v33:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--jyc33-brand) 52%,transparent)}
+.about-page .about-principle-v33 span{font-size:10px;color:var(--jyc33-brand);font-weight:900;letter-spacing:.12em}
+.about-page .about-principle-v33 strong{font-size:14px}
+.about-page .about-principle-v33 p{font-size:12px;line-height:1.5;margin:0}
+.about-page .about-source-note{
+  margin:20px auto 0;max-width:70ch;padding:13px 16px;border:1px dashed var(--jyc33-line);border-radius:999px;
+  text-align:center;color:var(--jyc33-muted);font-size:11px;
+}
+
+/* Team: visual hierarchy, not just a list of role headings. */
+.jyc-team-page .team-command-strip{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:22px 0 36px;
+}
+.jyc-team-page .team-command-strip article{
+  padding:18px;border:1px solid var(--jyc33-line);border-radius:18px;background:var(--jyc33-surface);
+  text-align:center;box-shadow:var(--jyc33-shadow);
+}
+.jyc-team-page .team-command-strip b{display:block;font-size:25px;color:var(--jyc33-brand);line-height:1}
+.jyc-team-page .team-command-strip span{display:block;margin-top:7px;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--jyc33-muted)}
+.jyc-team-page .team-layer{margin-top:36px}
+.jyc-team-page .team-layer-head{text-align:center;margin-bottom:18px}
+.jyc-team-page .team-layer-head h2{margin:7px 0}
+.jyc-team-page .team-layer-head p{max-width:60ch;margin:0 auto;color:var(--jyc33-muted)}
+.jyc-team-page .team-layer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.jyc-team-page .team-layer-card{
+  padding:20px;border:1px solid var(--jyc33-line);border-radius:20px;background:var(--jyc33-surface);
+  text-align:center;box-shadow:var(--jyc33-shadow);transition:transform .35s var(--jyc33-ease),border-color .35s;
+}
+.jyc-team-page .team-layer-card:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--jyc33-brand) 52%,transparent)}
+.jyc-team-page .team-layer-card .team-photo-editorial{width:100%;aspect-ratio:1/1.08;border-radius:16px;margin-bottom:15px}
+.jyc-team-page .team-layer-card .team-photo-editorial img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.jyc-team-page .team-layer-card .tag{font-size:9px}
+.jyc-team-page .team-layer-card h3{margin:8px 0 5px}
+.jyc-team-page .team-layer-card p{font-size:12px;line-height:1.55;margin:0}
+.jyc-team-page .team-hub-directory{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px;
+}
+.jyc-team-page .team-hub-directory a{
+  padding:16px 12px;border:1px solid var(--jyc33-line);border-radius:16px;background:var(--jyc33-surface);
+  color:var(--jyc33-ink);text-decoration:none;text-align:center;transition:transform .3s var(--jyc33-ease),border-color .3s;
+}
+.jyc-team-page .team-hub-directory a:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--jyc33-brand) 55%,transparent)}
+.jyc-team-page .team-hub-directory small{display:block;color:var(--jyc33-brand);font-size:9px;text-transform:uppercase;letter-spacing:.1em}
+.jyc-team-page .team-hub-directory strong{display:block;margin-top:5px}
+.jyc-team-page .team-closeout{background:linear-gradient(135deg,color-mix(in srgb,var(--jyc33-brand) 11%,var(--jyc33-surface)),var(--jyc33-surface))!important}
+
+/* Join JYC — intentionally a clear Coming Soon destination. */
+.join-jyc-page .join-soon-hero{
+  width:min(980px,100%);margin:28px auto 0;padding:clamp(34px,6vw,72px);
+  border:1px solid var(--jyc33-line);border-radius:32px;background:
+  radial-gradient(circle at 50% 0%,color-mix(in srgb,var(--jyc33-brand) 17%,transparent),transparent 42%),
+  linear-gradient(145deg,color-mix(in srgb,var(--jyc33-brand) 7%,var(--jyc33-surface)),var(--jyc33-surface));
+  text-align:center;box-shadow:var(--jyc33-shadow);position:relative;overflow:hidden;
+}
+.join-jyc-page .join-soon-hero::before{
+  content:"";position:absolute;width:280px;height:280px;border:1px solid color-mix(in srgb,var(--jyc33-brand) 26%,transparent);
+  border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);animation:jyc33Pulse 5s ease-in-out infinite;pointer-events:none;
+}
+.join-jyc-page .join-soon-mark{position:relative;display:grid;place-items:center;margin:0 auto 20px;width:112px;height:112px;border-radius:50%;background:var(--jyc33-surface);border:1px solid var(--jyc33-line);box-shadow:0 0 0 12px color-mix(in srgb,var(--jyc33-brand) 8%,transparent)}
+.join-jyc-page .join-soon-mark img{width:82px;height:82px;object-fit:contain}
+.join-jyc-page .join-soon-hero h1{font-size:clamp(44px,7vw,78px);margin:10px 0}
+.join-jyc-page .join-soon-hero p{max-width:62ch;margin:0 auto;line-height:1.7}
+.join-jyc-page .join-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.join-jyc-page .join-benefits article{padding:22px;border:1px solid var(--jyc33-line);border-radius:20px;background:var(--jyc33-surface);text-align:center}
+.join-jyc-page .join-benefits b{display:block;color:var(--jyc33-brand);font-size:22px}
+.join-jyc-page .join-benefits h3{margin:8px 0}
+.join-jyc-page .join-benefits p{margin:0;font-size:13px}
+
+/* Gallery year filter and photo archive controls. */
+.gallery-page .gallery-filter .gallery-years{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.gallery-page .gallery-years button{
+  border:1px solid var(--jyc33-line);background:transparent;color:var(--jyc33-muted);border-radius:999px;padding:9px 13px;
+}
+.gallery-page .gallery-years button.active{background:var(--jyc33-brand);color:#171411;border-color:var(--jyc33-brand)}
+.gallery-page .gallery-controls{display:flex;justify-content:center}
+
+/* Contact: complete official channel grid. */
+.contact-page .contact-grid{align-items:stretch}
+.contact-page .contact-card{display:grid;align-content:start}
+.contact-page .contact-location{
+  grid-column:1/-1;text-align:center;padding:22px;border:1px solid var(--jyc33-line);border-radius:20px;background:var(--jyc33-surface);
+}
+.contact-page .contact-location p{max-width:65ch;margin:8px auto 0}
+
+/* Avoid huge blank states and make motion intentional. */
+.public-app .state,.public-app .feature-empty,.public-app .moments-empty,.public-app .today-empty{min-height:0!important}
+.public-app .reveal{animation:jyc33Lift .62s var(--jyc33-ease) both}
+@keyframes jyc33Lift{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes jyc33Breath{0%,100%{opacity:.55;transform:scale(.995)}50%{opacity:1;transform:scale(1.005)}}
+@keyframes jyc33Pulse{0%,100%{opacity:.2;transform:translate(-50%,-50%) scale(.9)}50%{opacity:.65;transform:translate(-50%,-50%) scale(1.08)}}
+@media(prefers-reduced-motion:reduce){
+  .public-app *, .public-app *::before,.public-app *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+@media(max-width:900px){
+  .home .hero::after{inset:2% 1%}
+  .home .home-latest-updates .latest-update-grid{grid-template-columns:1fr}
+  .about-page .about-principles-v33{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .jyc-team-page .team-command-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jyc-team-page .team-layer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jyc-team-page .team-hub-directory{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .join-jyc-page .join-benefits{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .home .hero{padding-top:34px!important}
+  .home .hero::after{border-radius:26px}
+  .about-page .about-principles-v33{grid-template-columns:1fr 1fr}
+  .jyc-team-page .team-command-strip{grid-template-columns:1fr 1fr}
+  .jyc-team-page .team-layer-grid{grid-template-columns:1fr}
+  .jyc-team-page .team-hub-directory{grid-template-columns:1fr 1fr}
+  .join-jyc-page .join-soon-hero{padding:30px 18px;border-radius:24px}
+  .gallery-page .gallery-filter .gallery-years{justify-content:flex-start}
+}
