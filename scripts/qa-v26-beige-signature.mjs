@@ -4,35 +4,60 @@ import path from 'node:path';
 const root=process.cwd();
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const main=read('src/main.jsx');
-const css=read('src/v32-public-production-overhaul.css');
-const v26=read('src/v26-beige-signature.css');
-const v28=read('src/v28-editorial-system.css');
-const v29=read('src/v29-interaction-polish.css');
+const extra=read('src/extra-features.jsx');
+const css=read('src/v33-final-public-experience.css');
 const index=read('index.html');
 const pkg=JSON.parse(read('package.json'));
 const sw=read('public/sw.js');
+const hubContent=read('src/v21-hub-content.js');
+
+const hasExactUrl=(content,{protocol,hostname,pathname})=>{
+  const matches=content.match(/https?:\/\/[^\s"'`<>)]+/g)??[];
+  return matches.some(raw=>{
+    try{
+      const u=new URL(raw);
+      return u.protocol===protocol&&u.hostname===hostname&&u.pathname===pathname;
+    }catch{
+      return false;
+    }
+  });
+};
 
 let pass=0,fail=0;
 const check=(name,ok)=>{if(ok){console.log('PASS: '+name);pass++}else{console.error('FAIL: '+name);fail++}};
 
-check('final V32 stylesheet is loaded exactly once',main.match(/import '\.\/v32-public-production-overhaul\.css';/g)?.length===1);
-check('V32 layer is loaded after V29',main.indexOf('v32-public-production-overhaul.css')>main.indexOf('v29-interaction-polish.css'));
-check('JYC beige palette is preserved',v26.includes('--jyc-beige:#a47b43')&&v26.includes('--jyc-black:#090909')&&v26.includes('--jyc-white:#fffdf8'));
-check('V32 light/dark theme variables are complete',css.includes('--jyc32-paper:#fffaf1')&&css.includes('--jyc32-ink:#17120d')&&css.includes('html[data-theme="dark"]')&&css.includes('--jyc32-paper:#171411')&&css.includes('--jyc32-ink:#f8f1e7'));
-check('public cards keep readable secondary text',css.includes('.public-app .card p')&&css.includes('color:var(--jyc32-muted)!important'));
-check('homepage hierarchy is centered',css.includes('.home .hero{')&&css.includes('text-align:center!important')&&css.includes('.home .hero-copy')&&css.includes('justify-items:center!important'));
-check('page headers are centered and bounded',css.includes('.compact-page-head')&&css.includes('margin:24px auto 0!important')&&css.includes('text-align:center!important'));
-check('mobile layout has compact widths',css.includes('@media(max-width:560px)')&&css.includes('width:calc(100% - 16px)!important'));
-check('image treatment uses responsive crop instead of distortion',css.includes('object-fit:cover!important')&&css.includes('object-position:center!important'));
-check('reduced-motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
+check('V33 stylesheet is loaded exactly once',main.match(/import '\.\/v33-final-public-experience\.css';/g)?.length===1);
+check('V33 visual layer is loaded after V32',main.indexOf('v33-final-public-experience.css')>main.indexOf('v32-public-production-overhaul.css'));
+check('logo beige is the final public brand anchor',css.includes('--jyc33-brand:#f5d894')&&css.includes('--jyc33-light-bg:#f7f0e4'));
+check('light/dark theme contracts are explicit',css.includes('html[data-theme="light"]')&&css.includes('html[data-theme="dark"]')&&css.includes('--jyc33-light-ink:#171411')&&css.includes('--jyc33-dark-ink:#fff9ed'));
+check('public text has explicit secondary contrast',css.includes('.public-app p,.public-app li,.public-app small')&&css.includes('color:var(--jyc33-muted)!important'));
+check('homepage hierarchy and motion layer are present',css.includes('.home .hero{')&&css.includes('text-align:center!important')&&css.includes('@keyframes jyc33Breath'));
+check('latest updates are part of homepage',main.includes('home-latest-updates')&&main.includes('LATEST UPDATES'));
+check('Join JYC Coming Soon destination exists',main.includes("clean==='/join-jyc'")&&main.includes('function JoinJYC')&&main.includes('Join JYC · Coming Soon'));
+check('Team hierarchy is explicit',main.includes('Faculty → Apex → Core → Clubs & Hubs')&&main.includes('team-command-strip')&&main.includes('JYC Apex'));
+check('About exposes requested principles',main.includes('WHAT WE STAND FOR')&&main.includes('about-principles-v33'));
+check('Gallery supports year discovery',extra.includes('gallery-years')&&extra.includes("const years=['All'"));
+check('Event details support structured extra information',main.includes('e.rules?.length')&&main.includes('e.eligibility')&&main.includes('e.prizes?.length')&&main.includes('e.faqs?.length'));
+check('Contact includes official JIIT campus context',main.includes('contact-location')&&hasExactUrl(main,{protocol:'https:',hostname:'www.jiit.ac.in',pathname:'/contact-us'}));
+check('mobile layout stays compact',css.includes('@media(max-width:560px)')&&css.includes('grid-template-columns:1fr'));
+check('image treatment uses non-distorting crops',css.includes('object-fit:cover!important')&&css.includes('object-position:center'));
+check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
 check('public navigation exposes Contact',main.includes("['Contact','/contact']"));
 check('official JYC hub content is wired',main.includes('JYC_HUB_CONTENT')&&main.includes('JYC_HUB_FAMILIES'));
-check('verified leadership fallback includes faculty and core heads',main.includes('Dr. Vinay Anand Tikkiwal')&&main.includes('Dr. Pankaj Kumar Srivastava')&&main.includes("name:'Harisha'")&&main.includes("name:'Dhruv Choudhary'"));
+check('verified leadership content remains source-grounded',main.includes('Dr. Vinay Anand Tikkiwal')&&main.includes('Dr. Pankaj Kumar Srivastava')&&main.includes("name:'Harisha'")&&main.includes("name:'Dhruv Choudhary'"));
 check('production path does not fabricate demo content',main.includes('allowContentFallback:false')&&main.includes('return norm(empty)'));
 check('JYC logo remains the public hero identity',main.includes('hero-logo-stage')&&main.includes('<img src={logo}'));
 check('SEO/social preview remains logo-led',index.includes('og:image" content="/jyc-logo-circle.png"')&&index.includes('twitter:image" content="/jyc-logo-circle.png"'));
-check('service worker cache is current',sw.includes('jyc-cache-v31-0-0'));
-check('release metadata is synchronized',pkg.version==='31.0.0');
+check('service worker cache is current',sw.includes('jyc-cache-v33-3-0'));
+const maintainedHubCount=(hubContent.match(/^\s{2}(?:'[^']+'|[A-Za-z][^:]+):\{/gm)||[]).length;
+check('orientation source count stays internally consistent',main.includes('21 communities')&&main.includes("Object.keys(JYC_HUB_CONTENT).length")&&maintainedHubCount===21);
+check('hub detail exposes source and live evidence layers',main.includes('hub-evidence-rail')&&main.includes('club-source')&&main.includes('Published JYC records provide the live layer'));
+check('events support family-level discovery',main.includes("[family,setFamily]=useState('All')")&&main.includes('eventFamily(e.club)===family')&&main.includes('All families'));
+check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('21 maintained community signatures'));
+check('all 21 hub identities are represented',maintainedHubCount===21&&read('src/hub-identities.js').includes('21 maintained community signatures'));
+check('event identity system covers supplied flagship events',read('src/hub-identities.js').includes('Dron-O-War')&&read('src/hub-identities.js').includes('Converge')&&read('src/hub-identities.js').includes('Code Clash')&&main.includes('eventIdentity(e)'));
+check('event detail carries its own identity lockup',main.includes('event-identity-lockup')&&main.includes('event-identity-panel'));
+check('release metadata is synchronized',pkg.version==='33.3.0');
 
 if(fail)process.exit(1);
-console.log(`V32 public visual QA: ${pass}/${pass+fail} passed.`);
+console.log(`V33 public visual QA: ${pass}/${pass+fail} passed.`);

@@ -1,3 +1,46 @@
+## V33.3.0 — Distinct hub & event identity system
+
+- Reconciled the public ecosystem with the supplied All Hubs material: **21 named communities across 5 families**.
+- Added a distinct visual identity system for every maintained JYC community: accent, motif, glyph, geometry, display label and domain traits.
+- Added event identity presets for supplied flagship experiences including Dron-O-War, Converge, Ebullience, Code Clash, TechTonic, Circuit Rush, Robo Soccer, Top Gun Challenge, RIDE Hack, Innovate, CodeAI, BITBOX and the Agentic AI experience.
+- Added deterministic fallback event identity resolution so newly published events inherit their organiser/domain language without requiring hard-coded UI changes.
+- Extended event cards and event detail pages with identity lockups, event DNA and source-aware visual treatments.
+- Extended hub cards and hub detail pages with stronger identity surfaces while preserving the shared JYC visual system.
+- Added QA contracts for all 21 hubs and event identity coverage.
+- Rotated release/cache metadata to V33.3.0 / `jyc-cache-v33-3-0`.
+
+## V33.2.0 — Hub Evidence & Discovery Pass
+
+- Added a compact hub evidence rail to every public community profile, separating orientation/source context from live published JYC records.
+- Added source navigation on hub detail pages so visitors can jump directly to supplied hub-story material.
+- Added family-level filtering to the Events page across Cultural, Technical, Creative, Literary and Sports communities.
+- Removed the remaining current-site copy that asserted an unsupported fixed 21-community count.
+- Aligned hub identity documentation with the maintained 21-community source list.
+- Repaired package-lock release metadata so package.json, lockfile, QA and service-worker cache agree on V33.2.0.
+- Added production QA coverage for hub evidence, family discovery and source-count consistency.
+
+## V33.1.0 — JYC Orientation Experience
+
+- Added a source-grounded JYC 2026–27 ecosystem explorer using the supplied Orientation / All Hubs material.
+- Added an at-a-glance section for organisation, families, named communities and year-round experience.
+- Added five family explorers with direct hub navigation.
+- Added the supplied organisational model: Faculty Advisor → Apex Body → Hubs & Societies → Student Volunteers → Festival Committees.
+- Added the major programme rhythm from the supplied orientation material.
+- Corrected public copy that implied an unsupported fixed “21” count; the current named list contains 21 communities and the UI now derives the count from the maintained source list.
+- Kept operational/current data separate from orientation source material.
+
+## V33.0.0 — Public Experience Overhaul
+
+- Reworked the public visual system around the supplied JYC logo beige (#F5D894), with explicit high-contrast light and dark modes.
+- Added a dedicated Join JYC destination with a clear Coming Soon state.
+- Added homepage latest-updates discovery and stronger cross-page pathways.
+- Rebuilt the public Team hierarchy as Faculty → Apex → Core → Clubs & Hubs.
+- Added explicit About principles and a clearer public information architecture.
+- Added year-based Gallery filtering and structured Event Details support for eligibility, rules, prizes and FAQs.
+- Expanded Contact with official LinkedIn and Sector 128 campus context.
+- Rotated the service-worker cache to jyc-cache-v33-0-0.
+- Updated release QA contracts for the V33 visual system.
+
 ## V31.0.0 — Production Hardening
 
 - Production builds no longer initialize or recover fabricated demo content when Supabase configuration is absent.
