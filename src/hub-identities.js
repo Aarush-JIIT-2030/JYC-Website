@@ -74,7 +74,7 @@ export function eventIdentity(input,clubName=''){
   return {
     accent:familyAccent,
     motif:`${parent?.display||'JYC'} / ${String(eventType).toUpperCase()}`,
-    signature:parent?\`${parent.signature} · ${eventType}\`:\`A JYC event within the campus programme · ${eventType}\`,
+    signature:parent?`${parent.signature} · ${eventType}`:`A JYC event within the campus programme · ${eventType}`,
     traits:parent?.traits||['Community','Campus','JYC'],
     glyph:parent?.glyph||'◆',
     surface:parent?.surface||'warm',
