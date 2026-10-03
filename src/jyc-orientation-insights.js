@@ -31,6 +31,6 @@ export const JYC_ORIENTATION_EVENTS=[
 export const JYC_ORIENTATION_AT_A_GLANCE=[
  {label:'Organisation',value:'Student-governed',detail:'JYC is presented in the 2026–27 orientation as a student-governed organisation.'},
  {label:'Families',value:'5',detail:'Cultural · Technical · Creative · Literary · Sports.'},
- {label:'Named communities',value:'20',detail:'The current supplied orientation list names 20 communities; this count is derived from that list rather than inventing a 21st entry.'},
+ {label:'Named communities',value:'21',detail:'The supplied orientation material lists 21 named communities across five families; the public count is derived from those named entries.'},
  {label:'Experience',value:'Year-round',detail:'Induction, fests, hackathons, cultural programmes, sports and hub activities.'}
 ];
