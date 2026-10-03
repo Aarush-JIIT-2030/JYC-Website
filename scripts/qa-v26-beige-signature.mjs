@@ -39,7 +39,7 @@ check('service worker cache is current',sw.includes('jyc-cache-v33-2-0'));
 check('orientation source count stays internally consistent',main.includes('currently names 21 communities')&&main.includes("Object.keys(JYC_HUB_CONTENT).length"));
 check('hub detail exposes source and live evidence layers',main.includes('hub-evidence-rail')&&main.includes('club-source')&&main.includes('Published JYC records provide the live layer'));
 check('events support family-level discovery',main.includes("[family,setFamily]=useState('All')")&&main.includes('eventFamily(e.club)===family')&&main.includes('All families'));
-check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('20 maintained community signatures'));
+check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('21 maintained community signatures'));
 check('release metadata is synchronized',pkg.version==='33.2.0');
 
 if(fail)process.exit(1);
