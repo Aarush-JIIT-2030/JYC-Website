@@ -35,12 +35,12 @@ check('verified leadership content remains source-grounded',main.includes('Dr. V
 check('production path does not fabricate demo content',main.includes('allowContentFallback:false')&&main.includes('return norm(empty)'));
 check('JYC logo remains the public hero identity',main.includes('hero-logo-stage')&&main.includes('<img src={logo}'));
 check('SEO/social preview remains logo-led',index.includes('og:image" content="/jyc-logo-circle.png"')&&index.includes('twitter:image" content="/jyc-logo-circle.png"'));
-check('service worker cache is current',sw.includes('jyc-cache-v33-2-0'));
+check('service worker cache is current',sw.includes('jyc-cache-v33-3-0'));
 check('orientation source count stays internally consistent',main.includes('currently names 21 communities')&&main.includes("Object.keys(JYC_HUB_CONTENT).length"));
 check('hub detail exposes source and live evidence layers',main.includes('hub-evidence-rail')&&main.includes('club-source')&&main.includes('Published JYC records provide the live layer'));
 check('events support family-level discovery',main.includes("[family,setFamily]=useState('All')")&&main.includes('eventFamily(e.club)===family')&&main.includes('All families'));
 check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('21 maintained community signatures'));
-check('release metadata is synchronized',pkg.version==='33.2.0');
+check('release metadata is synchronized',pkg.version==='33.3.0');
 
 if(fail)process.exit(1);
 console.log(`V33 public visual QA: ${pass}/${pass+fail} passed.`);
