@@ -27,12 +27,12 @@ const adminFn=read('supabase/functions/admin-management/index.ts');
 const contactSql=read('supabase/contact-and-project-submissions.sql');
 if(pkg.version!=='38.0.0'||lock.version!=='38.0.0'||lock.engines?.node!=='>=22') fail('Release metadata and lockfile engine are out of sync'); else pass('Release metadata and lockfile engine are synchronized');
 if((main.match(/import '\.\/styles\/public-system\.css';/g)||[]).length!==1) fail('Consolidated public stylesheet must be imported exactly once'); else pass('Consolidated public stylesheet import is unique');
-if(main.includes("supabase.from('jyc_contact_submissions')")) pass('Contact form has a persistent submission target'); else fail('Contact form has no persistent submission target');
+if(main.includes("functions.invoke('public-submission'")&&main.includes("type:'contact'")) pass('Contact form uses the guarded persistent submission target'); else fail('Contact form has no guarded persistent submission target');
 if(contactSql.includes('alter table public.jyc_contact_submissions enable row level security')&&contactSql.includes('Admins can read contact messages')) pass('Contact inbox has RLS and admin-only reads'); else fail('Contact inbox security policy incomplete');
 if(contactSql.includes('public.jyc_project_submissions')&&contactSql.includes('Admins can update project submissions')) pass('Project submission inbox schema and RLS are present'); else fail('Project submission schema/security incomplete');
 if(ai.includes("gpt-6-luna")) pass('AI content assistant uses a current configured model default'); else fail('AI content assistant model default is stale');
 if(ai.includes('if(!allowedOrigin(origin))')&&ai.includes('jyc_allow_ai_request')&&ai.includes('contentLength>24000')&&ai.includes('store:false')&&ai.includes('json_schema')) pass('AI content assistant has origin, size, distributed rate and structured-output guards'); else fail('AI content assistant request guards are incomplete');
-if(adminFn.includes("Deno.env.get('SITE_ORIGINS')") && !adminFn.includes('https://jycjiit.vercel.app')) pass('Admin edge function uses deploy-time origin configuration'); else fail('Admin edge function still hard-codes a legacy production origin');
+if(adminFn.includes("Deno.env.get('SITE_ORIGINS')") && !/https?:\/\/jycjiit\.vercel\.app(?=\/|[\s'\")]|$)/i.test(adminFn)) pass('Admin edge function uses deploy-time origin configuration'); else fail('Admin edge function still hard-codes a legacy production origin');
 
 const failed=checks.filter(x=>!x[0]);
 if(failed.length){process.exitCode=1;console.error(`Production preflight failed: ${failed.length} check(s)`)}else console.log(`Production preflight complete: ${checks.length} checks passed`);

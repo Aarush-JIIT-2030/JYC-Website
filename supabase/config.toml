@@ -17,3 +17,7 @@ verify_jwt = false
 
 [functions.media-upload]
 verify_jwt = true
+
+
+[functions.public-submission]
+verify_jwt = false
