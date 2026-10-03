@@ -71,7 +71,12 @@ function mergePublicFallback(d,{allowContentFallback=true}={}){
  const clubs=enrichSourceClubs(baseClubs);
  const sourceGallery=mergeSourceGallery(x.gallery);
  const gallery=sourceGallery.length?sourceGallery:(allowContentFallback?[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY,...PUBLIC_GALLERY_FALLBACK]:x.gallery);
- return {...x,clubs,events:allowContentFallback&&x.events?.length===0?PUBLIC_EVENT_FALLBACK:x.events,gallery,team:allowContentFallback&&x.team?.length===0?PUBLIC_TEAM_FALLBACK:x.team,homepage:{...x.homepage,activities:Array.isArray(x.homepage?.activities)&&x.homepage.activities.length?x.homepage.activities:PUBLIC_ACTIVITIES}};
+ const fallbackFeatured=PUBLIC_EVENT_FALLBACK.find(e=>e.id==='agentic-ai-2026');
+ const liveEvents=Array.isArray(x.events)?x.events:[];
+ const events=allowContentFallback&&fallbackFeatured
+   ? [fallbackFeatured,...liveEvents.filter(e=>String(e.id)!==String(fallbackFeatured.id)).map(e=>e)]
+   : liveEvents;
+ return {...x,clubs,events,gallery,team:allowContentFallback&&x.team?.length===0?PUBLIC_TEAM_FALLBACK:x.team,homepage:{...x.homepage,activities:Array.isArray(x.homepage?.activities)&&x.homepage.activities.length?x.homepage.activities:PUBLIC_ACTIVITIES}};
 }
 const TEAM_LOCAL_PHOTOS={
  'devansh tripathi':'/assets/team/campaign/devansh-tripathi.webp','amrit kumar':'/assets/team/campaign/amrit-kumar.webp','daksh sachdeva':'/assets/team/campaign/daksh-sachdeva.webp','saksham kotia':'/assets/team/campaign/saksham-kotia.webp','asmi srivastava':'/assets/team/campaign/asmi-srivastava.webp','juhi hatuka':'/assets/team/campaign/juhi-hatuka.webp','pratik kumar':'/assets/team/campaign/pratik-kumar.webp','divye bajaj':'/assets/team/divye-bajaj.webp','revant srivastava':'/assets/team/campaign/revant-srivastava.webp','aradhyaa singh':'/assets/team/campaign/aradhyaa-singh.webp','vansh mahajan':'/assets/team/campaign/vansh-mahajan.webp','shriya singh':'/assets/team/campaign/shriya-singh.webp'
