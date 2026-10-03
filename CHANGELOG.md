@@ -1,3 +1,12 @@
+## V35.1.0 — Production hardening & discovery polish
+
+- Synchronized release metadata, lockfile version, QA contracts and service-worker cache namespace.
+- Made source-gallery fallback IDs deterministic and normalized quality-override lookup.
+- Hardened public announcement links against unsafe protocols.
+- Fixed multi-day Google Calendar exports to use the event end date.
+- Reduced legacy loading decoration and tightened mobile hero density.
+- Kept the V35.1 hub family filtering, source-coverage indicators and JAI support surface intact.
+
 ## V35.0.0 — Archive-media editorial pass
 
 - Added an interactive 21-community source-media directory with hover/focus previews.
