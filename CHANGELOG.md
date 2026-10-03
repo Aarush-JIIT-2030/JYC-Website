@@ -1,3 +1,14 @@
+## V33.3.0 — Distinct hub & event identity system
+
+- Reconciled the public ecosystem with the supplied All Hubs material: **21 named communities across 5 families**.
+- Added a distinct visual identity system for every maintained JYC community: accent, motif, glyph, geometry, display label and domain traits.
+- Added event identity presets for supplied flagship experiences including Dron-O-War, Converge, Ebullience, Code Clash, TechTonic, Circuit Rush, Robo Soccer, Top Gun Challenge, RIDE Hack, Innovate, CodeAI, BITBOX and the Agentic AI experience.
+- Added deterministic fallback event identity resolution so newly published events inherit their organiser/domain language without requiring hard-coded UI changes.
+- Extended event cards and event detail pages with identity lockups, event DNA and source-aware visual treatments.
+- Extended hub cards and hub detail pages with stronger identity surfaces while preserving the shared JYC visual system.
+- Added QA contracts for all 21 hubs and event identity coverage.
+- Rotated release/cache metadata to V33.3.0 / `jyc-cache-v33-3-0`.
+
 ## V33.2.0 — Hub Evidence & Discovery Pass
 
 - Added a compact hub evidence rail to every public community profile, separating orientation/source context from live published JYC records.
