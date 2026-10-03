@@ -40,6 +40,9 @@ check('orientation source count stays internally consistent',main.includes('curr
 check('hub detail exposes source and live evidence layers',main.includes('hub-evidence-rail')&&main.includes('club-source')&&main.includes('Published JYC records provide the live layer'));
 check('events support family-level discovery',main.includes("[family,setFamily]=useState('All')")&&main.includes('eventFamily(e.club)===family')&&main.includes('All families'));
 check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('21 maintained community signatures'));
+check('all 21 hub identities are represented',Object.keys(JYC_HUB_CONTENT).length===21&&Object.keys(JYC_HUB_CONTENT).every(k=>read('src/hub-identities.js').includes(`${k}:`)||read('src/hub-identities.js').includes(`'${k}':`)));
+check('event identity system covers supplied flagship events',read('src/hub-identities.js').includes('Dron-O-War')&&read('src/hub-identities.js').includes('Converge')&&read('src/hub-identities.js').includes('Code Clash')&&main.includes('eventIdentity(e)'));
+check('event detail carries its own identity lockup',main.includes('event-identity-lockup')&&main.includes('event-identity-panel'));
 check('release metadata is synchronized',pkg.version==='33.3.0');
 
 if(fail)process.exit(1);
