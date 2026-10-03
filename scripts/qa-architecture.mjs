@@ -20,7 +20,7 @@ check(fs.existsSync(path.join(root,'supabase/functions/media-upload/index.ts')),
 check(fs.existsSync(path.join(root,'supabase/migrations/202610030004_media_write_boundary.sql')),'media write-boundary migration is missing');
 check(!main.includes('AgenticAIPopup')&&!main.includes('useAgenticPopup'),'intrusive Agentic AI popup must stay out of the core JYC experience');
 check(!main.includes('JYCBotLauncher'),'animated assistant bot launcher must stay out of the core JYC shell');
-check(!main.includes("clean==='/leadership'")&&!main.includes("clean==='/event-calendar'"),'legacy route aliases should not remain as rendered duplicate pages');
+check(vercel.redirects?.some(x=>x.source==='/leadership'&&x.destination==='/team'&&x.permanent)&&vercel.redirects?.some(x=>x.source==='/event-calendar'&&x.destination==='/calendar'&&x.permanent),'legacy aliases must be handled by permanent redirects');
 check(vercel.redirects?.some(x=>x.source==='/leadership'&&x.destination==='/team'&&x.permanent),'leadership must redirect permanently to team');
 check(vercel.redirects?.some(x=>x.source==='/event-calendar'&&x.destination==='/calendar'&&x.permanent),'event-calendar must redirect permanently to calendar');
 check(vercel.redirects?.some(x=>x.source==='/guide'&&x.destination==='/about'&&x.permanent),'guide must redirect permanently to about');
