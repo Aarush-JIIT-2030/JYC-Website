@@ -24,13 +24,14 @@ const QUALITY_OVERRIDES={
   Zencoders:['/assets/hub-photos-extra/zencoders-17.webp','/assets/hub-photos-extra/zencoders-18.webp','/assets/hub-photos-extra/zencoders-21.webp','/assets/hub-photos-extra/zencoders-22.webp']
 };
 
+const QUALITY_BY_KEY=new Map(Object.entries(QUALITY_OVERRIDES).map(([name,photos])=>[normalise(name),photos]));
 const storyByKey=new Map(PDF_HUB_STORIES.map(s=>[normalise(s.name),s]));
 
 export function sourceHubMedia(name){
   const key=normalise(name);
   const canonical=Object.keys(JYC_HUB_CONTENT).find(k=>normalise(k)===key);
   const label=canonical||name;
-  const quality=QUALITY_OVERRIDES[normalise(label)]||QUALITY_OVERRIDES[label]||[];
+  const quality=QUALITY_BY_KEY.get(normalise(label))||[];
   const mapped=HUB_PHOTO_MAP[label]||[];
   const gallery=SOURCE_GALLERY.filter(g=>normalise(g.association)===key).map(g=>g.url);
   const story=storyByKey.get(key);
@@ -51,7 +52,7 @@ export function enrichSourceClubs(clubs){return (Array.isArray(clubs)?clubs:[]).
 export function mergeSourceGallery(gallery){
   const map=new Map();
   SOURCE_GALLERY.forEach(item=>map.set(item.id,item));
-  (Array.isArray(gallery)?gallery:[]).forEach(item=>map.set(item.id||item.url||String(Math.random()),item));
+  (Array.isArray(gallery)?gallery:[]).forEach((item,index)=>map.set(item.id||item.url||`gallery-${index}-${normalise(item.caption||item.association||'item')}`,item));
   return [...map.values()];
 }
 
