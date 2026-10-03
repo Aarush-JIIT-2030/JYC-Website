@@ -22,7 +22,7 @@ const scripts = [
   'qa-accessibility-contract.mjs',
   'qa-repo-hygiene.mjs',
   'qa-v45-social-bot.mjs',
-  'qa-v47-jyc-now.mjs'
+  'qa-v47-jyc-now.mjs',\n  'qa-v49-production-finish.mjs'
 ];
 
 for (const script of scripts) {
