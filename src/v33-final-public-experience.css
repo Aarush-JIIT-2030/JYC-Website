@@ -452,3 +452,149 @@ html[data-theme="dark"] .public-app .nav nav button.active{
 }
 
 .public-app .gallery-grid .gallery-item img,.public-app .archive-story-photo img,.public-app .jyc-feature-poster img,.public-app .about-programme-image img,.public-app .club-card-visual img,.public-app .team-photo-editorial img,.public-app .home-team-photo img{object-fit:cover!important;object-position:center!important}
+
+
+/* V33.3 — identity language.
+   Each hub/event inherits JYC typography and layout but carries its own
+   accent, motif, geometry and information density. */
+:root{
+  --jyc-shape-grid:linear-gradient(90deg,transparent 49%,color-mix(in srgb,var(--hub-accent) 14%,transparent) 50%,transparent 51%);
+  --jyc-shape-circuit:radial-gradient(circle at 15% 20%,color-mix(in srgb,var(--hub-accent) 18%,transparent) 0 1px,transparent 2px),linear-gradient(90deg,transparent 0 48%,color-mix(in srgb,var(--hub-accent) 11%,transparent) 49% 51%,transparent 52%);
+  --jyc-shape-wave:repeating-linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 10%,transparent) 0 1px,transparent 1px 10px);
+  --jyc-shape-pulse:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--hub-accent) 15%,transparent),transparent 58%);
+  --jyc-shape-motion:linear-gradient(125deg,transparent 0 38%,color-mix(in srgb,var(--hub-accent) 13%,transparent) 39% 41%,transparent 42%);
+  --jyc-shape-frame:linear-gradient(90deg,color-mix(in srgb,var(--hub-accent) 12%,transparent),transparent 22% 78%,color-mix(in srgb,var(--hub-accent) 12%,transparent));
+  --jyc-shape-spark:radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--hub-accent) 18%,transparent),transparent 24%);
+  --jyc-shape-terminal:repeating-linear-gradient(0deg,color-mix(in srgb,var(--hub-accent) 7%,transparent) 0 1px,transparent 1px 6px);
+  --jyc-shape-nodes:radial-gradient(circle at 18% 25%,color-mix(in srgb,var(--hub-accent) 20%,transparent) 0 1px,transparent 2px),radial-gradient(circle at 82% 75%,color-mix(in srgb,var(--hub-accent) 20%,transparent) 0 1px,transparent 2px);
+  --jyc-shape-shield:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 12%,transparent),transparent 58%);
+  --jyc-shape-pixel:repeating-linear-gradient(90deg,color-mix(in srgb,var(--hub-accent) 7%,transparent) 0 5px,transparent 5px 10px);
+  --jyc-shape-network:radial-gradient(circle at 30% 30%,color-mix(in srgb,var(--hub-accent) 20%,transparent),transparent 2px),radial-gradient(circle at 70% 70%,color-mix(in srgb,var(--hub-accent) 16%,transparent),transparent 2px);
+  --jyc-shape-flight:linear-gradient(155deg,transparent 0 44%,color-mix(in srgb,var(--hub-accent) 14%,transparent) 45% 46%,transparent 47%);
+  --jyc-shape-brush:repeating-linear-gradient(110deg,color-mix(in srgb,var(--hub-accent) 9%,transparent) 0 3px,transparent 3px 12px);
+  --jyc-shape-lens:radial-gradient(circle at 72% 25%,color-mix(in srgb,var(--hub-accent) 18%,transparent),transparent 30%);
+  --jyc-shape-film:repeating-linear-gradient(90deg,color-mix(in srgb,var(--hub-accent) 8%,transparent) 0 2px,transparent 2px 12px);
+  --jyc-shape-stage:linear-gradient(180deg,color-mix(in srgb,var(--hub-accent) 12%,transparent),transparent 55%);
+  --jyc-shape-poster:linear-gradient(145deg,color-mix(in srgb,var(--hub-accent) 13%,transparent),transparent 55%);
+  --jyc-shape-quote:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 11%,transparent),transparent 60%);
+  --jyc-shape-court:linear-gradient(90deg,transparent 48%,color-mix(in srgb,var(--hub-accent) 13%,transparent) 49% 51%,transparent 52%);
+  --jyc-shape-converge:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--hub-accent) 17%,transparent),transparent 48%);
+  --jyc-shape-burst:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--hub-accent) 18%,transparent),transparent 42%);
+  --jyc-shape-path:linear-gradient(125deg,transparent 0 45%,color-mix(in srgb,var(--hub-accent) 14%,transparent) 46% 48%,transparent 49%);
+  --jyc-shape-pattern:repeating-linear-gradient(45deg,color-mix(in srgb,var(--hub-accent) 8%,transparent) 0 2px,transparent 2px 9px);
+  --jyc-shape-memory:radial-gradient(circle at 25% 30%,color-mix(in srgb,var(--hub-accent) 16%,transparent),transparent 28%);
+  --jyc-shape-event:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 10%,transparent),transparent 65%);
+  --jyc-shape-community:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 10%,transparent),transparent);
+}
+.club-identity-page,.event-identity-page,.event-identity-card{
+  --identity-ink:var(--jyc33-ink);
+}
+.club-identity-page::before,.event-identity-page::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--hub-accent);
+  opacity:.75;pointer-events:none;
+}
+.club-identity-page .club-detail-hero{
+  position:relative;overflow:hidden;
+  border-color:color-mix(in srgb,var(--hub-accent) 35%,var(--jyc33-line))!important;
+}
+.club-identity-page .club-detail-hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:var(--identity-shape);
+  opacity:.65;mix-blend-mode:multiply;
+}
+[data-theme="dark"] .club-identity-page .club-detail-hero::after,
+[data-theme="dark"] .event-identity-page .event-detail-hero::after{mix-blend-mode:screen;opacity:.28}
+.hub-identity-rail{
+  position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,1.5fr) auto;gap:18px;align-items:center;
+  max-width:1120px;margin:14px auto 0;padding:18px 20px;
+  border:1px solid color-mix(in srgb,var(--hub-accent) 34%,var(--jyc33-line));border-radius:20px;
+  background:linear-gradient(120deg,color-mix(in srgb,var(--hub-accent) 8%,var(--jyc33-surface)),var(--jyc33-surface));
+  overflow:hidden;
+}
+.hub-identity-rail::after{
+  content:"";position:absolute;inset:0;pointer-events:none;background:var(--identity-shape);opacity:.7;
+}
+.hub-identity-mark,.hub-identity-traits,.hub-identity-display{position:relative;z-index:1}
+.hub-identity-mark{display:flex;align-items:center;gap:12px}
+.hub-identity-glyph{
+  display:grid;place-items:center;width:46px;height:46px;border-radius:14px;
+  background:var(--hub-accent);color:#fffdf7;font-weight:900;font-size:13px;
+  box-shadow:0 8px 24px color-mix(in srgb,var(--hub-accent) 20%,transparent);
+}
+.hub-identity-mark>div>span{display:block;font-size:9px;letter-spacing:.13em;font-weight:900;color:var(--hub-accent)}
+.hub-identity-mark b{display:block;margin-top:4px;font-size:13px;color:var(--jyc33-ink)}
+.hub-identity-traits{display:flex;flex-wrap:wrap;gap:7px}
+.hub-identity-traits span{padding:8px 10px;border:1px solid color-mix(in srgb,var(--hub-accent) 25%,var(--jyc33-line));border-radius:999px;background:color-mix(in srgb,var(--hub-accent) 5%,var(--jyc33-surface));font-size:10px;color:var(--jyc33-ink)}
+.hub-identity-traits small{margin-right:5px;color:var(--hub-accent);font-weight:900}
+.hub-identity-display{writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:900;letter-spacing:.18em;color:var(--hub-accent)}
+.club-card-premium.club-identity-card,.club-detail{
+  border-color:color-mix(in srgb,var(--hub-accent) 28%,var(--jyc33-line))!important;
+}
+.club-card-premium.club-identity-card .club-card-visual{
+  position:relative;background-image:var(--identity-shape)!important;
+  border-bottom:1px solid color-mix(in srgb,var(--hub-accent) 25%,var(--jyc33-line));
+}
+.club-card-premium.club-identity-card .club-card-visual::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 20%,transparent),transparent 60%);pointer-events:none;
+}
+.club-identity-card .club-logo,.club-identity-card .club-index{position:relative;z-index:1}
+.club-identity-mini{border-left:2px solid var(--hub-accent);padding-left:9px;margin:0 0 9px}
+.club-identity-mini span{display:block;color:var(--hub-accent);font-size:8px;font-weight:900;letter-spacing:.1em}
+.club-identity-mini b{display:block;color:var(--jyc33-muted);font-size:10px;line-height:1.4;margin-top:2px}
+.event-identity-card{
+  border-color:color-mix(in srgb,var(--hub-accent) 28%,var(--jyc33-line))!important;
+}
+.event-identity-card .event-poster{
+  position:relative;background-image:var(--identity-shape)!important;background-color:var(--jyc33-surface-2);
+  border-bottom:2px solid color-mix(in srgb,var(--hub-accent) 35%,var(--jyc33-line));
+}
+.event-identity-card .event-poster::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(135deg,color-mix(in srgb,var(--hub-accent) 16%,transparent),transparent 62%);pointer-events:none;
+}
+.event-identity-card .event-poster>*{position:relative;z-index:1}
+.event-domain-mark{
+  display:grid!important;place-items:center;width:34px;height:34px;border-radius:11px;
+  background:var(--hub-accent);color:#fffdf7!important;font-size:10px!important;font-weight:900;
+  letter-spacing:0!important;box-shadow:0 7px 20px color-mix(in srgb,var(--hub-accent) 24%,transparent);
+}
+.event-domain-label{
+  position:absolute;left:14px;bottom:12px!important;font-size:8px!important;letter-spacing:.11em!important;
+  color:#fffdf7!important;font-weight:900;text-shadow:0 1px 8px #111!important;
+}
+.event-identity-mini{border-left:2px solid var(--hub-accent);padding-left:9px;margin:0 0 10px;display:grid;gap:2px}
+.event-identity-mini span{font-size:8px;letter-spacing:.11em;font-weight:900;color:var(--hub-accent)}
+.event-identity-mini b{font-size:10px;color:var(--jyc33-muted);line-height:1.35}
+.event-identity-mini i{font-style:normal;font-size:8px;color:var(--jyc33-muted);opacity:.82}
+.event-identity-page .event-detail-hero{
+  position:relative;overflow:hidden;border-color:color-mix(in srgb,var(--hub-accent) 38%,var(--jyc33-line))!important;
+}
+.event-identity-page .event-detail-hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;background:var(--identity-shape);opacity:.5;
+}
+.event-identity-page .event-copy,.event-identity-page .event-detail-poster{position:relative;z-index:1}
+.event-identity-lockup{display:flex;align-items:center;gap:11px;margin:10px 0 4px}
+.event-identity-glyph{
+  display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:13px;
+  background:var(--hub-accent);color:#fffdf7;font-weight:900;font-size:13px;
+}
+.event-identity-lockup .event-identity-signature{display:block;margin:0}
+.event-identity-lockup small{display:block;margin-top:4px;color:var(--hub-accent);font-size:8px;font-weight:900;letter-spacing:.12em}
+.event-identity-panel{
+  padding:20px;border:1px solid color-mix(in srgb,var(--hub-accent) 35%,var(--jyc33-line));border-radius:18px;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--hub-accent) 8%,var(--jyc33-surface)),var(--jyc33-surface));
+  display:grid;align-content:center;gap:6px;min-height:160px;
+}
+.event-identity-panel strong{font-size:22px;color:var(--jyc33-ink)}
+.event-identity-panel>span:not(.eyebrow){font-size:10px;line-height:1.55;color:var(--jyc33-muted)}
+.event-identity-panel small{font-size:8px;letter-spacing:.12em;color:var(--hub-accent);font-weight:900}
+.event-related-card{border-color:color-mix(in srgb,var(--hub-accent) 22%,var(--jyc33-line))}
+@media(max-width:900px){
+  .hub-identity-rail{grid-template-columns:1fr}
+  .hub-identity-display{display:none}
+}
+@media(max-width:600px){
+  .hub-identity-rail{padding:15px;gap:12px}
+  .hub-identity-traits{display:grid;grid-template-columns:1fr 1fr}
+  .hub-identity-traits span{font-size:9px}
+  .event-identity-lockup{align-items:flex-start}
+}
