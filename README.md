@@ -2,7 +2,7 @@
 
 > Current release: **33.2.0** · branch: `v33-jyc-public-experience-overhaul`
 
-The public JYC experience uses one restrained beige / black / white visual system across light and dark modes. The maintained source list currently contains **20 named communities** grouped into five families: Cultural, Technical, Creative, Literary and Sports. The site deliberately separates supplied orientation/archive context from live operational records published through the JYC Control Center.
+The public JYC experience uses one restrained beige / black / white visual system across light and dark modes. The maintained source list currently contains **21 named communities** grouped into five families: Cultural, Technical, Creative, Literary and Sports. The site deliberately separates supplied orientation/archive context from live operational records published through the JYC Control Center.
 
 V33.2 adds family-aware event discovery, a compact evidence rail on every hub page, explicit source navigation, synchronized release/cache metadata, and QA coverage for those contracts.
 
