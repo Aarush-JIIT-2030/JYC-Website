@@ -3,6 +3,7 @@ import {useLocation,useNavigate} from 'react-router-dom';
 import {normalizeSearch,rankSearchResults} from './lib/search.js';
 import {JYC_HUB_SOURCE_REGISTRY} from './jyc-hub-registry.js';
 import {sourceHubMedia} from './jyc-source-media.js';
+import {hubDetails} from './v23.6-hub-details.js';
 
 const published=data=>({
  clubs:(data?.clubs||[]).filter(c=>c?.published&&c?.status!=='archived'),
@@ -23,7 +24,7 @@ export function JYCAssistant({data,onClose}){
  const sourceGallery=JYC_HUB_SOURCE_REGISTRY.flatMap(h=>sourceHubMedia(h.name).photos.map((url,i)=>({id:`source-${h.name}-${i}`,caption:`${h.name} source photograph`,association:h.name,year:'2026',sourceLabel:'JYC supplied hub archive',alt:`${h.name} source photograph`})));
  const raw=[
   ...pages.map(([title,meta,type,path])=>({key:'page-'+path,title,meta,type,go:()=>go(path)})),
-  ...clubs.map(c=>({key:'club-'+c.id,title:c.name,meta:c.category||c.type||'JYC community',type:'CLUB',searchText:[c.name,c.category,c.type,c.description,c.about,(c.interests||[]).join(' ')].join(' '),go:()=>go('/clubs/'+encodeURIComponent(c.id||c.name))})),
+  ...clubs.map(c=>{const d=hubDetails(c.name);return {key:'club-'+c.id,title:c.name,meta:c.category||c.type||d?.label||'JYC community',type:'CLUB',searchText:[c.name,c.category,c.type,c.description,c.about,(c.interests||[]).join(' '),d?.label,d?.experience,(d?.activities||[]).join(' '),(d?.signature||[]).join(' '),(d?.sourceHighlights||[]).join(' ')].filter(Boolean).join(' '),go:()=>go('/clubs/'+encodeURIComponent(c.id||c.name))}}),
   ...events.map(e=>({key:'event-'+e.id,title:e.title,meta:[e.club,e.venue,e.date].filter(Boolean).join(' · '),type:'EVENT',searchText:[e.title,e.club,e.eventType,e.venue,(e.highlights||[]).join(' '),(e.tracks||[]).map(x=>x.name).join(' ')].join(' '),go:()=>go('/events/'+encodeURIComponent(e.id||e.title))})),
   ...team.map(m=>({key:'team-'+m.id,title:m.name,meta:m.role||m.position||'JYC Team',type:'TEAM',searchText:[m.name,m.role,m.position,m.bio,m.description].join(' '),go:()=>go('/leadership')})),
   ...[...gallery,...sourceGallery].map((g,i)=>({key:'gallery-'+(g.id||i),title:g.caption||g.association||'JYC visual archive',meta:[g.association,g.year,g.sourceLabel].filter(Boolean).join(' · '),type:'GALLERY',searchText:[g.caption,g.association,g.year,g.sourceLabel,g.alt].filter(Boolean).join(' '),go:()=>go('/gallery')}))
