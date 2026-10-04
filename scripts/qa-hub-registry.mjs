@@ -5,7 +5,7 @@ const identities=fs.readFileSync('src/hub-identities.js','utf8');
 const contentFile=fs.readFileSync('src/v21-hub-content.js','utf8');
 const fail=[];
 const expect=(ok,msg)=>{if(!ok)fail.push(msg)};
-const registryNames=[...registry.matchAll(/\\{name:'([^']+)'/g)].map(m=>m[1]);
+const registryNames=[...registry.matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);
 const brochure=[...registry.matchAll(/status:'brochure-verified'/g)].length;
 const source=[...registry.matchAll(/status:'source-material'/g)].length;
 expect(registryNames.length===23,'expected 23 registry entries, found '+registryNames.length);
