@@ -20,6 +20,7 @@ add('Robots allows public crawling',robots.includes('Allow: /') && robots.includ
 add('Robots publishes canonical sitemap',robots.includes('Sitemap: https://www.jiityouthclub128.in/sitemap.xml'));
 add('Sitemap generator includes maintained source hubs',fs.readFileSync(path.join(root,'scripts/generate-sitemap.mjs'),'utf8').includes('jyc-hub-registry.js')&&fs.readFileSync(path.join(root,'scripts/generate-sitemap.mjs'),'utf8').includes('/clubs/${slug(name)}'));
 add('LLMs discovery file',llms.includes('JIIT Youth Club') && llms.includes('/clubs') && llms.includes('/events'));
+add('Flagship event URLs are seeded into sitemap',fs.readFileSync(path.join(root,'scripts/generate-sitemap.mjs'),'utf8').includes('/events/agentic-ai-2026')&&fs.readFileSync(path.join(root,'scripts/generate-sitemap.mjs'),'utf8').includes('/events/ride-hack-2026')&&fs.readFileSync(path.join(root,'scripts/generate-sitemap.mjs'),'utf8').includes('/events/converge-2026'));
 add('Sitemap generator exists',fs.existsSync(path.join(root,'scripts/generate-sitemap.mjs')));
 add('SEO pages have useful route metadata',main.includes('JIIT Clubs & Student Communities') && main.includes('JIIT Events & Campus Activities') && main.includes('About JIIT Youth Club') && main.includes('JIIT Fests & Flagship Events'));
 add('Fest discovery route exists',main.includes("clean==='/fests'") && llms.includes('/fests'));
