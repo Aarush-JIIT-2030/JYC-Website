@@ -439,7 +439,7 @@ function Routes({data,admin,session,setAdmin,commit,notify,theme,setTheme}){
  useEffect(()=>{if((club||event)&&slugId!==slug((club||event).name||(club||event).title)){const target=event?`/events/${slug(event.title)}${parts[2]==='register'?'/register':''}`:`/clubs/${slug(club.name)}`;nav(target,{replace:true});}},[slugId,club?.id,event?.id,parts[2],nav]);
  const title=club?`${club.name} — ${club.category||'Student Community'} | JIIT Youth Club 128`:event?`${event.title} | JIIT Event · JYC`:titles[clean]||'JIIT Youth Club';
  const description=club?`${club.name} at JIIT Wish Town Campus, Sector 128, Noida. ${club.description||club.about||'Explore activities, events, community focus and official JYC information.'}`.slice(0,300):event?(event.description||`${event.title} — official JIIT Youth Club event at JIIT Noida.`):(descriptions[clean]||'Official JIIT Youth Club website for JIIT Noida. Discover clubs, events, fests, recruitment and student activities.');
- usePageMeta(title,description,canonicalPath,{noindex:privateRoute||unknownRoute,type:event?'event':'website'});
+ usePageMeta(title,description,canonicalPath,{noindex:privateRoute||unknownRoute,type:event?'event':'website',image:event?.poster||club?.logo||undefined,imageAlt:event?.title||club?.name||'JIIT Youth Club 128 official visual'});
  const schema=<JsonLd data={data} pageType={pageType} item={club||event} path={canonicalPath}/>;
  if(clean==='/')return <>{schema}<Home data={data}/></>;
  if(clean==='/history')return <><JYCHistory data={data}/></>;
