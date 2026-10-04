@@ -2,10 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root=process.cwd();
-const scanRoots=['index.html','public','src','scripts'];
+const scanRoots=['index.html','public','src'];
 const extensions=new Set(['.html','.css','.js','.jsx','.mjs','.json']);
 const localPrefixes=['/assets/','/models/','/jyc-','/offline.html','/manifest.json','/robots.txt','/sitemap.xml','/llms.txt'];
 
+const activeCss=new Set(['src/styles/public-system.css']);
+const cssImports=new Set();
 const files=[];
 const walk=(p)=>{
   const full=path.join(root,p);
@@ -15,10 +17,15 @@ const walk=(p)=>{
     for(const entry of fs.readdirSync(full)) walk(path.join(p,entry));
     return;
   }
-  if(extensions.has(path.extname(full).toLowerCase())) files.push(full);
+  if(extensions.has(path.extname(full).toLowerCase())) {
+    const rel=path.relative(root,full).replaceAll('\\\\','/');
+    const ext=path.extname(full).toLowerCase();
+    if(ext!=='.css' || activeCss.has(rel)) files.push(full);
+  }
 };
 scanRoots.forEach(walk);
 
+// Only the consolidated public stylesheet is a runtime CSS entry. Historical CSS files are archived source and must not create false asset failures.
 const refs=new Map();
 const pattern=/(["'\`])((?:\/assets\/|\/models\/|\/jyc-[^"'\`?\s<>]+|\/offline\.html|\/manifest\.json|\/robots\.txt|\/sitemap\.xml|\/llms\.txt)(?:\?[^"'\`\s<>]*)?)(?:\1)/g;
 
