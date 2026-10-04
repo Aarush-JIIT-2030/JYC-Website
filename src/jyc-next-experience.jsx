@@ -1,6 +1,7 @@
 import React,{useMemo,useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {JYC_HUB_CONTENT,JYC_HUB_FAMILIES} from './v21-hub-content.js';
+import {JYC_HUB_SOURCE_REGISTRY,JYC_HUB_SOURCE_STATUS,JYC_HUB_VERIFIED_CURRENT,JYC_HUB_SOURCE_ONLY} from './jyc-hub-registry.js';
 import {sourceHubMedia} from './jyc-source-media.js';
 
 const ROUTES=[
@@ -62,6 +63,23 @@ export function PhotoStory({data}){
 
 export function HubSignalRail({data}){
  const nav=useNavigate();
- const hubs=useMemo(()=>Object.entries(JYC_HUB_CONTENT).slice(0,10).map(([name,p])=>({name,...p,media:sourceHubMedia(name)})),[]);
- return <section className="section jyc-hub-signal-section reveal"><div className="jyc-hub-signal-head"><div><span className="eyebrow">JYC ECOSYSTEM</span><h2>Five families. One connected campus.</h2><p>Move from a family into a hub, then from a hub into its people, events and visual record.</p></div><button type="button" className="reference-view-all" onClick={()=>nav('/clubs')}>Explore all {Object.keys(JYC_HUB_CONTENT).length} communities ↗</button></div><div className="jyc-hub-signal-grid">{hubs.map((h,i)=><button type="button" className="jyc-hub-signal-card" key={h.name} onClick={()=>nav('/clubs/'+encodeURIComponent(h.name))}><div>{h.media.photos[0]?<img src={h.media.photos[0]} alt="" loading="lazy"/>:<span>{String(i+1).padStart(2,'0')}</span>}</div><small>{h.family} · {h.focus}</small><strong>{h.name}</strong><em>{h.summary}</em><b>Open hub ↗</b></button>)}</div></section>
+ const [family,setFamily]=useState('All');
+ const hubs=useMemo(()=>JYC_HUB_SOURCE_REGISTRY.map(meta=>{const p=JYC_HUB_CONTENT[meta.name]||{};return {...meta,...p,media:sourceHubMedia(meta.name)}}),[]);
+ const visible=useMemo(()=>family==='All'?hubs:hubs.filter(h=>h.family===family),[family,hubs]);
+ const currentCount=JYC_HUB_VERIFIED_CURRENT.length;
+ const sourceOnlyCount=JYC_HUB_SOURCE_ONLY.length;
+ return <section className="section jyc-hub-signal-section reveal">
+  <div className="jyc-hub-signal-head">
+   <div><span className="eyebrow">JYC ECOSYSTEM · SOURCE INDEX</span><h2>Five families. One connected campus.</h2><p>{currentCount} communities are verified against the 2026 JIIT brochure; {sourceOnlyCount} more are retained as source-backed hub material until their live club records are published.</p></div>
+   <button type="button" className="reference-view-all" onClick={()=>nav('/clubs')}>Open live club directory ↗</button>
+  </div>
+  <div className="jyc-hub-source-filters" role="tablist" aria-label="Filter JYC source hub index">
+   {['All',...JYC_HUB_FAMILIES].map(x=><button key={x} type="button" role="tab" aria-selected={family===x} className={family===x?'active':''} onClick={()=>setFamily(x)}>{x}<span>{x==='All'?hubs.length:visible.filter(h=>h.family===x).length}</span></button>)}
+  </div>
+  <div className="jyc-hub-signal-grid">{visible.map((h,i)=><button type="button" className="jyc-hub-signal-card" data-source-status={h.status} key={h.name} onClick={()=>nav('/clubs/'+encodeURIComponent(h.name))}>
+    <div>{h.media.photos[0]?<img src={h.media.photos[0]} alt="" loading="lazy"/>:<span>{String(i+1).padStart(2,'0')}</span>}</div>
+    <small>{h.family} · {h.focus}</small><strong>{h.name}</strong><em>{h.summary||'Source-backed JYC hub profile awaiting richer live records.'}</em>
+    <span className="jyc-hub-source-status">{h.status==='verified-current'?'VERIFIED CURRENT':'SOURCE MATERIAL'}</span><b>Open hub ↗</b>
+   </button>)}</div>
+ </section>
 }
