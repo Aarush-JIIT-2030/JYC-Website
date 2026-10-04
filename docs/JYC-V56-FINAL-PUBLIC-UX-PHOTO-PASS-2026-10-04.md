@@ -16,6 +16,11 @@ This pass is the final public-facing layer after the resource/photo-story work. 
 - Expanded homepage source-photo selection from 3 to 5 frames per verified community, giving the photo story more real JYC variety while retaining an 8-frame narrative cap.
 - Expanded community photo chapters from 2 to 4 source frames per community and event detail galleries from 8 to 12 connected source visuals.
 - Expanded assistant/search source-photography indexing from 2 to 4 frames per community so more of the archive is discoverable.
+- Redesigned club-card photography selection to rotate through each hub's available source frames instead of repeatedly using the first image.
+- Redesigned event-card photography selection to rotate through connected event visuals instead of always taking the first source image.
+- Expanded the homepage hub photo wall from 20 to 32 frames, with up to 4 frames per verified community.
+- Expanded family photo chapters to 6 source frames per community and up to 12 frames per family chapter.
+- Expanded individual club source strips from 8 to 10 images.
 - Fixed the Gallery lightbox hook import in `src/extra-features.jsx`.
 - Removed unsupported inferred 2026 years from generic supplied archive photography.
 - Kept dated labels only where the media record itself is explicitly associated with a dated event/edition.
