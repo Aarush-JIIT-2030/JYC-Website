@@ -14,7 +14,7 @@ const vercel=JSON.parse(read('vercel.json'));
 const checks=[];
 const add=(name,ok,detail='')=>checks.push({name,ok:Boolean(ok),detail});
 
-add('release is V55',pkg.version==='55.0.0'&&lock.version==='55.0.0'&&lock.packages?.['']?.version==='55.0.0');
+add('release is current 56.x',/^56\.\d+\.\d+$/.test(pkg.version)&&lock.version===pkg.version&&lock.packages?.['']?.version===pkg.version);
 add('canonical public routes are declared',[
   ['/about','/history','/clubs','/events','/gallery','/team','/archive','/recruitment','/announcements','/calendar','/contact']
 ].every(group=>group.every(route=>config.includes("'" + route + "'"))));
@@ -45,7 +45,7 @@ add('all local media references resolve',missing.length===0,missing.length?missi
 for(const c of checks) console.log((c.ok?'PASS: ':'FAIL: ')+c.name+(c.detail?' — '+c.detail:''));
 const failed=checks.filter(c=>!c.ok);
 if(failed.length){
- console.error('V55 final contract failed: '+failed.length+' checks');
+ console.error('Current final contract failed: '+failed.length+' checks');
  process.exit(1);
 }
-console.log('PASS: V55 final contract ('+checks.length+' checks)');
+console.log('PASS: current final contract ('+checks.length+' checks)');
