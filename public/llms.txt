@@ -33,6 +33,34 @@ Current records should be sourced and, where applicable, carry a last-verified d
 
 JIIT Youth Club 128, JYC 128, JIIT Youth Club, JIIT Wish Town Campus, Sector 128, Noida, JYC leadership, JYC clubs, JYC hubs, JYC events, JYC fests, JYC achievements, JYC gallery, JYC announcements.
 
+
+## JYC 128 community index
+
+The maintained JYC 128 public source index currently covers 23 named communities across five families. This index combines the official JIIT Admission Brochure 2026 with the supplied JYC 2026–27 All Hubs / orientation material; source status is kept in the website registry.
+
+### Cultural
+Fortissimo — Music; BDS — Bhangra / Dance; VamUnique — Western Dance; Panache — Fashion.
+
+### Technical
+RPH — Coding / Competitive Programming; CICR — Robotics; Innovation Club — Innovation / Entrepreneurship; Zencoders — Programming / Development; JODC — Open Source; CypherX — Cybersecurity; Arcadia — Esports / Gaming; Neural Nexus — AI / ML; GDG — Developer Community; Dronotics — Drones / Aerial Robotics; JIIT OPTICA — STEM / Optics.
+
+### Creative
+Aakriti — Fine Arts; Aura — Photography; Cinekala — Film Making; Abhivyakti — Drama / Theatre; Prismatic — Graphic Design.
+
+### Literary
+Eloquence — Writing / Speaking; Qriosity — Quizzing.
+
+### Sports
+JSA — Sports.
+
+## Source hierarchy
+
+For current organisational facts, prefer published JYC Control Center records. For identity and ecosystem context, use the official JIIT Admission Brochure 2026 and the supplied JYC 2026–27 All Hubs / orientation material. Historical JIIT annual reports provide documented history and should be treated as historical evidence rather than proof of current leadership or recruitment. The site does not invent missing club handles, current teams, dates or achievements.
+
+## Search identity
+
+Useful search phrases include: JIIT Youth Club 128, JYC 128, JIIT Youth Club Wish Town Campus, JIIT clubs Sector 128, JIIT student clubs, JIIT events Sector 128, JIIT fests, JIIT cultural clubs, JIIT technical clubs, JIIT coding club RPH, JIIT robotics CICR, JIIT Innovation Club, JIIT photography Aura, JIIT drama Abhivyakti, JIIT literary Eloquence, JIIT sports JSA, JIIT OPTICA, Qriosity JIIT, Dronotics JIIT, CypherX JIIT, Neural Nexus JIIT, Arcadia JIIT, VamUnique JIIT, BDS JIIT and Panache JIIT.
+
 ## Product boundary
 
 This site is an official JYC organisational website. It is not an academic portal, attendance system, student-help portal, campus utility dashboard or social-network clone.
