@@ -35,13 +35,13 @@ export function sourceHubMedia(name){
   const label=canonical||name;
   const quality=QUALITY_BY_KEY.get(normalise(label))||[];
   const mapped=HUB_PHOTO_MAP[label]||[];
-  const gallery=SOURCE_GALLERY.filter(g=>normalise(g.association)===key).map(g=>g.url);
+  const gallery=SOURCE_GALLERY.filter(g=>normalise(g.association)===key).map(enrichMediaItem).filter(Boolean);
   const story=storyByKey.get(key);
   const storyImage=story?.image?[story.image]:[];
   const media=[
     ...quality.map(url=>({url,association:label,mediaKind:'photo',sourceLabel:'JYC supplied hub archive'})),
     ...mapped.map(url=>({url,association:label,mediaKind:'photo',sourceLabel:'JYC supplied hub archive'})),
-    ...gallery.map(url=>({url,association:label,mediaKind:mediaKind({caption:url}),sourceLabel:'JYC supplied hub archive'})),
+    ...gallery.map(item=>({...item,association:label})),
     ...storyImage.map(url=>({url,association:label,mediaKind:'artwork',sourceLabel:'JYC supplied hub story'}))
   ].filter(x=>x.url);
   const uniqueMedia=[...new Map(media.map(x=>[x.url,x])).values()];
@@ -109,7 +109,6 @@ const enrichMediaItem=item=>{
     association,
     year:year||item.year||'',
     role,
-    mediaKind:mediaKind(item),
     sourceType:item.page?'presentation-export':/^https?:\/\//i.test(String(item.url))?'official-external-media':item.sourceType||'maintained-jyc-media',
     sourceLabel:item.sourceLabel||(/^https?:\/\//i.test(String(item.url))?`${association} · official external media`:'JYC maintained source archive'),
     alt:item.alt||item.caption||`${association} · JYC visual archive`,
