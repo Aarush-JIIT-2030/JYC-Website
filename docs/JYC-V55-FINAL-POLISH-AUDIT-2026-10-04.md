@@ -18,7 +18,7 @@ Date: 2026-10-04
 
 ## QA status
 
-The release gate already passes static QA, production build, performance budget, and the photo-led page checks. The browser suite previously exposed one 320px loader text-boundary failure; V55 now explicitly constrains loader copy to the viewport and the new release gate is rerunning.
+The release gate has now passed static QA, production build and performance budget after fixing a real V55 contract failure in the final typography/overflow check. A prior browser run exposed a 320px loader text-boundary failure; V55 explicitly constrains loader copy to the viewport. The latest browser gate is being rerun after the final source-media mapping cleanup.
 
 ## Content contract
 
@@ -34,7 +34,7 @@ The source specification also says beige/cream is the light-mode surface, near-b
 
 ## Supabase review state
 
-Source photography is deliberately inserted into the normalized gallery layer as review, not silently promoted to the public JSON snapshot. This keeps provenance and publication verification intact. Current verification counts include 17 verified clubs, 6 club review records, 2 verified events, and 98 gallery review records.
+Source photography is deliberately inserted into the normalized gallery layer as review, not silently promoted to the public JSON snapshot. This keeps provenance and publication verification intact. Current verification counts include 17 verified clubs, 6 club review records, 2 verified events, and 98 gallery review records. The production JSON snapshot currently contains 17 clubs, 2 events, 6 curated gallery items and no team rows; 92 normalized source-hub photographs remain pending publication review.
 
 ## Remaining external configuration
 
@@ -43,6 +43,7 @@ Source photography is deliberately inserted into the normalized gallery layer as
 - Configure required Edge Function secrets with real production values.
 - Connect/verify the Vercel project: the currently connected Vercel context exposes no JYC project, so production deployment cannot be certified from the connector yet.
 - Complete visual QA against the actual production URL once a Vercel deployment is connected.
+- Complete the remaining selective raw-archive binary ingestion once the development runtime can safely move the candidate files into the repository/storage pipeline.
 
 ## Non-goals
 
