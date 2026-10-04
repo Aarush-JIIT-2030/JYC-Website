@@ -40,3 +40,39 @@ html[data-theme="dark"] .jyc-route-card,html[data-theme="dark"] .jyc-hub-signal-
 @media(prefers-reduced-motion:reduce){
  .jyc-hub-source-filters button,.jyc-hub-signal-card{transition:none!important}
 }
+
+/* V56.2 editorial media performance: keep the photo archive dense without
+   forcing the browser to layout every below-fold frame at first paint. */
+.jyc-photo-chapters-section,
+.jyc-photo-story-section,
+.jyc-hub-signal-section{
+  content-visibility:auto;
+  contain-intrinsic-size:720px;
+}
+.jyc-photo-chapter-collage img,
+.jyc-photo-story-stage img,
+.jyc-hub-signal-card img{
+  display:block;
+  width:100%;
+  max-width:100%;
+}
+.jyc-photo-chapter-collage button,
+.jyc-hub-signal-card{
+  min-width:0;
+}
+.jyc-photo-chapter-collage button:focus-visible,
+.jyc-hub-signal-card:focus-visible,
+.jyc-photo-story-rail button:focus-visible{
+  outline:2px solid var(--jyc-focus,#5c3d16);
+  outline-offset:3px;
+}
+@media(max-width:480px){
+  .jyc-photo-chapters-section,
+  .jyc-photo-story-section,
+  .jyc-hub-signal-section{
+    contain-intrinsic-size:560px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .jyc-photo-story-transition{transition:none!important}
+}
