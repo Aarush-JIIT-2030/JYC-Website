@@ -15,7 +15,7 @@ const checks=[
  ['detail canonical URLs use slugs',main.includes('const canonicalPath=club?`/clubs/${slug(club.name)}`')&&main.includes('`/events/${slug(event.title)}'),],
  ['breadcrumb styling exists',css.includes('.visible-breadcrumbs')],
  ['SEO topic link styling exists',css.includes('.seo-topic-links')],
- ['service worker uses V18 namespace',((fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v18-11-final-product')||fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v18-11-1-final-product'))||fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v18-9-9-deep-polish')||fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v18-9-8-contact-nav')||fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v18-7-code-quality')||fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v18-9-final')||fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v18-9-5-jyc-first'))],
+ ['service worker cache matches V56.1 release',fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v56-1-0')],
  ['footer gates Fests by fest mode',main.includes("isFestMode(data)&&<button onClick={()=>nav('/fests')}>Fests</button>")],
  ['club logo alt text is descriptive',main.includes('alt={`${c.name} logo`}'),],
 ];
