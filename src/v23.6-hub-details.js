@@ -130,7 +130,7 @@ export const JYC_HUB_DETAILS = {
     activities:['Cricket','Football','Basketball','Volleyball','Lawn tennis','Carrom','Table tennis','Chess','Badminton'],
     experience:'The supplied sports material covers both outdoor and indoor sport at JIIT-128 and presents Kshitij as a recurring annual sports meet with multiple sports and competitive formats.',
     signature:['Kshitij 1.0','Kshitij 2.0','Kshitij 3.0','Kshitij 4.0','Marathon & Sprint']
-  }
+  },
   Qriosity:{
     label:'Quizzing and knowledge',
     activities:['Quizzes','Knowledge-based competitions','Curiosity and awareness','Critical thinking'],
