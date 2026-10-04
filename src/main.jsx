@@ -449,7 +449,7 @@ function Navbar({data,admin,theme,setTheme}){
  const nav=useNavigate();const loc=useLocation();
  const [open,setOpen]=useState(false),[moreOpen,setMoreOpen]=useState(false),[search,setSearch]=useState(false),[homeSection,setHomeSection]=useState('hero');
  const shortcutRef=React.useRef('');
- const routeLinks=[['Home','/'],['About','/about'],['Clubs','/clubs'],['Events','/events'],['Gallery','/gallery'],['Leadership','/leadership'],['Contact','/contact']];
+ const routeLinks=[['Home','/'],['About','/about'],['Clubs','/clubs'],['Events','/events'],['Gallery','/gallery'],['Leadership','/team'],['Contact','/contact']];
  const homeLinks=[['Home','hero'],['About','about'],['Clubs','clubs'],['Events','events'],['Gallery','moments'],['Leadership','team']];
  useEffect(()=>{
    const onKey=e=>{
@@ -477,7 +477,7 @@ function Navbar({data,admin,theme,setTheme}){
    return()=>observer.disconnect();
  },[loc.pathname]);
  const goHomeSection=id=>{setOpen(false);setMoreOpen(false);if(loc.pathname!=='/') {nav('/#'+id);return}document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});setHomeSection(id)};
- const dockItems=[['Home','/','home'],['Clubs','/clubs','clubs'],['Events','/events','events'],['Leadership','/leadership','team'],['More','__more','more']];
+ const dockItems=[['Home','/','home'],['Clubs','/clubs','clubs'],['Events','/events','events'],['Leadership','/team','team'],['More','__more','more']];
  const dockActive=loc.pathname==='/'?0:loc.pathname.startsWith('/clubs')?1:loc.pathname.startsWith('/events')?2:(loc.pathname.startsWith('/team')||loc.pathname.startsWith('/leadership'))?3:4;
  const dock=<div className="mobile-dock" style={{'--dock-index':dockActive}} aria-label="Mobile navigation"><i className="dock-active-pill" aria-hidden="true"/>{dockItems.map(([n,p,icon],i)=>{const active=i===dockActive;return <button key={n} className={active?'active':''} onClick={()=>p==='__more'?setMoreOpen(v=>!v):nav(p)} aria-current={active?'page':undefined}><span><NavIcon kind={icon}/></span><b>{n}</b></button>})}</div>;
  const more=moreOpen?<MobileMoreSheet data={data} admin={admin} close={()=>setMoreOpen(false)} openSearch={()=>{setMoreOpen(false);setSearch(true)}}/>:null;
@@ -517,7 +517,7 @@ function MobileMoreSheet({data,admin,close,openSearch}){
 const explore=[
    ['/about','About JYC','Vision, mission and values'],
    ['/history','JYC History','Evidence-led milestones and the organisation’s story'],
-   ['/leadership','Leadership','Faculty, Apex and Core Team'],
+   ['/team','Leadership','Faculty, Apex and Core Team'],
    ['/clubs','Clubs & Communities','Explore the official hub ecosystem'],
    ['/events','Events','Upcoming, ongoing and completed experiences'],
    ['/calendar','Event Calendar','Browse JYC events by date'],
@@ -525,7 +525,7 @@ const explore=[
    ['/achievements','Achievements','Wall of Fame and community outcomes'],
    ['/updates','JYC Now','Recent verified updates from JYC and the hubs'],
    ['/announcements','Announcements','Registrations, notices and JYC updates'],
-   ['/join-jyc','Join JYC','Recruitment destination · coming soon'],
+   ['/recruitment','Join JYC','Official recruitment destination'],
    ['/archive','Archive','The published JYC story by year'],
    ['/contact','Contact','Official public channels and query form']
   ];
@@ -869,12 +869,21 @@ function ClubCard({c,index=0}){
  return <Card className="club-card club-card-premium club-card-v41 tilt-card reveal club-identity-card" data-hub={slug(c.name)} style={identityStyle} onClick={()=>nav('/clubs/'+slug(c.name))}><div className="club-card-visual" style={c.banner?{backgroundImage:`linear-gradient(135deg,var(--bg-card),transparent 65%),url(${c.banner})`}:{}}><div className="club-logo">{c.logo?<img src={c.logo} alt={`${c.name} logo`} loading="lazy"/>:<LogoImage alt="JIIT Youth Club logo"/>}</div><span className="club-index">{String(index+1).padStart(2,'0')}</span></div><div className="card-body"><div className="club-identity-mini"><span><b className="hub-identity-glyph">{identity.glyph}</b>{identity.motif}</span><b>{identity.signature}</b>{c.sourceMediaLabel&&<small>{c.sourceMediaLabel}</small>}</div><div className="card-topline"><span className="tag">{c.type} · {c.category||'Community'}</span>{c.pinned&&<span className="pin-badge">PINNED</span>}</div><h3>{c.name}</h3><p>{c.description||'Official JYC club information will appear here.'}</p><div className="chips">{(c.interests||[]).slice(0,4).map(i=><span key={i}>{i}</span>)}</div><div className="club-card-footer"><span className="text-link">Explore club</span><span>↗</span></div>{(c.socials?.instagram||c.socials?.linkedin||c.socials?.website)&&<div className="club-socials" onClick={ev=>ev.stopPropagation()}>{c.socials?.instagram&&<a href={safeExternalUrl(c.socials.instagram)||'#'} target="_blank" rel="noopener noreferrer" aria-label={`${c.name} Instagram`}>IG {c.socials.instagramHandle||'Instagram'} ↗</a>}{c.socials?.linkedin&&<a href={safeExternalUrl(c.socials.linkedin)||'#'} target="_blank" rel="noopener noreferrer" aria-label={`${c.name} LinkedIn`}>LinkedIn ↗</a>}{c.socials?.website&&<a href={safeExternalUrl(c.socials.website)||'#'} target="_blank" rel="noopener noreferrer" aria-label={`${c.name} website`}>Website ↗</a>}{social?.verifiedOn&&<small>Verified {social.verifiedOn}</small>}</div>}</div></Card>
 }
 
+function eventVisualFor(e,index=0){
+ const explicit=safeExternalUrl(e?.poster)||'';
+ if(explicit)return explicit;
+ const hay=`${e?.title||''} ${e?.club||''}`.toLowerCase();
+ const candidates=[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY,...PUBLIC_GALLERY_FALLBACK];
+ const matched=candidates.find(g=>{const a=String(g.association||'').toLowerCase();const cap=String(g.caption||'').toLowerCase();return (a&&hay.includes(a.split(' · ')[0]))||(cap&&hay.split(/\\s+/).some(w=>w.length>4&&cap.includes(w)));});
+ if(matched?.url)return matched.url;
+ return candidates.length?candidates[Math.abs(String(e?.id||e?.title||index).split('').reduce((n,ch)=>n+ch.charCodeAt(0),0))%candidates.length]?.url:'';
+}
 function EventCard({e,index=0}){
  const nav=useNavigate();
  const state=eventState(e);
  const identity=eventIdentity(e);
  const identityStyle={'--hub-accent':identity.accent,'--hub-accent-soft':`color-mix(in srgb, ${identity.accent} 12%, transparent)`,'--hub-accent-line':`color-mix(in srgb, ${identity.accent} 28%, transparent)`,'--identity-shape':`var(--jyc-shape-${identity.shape||'event'})`};
- return <Card className="event-card event-card-premium tilt-card reveal event-identity-card" data-hub={slug(e.club||'JYC')} style={identityStyle} onClick={()=>nav('/events/'+slug(e.title))}><div className="event-poster" style={e.poster?{backgroundImage:`url(${e.poster})`}:{}}><span className={state==='live'?'live':''}>{state==='live'?'LIVE NOW':fmtDate(e.date)}</span><span className="event-number">{String(index+1).padStart(2,'0')}</span><span className="event-domain-mark">{identity.glyph||'◆'}</span><span className="event-domain-label">{identity.motif}</span></div><div className="card-body"><div className="event-identity-mini"><span>{identity.motif}</span><b>{identity.signature}</b><i>{identity.traits?.join(' · ')}</i></div><div className="card-topline"><span className="tag">{e.club||'JYC'}</span>{e.pinned&&<span className="pin-badge">FEATURED</span>}</div><h3>{e.title}</h3><p>{e.description||'Official JYC event details.'}</p><div className="event-card-meta"><span><b>{e.start||'TBA'}</b>{e.end?` – ${e.end}`:''}</span><span>{e.venue||'Venue TBA'}</span></div><span className="text-link">Open event details →</span></div></Card>
+ return <Card className="event-card event-card-premium tilt-card reveal event-identity-card" data-hub={slug(e.club||'JYC')} style={identityStyle} onClick={()=>nav('/events/'+slug(e.title))}><div className="event-poster" style={eventVisualFor(e,index)?{backgroundImage:`linear-gradient(180deg,rgba(20,25,39,.08),rgba(20,25,39,.64)),url(${eventVisualFor(e,index)})`}:{}}><span className={state==='live'?'live':''}>{state==='live'?'LIVE NOW':fmtDate(e.date)}</span><span className="event-number">{String(index+1).padStart(2,'0')}</span><span className="event-domain-mark">{identity.glyph||'◆'}</span><span className="event-domain-label">{identity.motif}</span></div><div className="card-body"><div className="event-identity-mini"><span>{identity.motif}</span><b>{identity.signature}</b><i>{identity.traits?.join(' · ')}</i></div><div className="card-topline"><span className="tag">{e.club||'JYC'}</span>{e.pinned&&<span className="pin-badge">FEATURED</span>}</div><h3>{e.title}</h3><p>{e.description||'Official JYC event details.'}</p><div className="event-card-meta"><span><b>{e.start||'TBA'}</b>{e.end?` – ${e.end}`:''}</span><span>{e.venue||'Venue TBA'}</span></div><span className="text-link">Open event details →</span></div></Card>
 }
 function EventTimelinePreview({events}){
  const nav=useNavigate();
