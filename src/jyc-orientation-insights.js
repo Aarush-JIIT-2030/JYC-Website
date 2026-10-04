@@ -31,6 +31,6 @@ export const JYC_ORIENTATION_EVENTS=[
 export const JYC_ORIENTATION_AT_A_GLANCE=[
  {label:'Organisation',value:'Student-governed',detail:'JYC is presented in the 2026–27 orientation as a student-governed organisation.'},
  {label:'Families',value:'5',detail:'Cultural · Technical · Creative · Literary · Sports.'},
- {label:'Orientation communities',value:'21 + 2',detail:'The maintained public index contains 23 named communities, including Qriosity and JIIT OPTICA from the official 2026 JIIT brochure.'},
+ {label:'Maintained index',value:'23',detail:'The maintained public index contains 23 named communities: the 21-community orientation set plus Qriosity and JIIT OPTICA from the official 2026 JIIT brochure.'},
  {label:'Experience',value:'Year-round',detail:'Induction, fests, hackathons, cultural programmes, sports and hub activities.'}
 ];
