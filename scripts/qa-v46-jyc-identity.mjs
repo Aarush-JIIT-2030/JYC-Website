@@ -7,8 +7,8 @@ const pkg=JSON.parse(fs.readFileSync('package.json','utf8'));
 const lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));
 const fail=[];
 const check=(ok,name)=>{if(!ok)fail.push(name);console.log((ok?'PASS':'FAIL')+': '+name)};
-check(pkg.version==='46.0.0','package version is 46.0.0');
-check(lock.version==='46.0.0'&&lock.packages?.['']?.version==='46.0.0','lockfile version is 46.0.0');
+check(pkg.version==='51.0.0','package version is 46.0.0');
+check(lock.version==='51.0.0'&&lock.packages?.['']?.version==='51.0.0','lockfile version is 46.0.0');
 check(main.includes("clean==='/history'")&&main.includes('<JYCHistory data={data}/>'),'history route is mounted');
 check(main.includes("'/history','JYC History'"),'history is discoverable from More');
 check(main.includes('<HistoryTeaser/>'),'home has a JYC history teaser');
@@ -18,6 +18,6 @@ check(!history.includes('founding year')&&!history.includes('founded in 19'),'hi
 check(main.includes("const privateRoute=['/admin','/login','/my-jyc'"),'student utility routes remain private and are not part of public navigation');
 check(!main.includes("nav('/my-jyc')")&&!main.includes("['My JYC'"),'public shell does not promote a student-help portal');
 check(history.includes('prefers-reduced-motion:reduce'),'history motion respects reduced motion');
-check(sw.includes("jyc-cache-v46-0-0"),'service worker cache is versioned for V46');
-if(fail.length){console.error('V46 QA failed: '+fail.join(', '));process.exit(1)}
-console.log('PASS: V46 JYC identity/history QA');
+check(sw.includes("jyc-cache-v51-0-0"),'service worker cache is versioned for V46');
+if(fail.length){console.error('V51 regression QA failed: '+fail.join(', '));process.exit(1)}
+console.log('PASS: JYC identity/history regression QA');
