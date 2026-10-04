@@ -19,6 +19,8 @@ const checks=[
  ['Production initialization does not ship demo content', main.includes("import.meta.env.DEV?publicDemoData():norm(empty)")],
  ['Production missing-config path does not fabricate content', main.includes("if(import.meta.env.DEV)return publicDemoData();return norm(empty)")],
  ['Multi-day events use dateEnd for lifecycle state', main.includes('const effectiveEndDate=e.dateEnd||e.date')],
+ ['retired academic calendar data is not in the active public feature bundle', !fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8').includes('academicKeyDates') && !fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8').includes('Academic dates')],
+ ['GLB bot supports model-native animation without auto-rotation', fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('availableAnimations') && fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('disable-pan') && !fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('auto-rotate')],
 ];
 let failed=0; for(const [name,ok] of checks){ console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok) failed++; }
 if(failed){ console.error(`BUILD PREFLIGHT FAILED: ${failed} check(s)`); process.exit(1); }
