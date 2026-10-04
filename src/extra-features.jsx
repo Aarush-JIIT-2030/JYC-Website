@@ -4,7 +4,7 @@ import {supabase} from './lib/supabase';
 import {jycToast,jycConfirm} from './lib/ui';
 import {JYC_CONTACTS} from './lib/site-config.js';
 import {JYC_HUB_CONTENT,JYC_HUB_FAMILIES} from './v21-hub-content.js';
-import {buildJycMediaManifest} from './jyc-source-media.js';
+import {buildJycMediaManifest,sourceHubMedia} from './jyc-source-media.js';
 import {hasLocalReminder,scheduleEventReminder,clearLocalReminder,subscribeSaved,isSaved,setSaved,googleCalendarUrl} from './v15-functional.js';
 
 const savedKeys={club:'jyc-saved-club-',event:'jyc-saved-event-'};
@@ -285,7 +285,9 @@ export function RegistrationPage({data,id,session}){const event=data.events.find
  const [filter,setFilter]=useState('All'); const [role,setRole]=useState('All'); const [visual,setVisual]=useState('All'); const [year,setYear]=useState('All'); const [album,setAlbum]=useState('All');
  const [filtersOpen,setFiltersOpen]=useState(()=>typeof window!=='undefined'?window.innerWidth>900:false); const [albums,setAlbums]=useState([]);
  useEffect(()=>{let alive=true;supabase.from('jyc_media_albums').select('id,name,slug,cover_url').eq('is_published',true).order('created_at',{ascending:false}).then(({data:rows})=>{if(alive)setAlbums(rows||[])});return()=>{alive=false}},[]);
- const manifest=useMemo(()=>buildJycMediaManifest(data.gallery||[]),[data.gallery]);
+ const sourcePhotoItems=useMemo(()=>Object.keys(JYC_HUB_CONTENT).flatMap(name=>sourceHubMedia(name).photos.map((url,i)=>({id:`source-gallery-${name}-${i}`,url,association:name,year:'2026',caption:`${name} · source photography`,alt:`${name} supplied JYC source photograph`,mediaKind:'photo',sourceType:'presentation-export',sourceLabel:'JYC supplied hub archive',published:true}))),[]);
+ const galleryInput=useMemo(()=>[...(Array.isArray(data.gallery)?data.gallery:[]),...sourcePhotoItems],[data.gallery,sourcePhotoItems]);
+ const manifest=useMemo(()=>buildJycMediaManifest(galleryInput),[galleryInput]);
  const collectionOf=g=>{const association=String(g?.association||'').trim().toLowerCase();const hub=Object.keys(JYC_HUB_CONTENT).find(name=>association===name.toLowerCase()||association.includes(name.toLowerCase()));return hub?JYC_HUB_CONTENT[hub].family:''};
  const associations=manifest.communities;
  const roleLabels={club:'Club collections',event:'Event records',archive:'JYC archive',leadership:'Leadership'};
