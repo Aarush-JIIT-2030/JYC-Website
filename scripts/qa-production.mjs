@@ -15,9 +15,15 @@ if(/https:\/\/[^*\s]+\.supabase\.co/.test(vercel)) fail('Vercel CSP does not har
 if(vercel.includes('X-Content-Type-Options')&&vercel.includes('X-Frame-Options')&&vercel.includes('Referrer-Policy')) pass('Baseline security headers present'); else fail('Baseline security headers incomplete');
 if(vercel.includes('Strict-Transport-Security')) pass('HSTS header present'); else fail('HSTS header missing');
 const robots=read('public/robots.txt');
-if(!/^Sitemap:/mi.test(robots)) pass('Robots file intentionally waits for production domain'); else fail('Robots file contains a stale sitemap URL');
+const configuredSite=(process.env.VITE_SITE_URL||process.env.SITE_URL||process.env.VERCEL_PROJECT_PRODUCTION_URL||'https://www.jiityouthclub128.in').trim().replace(/\/$/,'');
+const siteOrigin=/^[a-z]+:\/\//i.test(configuredSite)?configuredSite:`https://${configuredSite}`;
 const sitemap=path.join(root,'public','sitemap.xml');
-if(fs.existsSync(sitemap)) fail('Sitemap is not committed with a placeholder production origin'); else pass('No fake production sitemap committed');
+if(fs.existsSync(sitemap)){
+  const sitemapText=read('public/sitemap.xml');
+  if(sitemapText.includes('<loc>'+siteOrigin+'/</loc>')&&!sitemapText.includes('example.com')) pass('Generated sitemap uses the configured production origin');
+  else fail('Generated sitemap contains a stale or placeholder production origin');
+}else pass('Sitemap will be generated during the production build');
+if(!/^Sitemap:\s*https?:\/\//mi.test(robots)||robots.includes(siteOrigin+'/sitemap.xml')) pass('Robots sitemap is absent or matches the configured production origin'); else fail('Robots file points at a stale sitemap origin');
 const env=read('.env.example');
 if(env.includes('VITE_SITE_URL=')) pass('Production canonical origin is explicitly configurable'); else fail('VITE_SITE_URL missing');
 if(read('src/main.jsx').includes('unknownRoute')&&read('src/main.jsx').includes('noindex:privateRoute||unknownRoute')) pass('Unknown SPA routes are marked noindex'); else fail('Unknown SPA routes can be indexed');
