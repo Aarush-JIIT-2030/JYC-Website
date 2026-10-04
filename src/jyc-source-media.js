@@ -38,7 +38,14 @@ export function sourceHubMedia(name){
   const gallery=SOURCE_GALLERY.filter(g=>normalise(g.association)===key).map(g=>g.url);
   const story=storyByKey.get(key);
   const storyImage=story?.image?[story.image]:[];
-  const photos=[...new Set([...quality,...mapped,...gallery,...storyImage])];
+  const media=[
+    ...quality.map(url=>({url,association:label,mediaKind:'photo',sourceLabel:'JYC supplied hub archive'})),
+    ...mapped.map(url=>({url,association:label,mediaKind:'photo',sourceLabel:'JYC supplied hub archive'})),
+    ...gallery.map(url=>({url,association:label,mediaKind:mediaKind({caption:url}),sourceLabel:'JYC supplied hub archive'})),
+    ...storyImage.map(url=>({url,association:label,mediaKind:'artwork',sourceLabel:'JYC supplied hub story'}))
+  ].filter(x=>x.url);
+  const uniqueMedia=[...new Map(media.map(x=>[x.url,x])).values()];
+  const photos=uniqueMedia.filter(x=>x.mediaKind==='photo').map(x=>x.url);
   return {name:label,family:JYC_HUB_CONTENT[label]?.family||story?.family||'',focus:JYC_HUB_CONTENT[label]?.focus||story?.focus||'',summary:JYC_HUB_CONTENT[label]?.summary||'',detail:JYC_HUB_CONTENT[label]?.detail||story?.text||'',story:story||null,photos};
 }
 
@@ -79,6 +86,12 @@ const sourceEventAlias=name=>{
   const key=normalise(name);
   return Object.keys(EVENT_ALIASES).find(event=>normalise(event)===key)||EVENT_ASSOCIATIONS.get(key)||Object.keys(EVENT_ALIASES).find(event=>EVENT_ALIASES[event].some(alias=>normalise(alias)===key))||'';
 };
+const mediaKind=item=>{
+  const text=String(item?.caption||'').toLowerCase();
+  if(/logo|banner|poster|illustration|graphic|design society|visual identity|artwork|fine.?art|creative work|story material/.test(text))return 'artwork';
+  if(/photograph|photo|campus event moment|student collaboration|community moment|group|team|performance|stage|sports|event coverage|workshop and student learning/.test(text))return 'photo';
+  return 'visual';
+};
 const mediaRole=item=>{
   const association=String(item?.association||'');
   if(EVENT_ASSOCIATIONS.has(normalise(association))||/converge|ebullience|dron.?o.?war|induction|ethnic.?day|farewell|hackathon|jai\s*2026/i.test(association))return 'event';
@@ -96,9 +109,11 @@ const enrichMediaItem=item=>{
     association,
     year:year||item.year||'',
     role,
+    mediaKind:mediaKind(item),
     sourceType:item.page?'presentation-export':/^https?:\/\//i.test(String(item.url))?'official-external-media':item.sourceType||'maintained-jyc-media',
     sourceLabel:item.sourceLabel||(/^https?:\/\//i.test(String(item.url))?`${association} · official external media`:'JYC maintained source archive'),
     alt:item.alt||item.caption||`${association} · JYC visual archive`,
+    mediaKind:item.mediaKind||mediaKind(item),
     published:item.published!==false
   };
 };
