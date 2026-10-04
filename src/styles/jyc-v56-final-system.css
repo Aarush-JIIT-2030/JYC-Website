@@ -412,3 +412,13 @@
  .public-app .jyc-photo-story-scrubber input{grid-column:1;}
  .public-app .jyc-photo-story-scrubber output{grid-column:2;}
 }
+
+
+/* Supplied archive ledger: provenance and scale without loading the raw archive into the bundle. */
+.public-app .jyc-source-archive-ledger{width:100%;max-width:1100px;margin:14px auto 0;padding:14px 16px;border:1px solid var(--jyc-final-line);border-radius:16px;background:rgba(255,250,241,.68);display:grid;gap:10px;text-align:center;}
+.public-app .jyc-source-archive-ledger>div:first-child{display:grid;gap:4px;}
+.public-app .jyc-source-archive-ledger strong{font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;color:var(--jyc-final-ink);}
+.public-app .jyc-source-archive-ledger small{color:var(--jyc-final-muted);font-size:11px;line-height:1.55;}
+.public-app .jyc-source-archive-parts{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;}
+.public-app .jyc-source-archive-parts span{padding:7px 9px;border:1px solid var(--jyc-final-line);border-radius:999px;background:#fffdf8;color:var(--jyc-final-muted);font-size:9px;letter-spacing:.08em;text-transform:uppercase;}
+@media(max-width:620px){.public-app .jyc-source-archive-ledger{padding:12px 10px}.public-app .jyc-source-archive-parts{display:grid;grid-template-columns:1fr 1fr}.public-app .jyc-source-archive-parts span{font-size:8px}}
