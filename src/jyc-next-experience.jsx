@@ -63,6 +63,42 @@ export function PhotoStory({data}){
  </section>
 }
 
+export function PhotoChapters(){
+ const nav=useNavigate();
+ const chapters=useMemo(()=>JYC_HUB_FAMILIES.map(family=>{
+  const hubs=JYC_HUB_SOURCE_REGISTRY.filter(h=>h.family===family).map(h=>({
+   ...h,
+   profile:JYC_HUB_CONTENT[h.name]||{},
+   media:sourceHubMedia(h.name)
+  })).filter(h=>h.media.photos.length);
+  const photos=hubs.flatMap(h=>h.media.photos.slice(0,2).map((url,i)=>({
+   url,
+   hub:h.name,
+   caption:(h.profile.summary||h.profile.focus||family),
+   alt:`${h.name} source photograph ${i+1}`
+  })));
+  return {family,hubs,photos:photos.slice(0,8)};
+ }).filter(x=>x.photos.length),[]);
+ if(!chapters.length)return null;
+ return <section className="section jyc-photo-chapters-section reveal">
+  <div className="jyc-photo-chapters-head">
+   <div><span className="eyebrow">PHOTO CHAPTERS · 23 COMMUNITIES</span><h2>See JYC through its communities.</h2><p>Instead of one generic gallery, the archive is grouped into visual chapters so each family keeps its own rhythm, people and places.</p></div>
+   <button type="button" className="reference-view-all" onClick={()=>nav('/gallery')}>Browse every frame ↗</button>
+  </div>
+  <div className="jyc-photo-chapters-grid">
+   {chapters.map(ch=><article className="jyc-photo-chapter" key={ch.family}>
+    <div className="jyc-photo-chapter-title"><span>{ch.family}</span><b>{ch.hubs.length} communities · {ch.photos.length} frames</b></div>
+    <div className="jyc-photo-chapter-collage">
+     {ch.photos.map((p,i)=><button type="button" key={p.url+i} onClick={()=>nav('/clubs/'+encodeURIComponent(p.hub))} aria-label={`Explore ${p.hub}`}>
+      <img src={p.url} alt={p.alt} loading="lazy"/><span><b>{p.hub}</b><small>{p.caption}</small></span>
+     </button>)}
+    </div>
+    <button type="button" className="text-link" onClick={()=>nav('/clubs?family='+encodeURIComponent(ch.family))}>Explore {ch.family} ↗</button>
+   </article>)}
+  </div>
+ </section>
+}
+
 export function HubSignalRail({data}){
  const nav=useNavigate();
  const [family,setFamily]=useState('All');
