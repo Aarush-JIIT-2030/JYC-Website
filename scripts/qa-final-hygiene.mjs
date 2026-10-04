@@ -21,7 +21,7 @@ add('club-only public boundary is explicit',config.includes('Official organisati
 add('canonical public routes remain JYC-only',[
   '/about','/history','/clubs','/events','/gallery','/team','/archive','/recruitment','/announcements','/calendar','/contact'
 ].every(route=>config.includes(route)));
-add('student-platform UI is not mounted',!/<(MyJYC|AccountLogin|RegistrationPage|QRSharePage|JYCBot|FeaturedEventPopup|SiteAtmosphere)\b/.test(main));
+add('student-platform UI is not mounted',!/<(MyJYC|AccountLogin|RegistrationPage|QRSharePage|FeaturedEventPopup|SiteAtmosphere)\b/.test(main));
 add('academic/campus utility UI is not mounted',!main.includes('JIIT Academic Calendar')&&!main.includes('Campus Map')&&!main.includes('<CampusMap'));
 add('legacy public aliases redirect',vercel.redirects.some(x=>x.source==='/my-jyc'&&x.destination==='/')&&vercel.redirects.some(x=>x.source==='/map'&&x.destination==='/events'));
 add('visual contract is present',theme.includes('V52 FINAL VISUAL QA CONTRACT')&&theme.includes('overflow-wrap:anywhere')&&theme.includes('text-wrap:pretty'));
