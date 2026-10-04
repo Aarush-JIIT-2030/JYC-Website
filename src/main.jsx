@@ -233,7 +233,7 @@ function ClubDetail({data,id,virtualName}){
  if(!c||(!virtualProfile&&(!c.published||c.status==='archived')))return <section className="section page"><Back label="Back to clubs" to="/clubs"/><State title="Club not found." text="This club may be unpublished or archived."/></section>;
  const sections=[...(c.customSections||[])].filter(s=>s.visible!==false);
  const events=data.events.filter(e=>e.published&&!e.archived&&(e.clubId===c.id||e.club===c.name)).sort((a,b)=>`${a.date} ${a.start}`.localeCompare(`${b.date} ${b.start}`));
- const sourceStory=PDF_HUB_STORIES.find(x=>String(x.name).toLowerCase()===String(c.name).toLowerCase());
+ const sourceStory=PDF_HUB_STORIES.find(x=>String(x.name).toLowerCase()===String(c.name).toLowerCase())||(()=>{const m=sourceHubMedia(c.name);if(!m.photos.length||!profile)return null;return {name:profile.name||c.name,family:profile.family,focus:profile.focus,image:m.photos[0],text:detail?.experience||profile.detail||profile.summary||`${c.name} is part of the JYC ${profile.family} ecosystem.`}})();
  const sourceGallery=[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY].filter(g=>String(g.association||'').trim().toLowerCase()===String(c.name).trim().toLowerCase());
  const gallery=[...data.gallery.filter(g=>g.clubId===c.id||g.association===c.name||g.association==='club:'+c.id),...sourceGallery].filter((g,i,a)=>a.findIndex(x=>x.id===g.id)===i);
  const links=[['Instagram',c.instagram],['WhatsApp',c.whatsapp],['Website',c.website],['LinkedIn',c.linkedin],['YouTube',c.youtube]].filter(x=>x[1]);
