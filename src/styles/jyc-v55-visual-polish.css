@@ -5,7 +5,7 @@
 
 .public-app{
   --jyc-content:min(1180px,calc(100% - 32px));
-  --jyc-paper:#f8f1e4;
+  --jyc-paper:#f5f1e6;
   --jyc-card:#fffaf1;
   --jyc-ink:#171513;
   --jyc-muted:#665f56;
@@ -741,4 +741,13 @@
   .loading-v41-mark-wrap{margin-block:17px 11px!important}
   .loading-v41 .loading-v41-steps{margin-block:13px 8px!important}
   .loading-v41 .loading-status{margin-top:7px!important}
+}
+
+/* Editorial readability contract: no clipped copy in public cards or detail sections. */
+.public-app :where(p,h1,h2,h3,h4,li,.description,.card-copy,.event-copy,.club-hero-copy,.hub-profile-banner){
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  -webkit-line-clamp:unset!important;
+  -webkit-box-orient:initial!important;
 }
