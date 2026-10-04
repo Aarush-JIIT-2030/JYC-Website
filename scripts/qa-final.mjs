@@ -55,7 +55,9 @@ checks.push(
 
 );
 
-const publicAssets=path.join(root,'public','assets');
+checks.push(['current flagship events have dedicated identities',(()=>{const id=fs.readFileSync(path.join(root,'src/hub-identities.js'),'utf8');return ['JAI 2026','DRONO-O-WAR','RIDE Hack','CodeAI Hackathon','TechTonic 2.0','Code Clash 25.1','Code Clash 25.2'].every(n=>id.includes(n))})()]);
+checks.push(['source photo relationship backfill migration exists',fs.existsSync(path.join(root,'supabase/migrations/202610040014_v56_4_source_photo_relationships.sql'))]);
+\nconst publicAssets=path.join(root,'public','assets');
 function walk(dir){if(!fs.existsSync(dir))return [];return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
 const assetFiles=walk(publicAssets).filter(p=>/\.(webp|png|jpe?g|avif|gif|svg)$/i.test(p));
 const assetTextFiles=['src/main.jsx','src/jyc-next-experience.jsx','src/jyc-source-media.js','src/pdf-hub-content.js','src/pdf-hub-extra.js','src/v21-hub-content.js','src/jyc-assistant.jsx'].map(p=>fs.readFileSync(path.join(root,p),'utf8')).join('\n');
