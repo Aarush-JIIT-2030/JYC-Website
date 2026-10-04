@@ -31,6 +31,7 @@ export const JYC_HUB_DETAILS = {
   },
   RPH:{
     label:'Coding and problem solving',
+    sourceHighlights:['Code Clash 25.1: two contests with 850+ participants','Code Clash 25.2: 500+ participants','Sessions for 1st & 2nd-year students focused on DSA, Competitive Programming and C++','Senior success stories include placements at Google, Amazon and Zomato'],
     activities:['DSA','Competitive Programming','C++ learning','Coding contests','Mentorship','Technical interview preparation'],
     experience:'The supplied RPH material focuses on DSA and Competitive Programming, with workshops, mentorship, hands-on problem solving and preparation for contests, internships, placements and technical interviews.',
     signature:['Code Clash 2025','Code Clash 25.1','Code Clash 25.2']
@@ -61,6 +62,7 @@ export const JYC_HUB_DETAILS = {
   },
   CypherX:{
     label:'Cybersecurity',
+    sourceHighlights:['Student-led cybersecurity society of JIIT-128','Workshops, projects and competitions','Capture-the-Flag challenges and collaborative security learning','Security-first mindset, technical skills and leadership'],
     activities:['Cybersecurity workshops','CTFs','Hands-on projects','Senior mentorship','Security awareness'],
     experience:'The supplied CypherX material focuses on security awareness and practical learning through workshops, Capture the Flag challenges, projects and mentorship.',
     signature:['Workshops','Capture the Flag','Projects','Mentorship']
@@ -84,6 +86,7 @@ export const JYC_HUB_DETAILS = {
   },
   Dronotics:{
     label:'Drones and aerial robotics',
+    sourceHighlights:['Official drone and aerial robotics club','Dron-O-War is presented as the premier national-level drone competition','Top Gun Challenge is a signature flight-simulation challenge','Hands-on learning, collaborative projects, technical workshops and competitions'],
     activities:['Drone technology','Hands-on engineering','Technical workshops','Collaborative projects','Flight simulation','Competitions'],
     experience:'The supplied Dronotics material describes an aerial-robotics community built around hands-on learning, innovation, teamwork and technical excellence.',
     signature:['Dron-O-War','Top Gun Challenge','Drone projects','Workshops']
@@ -128,6 +131,20 @@ export const JYC_HUB_DETAILS = {
     experience:'The supplied sports material covers both outdoor and indoor sport at JIIT-128 and presents Kshitij as a recurring annual sports meet with multiple sports and competitive formats.',
     signature:['Kshitij 1.0','Kshitij 2.0','Kshitij 3.0','Kshitij 4.0','Marathon & Sprint']
   }
+  Qriosity:{
+    label:'Quizzing and knowledge',
+    activities:['Quizzes','Knowledge-based competitions','Curiosity and awareness','Critical thinking'],
+    experience:'The official JIIT Admission Brochure 2026 identifies Qriosity as the Quizzing Society. Its stated role is to organise quizzes and knowledge-based competitions that promote curiosity, awareness and critical thinking.',
+    signature:['Quizzes','Knowledge competitions','Critical thinking'],
+    sourceHighlights:['Identified in the official JIIT Admission Brochure 2026','Knowledge-based competitions','Curiosity, awareness and critical thinking']
+  },
+  'JIIT OPTICA':{
+    label:'STEM and scientific exploration',
+    activities:['STEM engagement','Scientific curiosity','Student chapter activity','Technical exploration'],
+    experience:'The official JIIT Admission Brochure 2026 identifies the JIIT OPTICA student chapter in the Department of Physics and Material Science and Engineering as a scientific society aspiring to inspire students through STEM.',
+    signature:['STEM','Scientific curiosity','Technical exploration'],
+    sourceHighlights:['Identified in the official JIIT Admission Brochure 2026','Student chapter of OPTICA','Department of Physics and Material Science and Engineering','STEM-focused scientific society']
+  },
 };
 
 export function hubDetails(name){
