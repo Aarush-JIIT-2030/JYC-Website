@@ -27,7 +27,20 @@ checks.push(
  ['Gallery lightbox has useRef import',/import React,\{[^}]*useRef/.test(extraFeatures)&&extraFeatures.includes('useRef(null)')],
  ['final public system has mobile photo breakpoints',extraPublicCss.includes('@media(max-width:620px)')&&extraPublicCss.includes('.gallery-grid')],
  ['generic supplied archive photos do not carry inferred 2026 years',!pdfHub.split('\n').some(line=>line.includes("association:'JYC Archive'")&&line.includes("year:'2026'"))],
+ ['ecosystem context rail selects across JYC families',main.includes('JYC_HUB_FAMILIES.map(family')&&main.includes('sourceHubMedia(name).photoItems')],
+ ['public copy uses maintained 23-community count',!main.includes('names 21 communities')],
+ ['JAI event fallback uses local committed artwork',main.includes("poster:'/assets/events/agentic-ai-2026.webp'")],
+ ['photo archive source selectors use multiple frames',main.includes('photoItems.slice(0,5)')&&main.includes('photoItems.slice(0,6)')&&main.includes('photoItems.slice(0,10)')&&main.includes('photoItems.slice(0,12)')],
  ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))]
 );
-let failed=0; for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok)failed++;}
+
+const publicAssets=path.join(root,'public','assets');
+function walk(dir){if(!fs.existsSync(dir))return [];return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
+const assetFiles=walk(publicAssets).filter(p=>/\.(webp|png|jpe?g|avif|gif|svg)$/i.test(p));
+const assetTextFiles=['src/main.jsx','src/jyc-next-experience.jsx','src/jyc-source-media.js','src/pdf-hub-content.js','src/pdf-hub-extra.js','src/v21-hub-content.js','src/jyc-assistant.jsx'].map(p=>fs.readFileSync(path.join(root,p),'utf8')).join('\n');
+const assetRefs=new Set([...assetTextFiles.matchAll(/\/assets\/[^'"\\s)]+/g)].map(m=>m[0]));
+const assetRel=new Set(assetFiles.map(p=>p.slice(path.join(root,'public').length).replaceAll('\\\\','/')));
+const missingReferencedAssets=[...assetRefs].filter(ref=>!assetRel.has(ref));
+checks.push(['all explicitly referenced public assets exist',missingReferencedAssets.length===0]);
+\nlet failed=0; for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok)failed++;}
 if(failed)process.exit(1); console.log('Final product QA complete.');
