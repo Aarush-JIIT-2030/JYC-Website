@@ -839,3 +839,91 @@
 .public-app .lightbox-related-links{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin-top:12px}
 .public-app .lightbox-related-links button{min-height:40px;padding:8px 12px;border:1px solid rgba(255,250,241,.28);border-radius:999px;background:rgba(255,250,241,.08);color:#fffaf1;font:inherit;cursor:pointer}
 .public-app .lightbox-related-links button:hover,.public-app .lightbox-related-links button:focus-visible{background:rgba(255,250,241,.16);border-color:rgba(255,250,241,.55)}
+
+/* V56 editorial photography chapter: use the archive as a visual story, not a thumbnail wall. */
+.gallery-story-grid{
+  width:var(--jyc-content);
+  margin:clamp(24px,4vw,52px) auto 28px;
+  display:grid;
+  grid-template-columns:1.35fr .82fr .82fr;
+  grid-template-rows:clamp(180px,24vw,300px) clamp(150px,18vw,220px);
+  gap:12px;
+}
+.gallery-story-card{
+  position:relative;
+  display:block;
+  min-width:0;
+  min-height:0;
+  padding:0;
+  border:1px solid var(--jyc-line);
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--jyc-card);
+  cursor:pointer;
+  text-align:left;
+}
+.gallery-story-card-0{grid-row:1 / span 2}
+.gallery-story-card-1{grid-column:2}
+.gallery-story-card-2{grid-column:3}
+.gallery-story-card-3{grid-column:2}
+.gallery-story-card-4{grid-column:3}
+.gallery-story-card img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  transition:transform .55s ease,filter .35s ease;
+}
+.gallery-story-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 38%,rgba(0,0,0,.78));
+  pointer-events:none;
+}
+.gallery-story-overlay{
+  position:absolute;
+  z-index:1;
+  inset:auto 18px 16px;
+  display:grid;
+  gap:5px;
+  color:#fff;
+}
+.gallery-story-overlay small{
+  font-size:9px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  opacity:.78;
+}
+.gallery-story-overlay strong{
+  max-width:32ch;
+  font-size:clamp(14px,1.5vw,20px);
+  line-height:1.2;
+}
+.gallery-story-overlay em{
+  font-size:10px;
+  font-style:normal;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.8;
+}
+.gallery-story-card:hover img,
+.gallery-story-card:focus-visible img{transform:scale(1.035);filter:saturate(1.05)}
+.gallery-story-card:focus-visible{outline:3px solid var(--jyc-focus);outline-offset:3px}
+@media(max-width:760px){
+  .gallery-story-grid{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:220px 150px 150px;
+  }
+  .gallery-story-card-0{grid-column:1 / span 2;grid-row:1}
+  .gallery-story-card-1{grid-column:1;grid-row:2}
+  .gallery-story-card-2{grid-column:2;grid-row:2}
+  .gallery-story-card-3{grid-column:1;grid-row:3}
+  .gallery-story-card-4{grid-column:2;grid-row:3}
+}
+@media(max-width:430px){
+  .gallery-story-grid{grid-template-rows:210px 145px 145px;gap:8px}
+  .gallery-story-overlay{inset:auto 12px 12px}
+  .gallery-story-overlay strong{font-size:13px}
+  .gallery-story-overlay small,.gallery-story-overlay em{font-size:8px}
+}
