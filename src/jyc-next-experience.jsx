@@ -149,7 +149,7 @@ export function HubSignalRail({data}){
    {['All',...JYC_HUB_FAMILIES].map(x=><button key={x} type="button" role="tab" aria-selected={family===x} className={family===x?'active':''} onClick={()=>setFamily(x)}>{x}<span>{x==='All'?hubs.length:hubs.filter(h=>h.family===x).length}</span></button>)}
   </div>
   <div className="jyc-hub-signal-grid">{visible.map((h,i)=><button type="button" className="jyc-hub-signal-card" data-source-status={h.status} key={h.name} onClick={()=>nav('/clubs/'+encodeURIComponent(h.canonicalName||h.name))}>
-    <div>{h.media.photos[0]?<img src={h.media.photos[0]} alt="" loading="lazy"/>:<span>{String(i+1).padStart(2,'0')}</span>}</div>
+    <div>{h.media.photos[0]||h.media.visuals?.[0]?<img src={h.media.photos[0]||h.media.visuals?.[0]} alt={`${h.name} JYC visual`} loading="lazy"/>:<span>{String(i+1).padStart(2,'0')}</span>}</div>
     <small>{h.family} · {h.focus}</small><strong>{h.name}</strong><em>{h.summary||'Source-backed JYC hub profile awaiting richer live records.'}</em>
     <span className="jyc-hub-source-status">{h.status==='brochure-verified'?'2026 BROCHURE VERIFIED':h.status==='source-material'?'SOURCE MATERIAL':'SOURCE MATERIAL'}</span><b>Open hub ↗</b>
    </button>)}</div>
