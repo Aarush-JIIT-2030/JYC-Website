@@ -37,7 +37,7 @@ add('legacy public routes redirect safely',vercel.redirects.some(x=>x.source==='
 add('rewrite keeps SPA deep links alive',vercel.rewrites?.some(x=>x.source==='/(.*)'&&x.destination==='/'));
 
 const localRefs=[...new Set(
-  [...main.matchAll(/['"]((?:\\/assets\\/)[^'"]+)['"]/g),...media.matchAll(/['"]((?:\\/assets\\/)[^'"]+)['"]/g)]
+  [...main.matchAll(/['"]((?:\/assets\/)[^'"]+)['"]/g),...media.matchAll(/['"]((?:\/assets\/)[^'"]+)['"]/g)]
   .map(m=>m[1].split('?')[0])
 )];
 const missing=localRefs.filter(p=>!fs.existsSync(path.join(process.cwd(),'public',p.replace(/^\\/,'').replaceAll('/','/'))));
