@@ -4,9 +4,9 @@ Date: 2026-10-04
 
 ## What changed
 
-- Photo Story now consumes up to 8 source frames per verified current community before deduplication.
-- Photo Story now keeps up to 16 unique frames in its rotating queue instead of 8.
-- Photo Chapters now consume up to 8 source frames per hub and keep up to 16 frames per family chapter.
+- Photo Story now consumes the full source-photo pool across the maintained hub registry, interleaved round-robin by community before deduplication.
+- Photo Story has no artificial frame-count ceiling; every unique published gallery/source photo can enter the rotating queue.
+- Photo Chapters now consume the full photo set for every hub and every family chapter.
 - The Photo Story thumbnail rail is horizontally scrollable so a larger pool does not squeeze the layout.
 - The progress indicator pauses while the story is hovered.
 - The autoplay control remains keyboard-focusable and reduced-motion behavior remains intact.
