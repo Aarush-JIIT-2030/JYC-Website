@@ -11,7 +11,7 @@ const checks=[
  ['club cards use source photography',main.includes('const sourcePhoto=sourceHubMedia(c.name).photos[0]')&&main.includes('c.banner||sourcePhoto')],
  ['event cards prefer source photography',main.includes('sourceEventMedia(e)?.items?.find')],
  ['gallery uses masonry columns',css.includes('column-count:4')&&css.includes('break-inside:avoid')],
- ['gallery has mobile single-column fallback',css.includes('@media(max-width:480px)')&&css.includes('.public-app .gallery-grid{column-count:1}'),
+ ['gallery has mobile single-column fallback',css.includes('@media(max-width:480px)')&&css.includes('.public-app .gallery-grid{column-count:1}')],
  ['club pages expose source photo strip',main.includes('hub-source-photo-strip')&&main.includes('sourceHubMedia(c.name).photos')],
  ['homepage photo story uses source hub photos',next.includes('sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap')],
  ['homepage photo wall uses source photography',main.includes('hub-photo-wall')&&main.includes('sourceHubMedia(meta.name).photos')],
