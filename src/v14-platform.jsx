@@ -10,9 +10,9 @@ export function EcosystemSection({data}){
   const clubs=data.clubs.filter(c=>c.published&&c.status!=='archived').length;
   const events=data.events.filter(e=>e.published&&!e.archived).length;
   const people=data.team.filter(m=>m.published===true).length;
-  const nodes=[['clubs','CLUBS',Math.max(clubs,25),'/clubs'],['events','EVENTS',events,'/events'],['my-jyc','MY JYC',0,'/my-jyc'],['team','TEAM',people,'/team']];
+  const nodes=[['clubs','CLUBS',clubs,'/clubs'],['events','EVENTS',events,'/events'],['gallery','GALLERY',data.gallery.length,'/gallery'],['team','TEAM',people,'/team']];
   return <section className="section ecosystem-section reveal">
-    <div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Four useful routes around one JYC centre — explore a community, an experience, your saved space or the people behind it.</p></div>
+    <div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Four useful routes around one JYC centre — explore communities, events, memories and the people behind them.</p></div>
     <div className={`ecosystem-orbit ecosystem-active-${active||'none'}`}>
       <span className="ecosystem-connector ecosystem-connector-0" aria-hidden="true"/>
       <span className="ecosystem-connector ecosystem-connector-1" aria-hidden="true"/>
