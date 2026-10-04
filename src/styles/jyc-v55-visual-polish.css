@@ -860,7 +860,7 @@
   overflow:hidden;
   background:var(--jyc-card);
   cursor:pointer;
-  text-align:left;
+  text-align:center;
 }
 .gallery-story-card-0{grid-row:1 / span 2}
 .gallery-story-card-1{grid-column:2}
