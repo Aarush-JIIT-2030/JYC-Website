@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root=process.cwd();
 const main=fs.readFileSync(path.join(root,'src/main.jsx'),'utf8');
+const fallbacks=fs.readFileSync(path.join(root,'src/content/jyc-public-fallbacks.js'),'utf8');
 const nextExperience=fs.readFileSync(path.join(root,'src/jyc-next-experience.jsx'),'utf8');
 const css=fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
@@ -15,7 +16,7 @@ const checks=[
  ['detail canonical URLs use slugs',main.includes('const canonicalPath=club?`/clubs/${slug(club.name)}`')&&main.includes('`/events/${slug(event.title)}'),],
  ['breadcrumb styling exists',main.includes('className="visible-breadcrumbs reveal"')],
  ['SEO topic link styling exists',main.includes('.search-topic-links')],
- ['service worker cache matches V56.5 release',fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v56-2-0')],
+ ['service worker cache matches V56.5 release',fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v56-5-0')],
  ['footer gates Fests by fest mode',main.includes("isFestMode(data)&&<button onClick={()=>nav('/fests')}>Fests</button>")],
  ['club logo alt text is descriptive',main.includes('alt={`${c.name} logo`}'),],
 ];
@@ -34,7 +35,7 @@ checks.push(
  ['generic supplied archive photos do not carry inferred 2026 years',!pdfHub.split('\n').some(line=>line.includes("association:'JYC Archive'")&&line.includes("year:'2026'"))],
  ['ecosystem context rail selects across JYC families',main.includes('JYC_HUB_FAMILIES.map(family')&&main.includes('sourceHubMedia(name).photoItems')],
  ['public copy uses maintained 23-community count',!main.includes('names 21 communities')],
- ['JAI event fallback uses local committed artwork',main.includes("poster:'/assets/events/agentic-ai-2026.webp'")],
+ ['JAI event fallback uses local committed artwork',fallbacks.includes("poster:'/assets/events/agentic-ai-2026.webp'")],
  ['photo archive uses the full source pool',nextExperience.includes('sourceBuckets=JYC_HUB_SOURCE_REGISTRY.map')&&nextExperience.includes('sourceHubMedia(meta.name).photoItems')&&!nextExperience.includes('photoItems.slice(0,8)')&&!nextExperience.includes('sourcePhotos.slice(0,16)')&&!nextExperience.includes('photos.slice(0,4)')],
  ['photo story has full-archive automatic transitions',nextExperience.includes('setInterval(()=>setActive')&&nextExperience.includes('jyc-photo-story-autoplay')&&nextExperience.includes('Browse every JYC archive photograph')&&nextExperience.includes('railItems=items.slice')&&nextExperience.includes('JYC_SOURCE_ARCHIVE_STATS')&&extraPublicCss.includes('jyc-photo-story-transition')&&extraPublicCss.includes('jyc-photo-story-controls')&&extraPublicCss.includes('prefers-reduced-motion')],
  ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))],
