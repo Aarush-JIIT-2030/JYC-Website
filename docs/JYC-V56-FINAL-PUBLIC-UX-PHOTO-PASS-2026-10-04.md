@@ -24,12 +24,15 @@ This pass is the final public-facing layer after the resource/photo-story work. 
 - Fixed the Gallery lightbox hook import in `src/extra-features.jsx`.
 - Removed unsupported inferred 2026 years from generic supplied archive photography.
 - Kept dated labels only where the media record itself is explicitly associated with a dated event/edition.
-- Added final QA contracts for the V56 CSS layer, Gallery lightbox import, responsive photo breakpoints and media-year integrity.
+- Added final QA contracts for the V56 CSS layer, Gallery lightbox import, responsive photo breakpoints, media-year integrity, dynamic family photo rails, community-count consistency and public-asset coverage.
 - Bumped package metadata to V56.
+- Audited the committed repository media tree: 171 public asset images (172 if documentation SVGs are included in the broader tree), with all 171 public asset images now referenced by the active/source-media code paths and no broken `/assets/...` references in the audited source set.
+- Reworked the ecosystem context rail from three hard-coded hubs to one representative, source-backed photo from each available JYC family (up to five), with responsive 5 → 2 → 1 layouts.
+- Routed the committed JAI event artwork into the public event fallback so the last previously unused public event image is now part of the active experience.
 
 ## Supabase
 
-The production `jyc_gallery_items` table currently contains 92 pending source-photo records. Their alt text and source labels are complete.
+The production `jyc_gallery_items` table currently contains 92 pending source-photo records. Their alt text, source labels and public URLs are complete; 0 are approved, 92 are pending.
 
 Because the source archive does not establish a year for those generic images, `source_year` was cleared for the 92 pending records rather than retaining an inferred 2026 value.
 
@@ -41,6 +44,7 @@ No source photographs were auto-published.
 - Browser QA should be reviewed at the release widths after the new V56 layer.
 - Supabase Auth leaked-password protection still requires the Auth Dashboard setting.
 - The 92 pending photographs still require selective editorial approval before public publication.
+- The five external `all-extracted-images-part*.zip` master archives are not accessible in the current runtime, so their exact archive-by-archive picture counts and unused-photo counts still need to be computed when those bytes are attached again.
 - Vercel production connection/deployment still needs final verification.
 
 ## Senior/V1 contract
