@@ -1,3 +1,4 @@
+html{color-scheme:light dark;}
 /* JYC 128 public design system
    The visual stack is intentionally preserved while the legacy CSS generations are
    consolidated behind one stable entry point. Delete a legacy layer only after
