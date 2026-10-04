@@ -1,9 +1,11 @@
+function readNamedKey(envName,fallbackEnv){const raw=Deno.env.get(envName);if(raw){try{const parsed=JSON.parse(raw);if(parsed?.default)return parsed.default}catch{}}return Deno.env.get(fallbackEnv)||''}
+const getPublishableKey=()=>readNamedKey('SUPABASE_PUBLISHABLE_KEYS','SUPABASE_ANON_KEY');
+const getSecretKey=()=>readNamedKey('SUPABASE_SECRET_KEYS','SUPABASE_SERVICE_ROLE_KEY');
 import webpush from 'npm:web-push'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const allowedOrigins = new Set(
-  (Deno.env.get('SITE_ORIGINS') || Deno.env.get('SITE_ORIGIN') || 'http://localhost:5173')
-    .split(',')
+  (Deno.env.get('SITE_ORIGINS') || Deno.env.get('SITE_ORIGIN') || 'http://localhost:5173').split(',')
     .map((x) => x.trim())
     .filter(Boolean)
 )
@@ -23,8 +25,8 @@ Deno.serve(async req => {
 
   try {
     const url = Deno.env.get('SUPABASE_URL')
-    const service = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-    const anon = Deno.env.get('SUPABASE_ANON_KEY')
+    const service = getSecretKey()
+    const anon = getPublishableKey()
     if (!url || !service || !anon) return reply({ error: 'Server configuration is incomplete.' }, 500, origin)
 
     const adminClient = createClient(url, service)

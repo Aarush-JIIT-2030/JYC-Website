@@ -4,14 +4,14 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0f0e11",
-  "theme_color": "#0f0e11",
+  "background_color": "#f5f1e6",
+  "theme_color": "#f5f1e6",
   "description": "Official JIIT Youth Club website for JIIT Noida clubs, events, people and campus moments.",
   "icons": [
     {
-      "src": "/jyc-logo-circle.png",
+      "src": "/jyc-logo-official.webp",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/webp",
       "purpose": "any maskable"
     }
   ],
@@ -22,7 +22,7 @@
       "url": "/events",
       "icons": [
         {
-          "src": "/jyc-logo-circle.png",
+          "src": "/jyc-logo-official.webp",
           "sizes": "512x512"
         }
       ]
@@ -33,7 +33,7 @@
       "url": "/clubs",
       "icons": [
         {
-          "src": "/jyc-logo-circle.png",
+          "src": "/jyc-logo-official.webp",
           "sizes": "512x512"
         }
       ]
@@ -44,18 +44,7 @@
       "url": "/gallery",
       "icons": [
         {
-          "src": "/jyc-logo-circle.png",
-          "sizes": "512x512"
-        }
-      ]
-    },
-    {
-      "name": "JYC Planner",
-      "short_name": "Planner",
-      "url": "/planner",
-      "icons": [
-        {
-          "src": "/jyc-logo-circle.png",
+          "src": "/jyc-logo-official.webp",
           "sizes": "512x512"
         }
       ]

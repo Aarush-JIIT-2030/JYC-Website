@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+const read=p=>fs.readFileSync(p,'utf8');
+const main=read('src/main.jsx');
+const hubs=read('src/v21-hub-content.js');
+const details=read('src/v23.6-hub-details.js');
+const fallback=read('src/content/jyc-public-fallbacks.js');
+const team=main+fallback;
+const next=read('src/jyc-next-experience.jsx');
+const failures=[];
+const check=(ok,msg)=>{if(!ok)failures.push(msg)};
+for(const n of ['Fortissimo','BDS','VamUnique','Panache','RPH','CICR','Innovation','Zencoders','JODC','CypherX','Arcadia','Neural Nexus','GDG','Dronotics','Aakriti','Aura','Cinekala','Abhivyakti','Prismatic','Eloquence','JSA','Qriosity','JIIT OPTICA']) check(hubs.includes(n+':') || hubs.includes("'"+n+"':"), 'hub content missing '+n);
+check(details.includes('Code Clash 25.1: two contests with 850+ participants'),'RPH source achievement missing');
+check(details.includes('Dron-O-War is presented as the premier national-level drone competition'),'Dronotics source achievement missing');
+check(details.includes('RIDE Hack'),'Innovation source programme missing');
+check(details.includes('Photo Walk 2025/26'),'Aura source programme missing');
+check(details.includes('Kshitij 4.0'),'JSA source programme missing');
+check(details.includes('Grand Conclave 2026'),'Eloquence source programme missing');
+check(team.includes('Dr. Vinay Anand Tikkiwal')&&team.includes('Dr. Pankaj Kumar Srivastava'),'faculty advisors missing');
+check(team.includes('Harisha')&&team.includes('Dhruv Choudhary'),'core heads missing');
+check(next.includes('PhotoChapters')&&next.includes('23 COMMUNITIES'),'community photo chapter layer missing');
+check(main.includes('photoChapters:<PhotoChapters/>'),'photo chapter layer not mounted');
+if(failures.length){failures.forEach(x=>console.error('FAIL:',x));process.exit(1)}
+console.log('Resource content QA PASS: source-derived hub, achievement, leadership and photo-story contracts are present.');

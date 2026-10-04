@@ -68,9 +68,17 @@ create table if not exists public.jyc_site_data (
 
 alter table public.jyc_site_data enable row level security;
 drop policy if exists "Public can read published site data" on public.jyc_site_data;
-create policy "Public can read published site data"
-on public.jyc_site_data for select to anon, authenticated
-using (id = 'main');
+drop policy if exists "Public can read site data" on public.jyc_site_data;
+drop policy if exists "Admins can read site data" on public.jyc_site_data;
+create policy "Admins can read site data"
+on public.jyc_site_data for select to authenticated
+using (
+  exists (
+    select 1 from public.jyc_admins a
+    where a.user_id = auth.uid()
+      and a.is_active = true
+  )
+);
 
 drop policy if exists "JYC admins can manage site data" on public.jyc_site_data;
 create policy "JYC admins can manage site data"
@@ -771,25 +779,10 @@ $$;
 revoke all on function public.jyc_save_site_data(text,jsonb,text,text) from public;
 grant execute on function public.jyc_save_site_data(text,jsonb,text,text) to authenticated;
 
--- Remove the known legacy starter/demo record from the JSON content store.
-do $$
-declare d jsonb;
-begin
-  select data into d from public.jyc_site_data where id='main' for update;
-  if d is not null then
-    d:=jsonb_set(d,'{clubs}',coalesce((select jsonb_agg(c) from jsonb_array_elements(coalesce(d->'clubs','[]'::jsonb)) c where not(lower(coalesce(c->>'id',''))='abhivyakti' and lower(trim(coalesce(c->>'name','')))='abhivyakti')),'[]'::jsonb),true);
-    d:=jsonb_set(d,'{events}',coalesce((select jsonb_agg(e) from jsonb_array_elements(coalesce(d->'events','[]'::jsonb)) e where lower(trim(coalesce(e->>'club','')))<>'abhivyakti' and lower(trim(coalesce(e->>'clubId','')))<>'abhivyakti'),'[]'::jsonb),true);
-    d:=jsonb_set(d,'{gallery}',coalesce((select jsonb_agg(g) from jsonb_array_elements(coalesce(d->'gallery','[]'::jsonb)) g where lower(trim(coalesce(g->>'association','')))<>'abhivyakti' and lower(trim(coalesce(g->>'clubId','')))<>'abhivyakti'),'[]'::jsonb),true);
-    update public.jyc_site_data set data=d,updated_at=now() where id='main';
-  end if;
-end $$;
-
--- Remove the same legacy starter from the relational foundation if it exists.
-DO $$ BEGIN
-  IF to_regclass('public.jyc_clubs') IS NOT NULL THEN
-    DELETE FROM public.jyc_clubs WHERE lower(name)='abhivyakti' AND lower(slug)='abhivyakti';
-  END IF;
-END $$;
+-- IMPORTANT: Abhivyakti is a legitimate JYC community in the supplied hub directory.
+-- Never delete content by the name/slug "abhivyakti" from a production database.
+-- The old starter cleanup used that identity and could destroy the real community.
+-- Existing content is intentionally preserved during bootstrap/re-run.
 
 select 'JYC V4 fix applied. Refresh the website.' as result;
 
@@ -1546,4 +1539,40 @@ before update on public.jyc_event_registrations
 for each row execute function public.jyc_touch_registration();
 
 select 'JYC V5 production hardening complete.' as result;
+
+
+
+-- ================================================================
+-- SOURCE: supabase/contact-and-project-submissions.sql
+-- ================================================================
+create table if not exists public.jyc_contact_submissions(
+  id uuid primary key default gen_random_uuid(), name text not null check (char_length(trim(name)) between 2 and 120),
+  email text not null check (char_length(trim(email)) between 5 and 320), message text not null check (char_length(trim(message)) between 5 and 5000),
+  source text not null default 'public-contact', status text not null default 'new' check (status in ('new','read','resolved','spam')),
+  created_at timestamptz not null default now(), reviewed_at timestamptz, reviewed_by uuid references auth.users(id) on delete set null
+);
+alter table public.jyc_contact_submissions enable row level security;
+drop policy if exists "Public can submit contact messages" on public.jyc_contact_submissions;
+-- Public contact writes are accepted only through the public-submission Edge Function.
+revoke insert on public.jyc_contact_submissions from anon, authenticated;
+drop policy if exists "Admins can read contact messages" on public.jyc_contact_submissions;
+create policy "Admins can read contact messages" on public.jyc_contact_submissions for select to authenticated using (exists(select 1 from public.jyc_admins a where a.user_id=auth.uid() and a.is_active=true));
+drop policy if exists "Admins can update contact messages" on public.jyc_contact_submissions;
+create policy "Admins can update contact messages" on public.jyc_contact_submissions for update to authenticated using (exists(select 1 from public.jyc_admins a where a.user_id=auth.uid() and a.is_active=true)) with check (exists(select 1 from public.jyc_admins a where a.user_id=auth.uid() and a.is_active=true));
+create index if not exists jyc_contact_submissions_created_idx on public.jyc_contact_submissions(created_at desc);
+
+create table if not exists public.jyc_project_submissions(
+  id uuid primary key default gen_random_uuid(), name text not null check (char_length(trim(name)) between 2 and 160), description text not null check (char_length(trim(description)) between 10 and 5000),
+  link text check (link is null or link ~* '^https?://'), submitter_name text not null check (char_length(trim(submitter_name)) between 2 and 120), submitter_email text not null check (char_length(trim(submitter_email)) between 5 and 320), club_name text,
+  status text not null default 'submitted' check (status in ('submitted','under_review','changes_requested','approved','rejected')), created_at timestamptz not null default now(), reviewed_at timestamptz, reviewed_by uuid references auth.users(id) on delete set null
+);
+alter table public.jyc_project_submissions enable row level security;
+drop policy if exists "Public can submit projects" on public.jyc_project_submissions;
+-- Public project writes are accepted only through the public-submission Edge Function.
+revoke insert on public.jyc_project_submissions from anon, authenticated;
+drop policy if exists "Admins can read project submissions" on public.jyc_project_submissions;
+create policy "Admins can read project submissions" on public.jyc_project_submissions for select to authenticated using (exists(select 1 from public.jyc_admins a where a.user_id=auth.uid() and a.is_active=true));
+drop policy if exists "Admins can update project submissions" on public.jyc_project_submissions;
+create policy "Admins can update project submissions" on public.jyc_project_submissions for update to authenticated using (exists(select 1 from public.jyc_admins a where a.user_id=auth.uid() and a.is_active=true)) with check (exists(select 1 from public.jyc_admins a where a.user_id=auth.uid() and a.is_active=true));
+create index if not exists jyc_project_submissions_created_idx on public.jyc_project_submissions(created_at desc);
 

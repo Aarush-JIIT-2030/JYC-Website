@@ -2,12 +2,32 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root=process.cwd();
-const rawSite=(process.env.VITE_SITE_URL||process.env.SITE_URL||process.env.VERCEL_PROJECT_PRODUCTION_URL||'').trim();
+const rawSite=(process.env.VITE_SITE_URL||process.env.SITE_URL||process.env.VERCEL_PROJECT_PRODUCTION_URL||'https://www.jiityouthclub128.in').trim();
 const site=(rawSite?(/^[a-z]+:\/\//i.test(rawSite)?rawSite:`https://${rawSite}`):'').replace(/\/$/,'');
 const out=path.join(root,'public','sitemap.xml');
-const core=['/','/about','/clubs','/events','/fests','/gallery','/team','/contact','/calendar','/planner','/map'];
-const urls=new Set(core);
+const core=['/','/about','/history','/clubs','/events','/fests','/gallery','/team','/contact','/calendar','/announcements','/updates','/achievements','/join-jyc','/events/agentic-ai-2026','/events/ride-hack-2026','/events/converge-2026','/events/drono-o-war-2026','/events/codeai-hackathon'];
+const dynamicDates=new Map();
+const sourceRegistry=fs.readFileSync(path.join(root,'src','jyc-hub-registry.js'),'utf8');
+const sourceHubNames=[...sourceRegistry.matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);
 const slug=value=>String(value||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const urls=new Set([...core,...sourceHubNames.map(name=>`/clubs/${slug(name)}`)]);
+const imageUrls=new Set();
+const hubImages=new Map();
+for(const source of ['src/jyc-source-media.js','src/pdf-hub-content.js']){
+  try{
+    const text=fs.readFileSync(path.join(root,source),'utf8');
+    for(const match of text.matchAll(/['\"](\/assets\/[^'\"]+\.(?:webp|png|jpe?g|avif|svg))['\"]/gi)) imageUrls.add(match[1]);
+  }catch{}
+}
+try{
+  const sourceText=fs.readFileSync(path.join(root,'src','jyc-source-media.js'),'utf8');
+  const blockRx=/([A-Za-z][A-Za-z0-9 &'’.-]*):\{[\s\S]*?photos:\[([\s\S]*?)\]\}/g;
+  for(const m of sourceText.matchAll(blockRx)){
+    const name=m[1].trim();
+    const urls=[...m[2].matchAll(/['\"](\/assets\/[^'\"]+\.(?:webp|png|jpe?g|avif))['\"]/gi)].map(x=>x[1]);
+    if(urls.length) hubImages.set(name,urls.slice(0,4));
+  }
+}catch{}
 
 async function loadDynamic(){
   const supabaseUrl=(process.env.VITE_SUPABASE_URL||'').replace(/\/$/,'');
@@ -17,18 +37,31 @@ async function loadDynamic(){
     const r=await fetch(`${supabaseUrl}/rest/v1/rpc/jyc_read_site_data`,{method:'POST',headers:{apikey:key,Authorization:`Bearer ${key}`,Prefer:'return=representation'}});
     if(!r.ok)return;
     const data=await r.json();
-    for(const c of (data?.clubs||[])) if(c?.published&&c?.status!=='archived') urls.add(`/clubs/${slug(c.name)||encodeURIComponent(String(c.id))}`);
-    for(const e of (data?.events||[])) if(e?.published&&!e?.archived) urls.add(`/events/${slug(e.title)||encodeURIComponent(String(e.id))}`);
+    for(const c of (data?.clubs||[])) if(c?.published&&c?.status!=='archived') { const u=`/clubs/${slug(c.name)||encodeURIComponent(String(c.id))}`; urls.add(u); if(c.updated_at) dynamicDates.set(u,String(c.updated_at).slice(0,10)); }
+    for(const e of (data?.events||[])) if(e?.published&&!e?.archived) { const u=`/events/${slug(e.title)||encodeURIComponent(String(e.id))}`; urls.add(u); if(e.updated_at) dynamicDates.set(u,String(e.updated_at).slice(0,10)); }
   }catch{}
 }
 
-if(!site){
-  console.warn('SEO sitemap: VITE_SITE_URL/SITE_URL is not configured; writing a build-safe placeholder-free sitemap is skipped.');
-  process.exit(0);
-}
+if(!site) throw new Error('SEO sitemap: production origin could not be resolved.');
 await loadDynamic();
-const now=new Date().toISOString().slice(0,10);
-const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...urls].map(u=>`  <url><loc>${site}${u}</loc><lastmod>${now}</lastmod></url>`).join('\n')}\n</urlset>\n`;
+const fallbackDate=new Date().toISOString().slice(0,10);
+// Use content timestamps when available; otherwise fall back to the build date.
+try{
+  const supabaseUrl=(process.env.VITE_SUPABASE_URL||'').replace(/\/$/,'');
+  const key=process.env.VITE_SUPABASE_PUBLISHABLE_KEY||process.env.VITE_SUPABASE_ANON_KEY||'';
+  if(supabaseUrl&&key){
+    const r=await fetch(`${supabaseUrl}/rest/v1/jyc_site_data?id=eq.main&select=updated_at`,{headers:{apikey:key,Authorization:`Bearer ${key}`}});
+    if(r.ok){const rows=await r.json();if(rows?.[0]?.updated_at)dynamicDates.set('/',String(rows[0].updated_at).slice(0,10));}
+  }
+}catch{}
+const slugToHubImages=new Map([...hubImages.entries()].map(([name,imgs])=>[slug(name),imgs]));
+const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${[...urls].map(u=>{
+  let imgs=[];
+  if(u==='/gallery') imgs=[...imageUrls];
+  else if(u.startsWith('/clubs/')) imgs=slugToHubImages.get(u.split('/').pop())||[];
+  const imageXml=imgs.map(img=>`<image:image><image:loc>${site}${img}</image:loc></image:image>`).join('');
+  return `  <url><loc>${site}${u}</loc><lastmod>${dynamicDates.get(u)||fallbackDate}</lastmod>${imageXml}</url>`;
+}).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(out,xml);
 const robots=path.join(root,'public','robots.txt');
 if(fs.existsSync(robots)){

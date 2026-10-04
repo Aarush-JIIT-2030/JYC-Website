@@ -1,36 +1,42 @@
 {
   "name": "jyc-website",
   "private": true,
-  "version": "20.0.0",
+  "version": "56.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "qa": "node scripts/qa-source-integrity.mjs && node scripts/qa-v20-complete.mjs && node scripts/qa-search.mjs && node scripts/qa-security.mjs && node scripts/qa-seo.mjs && node scripts/qa-build-preflight.mjs",
-    "qa:release": "node scripts/qa-v20-complete.mjs",
+    "qa": "node scripts/run-qa-suite.mjs",
+    "qa:release": "npm run qa",
     "qa:browser": "node scripts/qa-browser.mjs",
     "qa:env": "node scripts/qa-env.mjs",
     "seo:sitemap": "node scripts/generate-sitemap.mjs",
     "qa:seo": "node scripts/qa-seo.mjs",
     "qa:production": "node scripts/qa-production.mjs",
     "qa:build-preflight": "node scripts/qa-build-preflight.mjs",
-    "qa:best-jyc": "node scripts/qa-v18.13-best-jyc.mjs",
-    "qa:mobile-first": "node scripts/qa-v20-complete.mjs",
-    "qa:security": "node scripts/qa-security.mjs"
+    "qa:best-jyc": "npm run qa",
+    "qa:mobile-first": "npm run qa",
+    "qa:security": "node scripts/qa-security.mjs",
+    "prebuild": "node scripts/generate-sitemap.mjs",
+    "qa:performance": "npm run build && node scripts/qa-performance.mjs",
+    "qa:final": "npm run qa",
+    "qa:hygiene": "node scripts/qa-final-hygiene.mjs",
+    "qa:media": "node scripts/qa-media-architecture.mjs",
+    "qa:photos": "node scripts/qa-photo-integrity.mjs"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.116.0",
+    "@supabase/supabase-js": "2.117.2",
     "@vitejs/plugin-react": "6.1.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-router-dom": "7.18.4",
-    "vite": "8.3.0"
+    "vite": "8.3.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

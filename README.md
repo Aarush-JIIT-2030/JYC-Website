@@ -1,183 +1,265 @@
-# JIIT Youth Club — Official Website
+# JIIT Youth Club 128 — Official Website
 
-[![JYC CI](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml/badge.svg)](https://github.com/coolbandariya/JYC-Website/actions/workflows/jyc-quality.yml) [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)](https://vite.dev/) [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=fff)](https://supabase.com/)
+> **Current release: V56.5 — source-first visual archive and production-hardening pass**
 
-> **The official club-first digital home for JIIT Youth Club, Sector 128, Noida.**
->
-> **Release: V18.27.0 — Human JYC Final / orbiting Phoenix + theme flight + JYC paper light mode + navigation/search repair** — an animated, human-first public experience built on the V18.17 functional baseline.
+The official public website for **JIIT Youth Club (JYC), JIIT Wish Town Campus, Sector 128, Noida**.
 
-JYC brings its **clubs, events, people, memories and official community channels** into one focused public website. The Control Center is separate from the student-facing experience and handles publishing, review and operations.
+JYC 128 is the central coordinating body for major college events, fests and inter-society activities. This repository builds its **official organisational website**: identity, leadership, clubs/hubs, events, fest experiences, history, gallery, archive, recruitment, announcements and contact.
 
-## Product map
+It is intentionally **not** a student-help portal, academic portal, attendance system, campus utility dashboard or student social network.
 
-**Home → Clubs → Events → Moments → Team → Contact → More → Search**
+## Public product
 
-Supporting public surfaces include **Moments, My JYC, Campus Map and JYC Planner**. Quick answers live inside About rather than behind a separate FAQ maze. Fests are intentionally not part of the normal navigation: they appear only when an authorized editor switches the public experience into **Fest mode**. Recruitment is intentionally homepage-only and can be surfaced only when the JYC editor-controlled recruitment flag allows it.
+### Core sections
 
-### Public experience principles
+- Home
+- About JYC
+- JYC History
+- Clubs & Hubs
+- Club detail
+- Events
+- Event detail
+- Fest experiences
+- Gallery
+- Archive / memories
+- Leadership / Team
+- Achievements
+- Recruitment
+- Announcements / JYC Now
+- JYC Event Calendar
+- Contact
 
-- **Club first.** This is a club website, not a generic student dashboard.
-- **Search is relevance-first.** Exact title matches are deliberately ranked above metadata, fuzzy matches and shortcuts.
-- **No surprise publishing.** Admin drafts remain drafts until an authorized person publishes them.
-- **Official JYC content.** Public clubs, events, team and gallery content is data-driven; the UI does not invent official campus records.
-- **Optional personal layer.** My JYC saves clubs/events without turning the public site into a dashboard.
-- **Accessible motion.** Micro-interactions respect `prefers-reduced-motion` and avoid adding a heavy animation dependency for simple effects.
-- **Human interaction.** Motion is attached to real club/event content instead of decorative animation for its own sake.
-- **Open-source inspired, locally implemented.** React Bits orbit, reveal, command-palette and navigation patterns are selectively adapted without turning the site into a component demo.
-- **Security first.** Publishable Supabase access is paired with RLS expectations, validated external URLs, CSP/security headers, secret scanning and CodeQL CI.
+### Public journey
 
-## Contact
+**Identity → About → Team → Clubs → Events → Event detail → Gallery / Archive → Recruitment / Contact**
 
-The public Contact page keeps the official JYC channels and website creator details together:
+The event calendar is limited to **JYC events**. It is not an academic calendar or campus-utility surface.
 
-- Instagram: `@jiityouthclub128`
-- JYC WhatsApp community group
-- JYC / website contact email
-- Website creator: Kaustubh Dua — LinkedIn, GitHub, Instagram and email
+Retired student-platform destinations are handled with permanent redirects rather than being silently recreated as public pages.
 
-Update the live contact values in the site data before production if any official channel changes.
+## Product boundaries
 
-## Tech stack
+The public site does **not** provide:
+
+- My JYC / student accounts
+- Academic calendar or academic utilities
+- Attendance / check-in
+- Event-pass or certificate systems
+- Campus maps / utility dashboards
+- Public AI assistant or chat launcher
+- Native public event-registration accounts
+- Likes, follows, DMs or social-network feeds
+- Decorative popups that compete with JYC content
+
+The private Control Center remains website-publishing infrastructure for authorised JYC editors. It is not part of the public product.
+
+## Design direction
+
+The senior-approved visual direction is intentionally editorial and compact:
+
+- JYC logo-derived beige / champagne
+- Deep navy, black and white neutrals
+- Strong typography and readable line lengths
+- Real JYC photography before decorative graphics
+- Centred, compact layouts
+- Pill-shaped filters and actions where useful
+- Restrained hover/reveal motion
+- Full reduced-motion support
+- Excellent mobile layouts
+- No custom cursor
+- No flying-bird / orbit-ring system
+- No persistent decorative rotation
+- No neon / glass / generic AI-dashboard styling
+
+The public shell should feel like an official student organisation, not an ERP.
+
+## Content truth policy
+
+Historical brochures, supplied presentations and old club lists are **source material**, not automatic proof of a current club, office holder or social account.
+
+Public records should be published only when the editorial source supports them. Where possible, records carry:
+
+- published / archived state
+- provenance or source
+- verification information
+- organiser / owner
+- official external link
+- media caption and credit
+
+Unknown social handles are left blank rather than guessed.
+
+## Media policy
+
+The supplied JYC image archives are treated as source material. The website's source-media pipeline preserves provenance and uses real event / hub / leadership imagery instead of invented or generic stock content.
+
+Gallery records are intended to support:
+
+- event / club association
+- year
+- caption
+- alt text
+- source / photographer credit
+- provenance
+- archive state
+
+The remaining media-ingestion step is deliberately kept separate from the code release when the binary archive cannot be safely extracted in the development runtime.
+
+## Event architecture
+
+A published event can carry:
+
+- title and poster
+- organiser / club
+- category
+- date and time
+- venue
+- registration state and external registration link
+- eligibility
+- team size / capacity when applicable
+- rules
+- schedule
+- prizes
+- FAQs
+- contact
+- results / recap
+- gallery
+
+Lifecycle:
+
+**Draft → Review → Published → Registration → Ongoing → Completed → Results → Archived**
+
+## Club architecture
+
+A current club/hub record can carry:
+
+- official name
+- family / category
+- purpose and description
+- student leadership
+- faculty advisor when officially published
+- activities
+- events
+- achievements
+- gallery
+- official social/contact links
+- recruitment state
+- provenance
+- verification state
+- archive state
+
+The directory must not imply that an old supplied list is an exhaustive current roster.
+
+## Announcements / JYC Now
+
+JYC Now is an editorial communication layer for verified JYC activity such as:
+
+- registrations
+- results
+- auditions
+- recruitment
+- notices
+- deadlines
+- JYC updates
+
+Stale or unsupported information should not remain visually dominant.
+
+## Technology
 
 - React 19
 - Vite 8
 - React Router
-- Supabase Auth / Postgres / Storage / Edge Functions
+- Supabase
 - CSS-first interaction layer
-- Service worker for the cached public shell
+- Service worker / PWA shell
+- GitHub Actions quality gates
+- Playwright browser QA
 
-## Repository layout
+## Repository map
 
-```text
-src/                         React application + UI system
-src/lib/                     Search, Supabase and UI utilities
-src/*.css                    Layered public/admin design system
-supabase/                    SQL, RLS and Edge Functions
-scripts/                     Product, release, SEO and regression QA
-docs/                        Architecture and product notes
-.github/                     CI, issues, PR workflow and repository metadata
-public/                     PWA shell, media and downloadable source archive
-```
+For a concise explanation of the active runtime, source/content hierarchy, SEO, media, 3D bot and QA boundaries, see `docs/ARCHITECTURE-V56.1.md`.
 
 ## Local development
 
 ```bash
 npm install
 npm run dev
-```
-
-Production build:
-
-```bash
 npm run build
-```
-
-Full static/product/security QA:
-
-```bash
 npm run qa
+npm run qa:browser
 ```
 
-The release also has a focused navigation/contact regression check:
+The static QA suite includes source integrity, security, SEO, build preflight, production contracts, accessibility, architecture, logo/theme checks, club experience checks, final product checks, visual/media checks, source-photo integrity and final hygiene checks.
 
-```bash
-npm run qa:security
-```
+## Official identity
 
-## Discoverability
+- **Organisation:** JIIT Youth Club 128
+- **Campus:** JIIT Wish Town Campus · Sector 128, Noida
+- **Instagram:** @jiityouthclub
+- **LinkedIn:** JIIT Youth Club
 
-The public site includes Organization/WebSite JSON-LD, canonical metadata, a public sitemap, robots rules and a SearchAction entry point. Brand searches such as `JYC`, `JIIT JYC` and `JIIT Youth Club` intentionally surface the official JIIT Youth Club page before generic content. This improves discoverability but does not guarantee a particular Google ranking; Search Console should be used after deployment.
+## Research / source basis
 
-## Search behavior
+The public architecture is based on supplied JYC hub and programme material, JIIT/JYC public references, the current JYC 128 site, accessibility guidance, event-structured-data guidance and verified public social identities available during the project.
 
-The search engine in `src/lib/search.js` uses a deterministic relevance model. The order is intentionally:
+Historical material is surfaced as history/archive/context rather than silently treated as current truth.
 
-1. exact title
-2. title starts with the query
-3. phrase inside title
-4. all query words in title
-5. title word prefixes
-6. fuzzy title match
-7. metadata / description
-8. intent shortcuts
+Key project references:
 
-The UI labels the first ranked result **BEST MATCH** and supports keyboard navigation with `Ctrl/Cmd + K`, `/`, arrow keys, Enter and Escape.
+- `docs/V37-OFFICIAL-JYC-128-SCOPE.md`
+- `docs/V36-DEEP-RESEARCH-2026-10-03.md`
+- `src/jyc-source-media.js`
+- `src/jyc-hub-registry.js`
+- `docs/JYC-SOURCE-HUB-SUPABASE-AUDIT-2026-10-04.md`
+- `src/public-v1/config.js`
+- `scripts/qa-v55-visual-polish.mjs`
+- `scripts/qa-final-hygiene.mjs`
 
-## Admin publishing model
+## Production gates
 
-Content follows:
+A release should be considered production-ready only after:
 
-**Draft → AI recommendation (optional) → Preview → Save → Publish**
+1. Build passes.
+2. Static QA passes.
+3. Security and SEO QA pass.
+4. Club-only architecture checks pass.
+5. Desktop, tablet and mobile browser QA pass.
+6. Official identity and social links are verified.
+7. No stale Sector-62 JYC positioning appears in the public 128 narrative.
+8. Club/event content is sourced or clearly historical.
+9. Critical routes have no runtime errors.
+10. Performance and accessibility regressions are checked.
+11. Release metadata and documentation agree.
+12. The connected Vercel production deployment is verified separately from GitHub CI.
+13. The supplied photo archives have been safely ingested, deduplicated and optimised before being treated as the final production media set.
 
-AI suggestions are never auto-published. Staff access is kept under the Control Center and protected by the existing authorization flow.
+## Current experience update
 
-### Public mode control
+The homepage now includes a restrained **Choose Your Route** discovery layer (Build / Create / Compete / Connect), a source-backed **Photo Story**, and a compact **Hub Signal Rail**. The JYC Assistant and fixed JYC bot now adapt their quick actions/label to the current public page. These additions preserve the beige editorial identity and do not introduce decorative WebGL, orbit rings or synthetic imagery.
 
-The Control Center can switch between:
+## Current backend readiness
 
-- **Standard JYC mode** — normal club/event website
-- **Fest mode** — enables the dedicated fest experience and its public discoverability
+The connected production Supabase project is now active and has been hardened and populated with source-verified public content. The source registry now distinguishes 17 brochure-verified current communities from 6 additional source-backed communities awaiting live club publication. The current live backend state includes:
 
-Only the authorized super-admin path can change the public mode.
+- 17 JIIT 128 club records verified against the official 2026 JIIT admission brochure.
+- JAI 2026 and Converge 2026 verified event records.
+- 6 curated gallery records with alt text/provenance fields.
+- Production RLS/write-boundary hardening, publication verification, fixed SECURITY DEFINER search paths and rate-limit guards.
+- Source-only hub records are review-gated in `jyc_content_verification`; gallery publication now has the same verification guard.
+- Seven deployed Edge Functions: admin management, notifications, backups, AI content assistance, error intake, media upload and public submissions.
+- Private backup storage and constrained public media storage.
 
-## Open-source UI approach
+The remaining production gates are operational: configure required third-party Edge Function secrets, enable leaked-password protection in Supabase Auth, verify the connected Vercel production project, complete selective ingestion/review of the remaining raw photo candidates, and run final browser/performance QA against the real deployment.
 
-The site uses dependency-free CSS motion patterns rather than adding another animation runtime just for micro-interactions. The design work takes inspiration from open-source component ecosystems such as React Bits and shadcn/ui while keeping the actual JYC implementation inside this repository. The current deep-polish pass adds Phoenix depth, spotlight sweeps, stronger focus states and contact-card motion without adding a runtime dependency.
+## Current release status
 
-See [`docs/OPEN-SOURCE-UI-NOTES.md`](docs/OPEN-SOURCE-UI-NOTES.md) for the references and implementation notes.
+**V55 is the current code release.** The codebase is intentionally in finish-and-stabilise mode rather than feature-expansion mode.
 
-## GitHub workflow
+The highest-value remaining production work is operational rather than architectural:
 
-- CI runs on pushes and pull requests.
-- Product QA, SEO QA and build verification run before merge/deployment.
-- Bug reports and content issues have dedicated issue templates.
-- Pull requests use a review checklist.
-- Keep public content data separate from credentials and secrets.
+1. Safely ingest and optimise the five supplied image archives, keeping the 873-file source inventory and 60 duplicate relationships documented.
+2. Run real browser QA against the deployed site at desktop/tablet/mobile sizes and both themes.
+3. Verify live Supabase content and every published club/event record.
+4. Verify the Vercel production deployment and its redirects/headers.
+5. Run a final performance pass after the real production image set is known.
 
-## Current release
-
-**V18.11.0 — Final Product Pass**
-
-This release preserves the strongest JYC platform features while repairing runtime contracts, restoring admin workspaces, and consolidating the Phoenix/cursor/calendar/search experience.
-
-See [`V18.11-FINAL-PRODUCT-PASS.md`](V18.11-FINAL-PRODUCT-PASS.md) for the release-specific changes.
-
-## Verification note
-
-Static/regression QA was run for this release. Browser QA is included as a dev dependency; after `npm install`, run `npx playwright install chromium`, start Vite with `npm run dev`, then run `npm run qa:browser`. The packaging environment cannot provide the local native Vite binding.
-
-## Official site
-
-https://jycjiit.vercel.app
-
-
-## Release quality gates
-
-Before a release reaches `main`:
-
-1. `npm run build`
-2. `npm run qa`
-3. Browser pass across Home, Clubs, Club Detail, Events, Event Detail, Team, Gallery, Calendar, Contact, More/Search and Admin
-4. Verify console has no runtime-breaking errors
-5. Verify exact-title search remains the first result
-6. Verify a newly published admin event appears on Events + Calendar
-7. Verify Fest mode and homepage-only Recruitment rules
-8. Verify desktop, tablet and mobile layouts
-
-### Signature JYC interactions
-
-- Phoenix hero with pointer depth
-- Three Phoenix doors: Communities / Experiences / People
-- Custom red/gold cursor on precise pointers
-- Gallery lightbox with keyboard navigation
-- Event share, Google Calendar, `.ics`, reminders and QR
-- Combined JYC + official academic calendar
-- Club follow/save layer in My JYC
-- Staff Control Center with draft/review/publish workflow
-
-The repository deliberately favors a small, understandable React/CSS system over a large animation dependency. Open-source references are documented in `docs/OPEN-SOURCE-UI-NOTES.md`.
-
-
-## Final release checklist
-
-See [`docs/JYC-FINAL-QA-CHECKLIST.md`](docs/JYC-FINAL-QA-CHECKLIST.md) for the consolidated public UI, mobile, map, admin, SEO, PWA and security checks.
+No new student-platform features should be added to the public site unless the JYC product scope is explicitly changed.

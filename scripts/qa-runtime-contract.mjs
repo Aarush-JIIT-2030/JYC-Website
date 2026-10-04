@@ -16,6 +16,12 @@ for(const n of names){const ok=exports.has(n);console.log(`${ok?'PASS':'FAIL'}: 
 const required=['EventTools','DownloadICS'];
 for(const n of required){const ok=exports.has(n);console.log(`${ok?'PASS':'FAIL'}: runtime-critical export ${n}`);if(!ok)failed++}
 const source=fs.readFileSync(path.join(root,'src/main.jsx'),'utf8');
+const metaOriginOk=extra.includes("export function usePageMeta")&&extra.includes("const origin=(import.meta.env.VITE_SITE_URL||window.location.origin)");
+console.log((metaOriginOk ? "PASS" : "FAIL")+": usePageMeta resolves a site origin before building canonical/OG URLs");
+if(!metaOriginOk)failed++;
+const modalA11yOk=extra.includes("export function GalleryItems")&&extra.includes('role="dialog"')&&extra.includes('aria-modal="true"')&&extra.includes("closeRef.current?.focus()")&&extra.includes("e.key==='Tab'");
+console.log((modalA11yOk ? "PASS" : "FAIL")+": gallery lightbox keeps keyboard focus inside the modal");
+if(!modalA11yOk)failed++;
 for(const [label,needle] of [['Fest Mode fallback',':[]'],['Recruitment homepage gate','recruitmentEnabled(data)'],['Contact route',"clean==='/contact'"]]){const ok=source.includes(needle);console.log(`${ok?'PASS':'FAIL'}: ${label}`);if(!ok)failed++}
 if(failed)process.exit(1);
 console.log('Runtime contract QA complete.');

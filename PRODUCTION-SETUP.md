@@ -9,14 +9,10 @@ Run these files in Supabase SQL Editor, in order:
 3. `supabase/platform-v3.sql`
 4. `supabase/platform-v4-fix.sql`
 5. `supabase/final-role-hardening.sql`
+6. `supabase/platform-v5-production.sql`
+7. `supabase/contact-and-project-submissions.sql`
 
-For an existing development project that still shows the accidental starter club **Abhivyakti**, run:
-
-```text
-supabase/maintenance/00-remove-legacy-demo-data.sql
-```
-
-Do this before adding real club content.
+Do not run a name-based cleanup for **Abhivyakti**. Abhivyakti is a legitimate JYC community in the supplied hub directory, and the historical cleanup script is now non-destructive. If an unexpected record remains, verify it against an independent source-backed identifier before removing it.
 
 ## Edge Functions
 
@@ -26,6 +22,7 @@ Deploy:
 npx supabase functions deploy admin-management
 npx supabase functions deploy send-notification
 npx supabase functions deploy backup-site-data
+npx supabase functions deploy ai-content-assist
 ```
 
 Privileged secrets belong only in Supabase Edge Function secrets.

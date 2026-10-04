@@ -1,35 +1,18 @@
 import React,{useMemo,useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-export function InteractivePhoenix({sceneUrl='',stats={}}){
-  const nav=useNavigate();
-  const spline=String(sceneUrl||'').startsWith('https://prod.spline.design/');
-  const nodes=[
-    ['CLUBS','/clubs','node-one'],
-    ['EVENTS','/events','node-two'],
-    ['TEAM','/team','node-three']
-  ];
-  return <div className="phoenix-3d-stage phoenix-calm-stage" aria-label="JYC Phoenix navigation">
-    {spline&&<iframe className="phoenix-spline" title="Interactive JYC Phoenix" src={sceneUrl} loading="lazy"/>}
-    <div className="phoenix-calm-glow" aria-hidden="true"/>
-    <div className="phoenix-orbital-system" aria-hidden="true"><span className="phoenix-orbit phoenix-orbit-a"/><span className="phoenix-orbit phoenix-orbit-b"/><span className="phoenix-orbit phoenix-orbit-c"/><i className="phoenix-orb phoenix-orb-a"/><i className="phoenix-orb phoenix-orb-b"/><i className="phoenix-orb phoenix-orb-c"/><i className="phoenix-orb phoenix-orb-d"/></div>
-    <div className="phoenix-3d-core phoenix-bird-only">
-      <span className="phoenix-halo"/>
-      <div className="phoenix-artwork" aria-hidden="true"><img src="/jyc-phoenix-reference-hd.png" alt=""/></div>
-    </div>
-    <div className="phoenix-door-rail" aria-label="JYC destinations">{nodes.map(([label,path,cls])=><button key={label} type="button" className={`phoenix-node ${cls}`} onClick={()=>nav(path)} aria-label={`Explore ${label.toLowerCase()}`}><span>{label}</span><em>Explore →</em></button>)}</div>
-  </div>
+export function InteractivePhoenix(){
+  return <div className="jyc-identity-stage" aria-label="JIIT Youth Club identity"><div className="ecosystem-brand-lockup ecosystem-logo-only"><img src="/jyc-logo-official.webp" alt="JIIT Youth Club"/></div></div>
 }
-
 export function EcosystemSection({data}){
   const nav=useNavigate();
   const [active,setActive]=useState('');
   const clubs=data.clubs.filter(c=>c.published&&c.status!=='archived').length;
   const events=data.events.filter(e=>e.published&&!e.archived).length;
   const people=data.team.filter(m=>m.published===true).length;
-  const nodes=[['clubs','CLUBS',Math.max(clubs,25),'/clubs'],['events','EVENTS',events,'/events'],['my-jyc','MY JYC',0,'/my-jyc'],['team','TEAM',people,'/team']];
+  const nodes=[['clubs','CLUBS',clubs,'/clubs'],['events','EVENTS',events,'/events'],['gallery','GALLERY',data.gallery.length,'/gallery'],['team','TEAM',people,'/team']];
   return <section className="section ecosystem-section reveal">
-    <div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Four useful routes around one JYC centre — explore a community, an experience, your saved space or the people behind it.</p></div>
+    <div className="section-head ecosystem-head"><span className="eyebrow">JYC ECOSYSTEM</span><h2>One campus. Many possibilities.</h2><p>Four useful routes around one JYC centre — explore communities, events, memories and the people behind them.</p></div>
     <div className={`ecosystem-orbit ecosystem-active-${active||'none'}`}>
       <span className="ecosystem-connector ecosystem-connector-0" aria-hidden="true"/>
       <span className="ecosystem-connector ecosystem-connector-1" aria-hidden="true"/>
@@ -37,7 +20,7 @@ export function EcosystemSection({data}){
       <span className="ecosystem-connector ecosystem-connector-3" aria-hidden="true"/>
       <div className="ecosystem-core-wrap">
         <button className="ecosystem-core ecosystem-core-action" onClick={()=>nav('/about')} aria-label="Open About JYC" onMouseEnter={()=>setActive('core')} onMouseLeave={()=>setActive('')}>
-          <div className="ecosystem-brand-lockup ecosystem-bird-only"><img src="/jyc-phoenix-reference-hd.png" alt="JIIT Youth Club phoenix"/></div>
+          <div className="ecosystem-brand-lockup ecosystem-logo-only"><img src="/jyc-logo-official.webp" alt="JIIT Youth Club"/></div>
           <span>JYC</span>
         </button>
       </div>
@@ -52,6 +35,6 @@ export function EcosystemSection({data}){
 
 export function MomentsSection({data}){
   const nav=useNavigate();
-  const items=data.gallery.slice(0,5);
+  const preferred=['pdf-jyc-10','pdf-jyc-06','pdf-dronotics-01','extra-dronotics-47','pdf-vamunique-01','extra-vamunique-61','pdf-aura-01','extra-aura-10','pdf-aakriti-02','extra-aakriti-05','pdf-panache-01','pdf-cicr-01','extra-rph-39','extra-cypherx-53','pdf-arcadia-01','extra-arcadia-65','pdf-neural-01','extra-neural-nexus-69','extra-bds-35','extra-eloquence-27','extra-zencoders-21','extra-event-75','extra-event-79','extra-event-80','extra-event-88']; const map=new Map(data.gallery.map(x=>[x.id,x])); const items=preferred.map(id=>map.get(id)).filter(Boolean).concat(data.gallery.filter(x=>!preferred.includes(x.id)).slice(0,8)).slice(0,18);
   return <section className="section moments-section reveal"><div className="reference-section-head"><div><span className="eyebrow">JYC MOMENTS</span><h2>Real moments. Real campus.</h2><p>The visual archive grows from photos actually published by JYC.</p></div></div>{items.length?<div className="moments-editorial">{items.map((g,i)=><button key={g.id||i} className={`moment-tile moment-${i}`} onClick={()=>nav('/gallery')}><img src={g.url} loading="lazy" alt={g.caption||'JYC moment'}/><span><small>{g.association||'JYC'}</small><strong>{g.caption||'JYC moment'}</strong></span></button>)}</div>:<div className="moments-empty"><span className="eyebrow">VISUAL ARCHIVE</span><h2>Moments will appear here as JYC publishes them.</h2><p>No synthetic imagery is used as a substitute for official campus moments.</p></div>}</section>
 }
