@@ -31,8 +31,8 @@ check('Consolidated public stylesheet is loaded exactly once',main.match(/import
 check('final JYC logo theme remains inside consolidated stylesheet stack',read('src/styles/public-system.css').includes("@import '../jyc-logo-final-theme.css';"));
 check('logo beige is the final public brand anchor',css.includes('--jyc-champagne:#c2a682')&&css.includes('--jyc-cream:#f5efe3')&&css.includes('--jyc-navy:#141927'));
 check('light/dark theme contracts are explicit',css.includes('html[data-theme="light"]')&&css.includes('html[data-theme="dark"]')&&css.includes('--jyc-text:var(--jyc-ink)')&&css.includes('--jyc-muted-live:var(--jyc-muted)'));
-check('public text has explicit secondary contrast',css.includes('.public-app p,.public-app li,.public-app small')&&css.includes('color:var(--jyc33-muted)!important'));
-check('homepage hierarchy and motion layer are present',css.includes('.home .hero{')&&css.includes('text-align:center!important')&&css.includes('@keyframes jyc33Breath'));
+check('public text has explicit secondary contrast',css.includes('.public-app p,.public-app li{color:var(--jyc-muted-live)!important}'));
+check('homepage hierarchy and motion layer are present',css.includes('.home .hero{')&&css.includes('text-align:center!important')&&css.includes('@keyframes jycLogoFloat'));
 check('latest updates are part of homepage',main.includes('home-latest-updates')&&main.includes('LATEST UPDATES'));
 check('Join JYC Coming Soon destination exists',main.includes("clean==='/join-jyc'")&&main.includes('function JoinJYC')&&main.includes('Join JYC · Coming Soon'));
 check('Team hierarchy is explicit',main.includes('Faculty → Apex → Core → Clubs & Hubs')&&main.includes('team-command-strip')&&main.includes('JYC Apex'));
@@ -40,7 +40,7 @@ check('About exposes requested principles',main.includes('WHAT WE STAND FOR')&&m
 check('Gallery supports year discovery',extra.includes('gallery-years')&&extra.includes("const years=['All'"));
 check('Event details support structured extra information',main.includes('e.rules?.length')&&main.includes('e.eligibility')&&main.includes('e.prizes?.length')&&main.includes('e.faqs?.length'));
 check('Contact includes official JIIT campus context',main.includes('contact-location')&&hasExactUrl(main,{protocol:'https:',hostname:'www.jiit.ac.in',pathname:'/contact-us'}));
-check('mobile layout stays compact',css.includes('@media(max-width:560px)')&&css.includes('grid-template-columns:1fr'));
+check('mobile layout stays compact',css.includes('@media(max-width:640px)')&&css.includes('grid-template-columns:1fr'));
 check('image treatment uses non-distorting crops',css.includes('object-fit:cover!important')&&css.includes('object-position:center'));
 check('reduced motion remains supported',css.includes('@media(prefers-reduced-motion:reduce)'));
 check('public navigation exposes Contact',main.includes("['Contact','/contact']"));
