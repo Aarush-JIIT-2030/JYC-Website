@@ -802,3 +802,28 @@ html[data-theme="dark"] .public-app .card:hover,html[data-theme="dark"] .public-
  .public-app .announcement-card>span{margin-inline:auto}
 }
 @media(prefers-reduced-motion:reduce){.public-app .event-poster::after{transition:none!important}}
+
+/* V52 shell resilience — navigation/footer are outside .public-app. */
+.nav .nav-inner{width:min(100%,1240px);padding-inline:clamp(12px,3vw,28px);gap:clamp(8px,1.5vw,18px)}
+.nav nav{min-width:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
+.nav nav button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav .brand{min-width:0;max-width:38vw}
+.nav .brand>span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav .search-trigger{flex:0 0 auto}
+.jyc-footer{overflow:hidden}
+.jyc-footer .footer-top,.jyc-footer .footer-bottom{width:min(100%,1240px);margin-inline:auto;padding-inline:clamp(16px,3vw,28px)}
+.jyc-footer .footer-brand,.jyc-footer .footer-nav,.jyc-footer .footer-connect{text-align:center;align-items:center}
+.jyc-footer .footer-nav>div,.jyc-footer .footer-connect,.jyc-footer .footer-bottom{justify-content:center}
+@media(max-width:900px){
+ .nav .nav-inner{padding-inline:12px}
+ .nav nav{max-width:100%}
+ .nav .brand{max-width:48vw}
+ .nav .search-trigger{min-width:44px;width:44px;padding-inline:0}
+ .nav .search-label,.nav .search-trigger kbd{display:none}
+}
+@media(max-width:640px){
+ .nav .brand>span:last-child{font-size:.78rem}
+ .jyc-footer .footer-top{grid-template-columns:1fr!important;text-align:center}
+ .jyc-footer .footer-bottom{flex-direction:column;text-align:center;gap:10px}
+ .jyc-footer .footer-nav>div{display:flex;justify-content:center;flex-wrap:wrap}
+}
