@@ -140,7 +140,7 @@ test('mobile visual guardrails keep core content centered and inside viewport', 
             return r.width > 0 && r.height > 0 && (r.left < -1 || r.right > vw + 1);
           }).slice(0, 8)
           .map(el => ({ tag: el.tagName, cls: String(el.className || ''), left: el.getBoundingClientRect().left, right: el.getBoundingClientRect().right }));
-        const invisibleText = [...document.querySelectorAll('h1,h2,h3,p,button,a,span')]
+        const invisibleTextDetails = [...document.querySelectorAll('h1,h2,h3,p,button,a,span')]
           .filter(el => {
             const text = (el.textContent || '').trim();
             if (!text) return false;
@@ -148,12 +148,21 @@ test('mobile visual guardrails keep core content centered and inside viewport', 
             const r = el.getBoundingClientRect();
             return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 &&
               (r.right < -1 || r.left > vw + 1 || r.bottom < -1);
-          }).length;
-        return { bodyOverflow, badRects, invisibleText };
+          }).slice(0,8)
+          .map(el => ({
+            tag: el.tagName,
+            cls: String(el.className || ''),
+            text: String(el.textContent || '').trim().replace(/\\s+/g,' ').slice(0,120),
+            left: Math.round(el.getBoundingClientRect().left),
+            right: Math.round(el.getBoundingClientRect().right),
+            top: Math.round(el.getBoundingClientRect().top),
+            bottom: Math.round(el.getBoundingClientRect().bottom)
+          }));
+        return { bodyOverflow, badRects, invisibleText: invisibleTextDetails.length, invisibleTextDetails };
       });
       expect(result.bodyOverflow, 'horizontal overflow ' + width + 'px ' + route).toBe(false);
       expect(result.badRects, 'off-screen elements ' + width + 'px ' + route).toEqual([]);
-      expect(result.invisibleText, 'off-screen visible text ' + width + 'px ' + route).toBe(0);
+      expect(result.invisibleText, 'off-screen visible text ' + width + 'px ' + route + ' :: ' + JSON.stringify(result.invisibleTextDetails)).toBe(0);
     }
   }
 });
