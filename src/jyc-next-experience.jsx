@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {JYC_HUB_CONTENT,JYC_HUB_FAMILIES} from './v21-hub-content.js';
 import {JYC_HUB_SOURCE_REGISTRY,JYC_HUB_SOURCE_STATUS,JYC_HUB_VERIFIED_CURRENT,JYC_HUB_SOURCE_ONLY} from './jyc-hub-registry.js';
 import {sourceHubMedia} from './jyc-source-media.js';
+import {JYC_SOURCE_ARCHIVE_STATS} from './jyc-source-archive.js';
 
 const ROUTES=[
  {id:'build',label:'BUILD',kicker:'TECHNICAL · AI · ROBOTICS',text:'Build things that work. Find coding, robotics, AI, open-source and innovation communities.',families:['Technical'],focus:['AI','Robotics','Open Source','Programming','Innovation','Cybersecurity'],accent:'#8d6b42'},
@@ -81,7 +82,7 @@ export function PhotoStory({data}){
  const railItems=items.slice(railStart,railStart+railWindow);
  const selectPhoto=i=>setActive(i);
  return <section id="photo-story" className="section jyc-photo-story-section reveal">
-  <div className="jyc-photo-story-head"><div><span className="eyebrow">PHOTO STORY · JYC ARCHIVE</span><h2>Let the photographs tell the story.</h2><p>Real JYC media becomes the narrative layer: event, people, place, performance and work.</p></div><button type="button" className="reference-view-all" onClick={()=>nav('/gallery')}>Open visual archive ↗</button></div>
+  <div className="jyc-photo-story-head"><div><span className="eyebrow">PHOTO STORY · JYC ARCHIVE</span><h2>Let the photographs tell the story.</h2><p>Real JYC media becomes the narrative layer: event, people, place, performance and work. The supplied five-volume archive contains 812 unique source photographs after duplicate reconciliation.</p></div><button type="button" className="reference-view-all" onClick={()=>nav('/gallery')}>Open visual archive ↗</button></div>
   <div className="jyc-photo-story" onMouseEnter={()=>setIsHovering(true)} onMouseLeave={()=>setIsHovering(false)}>
    <div className="jyc-photo-story-stage" aria-live="polite">
     <img key={current.url||safeActive} className="jyc-photo-story-transition" src={current.url} alt={current.alt||current.caption||'JYC visual archive moment'} loading="eager" decoding="async" fetchPriority="high"/>
