@@ -839,7 +839,7 @@ function HubDirectory({data}){
  useEffect(()=>{if(!visibleEntries.some(([name])=>name===active))setActive(visibleEntries[0]?.[0]||'')},[family]);
  return <section className="hub-directory hub-directory-v41 reveal">
   <div className="hub-directory-head">
-   <div><span className="eyebrow">JYC HUB DIRECTORY · SOURCE MEDIA</span><h2>Twenty-one communities. Twenty-one identities.</h2><p className="small-copy">Move through the maintained All Hubs archive. The directory separates verified source photography from identity-led profiles instead of substituting unrelated images.</p></div>
+   <div><span className="eyebrow">JYC HUB DIRECTORY · SOURCE MEDIA</span><h2>Twenty-three communities. Source-grounded identities.</h2><p className="small-copy">Move through the maintained All Hubs archive. Brochure-verified and source-material communities remain visibly distinguished, while real supplied photography is used wherever it exists.</p></div>
    <div className="hub-directory-stats"><span><b>{entries.length}</b> communities</span><span><b>{photoBacked}</b> photo-backed</span><span><b>{entries.length-photoBacked}</b> profile-led</span></div>
   </div>
   <div className="hub-family-row" role="tablist" aria-label="Filter communities by family">
