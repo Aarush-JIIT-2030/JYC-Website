@@ -17,7 +17,7 @@ const checks=[
  ['media provenance taxonomy exists',source.includes('sourceType:')&&source.includes('sourceLabel:')&&source.includes('role')],
  ['media alt metadata exists',source.includes('alt:item.alt||item.caption')],
  ['external media is classified',source.includes('official-external-media')],
- ['gallery uses role filters',gallery.includes("roleLabels")&&gallery.includes('VISUAL TYPE')],
+ ['gallery uses role filters',gallery.includes("roleLabels")&&gallery.includes('MEDIA TYPE')],
 ];
 let failed=0; for(const [name,ok] of checks){console.log((ok?'PASS':'FAIL')+': '+name);if(!ok)failed++}
 if(failed)process.exit(1);
