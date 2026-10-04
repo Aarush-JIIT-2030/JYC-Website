@@ -16,12 +16,12 @@ export const JYC_HUB_SOURCE_REGISTRY = [
   {name:'Qriosity',family:'Literary',status:'brochure-verified',source:'JIIT Admission Brochure 2026'},
   {name:'RPH',family:'Technical',status:'brochure-verified',source:'JIIT Admission Brochure 2026'},
   {name:'VamUnique',family:'Cultural',status:'brochure-verified',source:'JIIT Admission Brochure 2026'},
-  {name:'Arcadia',family:'Technical',status:'source-material',source:'Supplied JYC hub presentation / media archive'},
-  {name:'CypherX',family:'Technical',status:'source-material',source:'Supplied JYC hub presentation / media archive'},
-  {name:'Dronotics',family:'Technical',status:'source-material',source:'Supplied hub media archive'},
-  {name:'GDG',family:'Technical',status:'source-material',source:'Supplied JYC hub presentation'},
-  {name:'Neural Nexus',family:'Technical',status:'source-material',source:'Supplied JYC hub presentation / media archive'},
-  {name:'Zencoders',family:'Technical',status:'source-material',source:'Supplied JYC hub presentation / media archive'}
+  {name:'Arcadia',family:'Technical',status:'orientation-verified',source:'Supplied JYC 2026–27 Orientation / All Hubs material'},
+  {name:'CypherX',family:'Technical',status:'orientation-verified',source:'Supplied JYC 2026–27 Orientation / All Hubs material'},
+  {name:'Dronotics',family:'Technical',status:'orientation-verified',source:'Supplied JYC 2026–27 Orientation / All Hubs material'},
+  {name:'GDG',family:'Technical',status:'orientation-verified',source:'Supplied JYC 2026–27 Orientation / All Hubs material'},
+  {name:'Neural Nexus',family:'Technical',status:'orientation-verified',source:'Supplied JYC 2026–27 Orientation / All Hubs material'},
+  {name:'Zencoders',family:'Technical',status:'orientation-verified',source:'Supplied JYC 2026–27 Orientation / All Hubs material'}
 ];
 
 export const JYC_HUB_SOURCE_STATUS = Object.fromEntries(JYC_HUB_SOURCE_REGISTRY.map(x=>[x.name,x]));
