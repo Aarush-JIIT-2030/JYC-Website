@@ -44,7 +44,9 @@ checks.push(
  ['LLMs release boundary is current',fs.readFileSync(path.join(root,'public/llms.txt'),'utf8').includes('V56.1 is a club-first public website')],
  ['public feature bundle has no retired academic calendar surface',!fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8').includes('academicKeyDates')],
  ['dark theme follows native color-scheme',fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8').includes('html[data-theme="dark"] { color-scheme: dark; }')],
- ['GLB bot has restrained tap/hover motion and no auto-rotation',fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('jycBotTap')&&fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('availableAnimations')&&!fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('auto-rotate')]
+ ['GLB bot has restrained tap/hover motion and no auto-rotation',fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('jycBotTap')&&fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('availableAnimations')&&!fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('auto-rotate')],
+ ['maintained JYC source registry has 23 communities across five families',(()=>{const r=fs.readFileSync(path.join(root,'src/jyc-hub-registry.js'),'utf8');const names=[...r.matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);const families=[...new Set([...r.matchAll(/family:'([^']+)'/g)].map(m=>m[1]))];return names.length===23&&families.length===5})()],
+ ['source-backed hub content has substantive summaries for all 23 communities',(()=>{const r=fs.readFileSync(path.join(root,'src/v21-hub-content.js'),'utf8');const names=[...fs.readFileSync(path.join(root,'src/jyc-hub-registry.js'),'utf8').matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);return names.every(n=>r.includes(n+':{')||r.includes("'"+n+"':{"))})()],
 
 );
 
