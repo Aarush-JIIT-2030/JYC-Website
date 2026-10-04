@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root=process.cwd();
 const main=fs.readFileSync(path.join(root,'src/main.jsx'),'utf8');
-const css=fs.readFileSync(path.join(root,'src/v17-4-seo.css'),'utf8');
+const css=fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 const checks=[
  ['version is V18.9.9',['18.9.7','18.9.8','18.9.9','18.9.10','18.10.0','18.11.0','18.11.1','18.11.2'].includes(pkg.version)],
@@ -18,9 +18,6 @@ const checks=[
  ['footer gates Fests by fest mode',main.includes("isFestMode(data)&&<button onClick={()=>nav('/fests')}>Fests</button>")],
  ['club logo alt text is descriptive',main.includes('alt={`${c.name} logo`}'),],
 ];
-let failed=0; for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok)failed++;}
-if(failed)process.exit(1); console.log('Final product QA complete.');
-
 
 const extraPublicCss=fs.readFileSync(path.join(root,'src/styles/jyc-v56-final-system.css'),'utf8');
 const extraFeatures=fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8');
@@ -32,3 +29,5 @@ checks.push(
  ['generic supplied archive photos do not carry inferred 2026 years',!pdfHub.split('\n').some(line=>line.includes("association:'JYC Archive'")&&line.includes("year:'2026'"))],
  ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))]
 );
+let failed=0; for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok)failed++;}
+if(failed)process.exit(1); console.log('Final product QA complete.');
