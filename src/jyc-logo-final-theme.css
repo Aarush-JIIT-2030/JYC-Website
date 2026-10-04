@@ -713,3 +713,92 @@ html[data-theme="dark"] .public-app .card:hover,html[data-theme="dark"] .public-
   .nav nav,.gallery-item,.gallery-filter,.filter-toggle{border:1px solid ButtonText!important}
   .gallery-item::after,.home .hero::before,.home .hero::after,.feature-hero::before,.feature-hero::after{display:none}
 }
+
+
+/* V52 FINAL VISUAL QA CONTRACT — alignment, readable type, overflow safety and image-led event presentation. */
+*,*::before,*::after{box-sizing:border-box}
+.public-app,.public-app *{min-width:0}
+.public-app{overflow-wrap:anywhere}
+.public-app h1,.public-app h2,.public-app h3,.public-app h4,.public-app h5,.public-app h6,.public-app p,.public-app li,.public-app strong,.public-app span{overflow-wrap:anywhere;text-wrap:pretty}
+.public-app h1{line-height:1.04;letter-spacing:-.035em}
+.public-app h2{line-height:1.12;letter-spacing:-.025em}
+.public-app h3{line-height:1.2}
+.public-app p,.public-app li{line-height:1.65}
+.public-app .section,.public-app .page{padding-inline:clamp(16px,3vw,28px)!important}
+.public-app .section-head,.public-app .compact-page-head,.public-app .section-inline-head,.public-app .reference-section-head,.public-app .team-layer-head,.public-app .about-section-title-v28,.public-app .hub-directory-head,.public-app .event-timeline-head,.public-app .today-head,.public-app .jyc-orientation-head{justify-items:center;text-align:center;align-items:center}
+.public-app .section-head>div,.public-app .compact-page-head>div,.public-app .section-inline-head>div,.public-app .reference-section-head>div{margin-inline:auto}
+.public-app .hero-actions,.public-app .detail-actions,.public-app .club-hero-actions,.public-app .about-hero-actions,.public-app .jyc-feature-actions,.public-app .find-community-actions,.public-app .about-next-v28>div,.public-app .about-inline-links,.public-app .social-row{justify-content:center;align-items:center;flex-wrap:wrap}
+.public-app .btn,.public-app button,.public-app a{max-width:100%}
+.public-app .card-grid,.public-app .club-grid,.public-app .reference-event-grid,.public-app .activity-grid,.public-app .team-layer-grid,.public-app .archive-club-grid,.public-app .event-related-grid,.public-app .about-programme-grid-v28,.public-app .archive-story-collage,.public-app .gallery-grid,.public-app .supplied-programme-grid{width:100%;justify-content:center}
+.public-app .card-grid,.public-app .club-grid,.public-app .reference-event-grid,.public-app .activity-grid,.public-app .team-layer-grid,.public-app .archive-club-grid,.public-app .event-related-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))!important}
+.public-app .event-card,.public-app .club-card,.public-app .activity-card,.public-app .team-layer-card,.public-app .archive-club,.public-app .contact-card,.public-app .announcement-card,.public-app .past-card,.public-app .hub-story-card,.public-app .jyc-journal-card{height:100%;overflow:hidden}
+.public-app .event-card .card-body,.public-app .club-card .card-body,.public-app .activity-card,.public-app .team-layer-card,.public-app .archive-club,.public-app .contact-card,.public-app .announcement-card,.public-app .past-card,.public-app .hub-story-card,.public-app .jyc-journal-card{text-align:center;align-items:center}
+.public-app .event-card .card-topline,.public-app .event-card .event-card-meta,.public-app .event-card .event-identity-mini,.public-app .team-social-row{justify-content:center;align-items:center;flex-wrap:wrap}
+.public-app .event-poster{position:relative!important;min-height:clamp(190px,24vw,290px)!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;display:flex!important;align-items:flex-start!important;justify-content:space-between!important;overflow:hidden!important}
+.public-app .event-poster::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(180deg,transparent,rgba(15,20,32,.72));pointer-events:none}
+.public-app .event-poster>*{position:relative;z-index:1}
+.public-app .event-poster .event-domain-label{align-self:flex-end;margin:0 auto .9rem;max-width:80%;text-align:center}
+.public-app .jyc-feature-event{overflow:hidden;align-items:stretch}
+.public-app .jyc-feature-poster{min-height:100%;display:flex;align-items:stretch;justify-content:center;overflow:hidden}
+.public-app .jyc-feature-poster img{width:100%;height:100%;min-height:340px;object-fit:cover;object-position:center}
+.public-app .about-programme-image{overflow:hidden;border-radius:inherit}
+.public-app .about-programme-image img{width:100%;height:100%;min-height:180px;object-fit:cover;object-position:center}
+.public-app .gallery-grid .gallery-item{overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center}
+.public-app .gallery-grid .gallery-item img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center}
+.public-app .archive-story-photo{overflow:hidden}
+.public-app .archive-story-photo img{width:100%;height:100%;min-height:220px;object-fit:cover;object-position:center}
+.public-app .hub-source-photo-strip{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:14px;width:100%}
+.public-app .hub-source-photo-strip figure{margin:0;overflow:hidden;text-align:center}
+.public-app .hub-source-photo-strip img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center}
+.public-app .hub-source-photo-strip figcaption{padding:.65rem .35rem;line-height:1.35}
+.public-app .team-photo-editorial{overflow:hidden;border-radius:inherit}
+.public-app .team-photo-editorial img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center}
+.public-app .section-image,.public-app .club-source-story-image img{display:block;width:100%;max-width:100%;max-height:520px;object-fit:cover;object-position:center;margin-inline:auto}
+.public-app .event-directory-row,.public-app .archive-event,.public-app .event-timeline-row,.public-app .today-row{width:100%;max-width:100%;overflow:hidden}
+.public-app .event-directory-row>* ,.public-app .event-timeline-row>*{min-width:0}
+.public-app .event-row-copy,.public-app .event-timeline-title{min-width:0;text-align:center}
+.public-app .event-row-copy strong,.public-app .event-row-copy em,.public-app .event-timeline-title strong{display:block;overflow-wrap:anywhere;line-height:1.3}
+.public-app .event-row-copy em{font-style:normal}
+.public-app .event-timeline-media{overflow:hidden;border-radius:14px}
+.public-app .event-timeline-media img{width:100%;height:100%;min-height:68px;object-fit:cover;object-position:center}
+.public-app .event-context-grid,.public-app .club-detail-layout,.public-app .about-vision-v28,.public-app .hub-detail-columns,.public-app .home-about-ecosystem{align-items:stretch}
+.public-app .event-context-card,.public-app .club-section-card,.public-app .event-identity-panel,.public-app .club-side-panel{overflow:hidden}
+.public-app input,.public-app textarea,.public-app select{max-width:100%;font:inherit}
+.public-app textarea{resize:vertical;min-height:140px}
+.public-app .contact-form label{width:100%;min-width:0}
+.public-app .contact-form input,.public-app .contact-form textarea{width:100%}
+.public-app .more-sheet,.public-app .search-modal,.public-app .confirm-dialog{max-width:min(720px,calc(100vw - 24px));overflow:auto}
+.public-app .search-result-active,.public-app .search-result-active strong,.public-app .search-result-active span{overflow-wrap:anywhere}
+.public-app .mobile-dock{padding-bottom:max(8px,env(safe-area-inset-bottom))}
+@media(max-width:900px){
+ .public-app .jyc-feature-event{grid-template-columns:1fr!important}
+ .public-app .jyc-feature-poster{order:-1;min-height:260px}
+ .public-app .jyc-feature-poster img{min-height:260px;max-height:420px}
+ .public-app .event-context-grid,.public-app .club-detail-layout,.public-app .about-vision-v28,.public-app .home-about-ecosystem{grid-template-columns:1fr!important}
+ .public-app .event-directory-row{grid-template-columns:44px 1fr 32px!important}
+ .public-app .event-directory-row .event-row-date{display:none}
+ .public-app .event-row-copy{text-align:center}
+ .public-app .event-timeline-row{grid-template-columns:42px 1fr 76px 28px!important}
+ .public-app .event-timeline-date{display:none}
+ .public-app .event-timeline-media{display:block}
+}
+@media(max-width:640px){
+ .public-app .section,.public-app .page{padding-inline:14px!important}
+ .public-app h1{font-size:clamp(2rem,9vw,3rem);line-height:1.02}
+ .public-app h2{font-size:clamp(1.55rem,7vw,2.2rem)}
+ .public-app h3{font-size:1.1rem}
+ .public-app .hero-actions,.public-app .detail-actions,.public-app .club-hero-actions{width:100%}
+ .public-app .hero-actions .btn,.public-app .detail-actions .btn{flex:1 1 180px}
+ .public-app .event-poster{min-height:210px!important}
+ .public-app .jyc-feature-poster img{min-height:230px}
+ .public-app .team-photo-editorial img{aspect-ratio:1/1}
+ .public-app .hub-source-photo-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .public-app .archive-story-photo img{min-height:180px}
+ .public-app .event-timeline-row{grid-template-columns:34px 1fr 24px!important}
+ .public-app .event-timeline-media{display:none}
+ .public-app .event-row-copy strong{font-size:1rem}
+ .public-app .contact-grid{grid-template-columns:1fr!important}
+ .public-app .announcement-card{grid-template-columns:1fr!important}
+ .public-app .announcement-card>span{margin-inline:auto}
+}
+@media(prefers-reduced-motion:reduce){.public-app .event-poster::after{transition:none!important}}
