@@ -123,3 +123,46 @@ test('brand text contrast stays readable in both themes', async ({ page }) => {
     if(item.ratio!==null) expect(item.ratio, item.selector).toBeGreaterThanOrEqual(4.5);
   }
 });
+
+
+test('mobile visual guardrails keep core content centered and inside viewport', async ({ page }) => {
+  for (const width of [320, 360, 390, 430]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const route of ['/', '/clubs', '/events', '/gallery']) {
+      await page.goto(base + route, { waitUntil: 'domcontentloaded' });
+      await page.waitForTimeout(250);
+      const result = await page.evaluate(() => {
+        const vw = document.documentElement.clientWidth;
+        const bodyOverflow = document.documentElement.scrollWidth > vw + 1;
+        const badRects = [...document.querySelectorAll('main *, section.page > *, .section > *')]
+          .filter(el => {
+            const r = el.getBoundingClientRect();
+            return r.width > 0 && r.height > 0 && (r.left < -1 || r.right > vw + 1);
+          }).slice(0, 8)
+          .map(el => ({ tag: el.tagName, cls: String(el.className || ''), left: el.getBoundingClientRect().left, right: el.getBoundingClientRect().right }));
+        const invisibleText = [...document.querySelectorAll('h1,h2,h3,p,button,a,span')]
+          .filter(el => {
+            const text = (el.textContent || '').trim();
+            if (!text) return false;
+            const s = getComputedStyle(el);
+            const r = el.getBoundingClientRect();
+            return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 &&
+              (r.right < -1 || r.left > vw + 1 || r.bottom < -1);
+          }).length;
+        return { bodyOverflow, badRects, invisibleText };
+      });
+      expect(result.bodyOverflow, 'horizontal overflow ' + width + 'px ' + route).toBe(false);
+      expect(result.badRects, 'off-screen elements ' + width + 'px ' + route).toEqual([]);
+      expect(result.invisibleText, 'off-screen visible text ' + width + 'px ' + route).toBe(0);
+    }
+  }
+});
+
+test('photo-led pages render real image content', async ({ page }) => {
+  for (const route of ['/clubs', '/events', '/gallery']) {
+    await page.goto(base + route, { waitUntil: 'domcontentloaded' });
+    const images = page.locator('img');
+    await expect(images.first()).toBeVisible();
+    expect(await images.count(), route).toBeGreaterThan(0);
+  }
+});
