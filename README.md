@@ -1,6 +1,6 @@
 # JIIT Youth Club 128 — Official Website
 
-> **Current release: V55 — visual, media-provenance and production-hardening pass**
+> **Current release: V56.1 — source-first visual archive and production-hardening pass**
 
 The official public website for **JIIT Youth Club (JYC), JIIT Wish Town Campus, Sector 128, Noida**.
 
@@ -184,7 +184,7 @@ npm run qa
 npm run qa:browser
 ```
 
-The static QA suite includes source integrity, security, SEO, build preflight, production contracts, accessibility, architecture, logo/theme checks, club experience checks, final product checks, V55 visual/media checks and final hygiene checks.
+The static QA suite includes source integrity, security, SEO, build preflight, production contracts, accessibility, architecture, logo/theme checks, club experience checks, final product checks, visual/media checks, source-photo integrity and final hygiene checks.
 
 ## Official identity
 
