@@ -103,3 +103,17 @@ The model remains an assistant/navigation affordance, not the hero or primary si
 Five supplied archives contain 873 extracted image files. The repository already contains the maintained committed WebP source-media layer and Supabase has 92 normalized source-photo review rows.
 
 The remaining raw archive candidates require binary transfer into the repository/storage pipeline before they can be referenced as production assets. They are not fabricated into the public UI until that transfer/review occurs.
+
+## Latest production data integrity check
+- Published gallery rows with missing alt text: 0.
+- Published gallery rows with missing media type: 0.
+- Orphan gallery→event relations: 0.
+- Orphan gallery→club relations: 0.
+- Duplicate gallery IDs: 0.
+- Published events without verification: 0.
+- Published clubs missing name: 0.
+- Published events missing title: 0.
+- All 17 published club records map to their verified slug-based content-verification rows.
+
+## Supabase Edge Function deployment
+The seven active Edge Functions were redeployed from the repository source with the current Supabase publishable/secret-key compatibility helper inlined. Current active versions: admin-management v3, send-notification v3, backup-site-data v3, ai-content-assist v3, error-report v3, media-upload v2, public-submission v2.
