@@ -13,6 +13,9 @@ This pass is the final public-facing layer after the resource/photo-story work. 
 - Standardised card geometry and centred metadata/captions without hiding text.
 - Preserved club and event identity accents while keeping the JYC base palette restrained.
 - Kept photo storytelling as the primary visual layer: featured story → archive → provenance → lightbox.
+- Expanded homepage source-photo selection from 3 to 5 frames per verified community, giving the photo story more real JYC variety while retaining an 8-frame narrative cap.
+- Expanded community photo chapters from 2 to 4 source frames per community and event detail galleries from 8 to 12 connected source visuals.
+- Expanded assistant/search source-photography indexing from 2 to 4 frames per community so more of the archive is discoverable.
 - Fixed the Gallery lightbox hook import in `src/extra-features.jsx`.
 - Removed unsupported inferred 2026 years from generic supplied archive photography.
 - Kept dated labels only where the media record itself is explicitly associated with a dated event/edition.
