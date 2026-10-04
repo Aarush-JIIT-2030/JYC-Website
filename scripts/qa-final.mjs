@@ -38,7 +38,7 @@ const publicAssets=path.join(root,'public','assets');
 function walk(dir){if(!fs.existsSync(dir))return [];return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
 const assetFiles=walk(publicAssets).filter(p=>/\.(webp|png|jpe?g|avif|gif|svg)$/i.test(p));
 const assetTextFiles=['src/main.jsx','src/jyc-next-experience.jsx','src/jyc-source-media.js','src/pdf-hub-content.js','src/pdf-hub-extra.js','src/v21-hub-content.js','src/jyc-assistant.jsx'].map(p=>fs.readFileSync(path.join(root,p),'utf8')).join('\n');
-const assetRefs=new Set([...assetTextFiles.matchAll(/\/assets\/[^'"\\s)]+/g)].map(m=>m[0]));
+const assetRefs=new Set([...assetTextFiles.matchAll(/\/assets\/[^'"\s)]+/g)].map(m=>m[0]));
 const assetRel=new Set(assetFiles.map(p=>p.slice(path.join(root,'public').length).replaceAll('\\\\','/')));
 const missingReferencedAssets=[...assetRefs].filter(ref=>!assetRel.has(ref));
 checks.push(['all explicitly referenced public assets exist',missingReferencedAssets.length===0]);
