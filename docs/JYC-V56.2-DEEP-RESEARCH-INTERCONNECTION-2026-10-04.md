@@ -47,3 +47,12 @@ Current official web research used for contextual enrichment includes Innovation
 - 17 brochure-verified + 6 orientation-verified registry state is checked.
 - 23 browser checks cover responsive overflow, readability, routes, reduced motion and photo-led rendering.
 - Security, SEO, runtime, SQL, architecture and senior-V1 checks remain part of CI.
+
+## V56.3 depth extension
+
+- Supabase now contains six additional canonical **review-stage** event records sourced from the supplied/official material: RIDE Hack'26, DRONO-O-WAR 1.0, CodeAI Hackathon, TechTonic 2.0, Code Clash 25.1 and Code Clash 25.2.
+- Each new event is linked to its hub and has a content-verification row with source URL/type and publication-review notes.
+- These records intentionally remain under_review; they are available to the editorial workflow without leaking unverified claims into the public feed.
+- Hub detail pages now distinguish the official brochure identity description from the richer orientation/source-material experience layer.
+- The JYC bot now uses the official circular emblem as its fallback and cycles through short, purposeful interaction motions rather than continuous animation.
+- The gallery sitemap generator now emits crawlable image locations for the JYC gallery, complementing the existing page sitemap.
