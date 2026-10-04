@@ -34,7 +34,7 @@ Part 5 is especially useful because filenames are hub-scoped. It contains explic
 
 Innovation has six clearly photographic DSC images. Dronotics has event-specific visual material. Several other hub directories contain presentation graphics mixed with photographic material.
 
-The repository now contains 124 committed hub media files under `public/assets/hub-photos*`; the source-media QA gate verifies that every referenced asset resolves and that committed basenames are not duplicated.
+The repository now contains 124 committed hub media files under `public/assets/hub-photos*`; the source-media QA gate verifies that every referenced asset resolves. Supabase now contains 92 of the supplied source photographs as a **pending review inventory** with media type, alt text, provenance and source-year metadata. They are deliberately not auto-published until content verification approves them.
 
 ## 3. How the website should use them
 
