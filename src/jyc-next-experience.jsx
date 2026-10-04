@@ -48,11 +48,11 @@ export function PhotoStory({data}){
  const [isHovering,setIsHovering]=useState(false);
  const items=useMemo(()=>{
   const published=(Array.isArray(data?.gallery)?data.gallery:[]).filter(g=>g?.url&&g?.published!==false);
-  const sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap(meta=>sourceHubMedia(meta.name).photoItems.slice(0,5).map((item,i)=>({id:`source-${meta.name}-${i}`,url:item.url,association:meta.name,year:item.year||'',caption:item.caption||item.title||`${meta.name} · source photography`,alt:item.alt||item.caption||`${meta.name} supplied JYC source photograph`,published:true,mediaKind:'photo',sourceLabel:item.sourceLabel||'JYC supplied hub archive'})));
+  const sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap(meta=>sourceHubMedia(meta.name).photoItems.slice(0,8).map((item,i)=>({id:`source-${meta.name}-${i}`,url:item.url,association:meta.name,year:item.year||'',caption:item.caption||item.title||`${meta.name} · source photography`,alt:item.alt||item.caption||`${meta.name} supplied JYC source photograph`,published:true,mediaKind:'photo',sourceLabel:item.sourceLabel||'JYC supplied hub archive'})));
   const raw=[...published,...sourcePhotos];
   const preferred=[...raw.filter(g=>/Converge|Dron-O-War|Ebullience|JAI|JYC Archive/i.test(String(g.association||''))),...raw];
   const seen=new Set();
-  return preferred.filter(g=>{const key=g.id||g.url;if(seen.has(key))return false;seen.add(key);return true}).slice(0,8);
+  return preferred.filter(g=>{const key=g.id||g.url;if(seen.has(key))return false;seen.add(key);return true}).slice(0,16);
  },[data?.gallery]);
  useEffect(()=>{
   if(!autoPlay||isHovering||items.length<2)return undefined;
@@ -84,14 +84,14 @@ export function PhotoChapters(){
    profile:JYC_HUB_CONTENT[h.name]||{},
    media:sourceHubMedia(h.name)
   })).filter(h=>h.media.photos.length);
-  const photos=hubs.flatMap(h=>h.media.photoItems.slice(0,6).map((item,i)=>({
+  const photos=hubs.flatMap(h=>h.media.photoItems.slice(0,8).map((item,i)=>({
    url:item.url,
    hub:h.name,
    caption:item.caption||item.title||h.profile.summary||h.profile.focus||family,
    alt:item.alt||item.caption||`${h.name} source photograph ${i+1}`,
    year:item.year||''
   })));
-  return {family,hubs,photos:photos.slice(0,12)};
+  return {family,hubs,photos:photos.slice(0,16)};
  }).filter(x=>x.photos.length),[]);
  if(!chapters.length)return null;
  return <section className="section jyc-photo-chapters-section reveal">
