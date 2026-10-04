@@ -8,23 +8,30 @@ The senior-provided JYC emblem is now the visual reference for the public site.
 
 ### Core palette
 
-- Deep navy: `#141927`
-- Deep navy background: `#0f1420`
-- Champagne / antique gold: `#c2a682`
-- Champagne soft: `#efe3cb`
-- Ivory: `#faf7ef`
-- Restrained bronze: `#78593b`
-- Body ink: `#111111`
+The public implementation uses the **JYC Website Development Specification** as the canonical theme-token source. The senior-provided emblem is the identity reference; it does not override the approved site token values.
 
-The public shell must not introduce unrelated red, purple, blue, neon or arbitrary club-specific accent colours. Community identity is expressed through typography, photography, motifs and layout; the shared JYC palette remains the visual system.
+- Light paper: `#f5f1e6`
+- Light card: `#ffffff`
+- Light ink: `#1a191d`
+- Light muted: `#6e6a75`
+- Light attention red: `#a82420`
+- Light secondary gold: `#bf9c6f`
+- Dark surface: `#0f0e11`
+- Dark card: `#18161d`
+- Dark ink: `#fff8e1`
+- Dark muted: `#a8a3b0`
+- Dark attention red: `#c92a2a`
+- Dark secondary gold: `#d2b48c`
+
+The JYC logo is used for identity, while club/event photography provides the individual visual character. No random blue/purple gradients, neon/glass effects or unrelated accent palettes are introduced.
 
 ## Light mode
 
-Light mode uses warm ivory/cream surfaces with deep navy text and restrained bronze/champagne accents. Body text is never placed over low-contrast gold surfaces.
+Light mode uses warm paper beige with near-black text, white cards and restrained red/gold accents. Body text is never placed over low-contrast gold surfaces.
 
 ## Dark mode
 
-Dark mode uses deep navy surfaces rather than pure black, with ivory text and champagne accents. Cards, borders and controls remain visibly separated from the background.
+Dark mode uses near-black surfaces with warm-white text and restrained red/gold accents. Cards, borders and controls remain visibly separated from the background.
 
 ## Motion
 
