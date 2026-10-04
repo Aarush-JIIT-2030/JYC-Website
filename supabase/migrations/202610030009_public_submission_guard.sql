@@ -57,10 +57,10 @@ returns void
 language sql
 security definer
 set search_path = public
-as $
+as $$
   delete from public.jyc_public_submission_rate_limits
   where updated_at < now() - interval '2 days';
-$;
+$$;
 revoke all on function public.jyc_prune_public_submission_limits() from public;
 grant execute on function public.jyc_prune_public_submission_limits() to service_role;
 
