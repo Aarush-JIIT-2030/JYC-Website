@@ -6,7 +6,7 @@ import {PDF_HUB_STORIES} from './pdf-hub-content.js';
 const FALLBACK=[
  {id:'jyc-jai-2026',hub:'JYC',platform:'Website',type:'Featured',title:'JAI 2026 · Jaypee Agentic AI International Summit',summary:'The flagship JYC 128 AI experience is building toward 30–31 October 2026 at JIIT Wish Town Campus, Sector 128.',publishedAt:'2026-10-04',url:'https://www.jiityouthclub128.in/',image:'https://www.jiityouthclub128.in/imgs/ai-agent-face.png',verified:true},
  {id:'innovation-ride-26',hub:'Innovation',platform:'Website',type:'Event',title:"RIDE Hack'26",summary:'JIIT Innovation is currently promoting RIDE Hack 26, its flagship innovation and startup-expo hackathon.',publishedAt:'2026-10-04',url:'https://www.innovationjiit.in/',image:'',verified:true},
- {id:'cicr-techt tonic',hub:'CICR',platform:'Website',type:'Event',title:'TechTonic 2.0',summary:'CICR lists TechTonic 2.0 as an upcoming hands-on AI/ML and robotics workshop.',publishedAt:'2026-10-04',url:'https://www.cicr.in/',image:'',verified:true},
+ {id:'cicr-techt-tonic',hub:'CICR',platform:'Website',type:'Event',title:'TechTonic 2.0',summary:'CICR lists TechTonic 2.0 as an upcoming hands-on AI/ML and robotics workshop.',publishedAt:'2026-10-04',url:'https://www.cicr.in/',image:'',verified:true},
  {id:'jyc-social-channel',hub:'JYC',platform:'Instagram',type:'Channel',title:'JYC on Instagram',summary:'Follow the official JIIT Youth Club 128 channel for current announcements, event moments and community stories.',publishedAt:'2026-10-04',url:'https://www.instagram.com/jiityouthclub/',image:'',verified:true}
 ];
 const sourceCount=Object.keys(JYC_SOCIALS).length;
