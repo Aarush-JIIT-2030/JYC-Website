@@ -1,6 +1,6 @@
 # JIIT Youth Club 128 — Official Website
 
-> **Current release: V52 — final club-only production release**
+> **Current release: V55 — visual, media-provenance and production-hardening pass**
 
 The official public website for **JIIT Youth Club (JYC), JIIT Wish Town Campus, Sector 128, Noida**.
 
@@ -184,7 +184,7 @@ npm run qa
 npm run qa:browser
 ```
 
-The static QA suite includes source integrity, security, SEO, build preflight, production contracts, accessibility, architecture, logo/theme checks, club experience checks, final product checks, V52 release checks and final hygiene checks.
+The static QA suite includes source integrity, security, SEO, build preflight, production contracts, accessibility, architecture, logo/theme checks, club experience checks, final product checks, V55 visual/media checks and final hygiene checks.
 
 ## Official identity
 
@@ -207,7 +207,7 @@ Key project references:
 - `src/jyc-hub-registry.js`
 - `docs/JYC-SOURCE-HUB-SUPABASE-AUDIT-2026-10-04.md`
 - `src/public-v1/config.js`
-- `scripts/qa-v52-final-contract.mjs`
+- `scripts/qa-v55-visual-polish.mjs`
 - `scripts/qa-final-hygiene.mjs`
 
 ## Production gates
@@ -244,11 +244,11 @@ The connected production Supabase project is now active and has been hardened an
 - Seven deployed Edge Functions: admin management, notifications, backups, AI content assistance, error intake, media upload and public submissions.
 - Private backup storage and constrained public media storage.
 
-The remaining production gates are operational: configure required third-party Edge Function secrets, enable leaked-password protection in Supabase Auth, verify the connected Vercel production project, complete the full supplied-photo archive ingestion, and run final browser/performance QA against the real deployment.
+The remaining production gates are operational: configure required third-party Edge Function secrets, enable leaked-password protection in Supabase Auth, verify the connected Vercel production project, complete selective ingestion/review of the remaining raw photo candidates, and run final browser/performance QA against the real deployment.
 
 ## Current release status
 
-**V52 is the current code release.** The codebase is intentionally in finish-and-stabilise mode rather than feature-expansion mode.
+**V55 is the current code release.** The codebase is intentionally in finish-and-stabilise mode rather than feature-expansion mode.
 
 The highest-value remaining production work is operational rather than architectural:
 
