@@ -226,6 +226,10 @@ A release should be considered production-ready only after:
 12. The connected Vercel production deployment is verified separately from GitHub CI.
 13. The supplied photo archives have been safely ingested, deduplicated and optimised before being treated as the final production media set.
 
+## Current experience update
+
+The homepage now includes a restrained **Choose Your Route** discovery layer (Build / Create / Compete / Connect), a source-backed **Photo Story**, and a compact **Hub Signal Rail**. The JYC Assistant and fixed JYC bot now adapt their quick actions/label to the current public page. These additions preserve the beige editorial identity and do not introduce decorative WebGL, orbit rings or synthetic imagery.
+
 ## Current backend readiness
 
 The connected production Supabase project is now active and has been hardened and populated with source-verified public content. The current live backend state includes:
