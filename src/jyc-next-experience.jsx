@@ -71,14 +71,14 @@ export function PhotoChapters(){
    profile:JYC_HUB_CONTENT[h.name]||{},
    media:sourceHubMedia(h.name)
   })).filter(h=>h.media.photos.length);
-  const photos=hubs.flatMap(h=>h.media.photoItems.slice(0,4).map((item,i)=>({
+  const photos=hubs.flatMap(h=>h.media.photoItems.slice(0,6).map((item,i)=>({
    url:item.url,
    hub:h.name,
    caption:item.caption||item.title||h.profile.summary||h.profile.focus||family,
    alt:item.alt||item.caption||`${h.name} source photograph ${i+1}`,
    year:item.year||''
   })));
-  return {family,hubs,photos:photos.slice(0,8)};
+  return {family,hubs,photos:photos.slice(0,12)};
  }).filter(x=>x.photos.length),[]);
  if(!chapters.length)return null;
  return <section className="section jyc-photo-chapters-section reveal">
