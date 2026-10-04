@@ -34,6 +34,8 @@ Part 5 is especially useful because filenames are hub-scoped. It contains explic
 
 Innovation has six clearly photographic DSC images. Dronotics has event-specific visual material. Several other hub directories contain presentation graphics mixed with photographic material.
 
+The repository now contains 124 committed hub media files under `public/assets/hub-photos*`; the source-media QA gate verifies that every referenced asset resolves and that committed basenames are not duplicated.
+
 ## 3. How the website should use them
 
 ### Photography
@@ -99,14 +101,15 @@ These external sources should be used for freshness checks, not as a replacement
 5. Configure only the required Edge Function secrets with real values.
 6. Complete final image binary ingestion/optimisation for source media that is not already represented by the committed WebP archive.
 7. Audit every published gallery item for source, association, year, alt text and media kind.
+8. Review the remaining raw Part-5 source photos that are not yet represented by the committed WebP archive before adding them to production.
 
 ### P1 — content quality
 8. Add a visible source/freshness state to hub detail pages.
-9. Add current external activity links only when independently verified.
-10. Add hub-level event feeds without confusing them with the JYC-only public event calendar.
-11. Build proper historical/archive separation for older JYC material.
-12. Add photographer/source credit where the archive provides it.
-13. Ensure every image has a useful, non-repetitive alt description.
+10. Add current external activity links only when independently verified.
+11. Add hub-level event feeds without confusing them with the JYC-only public event calendar.
+12. Build proper historical/archive separation for older JYC material.
+13. Add photographer/source credit where the archive provides it.
+14. Ensure every image has a useful, non-repetitive alt description.
 
 ### P1 — technical
 14. Remove remaining historical QA assumptions that hard-code obsolete counts or old release names.
