@@ -9,7 +9,7 @@ const checks=[
  ['public content has centered width contract',css.includes('--jyc-content')&&css.includes('margin-inline:auto')],
  ['global text overflow is guarded',css.includes('overflow-wrap:anywhere')],
  ['public sections are centered',css.includes('.public-app .section,.public-app .page')],
- ['club cards use source photography',main.includes('const clubPhotos=sourceHubMedia(c.name).photos')&&main.includes('c.banner||sourcePhoto')],
+ ['club cards use source photography',main.includes('const clubMedia=sourceHubMedia(c.name)')&&main.includes('c.banner||sourcePhoto')],
  ['event cards prefer source photography',main.includes('sourceEventMedia(e)?.items?.filter')&&main.includes('source?.url')],
  ['gallery uses masonry columns',css.includes('column-count:4')&&css.includes('break-inside:avoid')],
  ['gallery has mobile single-column fallback',css.includes('@media(max-width:480px)')&&css.includes('.public-app .gallery-grid{column-count:1}')],
