@@ -1,4 +1,6 @@
-import {getPublishableKey,getSecretKey} from '../_shared/supabase-keys.ts';
+function readNamedKey(envName,fallbackEnv){const raw=Deno.env.get(envName);if(raw){try{const parsed=JSON.parse(raw);if(parsed?.default)return parsed.default}catch{}}return Deno.env.get(fallbackEnv)||''}
+const getPublishableKey=()=>readNamedKey('SUPABASE_PUBLISHABLE_KEYS','SUPABASE_ANON_KEY');
+const getSecretKey=()=>readNamedKey('SUPABASE_SECRET_KEYS','SUPABASE_SERVICE_ROLE_KEY');
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.117.2';
 
 const allowedOrigin = (origin:string|null) => {
