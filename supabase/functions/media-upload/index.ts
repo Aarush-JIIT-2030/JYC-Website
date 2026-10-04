@@ -1,3 +1,4 @@
+import {getPublishableKey,getSecretKey} from '../_shared/supabase-keys.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.117.2';
 
 const MAX_BYTES = 8 * 1024 * 1024;
@@ -42,8 +43,8 @@ Deno.serve(async req => {
 
   const auth = req.headers.get('Authorization') || '';
   const url = Deno.env.get('SUPABASE_URL');
-  const anon = Deno.env.get('SUPABASE_ANON_KEY');
-  const service = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const anon = getPublishableKey();
+  const service = getSecretKey();
   if (!url || !anon || !service) return json({ error: 'Media service is not configured.' }, 503, origin);
 
   const userClient = createClient(url, anon, { global: { headers: { Authorization: auth } } });

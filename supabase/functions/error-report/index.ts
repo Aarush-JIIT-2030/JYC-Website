@@ -1,3 +1,4 @@
+import {getPublishableKey,getSecretKey} from '../_shared/supabase-keys.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.117.2';
 
 const allowedOrigin = (origin:string|null) => {
@@ -44,7 +45,7 @@ Deno.serve(async req=>{
   if(!message) return json({error:'Error message is required.'},400,origin);
 
   const supabaseUrl=Deno.env.get('SUPABASE_URL');
-  const serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const serviceKey=getSecretKey();
   if(!supabaseUrl||!serviceKey) return json({error:'Error reporting service is not configured.'},503,origin);
 
   const db=createClient(supabaseUrl,serviceKey);

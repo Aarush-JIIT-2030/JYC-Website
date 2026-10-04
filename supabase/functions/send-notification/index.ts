@@ -1,3 +1,4 @@
+import {getPublishableKey,getSecretKey} from '../_shared/supabase-keys.ts';
 import webpush from 'npm:web-push'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
@@ -22,8 +23,8 @@ Deno.serve(async req => {
 
   try {
     const url = Deno.env.get('SUPABASE_URL')
-    const service = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-    const anon = Deno.env.get('SUPABASE_ANON_KEY')
+    const service = getSecretKey()
+    const anon = getPublishableKey()
     if (!url || !service || !anon) return reply({ error: 'Server configuration is incomplete.' }, 500, origin)
 
     const adminClient = createClient(url, service)

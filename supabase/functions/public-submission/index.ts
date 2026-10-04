@@ -1,3 +1,4 @@
+import {getPublishableKey,getSecretKey} from '../_shared/supabase-keys.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.117.2';
 
 const origins = new Set((Deno.env.get('SITE_ORIGINS') || Deno.env.get('SITE_ORIGIN') || 'http://localhost:5173')
@@ -35,7 +36,7 @@ Deno.serve(async req=>{
   if(cleanText(body?.website,120)) return json({ok:true},200,origin);
   const type=body?.type==='project'?'project':body?.type==='contact'?'contact':'';
   if(!type) return json({error:'Unsupported submission type.'},400,origin);
-  const url=Deno.env.get('SUPABASE_URL'),key=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const url=Deno.env.get('SUPABASE_URL'),key=getSecretKey();
   if(!url||!key) return json({error:'Submission service is not configured.'},503,origin);
   const db=createClient(url,key);
   const {data:allowed,error:limitError}=await db.rpc('jyc_allow_public_submission',{p_fingerprint:await fingerprint(req),p_limit:type==='project'?4:6,p_window_seconds:3600});

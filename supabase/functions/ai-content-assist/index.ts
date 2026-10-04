@@ -1,3 +1,4 @@
+import {getPublishableKey,getSecretKey} from '../_shared/supabase-keys.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.116.0';
 
 const allowedOrigins = new Set((Deno.env.get('SITE_ORIGINS') || Deno.env.get('SITE_ORIGIN') || 'http://localhost:5173').split(',').map(x=>x.trim()).filter(Boolean));
@@ -20,7 +21,7 @@ Deno.serve(async(req)=>{
   if(!allowedOrigin(origin))return json({error:'Origin not allowed.'},403,origin);
   const auth=req.headers.get('Authorization');
   if(!auth)return json({error:'Administrator authentication is required.'},401,origin);
-  const supabaseUrl=Deno.env.get('SUPABASE_URL'),serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),openaiKey=Deno.env.get('OPENAI_API_KEY');
+  const supabaseUrl=Deno.env.get('SUPABASE_URL'),serviceKey=getSecretKey(),openaiKey=Deno.env.get('OPENAI_API_KEY');
   if(!supabaseUrl||!serviceKey)return json({error:'Supabase function environment is incomplete.'},500,origin);
   if(!openaiKey)return json({error:'OPENAI_API_KEY is not configured for the AI content assistant.'},503,origin);
   const adminClient=createClient(supabaseUrl,serviceKey,{global:{headers:{Authorization:auth}}});
