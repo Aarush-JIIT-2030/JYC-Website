@@ -2,7 +2,7 @@ import fs from 'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
 const main=read('src/main.jsx'),now=read('src/jyc-now.jsx'),api=read('api/jyc-updates.js'),pkg=JSON.parse(read('package.json'));
 const checks=[
- [pkg.version==='47.0.0','package is V47'],
+ [pkg.version==='56.2.0','package is V56.2'],
  [main.includes("from './jyc-now.jsx'")&&main.includes('<JYCNowStrip data={data}/>'),'JYC Now homepage layer is mounted'],
  [main.includes("clean==='/updates'")&&main.includes('<JYCNowPage data={data}/>'),'JYC Now route is public and wired'],
  [main.includes("['/updates','JYC Now'"),'JYC Now is discoverable in More navigation'],
@@ -11,7 +11,7 @@ const checks=[
  [now.includes('View original ↗'),'every update returns to its canonical source'],
  [api.includes('META_ACCESS_TOKEN')&&api.includes('YOUTUBE_API_KEY')&&api.includes('JYC_RSS_FEEDS'),'server-side connectors are configurable'],
  [!api.includes('eyJ')&&!api.includes('EAAC'),'social tokens are not hard-coded'],
- [fs.existsSync('supabase/V47-JYC-NOW.sql'),'aggregation schema migration exists']
+ [fs.existsSync('supabase/V47-JYC-NOW.sql'),'aggregation schema migration exists'],
  [now.includes("const sourceCount=JYC_HUB_SOURCE_REGISTRY.length")&&now.includes("named community sources"),'JYC Now community source count uses the maintained registry'],
 ];
 let failed=false;for(const [ok,label] of checks){console.log(ok?'PASS':'FAIL',label);if(!ok)failed=true}process.exit(failed?1:0);
