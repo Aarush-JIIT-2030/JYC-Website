@@ -52,7 +52,7 @@ export function sourceHubMedia(name){
   const story=storyByKey.get(key)||storyByKey.get(normalise(name));
   const storyImage=story?.image?[story.image]:[];
   const media=[
-    ...quality.map((url,i)=>({url,association:label,mediaKind:'photo',caption:`${label} · supplied archive photograph ${String(i+1).padStart(2,'0')}`,alt:`${label} supplied JYC photograph ${i+1}`,sourceLabel:'JYC supplied hub archive'})),
+    ...quality.map((url,i)=>({url,association:label,mediaKind:'photo',caption:`${label} · ${JYC_HUB_CONTENT[label]?.focus||'community story'} · archive photograph ${String(i+1).padStart(2,'0')}`,alt:`${label} ${JYC_HUB_CONTENT[label]?.focus||'community'} JYC photograph ${i+1}`,sourceLabel:'JYC supplied hub archive'})),
     ...mapped.map((url,i)=>({url,association:label,mediaKind:'photo',caption:`${label} · supplied archive photograph ${String(i+1).padStart(2,'0')}`,alt:`${label} supplied JYC photograph ${i+1}`,sourceLabel:'JYC supplied hub archive'})),
     ...gallery.map(item=>({...item,association:label})),
     ...storyImage.map(url=>({url,association:label,mediaKind:'artwork',sourceLabel:'JYC supplied hub story'}))
