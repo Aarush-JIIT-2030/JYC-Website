@@ -12,5 +12,6 @@ const checks=[
  [api.includes('META_ACCESS_TOKEN')&&api.includes('YOUTUBE_API_KEY')&&api.includes('JYC_RSS_FEEDS'),'server-side connectors are configurable'],
  [!api.includes('eyJ')&&!api.includes('EAAC'),'social tokens are not hard-coded'],
  [fs.existsSync('supabase/V47-JYC-NOW.sql'),'aggregation schema migration exists']
+ [now.includes("const sourceCount=JYC_HUB_SOURCE_REGISTRY.length")&&now.includes("named community sources"),'JYC Now community source count uses the maintained registry'],
 ];
 let failed=false;for(const [ok,label] of checks){console.log(ok?'PASS':'FAIL',label);if(!ok)failed=true}process.exit(failed?1:0);
