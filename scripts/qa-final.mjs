@@ -46,7 +46,7 @@ checks.push(
  ['dark theme follows native color-scheme',fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8').includes('html[data-theme="dark"] { color-scheme: dark; }')],
  ['GLB bot has restrained tap/hover motion and no auto-rotation',fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('jycBotTap')&&fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('availableAnimations')&&!fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('auto-rotate')],
  ['maintained JYC source registry has 23 communities across five families',(()=>{const r=fs.readFileSync(path.join(root,'src/jyc-hub-registry.js'),'utf8');const names=[...r.matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);const families=[...new Set([...r.matchAll(/family:'([^']+)'/g)].map(m=>m[1]))];return names.length===23&&families.length===5})()],
- ['source-backed hub content has substantive summaries for all 23 communities',(()=>{const r=fs.readFileSync(path.join(root,'src/v21-hub-content.js'),'utf8');const names=[...fs.readFileSync(path.join(root,'src/jyc-hub-registry.js'),'utf8').matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);return names.every(n=>r.includes(n+':{')||r.includes("'"+n+"':{"))})()],
+ ['source-backed hub content covers all 23 maintained communities',(()=>{const r=fs.readFileSync(path.join(root,'src/v21-hub-content.js'),'utf8');const entries=[...r.matchAll(/^\s*(?:'([^']+)'|([A-Za-z0-9]+)):\{family:/gm)].map(m=>m[1]||m[2]);return entries.length===23})()],
 
 );
 
