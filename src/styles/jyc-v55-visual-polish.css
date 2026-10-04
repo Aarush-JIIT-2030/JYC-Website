@@ -1,0 +1,732 @@
+/* JYC V55 VISUAL POLISH
+   Final public-facing alignment layer.
+   Goals: centered composition, photo-led storytelling, predictable card geometry,
+   visible text, no accidental overflow, and restrained JYC editorial identity. */
+
+.public-app{
+  --jyc-content:min(1180px,calc(100% - 32px));
+  --jyc-paper:#f8f1e4;
+  --jyc-card:#fffaf1;
+  --jyc-ink:#171513;
+  --jyc-muted:#665f56;
+  --jyc-gold:#a47b43;
+  color:var(--jyc-ink);
+  overflow-x:clip;
+}
+
+.public-app *{box-sizing:border-box;min-width:0}
+.public-app :where(h1,h2,h3,h4,p,small,strong,span,a,button,label,li){overflow-wrap:anywhere}
+.public-app :where(h1,h2,h3){text-wrap:balance}
+.public-app :where(section,.section,.page){scroll-margin-top:92px}
+
+.public-app .section,
+.public-app .page{
+  width:var(--jyc-content);
+  max-width:var(--jyc-content);
+  margin-inline:auto;
+  text-align:center;
+}
+
+.public-app .section-head,
+.public-app .reference-section-head,
+.public-app .compact-page-head,
+.public-app .latest-update-head,
+.public-app .jyc-route-head,
+.public-app .jyc-photo-story-head,
+.public-app .jyc-hub-signal-head,
+.public-app .section-inline-head{
+  justify-content:center!important;
+  align-items:center!important;
+  text-align:center!important;
+  margin-inline:auto;
+}
+
+.public-app .section-head>div,
+.public-app .reference-section-head>div,
+.public-app .compact-page-head>div,
+.public-app .latest-update-head>div,
+.public-app .jyc-route-head>div,
+.public-app .jyc-photo-story-head>div,
+.public-app .jyc-hub-signal-head>div,
+.public-app .section-inline-head>div{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.public-app .section-head p,
+.public-app .reference-section-head p,
+.public-app .compact-page-head p,
+.public-app .latest-update-head p,
+.public-app .jyc-route-head p,
+.public-app .jyc-photo-story-head p,
+.public-app .jyc-hub-signal-head p{
+  max-width:760px!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+
+.public-app .btn,
+.public-app button,
+.public-app .text-link,
+.public-app a{
+  text-underline-offset:3px;
+}
+
+.public-app .btn,
+.public-app .hero-actions,
+.public-app .club-hero-actions,
+.public-app .detail-actions,
+.public-app .jyc-feature-actions,
+.public-app .about-hero-actions,
+.public-app .event-external-links,
+.public-app .club-social-proof-links,
+.public-app .team-social-row{
+  justify-content:center!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+}
+
+.public-app .card-grid,
+.public-app .club-grid,
+.public-app .reference-event-grid,
+.public-app .activity-grid,
+.public-app .team-layer-grid,
+.public-app .archive-club-grid,
+.public-app .event-related-grid,
+.public-app .supplied-programme-grid,
+.public-app .hub-story-grid,
+.public-app .jyc-journal-grid,
+.public-app .latest-update-grid{
+  width:100%;
+  margin-inline:auto;
+  justify-content:center;
+  align-items:stretch;
+  gap:clamp(12px,1.6vw,20px)!important;
+}
+
+.public-app .card-grid,
+.public-app .club-grid,
+.public-app .reference-event-grid,
+.public-app .activity-grid,
+.public-app .team-layer-grid,
+.public-app .archive-club-grid,
+.public-app .event-related-grid{
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))!important;
+}
+
+.public-app .club-card,
+.public-app .event-card,
+.public-app .activity-card,
+.public-app .team-layer-card,
+.public-app .hub-story-card,
+.public-app .jyc-journal-card,
+.public-app .announcement-card,
+.public-app .past-card{
+  height:100%;
+  min-height:0!important;
+  text-align:center!important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  overflow:hidden;
+}
+
+.public-app .club-card .card-body,
+.public-app .event-card .card-body{
+  width:100%;
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:center;
+}
+
+.public-app .club-card h3,
+.public-app .event-card h3,
+.public-app .activity-card h3,
+.public-app .team-layer-card h3,
+.public-app .hub-story-card h3,
+.public-app .jyc-journal-card h3{
+  max-width:22ch;
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+
+.public-app .club-card p,
+.public-app .event-card p,
+.public-app .activity-card p,
+.public-app .team-layer-card p,
+.public-app .hub-story-card p,
+.public-app .jyc-journal-card p{
+  max-width:48ch;
+  margin-inline:auto!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  -webkit-line-clamp:unset!important;
+}
+
+.public-app .club-card-visual,
+.public-app .event-poster{
+  width:100%;
+  min-height:250px!important;
+  height:clamp(250px,27vw,340px)!important;
+  flex:none;
+  overflow:hidden!important;
+  background-position:center;
+  background-size:cover;
+}
+
+.public-app .club-card-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+
+.public-app .club-card-visual .club-logo{
+  position:absolute;
+  inset:18px auto auto 18px;
+  width:82px;
+  height:82px;
+  padding:10px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,250,241,.94);
+  border:1px solid rgba(23,21,19,.12);
+  z-index:3;
+}
+
+.public-app .club-card-visual .club-logo img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+}
+
+.public-app .club-card .club-card-footer{
+  width:100%;
+  justify-content:center!important;
+  margin-top:auto;
+}
+
+.public-app .club-card .chips,
+.public-app .club-card .club-socials,
+.public-app .event-card-meta{
+  justify-content:center!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+}
+
+.public-app .event-card-meta{
+  width:100%;
+  gap:8px!important;
+}
+
+.public-app .event-card-meta span{
+  max-width:100%;
+  white-space:normal!important;
+}
+
+.public-app .event-identity-mini,
+.public-app .club-identity-mini{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  text-align:center;
+}
+
+.public-app .event-identity-mini i,
+.public-app .club-identity-mini small{
+  display:block;
+  max-width:42ch;
+  white-space:normal;
+}
+
+.public-app .event-identity-card,
+.public-app .club-identity-card{
+  position:relative;
+  isolation:isolate;
+  border-top:3px solid var(--hub-accent,var(--jyc-gold))!important;
+}
+
+.public-app .event-identity-card::before,
+.public-app .club-identity-card::before{
+  opacity:.9;
+  background:var(--hub-accent-soft,rgba(164,123,67,.12))!important;
+}
+
+.public-app .event-detail-page,
+.public-app .club-detail{
+  text-align:center;
+}
+
+.public-app .event-detail-hero,
+.public-app .club-detail-hero{
+  width:100%;
+  max-width:1100px;
+  margin-inline:auto;
+  text-align:center;
+}
+
+.public-app .event-copy,
+.public-app .club-hero-copy{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.public-app .event-copy>*,
+.public-app .club-hero-copy>*{
+  max-width:100%;
+}
+
+.public-app .event-copy .large-copy,
+.public-app .club-hero-copy p,
+.public-app .hub-profile-banner p,
+.public-app .club-section-card .large-copy{
+  max-width:760px;
+  margin-inline:auto;
+}
+
+.public-app .event-facts{
+  justify-content:center!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  text-align:center;
+}
+
+.public-app .event-highlight-block,
+.public-app .event-extended-info,
+.public-app .event-context-grid,
+.public-app .club-detail-layout,
+.public-app .hub-detail-system,
+.public-app .club-source-story,
+.public-app .club-social-proof{
+  width:100%;
+  max-width:1100px;
+  margin-inline:auto;
+}
+
+.public-app .club-detail-layout{
+  grid-template-columns:minmax(0,1fr)!important;
+}
+
+.public-app .club-side-panel{
+  width:min(680px,100%);
+  margin:0 auto 24px;
+  text-align:center!important;
+  order:-1;
+}
+
+.public-app .club-side-panel .side-link{
+  justify-content:center!important;
+}
+
+.public-app .club-side-panel .club-next-event{
+  align-items:center!important;
+  text-align:center!important;
+}
+
+.public-app .hub-detail-columns,
+.public-app .event-extended-grid,
+.public-app .event-context-grid,
+.public-app .join-grid{
+  align-items:stretch;
+  justify-items:stretch;
+}
+
+.public-app .hub-detail-tags,
+.public-app .interest-cloud,
+.public-app .feature-list{
+  justify-content:center!important;
+  text-align:center!important;
+}
+
+.public-app .feature-list{
+  list-style-position:inside;
+  padding-inline:0;
+}
+
+.public-app .feature-list li{
+  max-width:760px;
+  margin-inline:auto;
+}
+
+.public-app .hub-source-photo-strip{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  width:100%;
+  margin:26px auto 0;
+}
+
+.public-app .hub-source-photo-strip figure{
+  margin:0;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid rgba(23,21,19,.12);
+  background:var(--jyc-card);
+}
+
+.public-app .hub-source-photo-strip img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+}
+
+.public-app .hub-source-photo-strip figcaption{
+  padding:8px;
+  font-size:10px;
+  text-align:center;
+  color:var(--jyc-muted);
+}
+
+.public-app .club-source-story,
+.public-app .hub-profile-banner{
+  text-align:center!important;
+}
+
+.public-app .club-source-story-copy,
+.public-app .hub-profile-banner>div{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.public-app .club-source-story-image{
+  overflow:hidden;
+  border-radius:24px;
+}
+
+.public-app .club-source-story-image img{
+  display:block;
+  width:100%;
+  aspect-ratio:16/10;
+  object-fit:cover;
+}
+
+.public-app .gallery-grid{
+  display:block!important;
+  width:100%;
+  max-width:1160px;
+  margin:24px auto 0!important;
+  column-count:4;
+  column-gap:12px;
+}
+
+.public-app .gallery-grid .gallery-item{
+  width:100%!important;
+  display:inline-flex!important;
+  flex-direction:column;
+  align-items:center;
+  margin:0 0 12px;
+  break-inside:avoid;
+  page-break-inside:avoid;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  position:relative;
+  vertical-align:top;
+  background:var(--jyc-card)!important;
+}
+
+.public-app .gallery-grid .gallery-item img{
+  display:block;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  object-fit:cover!important;
+}
+
+.public-app .gallery-grid .gallery-item:nth-child(3n+1) img{aspect-ratio:4/5}
+.public-app .gallery-grid .gallery-item:nth-child(3n+2) img{aspect-ratio:5/4}
+.public-app .gallery-grid .gallery-item:nth-child(3n) img{aspect-ratio:1/1}
+
+.public-app .gallery-grid .gallery-item>span{
+  position:static!important;
+  width:100%;
+  padding:11px 12px 13px!important;
+  background:var(--jyc-card)!important;
+  color:var(--jyc-ink)!important;
+  text-align:center!important;
+}
+
+.public-app .gallery-grid .gallery-item .gallery-meta,
+.public-app .gallery-grid .gallery-item .gallery-provenance{
+  display:block!important;
+  margin-top:5px;
+  color:var(--jyc-muted)!important;
+  white-space:normal!important;
+}
+
+.public-app .gallery-grid .gallery-item::after{display:none!important}
+
+.public-app .gallery-source-ledger{
+  max-width:820px;
+  margin-inline:auto;
+  text-align:center!important;
+}
+
+.public-app .gallery-filter{
+  max-width:1100px;
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+
+.public-app .gallery-filter-groups{
+  justify-items:center!important;
+  text-align:center!important;
+}
+
+.public-app .gallery-filter-groups>div{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center!important;
+  align-items:center;
+  gap:7px;
+  text-align:center!important;
+}
+
+.public-app .gallery-filter-groups small{
+  width:100%;
+}
+
+.public-app .jyc-photo-story{
+  max-width:1100px;
+  margin-inline:auto;
+}
+
+.public-app .jyc-photo-story-stage,
+.public-app .jyc-photo-story-stage img{
+  min-height:0!important;
+  height:clamp(360px,54vw,650px)!important;
+}
+
+.public-app .jyc-photo-story-caption{
+  text-align:center!important;
+  grid-template-columns:1fr!important;
+  justify-items:center;
+}
+
+.public-app .jyc-photo-story-caption>div{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.public-app .jyc-photo-story-rail{
+  text-align:center;
+}
+
+.public-app .jyc-photo-story-rail button{
+  text-align:center!important;
+}
+
+.public-app .jyc-photo-story-rail b{
+  white-space:normal!important;
+}
+
+.public-app .jyc-hub-signal-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+
+.public-app .jyc-hub-signal-card{
+  text-align:center!important;
+  align-items:center!important;
+  padding:8px!important;
+}
+
+.public-app .jyc-hub-signal-card>div{
+  width:100%;
+  aspect-ratio:4/3;
+}
+
+.public-app .jyc-hub-signal-card small,
+.public-app .jyc-hub-signal-card strong,
+.public-app .jyc-hub-signal-card em{
+  text-align:center!important;
+}
+
+.public-app .jyc-hub-signal-card em{
+  max-width:34ch;
+  overflow:visible!important;
+  -webkit-line-clamp:unset!important;
+}
+
+.public-app .jyc-route-card,
+.public-app .jyc-route-note{
+  text-align:center!important;
+}
+
+.public-app .jyc-route-top,
+.public-app .jyc-route-hubs,
+.public-app .jyc-route-footer{
+  justify-content:center!important;
+}
+
+.public-app .jyc-route-footer{
+  flex-wrap:wrap;
+}
+
+.public-app .jyc-route-hubs button{
+  max-width:100%;
+  white-space:normal;
+}
+
+.public-app .archive-story-collage{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+
+.public-app .archive-story-photo{
+  position:relative;
+  margin:0!important;
+  overflow:hidden;
+  border-radius:20px;
+  min-height:0!important;
+}
+
+.public-app .archive-story-photo img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+}
+
+.public-app .archive-story-photo:nth-child(3n+1){
+  grid-column:span 2;
+  grid-row:span 2;
+}
+
+.public-app .archive-story-photo figcaption{
+  position:absolute;
+  inset:auto 0 0;
+  padding:32px 12px 12px;
+  color:#fffaf1;
+  background:linear-gradient(transparent,rgba(20,18,15,.82));
+  text-align:center;
+}
+
+.public-app .archive-story-photo figcaption>*{
+  display:block;
+}
+
+.public-app .home-team-preview,
+.public-app .home-team-card{
+  text-align:center!important;
+}
+
+.public-app .home-team-preview{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.public-app .home-team-card{
+  width:100%;
+}
+
+.public-app .home-team-photo{
+  overflow:hidden;
+  border-radius:18px;
+}
+
+.public-app .home-team-photo img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+}
+
+.public-app .cta,
+.public-app .agentic-home-band,
+.public-app .home-about-ecosystem,
+.public-app .jyc-structure-strip,
+.public-app .jyc-major-rhythm{
+  text-align:center!important;
+}
+
+.public-app .cta>*,
+.public-app .agentic-home-inner>*{
+  margin-inline:auto;
+}
+
+.public-app .toast{
+  z-index:9999!important;
+  max-width:min(520px,calc(100vw - 28px));
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+
+.public-app :where(.overlay,.lightbox){
+  z-index:10000!important;
+}
+
+.public-app .lightbox-content{
+  max-width:min(1100px,calc(100vw - 32px))!important;
+  width:100%;
+}
+
+.public-app .lightbox-content img{
+  max-width:100%!important;
+  max-height:72vh!important;
+  object-fit:contain;
+}
+
+.public-app .mobile-dock,
+.public-app .bottom-nav,
+.public-app .jyc-mobile-nav{
+  z-index:9000!important;
+}
+
+@media(max-width:1000px){
+  .public-app{--jyc-content:min(760px,calc(100% - 28px))}
+  .public-app .gallery-grid{column-count:3}
+  .public-app .jyc-hub-signal-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .public-app .hub-source-photo-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media(max-width:700px){
+  .public-app{--jyc-content:calc(100% - 24px)}
+  .public-app .section,.public-app .page{width:var(--jyc-content);max-width:var(--jyc-content)}
+  .public-app .gallery-grid{column-count:2;column-gap:8px}
+  .public-app .gallery-grid .gallery-item{margin-bottom:8px;border-radius:15px!important}
+  .public-app .gallery-grid .gallery-item>span{padding:9px!important;font-size:11px}
+  .public-app .hub-source-photo-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .public-app .jyc-hub-signal-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .public-app .jyc-photo-story-stage,.public-app .jyc-photo-story-stage img{height:360px!important}
+  .public-app .club-card-visual,.public-app .event-poster{height:230px!important;min-height:230px!important}
+  .public-app .club-card-visual .club-logo{width:64px;height:64px;inset:12px auto auto 12px;border-radius:15px}
+  .public-app .archive-story-collage{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .public-app .archive-story-photo:nth-child(3n+1){grid-column:span 2;grid-row:auto}
+  .public-app .archive-story-photo img{aspect-ratio:4/3}
+  .public-app .event-detail-hero,.public-app .club-detail-hero{padding-inline:14px!important}
+}
+
+@media(max-width:480px){
+  .public-app{--jyc-content:calc(100% - 18px)}
+  .public-app .gallery-grid{column-count:1}
+  .public-app .jyc-hub-signal-grid{grid-template-columns:1fr!important}
+  .public-app .hub-source-photo-strip{grid-template-columns:1fr 1fr}
+  .public-app .jyc-route-card h3{font-size:clamp(48px,17vw,72px)!important}
+  .public-app .jyc-photo-story-stage,.public-app .jyc-photo-story-stage img{height:320px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .public-app *, .public-app *::before, .public-app *::after{
+    animation-duration:.001ms!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
+  }
+}
