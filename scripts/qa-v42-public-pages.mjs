@@ -19,7 +19,7 @@ const checks=[
  ['Gallery retains keyboard lightbox',extra.includes('ArrowRight')&&extra.includes('ArrowLeft')&&extra.includes('Escape')],
  ['Contact has official channels',main.includes('JYC_CONTACTS.instagram')&&main.includes('JYC_CONTACTS.linkedin')&&main.includes('JYC_CONTACTS.whatsapp')],
  ['Contact has public submission guard',main.includes("supabase.functions.invoke('public-submission'")],
- ['JYC maintains 21 communities',Object.keys({}).length===0&&((hub.match(/^\s{2}(?:'[^']+'|[A-Za-z][^:]+):\{/gm)||[]).length===21)],
+ ['JYC maintains 23 sourced communities',Object.keys({}).length===0&&((hub.match(/^\s{2}(?:'[^']+'|[A-Za-z][^:]+):\{/gm)||[]).length===23)],
  ['PDF archive modules are wired',main.includes('PDF_HUB_GALLERY')&&main.includes('PDF_HUB_EXTRA_GALLERY')&&main.includes('PDF_HUB_PROGRAMME')],
  ['V42 stylesheet wired through public system',publicCss.includes("@import '../v42-public-pages.css';")],
  ['V42 has responsive layouts',css.includes('@media(max-width:1000px)')&&css.includes('@media(max-width:680px)')],
