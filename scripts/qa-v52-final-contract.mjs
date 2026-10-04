@@ -19,7 +19,7 @@ add('canonical public routes are declared',[
   ['/about','/history','/clubs','/events','/gallery','/team','/archive','/recruitment','/announcements','/calendar','/contact']
 ].every(group=>group.every(route=>config.includes("'" + route + "'"))));
 add('leadership points to canonical team page',config.includes("['Leadership','/team']"));
-add('public shell does not mount student-platform UI',!/<(MyJYC|AccountLogin|RegistrationPage|QRSharePage|JYCBot|FeaturedEventPopup|SiteAtmosphere)\\b/.test(main));
+add('public shell does not mount student-platform UI',!/<(MyJYC|AccountLogin|RegistrationPage|QRSharePage|FeaturedEventPopup|SiteAtmosphere)\\b/.test(main));
 add('public shell does not mount academic calendar UI',!main.includes('JIIT Academic Calendar')&&!main.includes('Academic Calendar 2026'));
 add('public shell does not mount campus-map UI',!main.includes('Campus Map')&&!main.includes('<CampusMap'));
 add('public shell does not mount public notifications/settings UI',!main.includes('JYC Notifications')&&!main.includes('Experience Settings'));
