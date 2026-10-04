@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+const read=p=>fs.readFileSync(p,'utf8');
+const css=read('src/styles/jyc-v55-visual-polish.css');
+const main=read('src/main.jsx');
+const next=read('src/jyc-next-experience.jsx');
+const checks=[
+ ['V55 polish is imported',read('src/styles/public-system.css').includes("./jyc-v55-visual-polish.css")],
+ ['public content has centered width contract',css.includes('--jyc-content')&&css.includes('margin-inline:auto')],
+ ['global text overflow is guarded',css.includes('overflow-wrap:anywhere')],
+ ['public sections are centered',css.includes('.public-app .section,.public-app .page')],
+ ['club cards use source photography',main.includes('const sourcePhoto=sourceHubMedia(c.name).photos[0]')&&main.includes('c.banner||sourcePhoto')],
+ ['event cards prefer source photography',main.includes('sourceEventMedia(e)?.items?.find')],
+ ['gallery uses masonry columns',css.includes('column-count:4')&&css.includes('break-inside:avoid')],
+ ['gallery has mobile single-column fallback',css.includes('@media(max-width:480px)')&&css.includes('.public-app .gallery-grid{column-count:1}'),
+ ['club pages expose source photo strip',main.includes('hub-source-photo-strip')&&main.includes('sourceHubMedia(c.name).photos')],
+ ['homepage photo story uses source hub photos',next.includes('sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap')],
+ ['homepage photo wall uses source photography',main.includes('hub-photo-wall')&&main.includes('sourceHubMedia(meta.name).photos')],
+ ['event identity contract remains present',main.includes('event-identity-page')&&main.includes('eventIdentity(e)')],
+ ['club identity contract remains present',main.includes('club-identity-page')&&main.includes('hubIdentity(c.name)')],
+ ['reduced motion is covered',css.includes('prefers-reduced-motion')],
+ ['mobile widths are covered',css.includes('@media(max-width:700px)')&&css.includes('@media(max-width:480px)')],
+ ['fixed overlays stay above content',css.includes('z-index:10000')&&css.includes('z-index:9000')]
+];
+let failed=0;
+for(const [name,ok] of checks){console.log((ok?'PASS':'FAIL')+': '+name);if(!ok)failed++}
+if(failed)process.exit(1);
+console.log('V55 visual QA: '+checks.length+'/'+checks.length+' checks passed.');
