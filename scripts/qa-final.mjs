@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root=process.cwd();
 const main=fs.readFileSync(path.join(root,'src/main.jsx'),'utf8');
+const nextExperience=fs.readFileSync(path.join(root,'src/jyc-next-experience.jsx'),'utf8');
 const css=fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 const checks=[
@@ -30,8 +31,8 @@ checks.push(
  ['ecosystem context rail selects across JYC families',main.includes('JYC_HUB_FAMILIES.map(family')&&main.includes('sourceHubMedia(name).photoItems')],
  ['public copy uses maintained 23-community count',!main.includes('names 21 communities')],
  ['JAI event fallback uses local committed artwork',main.includes("poster:'/assets/events/agentic-ai-2026.webp'")],
- ['photo archive uses the full source pool',main.includes('sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap')&&main.includes('photoItems.slice(0,8)')&&main.includes('return preferred.filter(g=>{const key=g.id||g.url;if(seen.has(key))return false;seen.add(key);return true})')&&!main.includes('seen.add(key);return true}).slice(0,16)')],
- ['photo story has full-archive automatic transitions',main.includes('setInterval(()=>setActive')&&main.includes('sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap')&&main.includes('jyc-photo-story-autoplay')&&extraPublicCss.includes('jyc-photo-story-transition')&&extraPublicCss.includes('jyc-photo-story-rail')&&extraPublicCss.includes('prefers-reduced-motion')],
+ ['photo archive uses the full source pool',nextExperience.includes('sourceBuckets=JYC_HUB_SOURCE_REGISTRY.map')&&nextExperience.includes('sourceHubMedia(meta.name).photoItems')&&!nextExperience.includes('photoItems.slice(0,8)')&&!nextExperience.includes('sourcePhotos.slice(0,16)')],
+ ['photo story has full-archive automatic transitions',nextExperience.includes('setInterval(()=>setActive')&&nextExperience.includes('jyc-photo-story-autoplay')&&nextExperience.includes('Browse every JYC archive photograph')&&nextExperience.includes('railItems=items.slice')&&extraPublicCss.includes('jyc-photo-story-transition')&&extraPublicCss.includes('jyc-photo-story-controls')&&extraPublicCss.includes('prefers-reduced-motion')],
  ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))]
 );
 
