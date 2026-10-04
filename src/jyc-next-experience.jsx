@@ -58,23 +58,38 @@ export function PhotoStory({data}){
   return preferred.filter(g=>{const key=g.id||g.url;if(seen.has(key))return false;seen.add(key);return true});
  },[data?.gallery]);
  useEffect(()=>{
+  if(!items.length)return undefined;
+  const next=items[(active+1)%items.length];
+  if(!next?.url)return undefined;
+  const preload=new Image();
+  preload.decoding='async';
+  preload.src=next.url;
+  return ()=>{preload.onload=null;preload.onerror=null;};
+ },[active,items]);
+ useEffect(()=>{
   if(!autoPlay||isHovering||items.length<2)return undefined;
   const timer=window.setInterval(()=>setActive(index=>(index+1)%items.length),5200);
   return ()=>window.clearInterval(timer);
  },[autoPlay,isHovering,items.length]);
  if(!items.length)return null;
- const current=items[Math.min(active,items.length-1)];
+ const safeActive=Math.min(active,items.length-1);
+ const current=items[safeActive];
+ const indexWidth=Math.max(2,String(items.length).length);
+ const railRadius=5;
+ const railWindow=railRadius*2+1;
+ const railStart=Math.max(0,Math.min(safeActive-railRadius,items.length-railWindow));
+ const railItems=items.slice(railStart,railStart+railWindow);
  const selectPhoto=i=>setActive(i);
  return <section id="photo-story" className="section jyc-photo-story-section reveal">
   <div className="jyc-photo-story-head"><div><span className="eyebrow">PHOTO STORY · JYC ARCHIVE</span><h2>Let the photographs tell the story.</h2><p>Real JYC media becomes the narrative layer: event, people, place, performance and work.</p></div><button type="button" className="reference-view-all" onClick={()=>nav('/gallery')}>Open visual archive ↗</button></div>
   <div className="jyc-photo-story" onMouseEnter={()=>setIsHovering(true)} onMouseLeave={()=>setIsHovering(false)}>
    <div className="jyc-photo-story-stage" aria-live="polite">
-    <img key={current.url||active} className="jyc-photo-story-transition" src={current.url} alt={current.alt||current.caption||'JYC visual archive moment'} loading={active===0?'eager':'lazy'}/>
-    <div className="jyc-photo-story-caption"><span>{String(active+1).padStart(2,'0')} / {String(items.length).padStart(2,'0')}</span><div><small>{current.association||'JYC Archive'} · {current.year||'JYC'}</small><strong>{current.caption||'JYC moment'}</strong></div></div>
+    <img key={current.url||safeActive} className="jyc-photo-story-transition" src={current.url} alt={current.alt||current.caption||'JYC visual archive moment'} loading="eager" decoding="async" fetchPriority="high"/>
+    <div className="jyc-photo-story-caption"><span>{String(safeActive+1).padStart(indexWidth,'0')} / {String(items.length).padStart(indexWidth,'0')}</span><div><small>{current.association||'JYC Archive'} · {current.year||'JYC'}</small><strong>{current.caption||'JYC moment'}</strong></div></div>
     <button type="button" className="jyc-photo-story-autoplay" onClick={()=>setAutoPlay(v=>!v)} aria-pressed={autoPlay} aria-label={autoPlay?'Pause automatic photo transition':'Play automatic photo transition'}>{autoPlay?'Ⅱ':'▶'}</button>
     <div className="jyc-photo-story-progress" aria-hidden="true"><span style={{width:autoPlay?'100%':((active+1)/items.length*100)+'%'}}/></div>
    </div>
-   <div className="jyc-photo-story-rail" aria-label="Photo story moments">{items.map((item,i)=><button type="button" key={item.id||item.url||i} className={i===active?'active':''} onClick={()=>selectPhoto(i)} aria-label={'Open photo '+(i+1)}><span>{String(i+1).padStart(2,'0')}</span><img src={item.url} alt="" loading="lazy"/><b>{(item.caption||item.association||'JYC moment').split(' · ')[1]||item.association||'JYC moment'}</b></button>)}</div>
+   <div className="jyc-photo-story-controls"><label className="jyc-photo-story-scrubber"><span>Browse the full archive</span><input type="range" min="0" max={Math.max(0,items.length-1)} value={safeActive} onChange={e=>selectPhoto(Number(e.target.value))} aria-label="Browse every JYC archive photograph"/><output>{String(safeActive+1).padStart(indexWidth,'0')} / {String(items.length).padStart(indexWidth,'0')}</output></label><div className="jyc-photo-story-rail" aria-label="Nearby photo story moments">{railItems.map((item,offset)=>{const i=railStart+offset;return <button type="button" key={item.id||item.url||i} className={i===safeActive?'active':''} onClick={()=>selectPhoto(i)} aria-label={'Open archive photo '+(i+1)}><span>{String(i+1).padStart(indexWidth,'0')}</span><img src={item.url} alt="" loading="lazy" decoding="async"/><b>{(item.caption||item.association||'JYC moment').split(' · ')[1]||item.association||'JYC moment'}</b></button>})}</div></div>
   </div>
  </section>
 }
