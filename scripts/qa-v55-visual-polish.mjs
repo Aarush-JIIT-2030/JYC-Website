@@ -3,6 +3,7 @@ const read=p=>fs.readFileSync(p,'utf8');
 const css=read('src/styles/jyc-v55-visual-polish.css');
 const main=read('src/main.jsx');
 const next=read('src/jyc-next-experience.jsx');
+const sourceMedia=read('src/jyc-source-media.js');
 const checks=[
  ['V55 polish is imported',read('src/styles/public-system.css').includes("./jyc-v55-visual-polish.css")],
  ['public content has centered width contract',css.includes('--jyc-content')&&css.includes('margin-inline:auto')],
@@ -17,6 +18,7 @@ const checks=[
  ['homepage photo wall uses source photography',main.includes('hub-photo-wall')&&main.includes('sourceHubMedia(meta.name).photos')],
  ['club source rail uses metadata-aware captions',main.includes('photoItems?.length')&&main.includes('item.caption||item.title')],
  ['gallery mounts source hub photography',read('src/extra-features.jsx').includes('sourcePhotoItems=useMemo')&&read('src/extra-features.jsx').includes('sourceHubMedia(name).photos')],
+ ['maintained hub photo mapping has no duplicate URLs',(()=>{const refs=[...sourceMedia.matchAll(/QUALITY_OVERRIDES=[\\s\\S]*?};/g)][0]?.[0]||'';const urls=[...refs.matchAll(/['\"](\/assets\/[^'\"]+)['\"]/g)].map(m=>m[1]);return new Set(urls).size===urls.length})()],
  ['public club/event/photo cards stay upright',!main.includes('club-card-v41 tilt-card')&&!main.includes('event-card-premium tilt-card')&&!main.includes('moments-feature-${i} tilt-card')],
  ['event identity contract remains present',main.includes('event-identity-page')&&main.includes('eventIdentity(e)')],
  ['club identity contract remains present',main.includes('club-identity-page')&&main.includes('hubIdentity(c.name)')],
