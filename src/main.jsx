@@ -72,10 +72,10 @@ function mergePublicFallback(d,{allowContentFallback=true}={}){
  const clubs=enrichSourceClubs(baseClubs).map(club=>{const social=socialProfile(club.name);return social?{...club,socials:{...(club.socials||{}),instagram:club.socials?.instagram||social.instagram||'',linkedin:club.socials?.linkedin||social.linkedin||'',website:club.socials?.website||social.website||'',instagramHandle:club.socials?.instagramHandle||social.instagramHandle||'',socialVerifiedBy:social.verifiedBy||'',socialVerifiedOn:social.verifiedOn||''}}:club});
  const sourceGallery=mergeSourceGallery(x.gallery);
  const gallery=[...sourceGallery,...JAI_OFFICIAL_MEDIA,...(allowContentFallback?[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY,...PUBLIC_GALLERY_FALLBACK]:[])].filter((g,i,a)=>a.findIndex(x=>x.id===g.id)===i);
- const fallbackFeatured=PUBLIC_EVENT_FALLBACK.find(e=>e.id==='agentic-ai-2026');
  const liveEvents=Array.isArray(x.events)?x.events:[];
- const events=allowContentFallback&&fallbackFeatured
-   ? [fallbackFeatured,...liveEvents.filter(e=>String(e.id)!==String(fallbackFeatured.id)).map(e=>e)]
+ const fallbackEvents=allowContentFallback?PUBLIC_EVENT_FALLBACK:[];
+ const events=allowContentFallback
+   ? [...fallbackEvents,...liveEvents.filter(e=>!fallbackEvents.some(f=>String(f.id)===String(e.id)))]
    : liveEvents;
  return {...x,clubs,events,gallery,team:allowContentFallback&&x.team?.length===0?PUBLIC_TEAM_FALLBACK:x.team,homepage:{...x.homepage,activities:Array.isArray(x.homepage?.activities)&&x.homepage.activities.length?x.homepage.activities:PUBLIC_ACTIVITIES}};
 }
