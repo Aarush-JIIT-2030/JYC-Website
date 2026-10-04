@@ -174,6 +174,10 @@ Stale or unsupported information should not remain visually dominant.
 - GitHub Actions quality gates
 - Playwright browser QA
 
+## Repository map
+
+For a concise explanation of the active runtime, source/content hierarchy, SEO, media, 3D bot and QA boundaries, see `docs/ARCHITECTURE-V56.1.md`.
+
 ## Local development
 
 ```bash
