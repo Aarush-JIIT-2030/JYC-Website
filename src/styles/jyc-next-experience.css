@@ -1,5 +1,5 @@
 /* JYC NEXT EXPERIENCE · route discovery + photo story
-   Editorial, centered, beige/ink/gold. No decorative WebGL or neon layers. */
+   Editorial, centered, beige/ink/gold. Restrained editorial layer; no decorative 3D effects. */
 .jyc-route-section,.jyc-photo-story-section,.jyc-hub-signal-section{position:relative}
 .jyc-route-head,.jyc-photo-story-head,.jyc-hub-signal-head{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:22px}
 .jyc-route-head h2,.jyc-photo-story-head h2,.jyc-hub-signal-head h2{margin:7px 0 9px;font-size:clamp(32px,5vw,62px);line-height:.94;letter-spacing:-.055em;max-width:13ch}
