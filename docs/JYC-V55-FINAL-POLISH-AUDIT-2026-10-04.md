@@ -41,8 +41,8 @@ Source photography is deliberately inserted into the normalized gallery layer as
 - Enable Supabase Auth leaked-password protection in the Auth dashboard.
 - Verify production Auth redirect/site URLs and email confirmation/SMTP settings.
 - Configure required Edge Function secrets with real production values.
-- Connect/verify the Vercel project: the currently connected Vercel context exposes no JYC project, so production deployment cannot be certified from the connector yet.
-- Complete visual QA against the actual production URL once a Vercel deployment is connected.
+- Connect/verify the Vercel project: the available Vercel account context currently has no authorized access to the JYC project scope, so automatic linking/deployment cannot be completed from this session.
+- Complete visual QA against the actual production URL once a Vercel deployment is connected. Local/CI browser QA is now green across all 23 checks.
 - Complete the remaining selective raw-archive binary ingestion once the development runtime can safely move the candidate files into the repository/storage pipeline.
 
 ## Non-goals
