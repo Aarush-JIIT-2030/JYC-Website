@@ -1,6 +1,7 @@
 import React,{useEffect,useMemo,useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {JYC_SOCIALS,socialProfile} from './jyc-socials.js';
+import {JYC_HUB_SOURCE_REGISTRY} from './jyc-hub-registry.js';
 import {PDF_HUB_STORIES} from './pdf-hub-content.js';
 
 const FALLBACK=[
@@ -9,7 +10,7 @@ const FALLBACK=[
  {id:'cicr-techt-tonic',hub:'CICR',platform:'Website',type:'Event',title:'TechTonic 2.0',summary:'CICR lists TechTonic 2.0 as an upcoming hands-on AI/ML and robotics workshop.',publishedAt:'2026-10-04',url:'https://www.cicr.in/',image:'',verified:true},
  {id:'jyc-social-channel',hub:'JYC',platform:'Instagram',type:'Channel',title:'JYC on Instagram',summary:'Follow the official JIIT Youth Club 128 channel for current announcements, event moments and community stories.',publishedAt:'2026-10-04',url:'https://www.instagram.com/jiityouthclub/',image:'',verified:true}
 ];
-const sourceCount=Object.keys(JYC_SOCIALS).length;
+const sourceCount=JYC_HUB_SOURCE_REGISTRY.length;
 const JYC_NOW_CSS=`
 .jyc-now-strip-section{position:relative;margin:clamp(24px,4vw,54px) auto 0;padding:clamp(26px,4vw,54px);border:1px solid var(--line,rgba(20,24,30,.12));border-radius:30px;background:linear-gradient(135deg,var(--surface,#fff),color-mix(in srgb,var(--champagne,#c8ad7a) 7%,var(--surface,#fff)));overflow:hidden}
 .jyc-now-strip-section:before{content:"";position:absolute;width:320px;height:320px;right:-160px;top:-180px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--champagne,#c8ad7a) 25%,transparent),transparent 68%);pointer-events:none}
