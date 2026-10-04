@@ -5,7 +5,7 @@ const root=process.cwd();
 const rawSite=(process.env.VITE_SITE_URL||process.env.SITE_URL||process.env.VERCEL_PROJECT_PRODUCTION_URL||'https://www.jiityouthclub128.in').trim();
 const site=(rawSite?(/^[a-z]+:\/\//i.test(rawSite)?rawSite:`https://${rawSite}`):'').replace(/\/$/,'');
 const out=path.join(root,'public','sitemap.xml');
-const core=['/','/about','/history','/clubs','/events','/fests','/gallery','/team','/contact','/calendar','/announcements','/updates','/achievements','/join-jyc','/events/agentic-ai-2026','/events/ride-hack-2026','/events/converge-2026'];
+const core=['/','/about','/history','/clubs','/events','/fests','/gallery','/team','/contact','/calendar','/announcements','/updates','/achievements','/join-jyc','/events/agentic-ai-2026','/events/ride-hack-2026','/events/converge-2026','/events/drono-o-war-2026','/events/codeai-hackathon'];
 const dynamicDates=new Map();
 const sourceRegistry=fs.readFileSync(path.join(root,'src','jyc-hub-registry.js'),'utf8');
 const sourceHubNames=[...sourceRegistry.matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);
