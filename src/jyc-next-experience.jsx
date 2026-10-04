@@ -71,11 +71,12 @@ export function PhotoChapters(){
    profile:JYC_HUB_CONTENT[h.name]||{},
    media:sourceHubMedia(h.name)
   })).filter(h=>h.media.photos.length);
-  const photos=hubs.flatMap(h=>h.media.photos.slice(0,2).map((url,i)=>({
-   url,
+  const photos=hubs.flatMap(h=>h.media.photoItems.slice(0,2).map((item,i)=>({
+   url:item.url,
    hub:h.name,
-   caption:(h.profile.summary||h.profile.focus||family),
-   alt:`${h.name} source photograph ${i+1}`
+   caption:item.caption||item.title||h.profile.summary||h.profile.focus||family,
+   alt:item.alt||item.caption||`${h.name} source photograph ${i+1}`,
+   year:item.year||''
   })));
   return {family,hubs,photos:photos.slice(0,8)};
  }).filter(x=>x.photos.length),[]);
