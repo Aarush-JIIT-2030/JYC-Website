@@ -45,7 +45,9 @@ export function PhotoStory({data}){
  const nav=useNavigate();
  const [active,setActive]=useState(0);
  const items=useMemo(()=>{
-  const raw=(Array.isArray(data?.gallery)?data.gallery:[]).filter(g=>g?.url&&g?.published!==false);
+  const published=(Array.isArray(data?.gallery)?data.gallery:[]).filter(g=>g?.url&&g?.published!==false);
+  const sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap(meta=>sourceHubMedia(meta.name).photos.slice(0,3).map((url,i)=>({id:`source-${meta.name}-${i}`,url,association:meta.name,year:'2026',caption:`${meta.name} · source photography`,alt:`${meta.name} supplied JYC source photograph`,published:true,mediaKind:'photo'})));
+  const raw=[...published,...sourcePhotos];
   const preferred=[...raw.filter(g=>/Converge|Dron-O-War|Ebullience|JAI|JYC Archive/i.test(String(g.association||''))),...raw];
   const seen=new Set();
   return preferred.filter(g=>{const key=g.id||g.url;if(seen.has(key))return false;seen.add(key);return true}).slice(0,8);
