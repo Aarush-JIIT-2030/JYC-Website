@@ -204,6 +204,8 @@ Key project references:
 - `docs/V37-OFFICIAL-JYC-128-SCOPE.md`
 - `docs/V36-DEEP-RESEARCH-2026-10-03.md`
 - `src/jyc-source-media.js`
+- `src/jyc-hub-registry.js`
+- `docs/JYC-SOURCE-HUB-SUPABASE-AUDIT-2026-10-04.md`
 - `src/public-v1/config.js`
 - `scripts/qa-v52-final-contract.mjs`
 - `scripts/qa-final-hygiene.mjs`
@@ -232,12 +234,13 @@ The homepage now includes a restrained **Choose Your Route** discovery layer (Bu
 
 ## Current backend readiness
 
-The connected production Supabase project is now active and has been hardened and populated with source-verified public content. The current live backend state includes:
+The connected production Supabase project is now active and has been hardened and populated with source-verified public content. The source registry now distinguishes 17 brochure-verified current communities from 6 additional source-backed communities awaiting live club publication. The current live backend state includes:
 
 - 17 JIIT 128 club records verified against the official 2026 JIIT admission brochure.
 - JAI 2026 and Converge 2026 verified event records.
 - 6 curated gallery records with alt text/provenance fields.
-- Production RLS/write-boundary hardening and rate-limit guards.
+- Production RLS/write-boundary hardening, publication verification, fixed SECURITY DEFINER search paths and rate-limit guards.
+- Source-only hub records are review-gated in `jyc_content_verification`; gallery publication now has the same verification guard.
 - Seven deployed Edge Functions: admin management, notifications, backups, AI content assistance, error intake, media upload and public submissions.
 - Private backup storage and constrained public media storage.
 
@@ -249,7 +252,7 @@ The remaining production gates are operational: configure required third-party E
 
 The highest-value remaining production work is operational rather than architectural:
 
-1. Safely ingest and optimise the five supplied image archives.
+1. Safely ingest and optimise the five supplied image archives, keeping the 873-file source inventory and 60 duplicate relationships documented.
 2. Run real browser QA against the deployed site at desktop/tablet/mobile sizes and both themes.
 3. Verify live Supabase content and every published club/event record.
 4. Verify the Vercel production deployment and its redirects/headers.
