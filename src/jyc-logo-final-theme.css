@@ -5,25 +5,25 @@
    This is the final public override layer; historical CSS remains for reference.
 */
 :root{
-  --jyc-navy:#141927;
-  --jyc-navy-deep:#0f1420;
-  --jyc-navy-soft:#1c2232;
-  --jyc-champagne:#c2a682;
-  --jyc-champagne-soft:#efe3cb;
-  --jyc-ivory:#faf7ef;
-  --jyc-cream:#f5efe3;
+  --jyc-navy:#18161d;
+  --jyc-navy-deep:#0f0e11;
+  --jyc-navy-soft:#242126;
+  --jyc-champagne:#bf9c6f;
+  --jyc-champagne-soft:#f5f1e6;
+  --jyc-ivory:#ffffff;
+  --jyc-cream:#f5f1e6;
   --jyc-bronze:#78593b;
-  --jyc-ink:#111111;
-  --jyc-muted:#6b665e;
-  --jyc-line:rgba(20,25,39,.16);
-  --jyc-line-dark:rgba(239,227,203,.20);
-  --jyc-shadow:0 18px 55px rgba(20,25,39,.10);
+  --jyc-ink:#1a191d;
+  --jyc-muted:#6e6a75;
+  --jyc-line:rgba(191,156,111,.35);
+  --jyc-line-dark:rgba(210,180,140,.25);
+  --jyc-shadow:0 18px 55px rgba(23,21,19,.10);
   --jyc-shadow-dark:0 22px 65px rgba(0,0,0,.34);
   --jyc-ease:cubic-bezier(.22,.8,.24,1);
   --jyc-content:min(1180px,calc(100vw - 40px));
   --accent-gold:var(--jyc-champagne);
-  --accent-red:var(--jyc-navy);
-  --club-red:var(--jyc-navy);
+  --accent-red:#a82420;
+  --club-red:#a82420;
   --club-gold:var(--jyc-champagne);
   --jyc-gold:var(--jyc-champagne);
   --bg-main:var(--jyc-cream);
@@ -42,10 +42,10 @@ html[data-theme="light"]{
 }
 html[data-theme="dark"]{
   color-scheme:dark;
-  --jyc-bg:var(--jyc-navy-deep);
-  --jyc-surface:var(--jyc-navy);
-  --jyc-text:var(--jyc-ivory);
-  --jyc-muted-live:#b9af9e;
+  --jyc-bg:#0f0e11;
+  --jyc-surface:#18161d;
+  --jyc-text:#fff8e1;
+  --jyc-muted-live:#a8a3b0;
   --jyc-border:var(--jyc-line-dark);
 }
 html,body,#root{min-width:0;overflow-x:hidden}
@@ -53,15 +53,15 @@ html{background:var(--jyc-bg);scroll-padding-top:78px}
 body{
   margin:0;
   background:
-    radial-gradient(circle at 50% -12%,rgba(194,166,130,.18),transparent 34%),
-    linear-gradient(180deg,var(--jyc-bg) 0%,color-mix(in srgb,var(--jyc-bg) 86%,var(--jyc-champagne-soft)) 100%);
+    radial-gradient(circle at 50% -12%,rgba(191,156,111,.14),transparent 34%),
+    linear-gradient(180deg,var(--jyc-bg) 0%,color-mix(in srgb,var(--jyc-bg) 86%,#f5f1e6) 100%);
   color:var(--jyc-text);
   transition:background-color .35s ease,color .25s ease;
 }
 html[data-theme="dark"] body{
   background:
-    radial-gradient(circle at 50% -12%,rgba(194,166,130,.10),transparent 32%),
-    linear-gradient(180deg,#0b101b 0%,#0f1420 62%,#141927 100%);
+    radial-gradient(circle at 50% -12%,rgba(210,180,140,.08),transparent 32%),
+    linear-gradient(180deg,#0f0e11 0%,#0f0e11 62%,#18161d 100%);
 }
 .public-app,.home,.page{
   --bg-main:var(--jyc-bg)!important;
