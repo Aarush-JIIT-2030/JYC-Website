@@ -375,6 +375,7 @@ function Routes({data,admin,session,setAdmin,commit,notify,theme,setTheme}){
  const nav=useNavigate();
  const p=useLocation().pathname;
  const clean=p.replace(/\/$/,'')||'/';
+ if(clean==='/my-jyc'||clean==='/login'||clean==='/planner'||clean==='/notifications'||clean==='/settings'||clean==='/agenda'||clean==='/projects'||clean==='/download'||clean==='/projects/submit'||clean.startsWith('/qr/'))return <Navigate to="/" replace/>;
  const parts=clean.split('/').filter(Boolean);
  const slugId=parts[1]||'';
  const liveClub=clean.startsWith('/clubs/')?data.clubs.find(c=>String(c.id)===String(slugId)||slug(c.name)===slug(slugId)):null;const hubKey=clean.startsWith('/clubs/')?Object.keys(JYC_HUB_CONTENT).find(k=>slug(k)===slug(slugId)):null;const club=liveClub||(!clean.startsWith('/clubs/')||!hubKey?null:{id:`hub-${slug(hubKey)}`,name:hubKey,type:JYC_HUB_CONTENT[hubKey].family==='Technical'?'Technical':'Non-Technical',category:JYC_HUB_CONTENT[hubKey].family,description:JYC_HUB_CONTENT[hubKey].summary,about:JYC_HUB_CONTENT[hubKey].detail,interests:[JYC_HUB_CONTENT[hubKey].focus],published:true,status:'published',theme:'jyc',customSections:[],achievements:[],projects:[],heads:[],recruitment:{on:false},logo:'',banner:'',instagram:'',whatsapp:'',website:'',linkedin:'',youtube:''});
