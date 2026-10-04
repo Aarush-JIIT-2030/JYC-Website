@@ -11,7 +11,7 @@ const adminExtra=read('src/admin-extra.jsx');
 
 const checks=[
   [system.includes("@import '../jyc-logo-final-theme.css';"),'senior theme remains the final public CSS layer'],
-  [theme.includes('--jyc-navy:#141927')&&theme.includes('--jyc-champagne:#c2a682')&&theme.includes('--jyc-ivory:#faf7ef'),'senior logo palette is explicit'],
+  [theme.includes('--jyc-navy:#18161d')&&theme.includes('--jyc-champagne:#bf9c6f')&&theme.includes('--jyc-ivory:#ffffff')&&theme.includes('--accent-red:#a82420'),'senior logo palette is explicit'],
   [theme.includes('hero-logo-stage::after')&&theme.includes('jycLogoSheen'),'hero has a restrained visible micro-interaction'],
   [theme.includes('.hero-logo-ring,')&&theme.includes('display:none!important'),'rejected orbital rings stay disabled'],
   [theme.includes('prefers-reduced-motion:reduce')&&theme.includes('jycLogoSheen'),'motion has a reduced-motion kill switch'],
