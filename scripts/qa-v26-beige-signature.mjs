@@ -30,7 +30,7 @@ const check=(name,ok)=>{if(ok){console.log('PASS: '+name);pass++}else{console.er
 
 check('Consolidated public stylesheet is loaded exactly once',main.match(/import '\.\/styles\/public-system\.css';/g)?.length===1);
 check('final JYC logo theme remains inside consolidated stylesheet stack',read('src/styles/public-system.css').includes("@import '../jyc-logo-final-theme.css';"));
-check('logo beige is the final public brand anchor',css.includes('--jyc-champagne:#c2a682')&&css.includes('--jyc-cream:#f5efe3')&&css.includes('--jyc-navy:#141927'));
+check('logo beige is the final public brand anchor',css.includes('--jyc-champagne:#bf9c6f')&&css.includes('--jyc-cream:#f5f1e6')&&css.includes('--jyc-navy:#18161d')&&css.includes('--accent-red:#a82420'));
 check('light/dark theme contracts are explicit',css.includes('html[data-theme="light"]')&&css.includes('html[data-theme="dark"]')&&css.includes('--jyc-text:var(--jyc-ink)')&&css.includes('--jyc-muted-live:var(--jyc-muted)'));
 check('public text has explicit secondary contrast',css.includes('.public-app p,.public-app li{color:var(--jyc-muted-live)!important}'));
 check('homepage hierarchy and motion layer are present',css.includes('.home .hero{')&&css.includes('text-align:center!important')&&css.includes('@keyframes jycLogoFloat'));
