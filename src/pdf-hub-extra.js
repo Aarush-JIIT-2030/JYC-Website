@@ -311,6 +311,34 @@ export const PDF_HUB_EXTRA_GALLERY=[
     "year": "2026",
     "page": 60
   }
+  {
+    "id": "extra-event-74",
+    "url": "/assets/hub-photos-extra/event-74.webp",
+    "caption": "JYC Archive · supplied event visual (association not stated in source export)",
+    "association": "JYC Archive",
+    "year": "2026"
+  },
+  {
+    "id": "extra-event-85",
+    "url": "/assets/hub-photos-extra/event-85.webp",
+    "caption": "JYC Archive · supplied event visual (association not stated in source export)",
+    "association": "JYC Archive",
+    "year": "2026"
+  },
+  {
+    "id": "extra-event-86",
+    "url": "/assets/hub-photos-extra/event-86.webp",
+    "caption": "JYC Archive · supplied event visual (association not stated in source export)",
+    "association": "JYC Archive",
+    "year": "2026"
+  },
+  {
+    "id": "extra-event-87",
+    "url": "/assets/hub-photos-extra/event-87.webp",
+    "caption": "JYC Archive · supplied event visual (association not stated in source export)",
+    "association": "JYC Archive",
+    "year": "2026"
+  }
 ];
 export const PDF_HUB_PROGRAMME=[
   {
