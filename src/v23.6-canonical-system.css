@@ -31,7 +31,7 @@ body{overflow-x:hidden!important;}
 .public-app .fest-shell{--fest-accent:var(--jyc-light-gold)!important;}
 
 /* V65-inspired context rail: compact visual orientation, not a second hero. */
-.ecosystem-context-rail{width:min(var(--jyc-content-max),calc(100% - 36px));margin:8px auto 22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.ecosystem-context-rail{width:min(var(--jyc-content-max),calc(100% - 36px));margin:8px auto 22px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;}
 .ecosystem-context-rail button{min-width:0;display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px;border:1px solid var(--jyc-light-line);border-radius:14px;background:var(--jyc-light-surface);color:var(--jyc-light-ink);text-align:left;cursor:pointer;box-shadow:0 8px 24px rgba(78,55,31,.05);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;}
 .ecosystem-context-rail button:hover{transform:translateY(-2px);border-color:rgba(164,123,67,.42);box-shadow:0 14px 30px rgba(78,55,31,.08);}
 .ecosystem-context-rail img{width:48px;height:42px;object-fit:cover;border-radius:10px;display:block;}
@@ -128,7 +128,7 @@ html[data-theme="dark"] .event-row-copy em{color:var(--jyc-dark-muted);}
 
 @media(max-width:900px){
  .public-app .section.page,.public-app .section:not(.home .section),.ecosystem-context-rail{width:min(100% - 20px,var(--jyc-content-max));}
- .ecosystem-context-rail{grid-template-columns:1fr;gap:7px;margin-bottom:14px;}
+  .ecosystem-context-rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:14px;}
  .ecosystem-context-rail button{grid-template-columns:44px minmax(0,1fr) auto;padding:7px;}
  .ecosystem-context-rail img{width:44px;height:38px;}
  .public-app .compact-page-head,.public-app .archive-hero,.public-app .team-hero-panel{padding:18px!important;}
@@ -142,6 +142,7 @@ html[data-theme="dark"] .event-row-copy em{color:var(--jyc-dark-muted);}
  .public-app .hub-identity-traits{grid-template-columns:repeat(3,minmax(0,1fr));}
 }
 @media(max-width:560px){
+ .ecosystem-context-rail{grid-template-columns:1fr;}
  .public-app .section.page,.public-app .section:not(.home .section){width:calc(100% - 16px);}
  .public-app .nav-inner{width:calc(100% - 12px)!important;gap:6px!important;}
  .public-app .nav nav{display:none!important;}
