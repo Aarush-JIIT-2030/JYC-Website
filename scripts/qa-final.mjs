@@ -42,5 +42,5 @@ const assetRefs=new Set([...assetTextFiles.matchAll(/\/assets\/[^'"\\s)]+/g)].ma
 const assetRel=new Set(assetFiles.map(p=>p.slice(path.join(root,'public').length).replaceAll('\\\\','/')));
 const missingReferencedAssets=[...assetRefs].filter(ref=>!assetRel.has(ref));
 checks.push(['all explicitly referenced public assets exist',missingReferencedAssets.length===0]);
-\nlet failed=0; for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok)failed++;}
+let failed=0; for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok)failed++;}
 if(failed)process.exit(1); console.log('Final product QA complete.');
