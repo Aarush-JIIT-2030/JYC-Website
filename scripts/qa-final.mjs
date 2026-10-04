@@ -25,7 +25,7 @@ const extraFeatures=fs.readFileSync(path.join(root,'src/extra-features.jsx'),'ut
 
 const official=fs.readFileSync(path.join(root,'src/jyc-official-hub-descriptions.js'),'utf8');
 checks.push(['official brochure hub descriptions cover 17 communities', ['VamUnique','BDS','Aakriti','Panache','Abhivyakti','Aura','Cinekala','Eloquence','Qriosity','Prismatic','Fortissimo','CICR','JODC','RPH','Innovation','JSA','JIIT OPTICA'].every(n=>official.includes("'"+n+"':"))]);
-checks.push(['sitemap generator includes image namespace',fs.readFileSync(path.join(root,'scripts/generate-sitemap.mjs'),'utf8').includes('xmlns:image'))];
+checks.push(['sitemap generator includes image namespace',fs.readFileSync(path.join(root,'scripts/generate-sitemap.mjs'),'utf8').includes('xmlns:image')]);
 const pdfHub=fs.readFileSync(path.join(root,'src/pdf-hub-content.js'),'utf8');
 checks.push(
  ['final V56 public system is imported',css.includes("jyc-v56-final-system.css")],
