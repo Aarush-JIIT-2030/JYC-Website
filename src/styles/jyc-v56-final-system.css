@@ -458,3 +458,33 @@ html[data-theme="dark"] .public-app .hub-official-description{
   background:rgba(210,180,140,.09)!important;
   border-inline-start-color:var(--jyc-final-gold)!important;
 }
+
+/* V56.4 dark-mode surface/readability contract: every final-layer control must inherit the dark palette. */
+html[data-theme="dark"] .public-app{
+  --jyc-final-bg:#0f0e11;
+  --jyc-final-surface:#18161d;
+  --jyc-final-ink:#fff8e1;
+  --jyc-final-muted:#b8b0a4;
+  --jyc-final-line:rgba(210,180,140,.24);
+  --jyc-final-gold:#d2b48c;
+  --jyc-final-red:#c92a2a;
+}
+html[data-theme="dark"] .public-app .jyc-photo-story-scrubber,
+html[data-theme="dark"] .public-app .gallery-source-ledger,
+html[data-theme="dark"] .public-app .gallery-filter,
+html[data-theme="dark"] .public-app .gallery-controls{
+  background:rgba(24,22,29,.88)!important;
+  color:var(--jyc-final-muted)!important;
+  border-color:var(--jyc-final-line)!important;
+}
+html[data-theme="dark"] .public-app .jyc-photo-story-scrubber output,
+html[data-theme="dark"] .public-app .jyc-photo-story-scrubber input{color:var(--jyc-final-ink)!important;accent-color:var(--jyc-final-gold)!important}
+html[data-theme="dark"] .public-app .gallery-filter button,
+html[data-theme="dark"] .public-app .gallery-controls button{color:var(--jyc-final-muted)!important;background:transparent!important;border-color:var(--jyc-final-line)!important}
+html[data-theme="dark"] .public-app .gallery-filter button.active,
+html[data-theme="dark"] .public-app .gallery-controls button.active{color:#0f0e11!important;background:var(--jyc-final-gold)!important;border-color:var(--jyc-final-gold)!important}
+html[data-theme="dark"] .public-app .gallery-grid .gallery-item>span{background:#18161d!important;color:var(--jyc-final-ink)!important}
+html[data-theme="dark"] .public-app .gallery-grid .gallery-meta,
+html[data-theme="dark"] .public-app .gallery-grid .gallery-provenance{color:var(--jyc-final-muted)!important}
+html[data-theme="dark"] .public-app .hub-source-photo-strip figcaption,
+html[data-theme="dark"] .public-app .event-source-gallery-grid figcaption{color:var(--jyc-final-muted)!important}
