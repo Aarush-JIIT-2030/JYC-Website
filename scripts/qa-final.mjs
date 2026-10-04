@@ -20,3 +20,15 @@ const checks=[
 ];
 let failed=0; for(const [name,ok] of checks){console.log(`${ok?'PASS':'FAIL'}: ${name}`); if(!ok)failed++;}
 if(failed)process.exit(1); console.log('Final product QA complete.');
+
+
+const extraPublicCss=fs.readFileSync(path.join(root,'src/styles/jyc-v56-final-system.css'),'utf8');
+const extraFeatures=fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8');
+const pdfHub=fs.readFileSync(path.join(root,'src/pdf-hub-content.js'),'utf8');
+checks.push(
+ ['final V56 public system is imported',css.includes("jyc-v56-final-system.css")],
+ ['Gallery lightbox has useRef import',/import React,\{[^}]*useRef/.test(extraFeatures)&&extraFeatures.includes('useRef(null)')],
+ ['final public system has mobile photo breakpoints',extraPublicCss.includes('@media(max-width:620px)')&&extraPublicCss.includes('.gallery-grid')],
+ ['generic supplied archive photos do not carry inferred 2026 years',!pdfHub.split('\n').some(line=>line.includes("association:'JYC Archive'")&&line.includes("year:'2026'"))],
+ ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))]
+);
