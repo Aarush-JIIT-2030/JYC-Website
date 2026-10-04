@@ -38,12 +38,14 @@ export const JYC_HUB_DETAILS = {
   },
   CICR:{
     label:'Robotics and prototyping',
+    sourceHighlights:['Officially presented as the Robotics Hub of JIIT-128','TechTonic 2.0 is listed as a three-day AI/ML + robotics workshop experience','Circuit Rush and Robo Soccer appear in the public event archive','Hands-on projects, advanced labs and electronics prototyping form the technical identity'],
     activities:['Robotics projects','Hands-on learning','Advanced labs','Electronics design and prototyping','Workshops','Competitions'],
     experience:'CICR is the robotics hub of JIIT-128. Its official club material centres hands-on projects, learning, prototyping, labs and a technical community around robotics.',
     signature:['TechTonic','Circuit Rush','Robo Soccer','Converge robotics competitions']
   },
   Innovation:{
     label:'Innovation and entrepreneurship',
+    sourceHighlights:['RIDE Hack’26: 1 November 2026','Official Innovation JIIT programme includes RIDE Hack, CodeAI, Innovate and Climate Data Hackathon','Labs, mentorship and resources connect student ideas to real-world innovation','Current public Innovation programme also highlights startup-expo and entrepreneurship activity'],
     activities:['Innovation programmes','Mentorship','Prototyping and fabrication','Startup-oriented learning','Hackathons','Technical and business support'],
     experience:'The Innovation JIIT ecosystem connects students with labs, mentorship, resources and entrepreneurship-oriented programmes. Its public programme history includes RIDE Hack, CodeAI, Innovate and climate-focused hackathon activity.',
     signature:['RIDE Hack','CodeAI','Innovate','Climate Data Hackathon']
