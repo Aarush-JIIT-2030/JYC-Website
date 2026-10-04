@@ -20,8 +20,8 @@ check(config.includes('[functions.media-upload]')&&config.includes('verify_jwt =
 check(fs.existsSync(path.join(root,'supabase/functions/media-upload/index.ts')),'media-upload Edge Function source is missing');
 check(fs.existsSync(path.join(root,'supabase/migrations/202610030004_media_write_boundary.sql')),'media write-boundary migration is missing');
 check(!main.includes('AgenticAIPopup')&&!main.includes('useAgenticPopup'),'intrusive Agentic AI popup must stay out of the core JYC experience');
-check(main.includes('JYCBot')&&main.includes("/models/jyc-spatial.glb"),'animated assistant bot launcher must stay out of the core JYC shell');
-check(main.includes('JYCBot')&&!main.includes('JYC ASSISTANT')||main.includes('JYCBot'),'public JYC Assistant must stay out of the core shell');
+check(main.includes('JYCBot')&&main.includes("/models/jyc-spatial.glb"),'approved GLB navigator is mounted from the isolated bot module');
+check(fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('<JYCAssistant')&&fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('role="dialog"'),'GLB navigator opens the bounded contextual assistant dialog');
 check(!main.includes('CampusMapPage')&&!main.includes("clean==='/map'"),'campus map must not be a public JYC product route');
 check(vercel.redirects?.some(x=>x.source==='/map'&&x.destination==='/events'&&x.permanent),'retired campus map must permanently redirect to events');
 check(vercel.redirects?.some(x=>x.source==='/leadership'&&x.destination==='/team'&&x.permanent)&&vercel.redirects?.some(x=>x.source==='/event-calendar'&&x.destination==='/calendar'&&x.permanent),'legacy aliases must be handled by permanent redirects');
