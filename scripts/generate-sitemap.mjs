@@ -6,11 +6,11 @@ const rawSite=(process.env.VITE_SITE_URL||process.env.SITE_URL||process.env.VERC
 const site=(rawSite?(/^[a-z]+:\/\//i.test(rawSite)?rawSite:`https://${rawSite}`):'').replace(/\/$/,'');
 const out=path.join(root,'public','sitemap.xml');
 const core=['/','/about','/history','/clubs','/events','/fests','/gallery','/team','/contact','/calendar','/announcements','/updates','/achievements','/join-jyc'];
-const urls=new Set([...core,...sourceHubNames.map(name=>`/clubs/${slug(name)}`)]);
 const dynamicDates=new Map();
 const sourceRegistry=fs.readFileSync(path.join(root,'src','jyc-hub-registry.js'),'utf8');
 const sourceHubNames=[...sourceRegistry.matchAll(/\{name:'([^']+)'/g)].map(m=>m[1]);
 const slug=value=>String(value||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const urls=new Set([...core,...sourceHubNames.map(name=>`/clubs/${slug(name)}`)]);
 
 async function loadDynamic(){
   const supabaseUrl=(process.env.VITE_SUPABASE_URL||'').replace(/\/$/,'');
