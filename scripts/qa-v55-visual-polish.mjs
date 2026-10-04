@@ -15,6 +15,7 @@ const checks=[
  ['club pages expose source photo strip',main.includes('hub-source-photo-strip')&&main.includes('sourceHubMedia(c.name).photos')],
  ['homepage photo story uses source hub photos',next.includes('sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap')],
  ['homepage photo wall uses source photography',main.includes('hub-photo-wall')&&main.includes('sourceHubMedia(meta.name).photos')],
+ ['gallery mounts source hub photography',read('src/extra-features.jsx').includes('sourcePhotoItems=useMemo')&&read('src/extra-features.jsx').includes('sourceHubMedia(name).photos')],
  ['event identity contract remains present',main.includes('event-identity-page')&&main.includes('eventIdentity(e)')],
  ['club identity contract remains present',main.includes('club-identity-page')&&main.includes('hubIdentity(c.name)')],
  ['reduced motion is covered',css.includes('prefers-reduced-motion')],
