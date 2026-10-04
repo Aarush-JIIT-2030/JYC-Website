@@ -730,3 +730,15 @@
     scroll-behavior:auto!important;
   }
 }
+
+/* Loader safety: keep every loading label inside the smallest supported viewport. */
+.loading-v41 .loading-center-v41{max-height:calc(100vh - 86px);overflow:visible}
+.loading-v41 .loading-status{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important;gap:6px 12px!important;text-align:center!important}
+.loading-v41 .loading-status span{max-width:100%!important;white-space:normal!important;text-align:center!important;overflow-wrap:anywhere!important}
+.loading-v41 .loading-foot{max-width:calc(100vw - 28px)!important;left:14px!important;right:14px!important;justify-content:center!important;gap:8px!important;flex-wrap:wrap!important;text-align:center!important;white-space:normal!important}
+@media(max-width:360px){
+  .loading-v41 .loading-center-v41{transform:scale(.91);transform-origin:center}
+  .loading-v41-mark-wrap{margin-block:17px 11px!important}
+  .loading-v41 .loading-v41-steps{margin-block:13px 8px!important}
+  .loading-v41 .loading-status{margin-top:7px!important}
+}
