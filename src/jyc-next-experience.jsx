@@ -151,7 +151,7 @@ export function HubSignalRail({data}){
   <div className="jyc-hub-signal-grid">{visible.map((h,i)=><button type="button" className="jyc-hub-signal-card" data-source-status={h.status} key={h.name} onClick={()=>nav('/clubs/'+encodeURIComponent(h.canonicalName||h.name))}>
     <div>{h.media.photos[0]?<img src={h.media.photos[0]} alt="" loading="lazy"/>:<span>{String(i+1).padStart(2,'0')}</span>}</div>
     <small>{h.family} · {h.focus}</small><strong>{h.name}</strong><em>{h.summary||'Source-backed JYC hub profile awaiting richer live records.'}</em>
-    <span className="jyc-hub-source-status">{h.status==='brochure-verified'?'2026 BROCHURE VERIFIED':h.status==='orientation-verified'?'SOURCE MATERIAL':'SOURCE MATERIAL'}</span><b>Open hub ↗</b>
+    <span className="jyc-hub-source-status">{h.status==='brochure-verified'?'2026 BROCHURE VERIFIED':h.status==='source-material'?'SOURCE MATERIAL':'SOURCE MATERIAL'}</span><b>Open hub ↗</b>
    </button>)}</div>
  </section>
 }
