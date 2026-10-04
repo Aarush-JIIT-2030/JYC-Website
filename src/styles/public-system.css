@@ -19,11 +19,11 @@ html{color-scheme:light dark;}
   color-scheme: light;
   --jyc-bg: #f5f1e6;
   --jyc-surface: #ffffff;
-  --jyc-ink: #171513;
-  --jyc-muted: #665f56;
-  --jyc-line: rgba(23,21,19,.16);
-  --jyc-accent: #a47b43;
-  --jyc-focus: #5c3d16;
+  --jyc-ink: #1a191d;
+  --jyc-muted: #6e6a75;
+  --jyc-line: rgba(191,156,111,.35);
+  --jyc-accent: #bf9c6f;
+  --jyc-focus: #a82420;
 }
 
 html { scroll-behavior: smooth; }
@@ -81,19 +81,19 @@ html[data-theme="dark"] .public-app {
   --jyc-final-red: #c92a2a;
 }
 html[data-theme="dark"] .public-app :where(.jyc-source-archive-ledger,.jyc-photo-story-scrubber) {
-  background: rgba(23,27,37,.92);
+  background: rgba(24,22,29,.96);
   color: var(--jyc-final-muted);
 }
 html[data-theme="dark"] .public-app .jyc-source-archive-parts span {
-  background: #1c2230;
+  background: #18161d;
   color: var(--jyc-final-muted);
   border-color: var(--jyc-final-line);
 }
 html[data-theme="dark"] .public-app input,
 html[data-theme="dark"] .public-app select,
 html[data-theme="dark"] .public-app textarea {
-  background: #171b25;
-  color: #faf7ef;
+  background: #18161d;
+  color: #fff8e1;
   border-color: var(--jyc-final-line);
 }
 html[data-theme="dark"] .public-app input::placeholder,
