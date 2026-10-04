@@ -50,7 +50,7 @@ const PUBLIC_GALLERY_FALLBACK=[
  {id:'hub-dronowar-2',url:'/assets/home/dron-o-war-2.webp',caption:'Dron-O-War · teams, campus and competition',association:'Dronotics · Dron-O-War',year:'2026'},
  {id:'hub-converge-voices',url:'/assets/home/converge-voices.webp',caption:'Converge 2026 · people, speaking and campus culture',association:'Converge 2026',year:'2026'},
  {id:'hub-converge-moments',url:'/assets/home/converge-moments.webp',caption:'Converge 2026 · student moments',association:'Converge 2026',year:'2026'},
- {id:'hub-jyc-events',url:'/assets/home/jyc-events-collage.webp',caption:'JYC event record · supplied hub material',association:'JYC Archive',year:'2026'},
+ {id:'hub-jyc-events',url:'/assets/home/jyc-events-collage.webp',caption:'JYC event record · supplied hub material',association:'JYC Archive'},
  {id:'team-devansh-campaign',url:'/assets/team/campaign/devansh-tripathi.webp',caption:'Leadership campaign · Devansh Tripathi',association:'JYC Team · Devansh Tripathi',year:'2026'},
  {id:'team-amrit-campaign',url:'/assets/team/campaign/amrit-kumar.webp',caption:'Leadership campaign · Amrit Kumar',association:'JYC Team · Amrit Kumar',year:'2026'},
  {id:'team-daksh-campaign',url:'/assets/team/campaign/daksh-sachdeva.webp',caption:'Leadership campaign · Daksh Sachdeva',association:'JYC Team · Daksh Sachdeva',year:'2026'},
