@@ -6,7 +6,7 @@ const baseBlock=content.slice(content.indexOf('const BASE={'),content.indexOf('}
 const count=(baseBlock.match(/^[ \t]*(?:'[^']+'|[^:]+):\{/gm)||[]).length;
 if(count!==23) throw new Error(`Expected 23 hub identities, found ${count}`);
 for(const n of names){if(!baseBlock.includes(`${n}:`) && !baseBlock.includes(`'${n}':`)) throw new Error(`Missing identity: ${n}`)}
-for(const n of ['JAI 2026','DRONO-O-WAR','RIDE Hack 26','CodeAI Hackathon','TechTonic 2.0','Code Clash 25.1','Code Clash 25.2']){if(!content.includes(`'${n}':`)) throw new Error(`Missing event identity: ${n}`)}
+for(const n of ['JAI 2026','DRONO-O-WAR',"RIDE Hack'26",'CodeAI Hackathon','TechTonic 2.0','Code Clash 25.1','Code Clash 25.2']){if(!content.includes(`'${n}':`)) throw new Error(`Missing event identity: ${n}`)}
 for(const token of ['hubIdentity','hub-identity-rail','club-identity-card','data-hub']) if(!main.includes(token)) throw new Error(`Missing wiring: ${token}`);
 if(!main.includes("'--club-banner':c.banner?`url(${c.banner})`:'none'")) throw new Error('Missing safe club banner fallback');
 console.log('PASS: 23 JYC hub identities are defined and wired');
