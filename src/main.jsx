@@ -231,6 +231,8 @@ function ClubDetail({data,id,virtualName}){
  const virtualProfile=virtualName?JYC_HUB_CONTENT[virtualName]:null;
  const c=liveClub|| (virtualProfile?{id:`hub-${slug(virtualName)}`,name:virtualName,type:virtualProfile.family==='Technical'?'Technical':'Non-Technical',category:virtualProfile.family,description:virtualProfile.summary,about:virtualProfile.detail,interests:[virtualProfile.focus],theme:'jyc',published:true,status:'published',heads:[],achievements:[],projects:[],customSections:[],recruitment:{on:false},...(JYC_SOCIALS[virtualName]||{})}:null);
  if(!c||(!virtualProfile&&(!c.published||c.status==='archived')))return <section className="section page"><Back label="Back to clubs" to="/clubs"/><State title="Club not found." text="This club may be unpublished or archived."/></section>;
+ const profile=hubProfile(c);
+ const detail=hubDetails(c.name);
  const sections=[...(c.customSections||[])].filter(s=>s.visible!==false);
  const events=data.events.filter(e=>e.published&&!e.archived&&(e.clubId===c.id||e.club===c.name)).sort((a,b)=>`${a.date} ${a.start}`.localeCompare(`${b.date} ${b.start}`));
  const sourceStory=PDF_HUB_STORIES.find(x=>String(x.name).toLowerCase()===String(c.name).toLowerCase())||(()=>{const m=sourceHubMedia(c.name);if(!m.photos.length||!profile)return null;return {name:profile.name||c.name,family:profile.family,focus:profile.focus,image:m.photos[0],text:detail?.experience||profile.detail||profile.summary||`${c.name} is part of the JYC ${profile.family} ecosystem.`}})();
@@ -239,8 +241,6 @@ function ClubDetail({data,id,virtualName}){
  const links=[['Instagram',c.instagram],['WhatsApp',c.whatsapp],['Website',c.website],['LinkedIn',c.linkedin],['YouTube',c.youtube]].filter(x=>x[1]);
  const leadership=[['President',c.president],['Vice President',c.vicePresident],['Secretary',c.secretary]].filter(x=>x[1]);
  const clubTheme='jyc';
- const profile=hubProfile(c);
- const detail=hubDetails(c.name);
  const identity=hubIdentity(c.name);
  const identityStyle={'--hub-accent':identity.accent,'--hub-accent-soft':`color-mix(in srgb, ${identity.accent} 16%, transparent)`,'--hub-accent-line':`color-mix(in srgb, ${identity.accent} 34%, transparent)`,'--identity-shape':`var(--jyc-shape-${identity.shape||'community'})`};
  const relatedHubs=profile?Object.entries(JYC_HUB_CONTENT).filter(([name,p])=>p.family===profile.family&&name.toLowerCase()!==c.name.toLowerCase()).slice(0,4):[];
