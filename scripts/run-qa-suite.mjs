@@ -30,7 +30,8 @@ const scripts = [
   'qa-local-assets.mjs',
   'qa-v54-next-experience.mjs',
   'qa-v55-visual-polish.mjs',
-  'qa-final-hygiene.mjs'
+  'qa-final-hygiene.mjs',
+  'qa-final.mjs'
 ];
 
 for (const script of scripts) {
