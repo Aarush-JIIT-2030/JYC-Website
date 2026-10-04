@@ -45,8 +45,9 @@ export function sourceHubMedia(name){
     ...storyImage.map(url=>({url,association:label,mediaKind:'artwork',sourceLabel:'JYC supplied hub story'}))
   ].filter(x=>x.url);
   const uniqueMedia=[...new Map(media.map(x=>[x.url,x])).values()];
-  const photos=uniqueMedia.filter(x=>x.mediaKind==='photo').map(x=>x.url);
-  return {name:label,family:JYC_HUB_CONTENT[label]?.family||story?.family||'',focus:JYC_HUB_CONTENT[label]?.focus||story?.focus||'',summary:JYC_HUB_CONTENT[label]?.summary||'',detail:JYC_HUB_CONTENT[label]?.detail||story?.text||'',story:story||null,photos};
+  const photoItems=uniqueMedia.filter(x=>x.mediaKind==='photo');
+  const photos=photoItems.map(x=>x.url);
+  return {name:label,family:JYC_HUB_CONTENT[label]?.family||story?.family||'',photoItems,focus:JYC_HUB_CONTENT[label]?.focus||story?.focus||'',summary:JYC_HUB_CONTENT[label]?.summary||'',detail:JYC_HUB_CONTENT[label]?.detail||story?.text||'',story:story||null,photos};
 }
 
 export function enrichSourceClub(club){
