@@ -1,6 +1,6 @@
 # JYC NEXT — Master Implementation Specification — 2026-10-04
 
-This document consolidates the earlier JYC future-plan research with the current production V52/V54 codebase and the newly supplied image archives.
+This document consolidates the earlier JYC future-plan research with the current production V55 codebase and the newly supplied image archives.
 
 ## KEEP
 
