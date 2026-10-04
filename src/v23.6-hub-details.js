@@ -88,7 +88,7 @@ export const JYC_HUB_DETAILS = {
   },
   Dronotics:{
     label:'Drones and aerial robotics',
-    sourceHighlights:['Official drone and aerial robotics club','Dron-O-War is presented as the premier national-level drone competition','Top Gun Challenge is a signature flight-simulation challenge','Hands-on learning, collaborative projects, technical workshops and competitions'],
+    sourceHighlights:['Official drone and aerial robotics club','Dron-O-War 1.0: 2–3 May 2026 at JIIT Sector 128','Dron-O-War is presented as the premier national-level drone competition','Top Gun Challenge is a signature flight-simulation challenge','Hands-on learning, collaborative projects, technical workshops and competitions'],
     activities:['Drone technology','Hands-on engineering','Technical workshops','Collaborative projects','Flight simulation','Competitions'],
     experience:'The supplied Dronotics material describes an aerial-robotics community built around hands-on learning, innovation, teamwork and technical excellence.',
     signature:['Dron-O-War','Top Gun Challenge','Drone projects','Workshops']
