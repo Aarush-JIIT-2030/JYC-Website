@@ -90,3 +90,22 @@ The 2026 JIIT Admission Brochure describes JIIT Youth Club 128 as the central co
 - Dronotics: DRONO-O-WAR 1.0 and its aerial-robotics competition structure.
 
 The website uses these sources for verification/context and does not copy external branding. Event dates, links, prizes and registration claims should always remain attached to their canonical source record.
+
+
+## Source-backed programme vocabulary
+
+RPH: Code Clash 25.1, Code Clash 25.2, DSA, Competitive Programming, C++ and technical interview preparation.
+CICR: Robotics Hub of JIIT-128, TechTonic, Circuit Rush, Robo Soccer, electronics and prototyping.
+Innovation: RIDE Hack, CodeAI, Innovate, Climate Data Hackathon, mentorship and entrepreneurship.
+CypherX: cybersecurity, Capture the Flag, workshops, projects and competitions.
+Neural Nexus: AI/ML, real-world projects, hackathons, workshops and AI challenges.
+Arcadia: esports, PC/mobile gaming, Aim Labs, Flappy Bird and AR/VR activities.
+Dronotics: Dron-O-War, Top Gun Challenge, drone engineering and aerial robotics.
+Aura: photography, photo walks, campus event coverage and workshops.
+Aakriti: fine arts, Art of the Week, Best out of Waste and campus installations.
+Panache: fashion design, photowalks, makeup/face paint, cosplay and performances.
+Eloquence: debating, anchoring, writing, poetry and public speaking.
+JSA: cricket, football, basketball, volleyball, lawn tennis, carrom, table tennis, chess and badminton.
+Qriosity: quizzing, knowledge competitions, curiosity and critical thinking.
+JIIT OPTICA: STEM, scientific exploration, OPTICA student chapter and physics/materials science context.
+JAI 2026: Jaypee Agentic AI International Summit, 30–31 October 2026, JIIT Wish Town Campus, Sector 128, Noida.
