@@ -1,5 +1,5 @@
 export const JYC_HUB_SOURCE_REGISTRY = [
-  {name:'Aakriti',family:'Creative',status:'verified-current',source:'JIIT Admission Brochure 2026'},
+  {name:'Aakriti',family:'Creative',status:'brochure-verified',source:'JIIT Admission Brochure 2026'},
   {name:'Abhivyakti',family:'Creative',status:'verified-current',source:'JIIT Admission Brochure 2026'},
   {name:'Aura',family:'Creative',status:'verified-current',source:'JIIT Admission Brochure 2026'},
   {name:'BDS',family:'Cultural',status:'verified-current',source:'JIIT Admission Brochure 2026'},
@@ -25,5 +25,5 @@ export const JYC_HUB_SOURCE_REGISTRY = [
 ];
 
 export const JYC_HUB_SOURCE_STATUS = Object.fromEntries(JYC_HUB_SOURCE_REGISTRY.map(x=>[x.name,x]));
-export const JYC_HUB_VERIFIED_CURRENT = JYC_HUB_SOURCE_REGISTRY.filter(x=>x.status==='verified-current');
-export const JYC_HUB_SOURCE_ONLY = JYC_HUB_SOURCE_REGISTRY.filter(x=>x.status!=='verified-current');
+export const JYC_HUB_VERIFIED_CURRENT = JYC_HUB_SOURCE_REGISTRY.filter(x=>x.status==='brochure-verified');
+export const JYC_HUB_SOURCE_ONLY = JYC_HUB_SOURCE_REGISTRY.filter(x=>x.status!=='brochure-verified');
