@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 const scripts = [
   'qa-source-media-completeness.mjs',
   'qa-source-integrity.mjs',
+  'qa-hub-registry.mjs',
   'qa-search.mjs',
   'qa-security.mjs',
   'qa-seo.mjs',
