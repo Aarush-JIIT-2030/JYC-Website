@@ -44,7 +44,7 @@ export function sourceHubMedia(name){
     ...gallery.map(item=>({...item,association:label})),
     ...storyImage.map(url=>({url,association:label,mediaKind:'artwork',sourceLabel:'JYC supplied hub story'}))
   ].filter(x=>x.url);
-  const uniqueMedia=[...new Map(media.map(x=>[x.url,x])).values()];
+  const uniqueMedia=[...new Map(media.filter(x=>x?.url).map(x=>[String(x.url),x])).values()];
   const photoItems=uniqueMedia.filter(x=>x.mediaKind==='photo');
   const photos=photoItems.map(x=>x.url);
   return {name:label,family:JYC_HUB_CONTENT[label]?.family||story?.family||'',photoItems,focus:JYC_HUB_CONTENT[label]?.focus||story?.focus||'',summary:JYC_HUB_CONTENT[label]?.summary||'',detail:JYC_HUB_CONTENT[label]?.detail||story?.text||'',story:story||null,photos};
@@ -136,7 +136,7 @@ export function sourceEventMedia(eventOrName){
 export const JYC_SOURCE_MEDIA_STATS={maintainedCommunities:Object.keys(JYC_HUB_CONTENT).length,storyBackedCommunities:PDF_HUB_STORIES.length,galleryItems:SOURCE_GALLERY.length,qualityOverrideCommunities:Object.keys(QUALITY_OVERRIDES).length,eventCollections:Object.keys(EVENT_ALIASES).length};
 
 export function buildJycMediaManifest(gallery=[]){
-  const merged=mergeSourceGallery(gallery);
+  const merged=[...mergeSourceGallery(gallery)].reduce((acc,item)=>{const key=String(item?.url||item?.id||'');if(key&&!acc.some(x=>String(x?.url||x?.id||'')===key))acc.push(item);return acc},[]);
   const communities=[...new Set(merged.map(x=>String(x.association||'JYC Archive')).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   const years=[...new Set(merged.map(x=>String(x.year||'').slice(0,4)).filter(Boolean))].sort((a,b)=>b.localeCompare(a));
   const roles=[...new Set(merged.map(x=>String(x.role||'club')).filter(Boolean))].sort();
