@@ -30,8 +30,8 @@ checks.push(
  ['ecosystem context rail selects across JYC families',main.includes('JYC_HUB_FAMILIES.map(family')&&main.includes('sourceHubMedia(name).photoItems')],
  ['public copy uses maintained 23-community count',!main.includes('names 21 communities')],
  ['JAI event fallback uses local committed artwork',main.includes("poster:'/assets/events/agentic-ai-2026.webp'")],
- ['photo archive source selectors use multiple frames',main.includes('photoItems.slice(0,8)')&&main.includes('photoItems.slice(0,10)')&&main.includes('photoItems.slice(0,16)')],
- ['photo story has automatic transition controls',main.includes('setInterval(()=>setActive')&&main.includes('slice(0,16)')&&main.includes('jyc-photo-story-autoplay')&&extraPublicCss.includes('jyc-photo-story-transition')&&extraPublicCss.includes('jyc-photo-story-rail')&&extraPublicCss.includes('prefers-reduced-motion')],
+ ['photo archive uses the full source pool',main.includes('sourceBuckets=JYC_HUB_SOURCE_REGISTRY.map')&&main.includes('const maxSourceDepth')&&main.includes('return preferred.filter(g=>{const key=g.id||g.url;if(seen.has(key))return false;seen.add(key);return true})')&&main.includes('photoItems.map')],
+ ['photo story has full-archive automatic transitions',main.includes('setInterval(()=>setActive')&&main.includes('sourceBuckets=JYC_HUB_SOURCE_REGISTRY.map')&&main.includes('jyc-photo-story-autoplay')&&extraPublicCss.includes('jyc-photo-story-transition')&&extraPublicCss.includes('jyc-photo-story-rail')&&extraPublicCss.includes('prefers-reduced-motion')],
  ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))]
 );
 
