@@ -77,3 +77,16 @@ Public website: Home, About, History, Clubs, Events, Event Calendar, Fests, Gall
 ## Release boundary
 
 V56.1 is a club-first public website. Academic calendars are informational only; student accounts, attendance, passes, certificates, campus utilities and student-help workflows are outside the public product. Current official records are published only through authorised JYC editorial workflows.
+
+## Source-backed community detail
+
+The 2026 JIIT Admission Brochure describes JIIT Youth Club 128 as the central coordinating body responsible for planning, managing and executing major college events, fests and inter-society activities. It describes VamUnique as Western Dance, BDS as Bhangra, Aakriti as Fine Arts, Panache as Fashion, Abhivyakti as Drama, Aura as Photography, Cinekala as Film Making, Eloquence as Literary, Qriosity as Quizzing, Prismatic as Designing, Fortissimo as Music, CICR as Robotics, JODC as Open Source Developers Circle, RPH as Coding, Innovation Club as innovation/hackathons, JSA as Sports and JIIT OPTICA as a STEM-oriented scientific society. These are source-derived identity descriptions; current teams, recruitment and operational details must come from published JYC records.
+
+## Current external source signals used for editorial updates
+
+- JIIT official public communication: current campus events and JYC activity.
+- JIIT Innovation: RIDE Hack, CodeAI, Innovate and Climate Data Hackathon archive/current event information.
+- CICR: robotics capabilities, projects and event structure.
+- Dronotics: DRONO-O-WAR 1.0 and its aerial-robotics competition structure.
+
+The website uses these sources for verification/context and does not copy external branding. Event dates, links, prizes and registration claims should always remain attached to their canonical source record.
