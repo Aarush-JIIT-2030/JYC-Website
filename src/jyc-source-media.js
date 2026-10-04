@@ -60,7 +60,8 @@ export function sourceHubMedia(name){
   const uniqueMedia=[...new Map(media.filter(x=>x?.url).map(x=>[String(x.url),x])).values()];
   const photoItems=uniqueMedia.filter(x=>x.mediaKind==='photo');
   const photos=photoItems.map(x=>x.url);
-  return {name:label,family:JYC_HUB_CONTENT[label]?.family||story?.family||'',photoItems,focus:JYC_HUB_CONTENT[label]?.focus||story?.focus||'',summary:JYC_HUB_CONTENT[label]?.summary||'',detail:JYC_HUB_CONTENT[label]?.detail||story?.text||'',story:story||null,photos};
+  const visuals=uniqueMedia.map(x=>x.url);
+  return {name:label,family:JYC_HUB_CONTENT[label]?.family||story?.family||'',photoItems,visuals,focus:JYC_HUB_CONTENT[label]?.focus||story?.focus||'',summary:JYC_HUB_CONTENT[label]?.summary||'',detail:JYC_HUB_CONTENT[label]?.detail||story?.text||'',story:story||null,photos};
 }
 
 export function enrichSourceClub(club){
