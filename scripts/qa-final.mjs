@@ -41,7 +41,10 @@ checks.push(
  ['club and event source galleries are uncapped',main.includes('sourceHubMedia(c.name).photoItems.map')&&main.includes('media.items.map((m,i)=>')&&!main.includes('media.items.slice(0,12)')&&!main.includes('photoItems.slice(0,10)')],
  ['remaining public source-media merge is URL-keyed',fs.readFileSync(path.join(root,'src/jyc-source-media.js'),'utf8').includes("map.set(String(enriched.url),enriched)")],
  ['remaining find-community ornament is static, not orbital motion',!fs.readFileSync(path.join(root,'src/v36-depth-polish.css'),'utf8').includes('jycV36Orbit')],
- ['LLMs release boundary is current',fs.readFileSync(path.join(root,'public/llms.txt'),'utf8').includes('V56.1 is a club-first public website')]
+ ['LLMs release boundary is current',fs.readFileSync(path.join(root,'public/llms.txt'),'utf8').includes('V56.1 is a club-first public website')],
+ ['public feature bundle has no retired academic calendar surface',!fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8').includes('academicKeyDates')],
+ ['dark theme follows native color-scheme',fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8').includes('html[data-theme="dark"] { color-scheme: dark; }')],
+ ['GLB bot has restrained tap/hover motion and no auto-rotation',fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('jycBotTap')&&fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('availableAnimations')&&!fs.readFileSync(path.join(root,'src/jyc-bot.jsx'),'utf8').includes('auto-rotate')]
 
 );
 
