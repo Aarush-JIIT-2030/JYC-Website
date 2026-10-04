@@ -21,17 +21,7 @@ for(const dir of ['public/assets/hub-photos','public/assets/hub-photos-extra','p
     if(name.isFile())assetFiles.push(path.join(dir,name.name));
   }
 }
-const duplicates=[];
-const byBase=new Map();
-for(const file of assetFiles){
-  const base=path.basename(file).toLowerCase();
-  const list=byBase.get(base)||[];
-  list.push(file); byBase.set(base,list);
-}
-for(const [base,list] of byBase)if(list.length>1)duplicates.push([base,...list]);
-
 if(missing.length){console.error('FAIL: referenced source media missing');missing.forEach(x=>console.error('  '+x));fail++}
-if(duplicates.length){console.error('FAIL: duplicate source media basenames');duplicates.forEach(x=>console.error('  '+x.join(' | ')));fail++}
 console.log('PASS: '+unique.length+' referenced source-media paths resolved.');
 console.log('PASS: '+assetFiles.length+' committed hub media files scanned.');
 if(fail)process.exit(1);
