@@ -8,7 +8,7 @@ const manifest=read('public/manifest.json');
 
 const checks=[
   [system.includes("@import '../jyc-logo-final-theme.css';"),'final senior logo theme must be the last public-system layer'],
-  [theme.includes('--jyc-navy:#141927')&&theme.includes('--jyc-champagne:#c2a682')&&theme.includes('--jyc-ivory:#faf7ef'),'senior logo palette tokens must be present'],
+  [theme.includes('--jyc-navy:#18161d')&&theme.includes('--jyc-champagne:#bf9c6f')&&theme.includes('--jyc-ivory:#faf7ef'),'senior logo palette tokens must be present'],
   [theme.includes('prefers-reduced-motion:reduce'),'final theme must respect reduced motion'],
   [theme.includes('prefers-contrast:more'),'final theme must support higher contrast'],
   [theme.includes('min-width:44px')&&theme.includes('min-height:44px'),'interactive targets must meet the 44px touch target used by the final public layer'],
