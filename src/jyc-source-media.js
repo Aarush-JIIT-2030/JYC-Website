@@ -61,14 +61,9 @@ export function enrichSourceClubs(clubs){return (Array.isArray(clubs)?clubs:[]).
 
 export function mergeSourceGallery(gallery){
   const map=new Map();
-  SOURCE_GALLERY.forEach(item=>{
-    const enriched=enrichMediaItem(item);
-    if(enriched)map.set(enriched.id||enriched.url,enriched);
-  });
-  (Array.isArray(gallery)?gallery:[]).forEach((item,index)=>{
-    const enriched=enrichMediaItem(item);
-    if(enriched)map.set(enriched.id||enriched.url||`gallery-${index}-${normalise(enriched.caption||enriched.association||'item')}`,enriched);
-  });
+  const put=(item)=>{const enriched=enrichMediaItem(item);if(enriched?.url)map.set(String(enriched.url),enriched)};
+  SOURCE_GALLERY.forEach(put);
+  (Array.isArray(gallery)?gallery:[]).forEach(put);
   return [...map.values()];
 }
 
