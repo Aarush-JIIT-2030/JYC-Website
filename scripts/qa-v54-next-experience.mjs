@@ -6,6 +6,8 @@ const bot=read('src/jyc-bot.jsx');
 const assistant=read('src/jyc-assistant.jsx');
 const css=read('src/styles/jyc-next-experience.css');
 const registry=read('src/jyc-hub-registry.js');
+const sourceMedia=read('src/jyc-source-media.js');
+const gallery=read('src/extra-features.jsx');
 const hubContent=read('src/v21-hub-content.js');
 const checks=[
  ['next experience module exists',next.includes('export function ChooseYourRoute')&&next.includes('export function PhotoStory')&&next.includes('export function HubSignalRail')],
@@ -23,6 +25,9 @@ const checks=[
  ['source registry covers current and source-only hubs',registry.includes("brochure-verified")&&registry.includes("source-material")&&registry.match(/\{name:/g)?.length===23],
  ['official 2026 brochure hubs are represented',hubContent.includes('Qriosity')&&hubContent.includes('JIIT OPTICA')],
  ['hub source filters exist',next.includes('jyc-hub-source-filters')&&css.includes('.jyc-hub-source-filters')],
+ ['source media has explicit visual classification',sourceMedia.includes('mediaKind')&&sourceMedia.includes("return 'photo'")&&sourceMedia.includes("return 'artwork'")],
+ ['gallery separates photography from artwork',gallery.includes("const [visual,setVisual]=useState('All')")&&gallery.includes('MEDIA TYPE')&&gallery.includes('Photography')],
+ ['hub index is explicitly non-exhaustive',next.includes('not an exhaustive list of every active JIIT hub')],
  ['new CSS is loaded',read('src/styles/public-system.css').includes("@import './jyc-next-experience.css';")],
  ['new layer avoids neon/glass/orbit language',!/neon|orbit-ring|glassmorphism/i.test(css)]
 ];
