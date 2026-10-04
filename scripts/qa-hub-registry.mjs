@@ -17,6 +17,6 @@ expect(contentFile.includes('Qriosity:') && contentFile.includes("'JIIT OPTICA':
 for(const n of ['Qriosity','JIIT OPTICA']) expect(registryNames.includes(n),'registry missing '+n);
 if(fail.length){for(const x of fail)console.error('FAIL:',x);process.exit(1)}
 console.log('PASS: 23 hub registry entries');
-console.log('PASS: 17 brochure-verified + 6 orientation-verified entries');
+console.log('PASS: 17 brochure-verified + 6 source-material entries');
 console.log('PASS: no stale verified-current registry state');
 console.log('PASS: Qriosity and JIIT OPTICA identity/content coverage');
