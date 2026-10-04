@@ -82,7 +82,7 @@
   box-shadow:0 0 0 36px color-mix(in srgb,var(--jyc33-brand) 5%,transparent),
              0 0 0 72px color-mix(in srgb,var(--jyc33-brand) 3%,transparent);
   pointer-events:none;
-  animation:jycV36Orbit 18s linear infinite;
+  animation:none;
 }
 .public-app .find-community-panel .community-chip{
   position:relative;
