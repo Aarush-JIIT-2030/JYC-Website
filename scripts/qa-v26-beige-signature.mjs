@@ -11,6 +11,7 @@ const pkg=JSON.parse(read('package.json'));
 const sw=read('public/sw.js');
 const hubContent=read('src/v21-hub-content.js');
 const sourceMedia=read('src/jyc-source-media.js');
+const hubRegistry=read('src/jyc-hub-registry.js');
 
 const hasExactUrl=(content,{protocol,hostname,pathname})=>{
   const matches=content.match(/https?:\/\/[^\s"'`<>)]+/g)??[];
@@ -51,11 +52,11 @@ check('JYC logo remains the public hero identity',main.includes('hero-logo-stage
 check('SEO/social preview remains logo-led',index.includes('og:image" content="https://www.jiityouthclub128.in/jyc-logo-official.webp"')&&index.includes('twitter:image" content="https://www.jiityouthclub128.in/jyc-logo-official.webp"'));
 check('service worker cache is current',/CACHE_NAME\s*=\s*['"]jyc-cache-v49-0-0['"]/.test(read('public/sw.js')));
 const maintainedHubCount=(hubContent.match(/^\s{2}(?:'[^']+'|[A-Za-z][^:]+):\{/gm)||[]).length;
-check('orientation source count stays internally consistent',main.includes('21 communities')&&main.includes("Object.keys(JYC_HUB_CONTENT).length")&&maintainedHubCount===21);
+check('orientation source count stays internally consistent',main.includes('JYC_HUB_CONTENT')&&main.includes("Object.keys(JYC_HUB_CONTENT).length")&&maintainedHubCount===23&&hubRegistry.match(/\{name:/g)?.length===23);
 check('hub detail exposes source and live evidence layers',main.includes('hub-evidence-rail')&&main.includes('club-source')&&main.includes('Published JYC records provide the live layer'));
 check('events support family-level discovery',main.includes("[family,setFamily]=useState('All')")&&main.includes('eventCategoryOf(e).toLowerCase()===family.toLowerCase()')&&main.includes('All'));
-check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('21 maintained community signatures'));
-check('all 21 hub identities are represented',maintainedHubCount===21&&read('src/hub-identities.js').includes('21 maintained community signatures'));
+check('hub identity comment matches maintained count',read('src/hub-identities.js').includes('23 maintained community signatures'));
+check('all 23 hub identities are represented',maintainedHubCount===23&&read('src/hub-identities.js').includes('23 maintained community signatures')&&read('src/hub-identities.js').includes('Qriosity')&&read('src/hub-identities.js').includes('JIIT OPTICA'));
 check('event identity system covers supplied flagship events',read('src/hub-identities.js').includes('Dron-O-War')&&read('src/hub-identities.js').includes('Converge')&&read('src/hub-identities.js').includes('Code Clash')&&main.includes('eventIdentity(e)'));
 check('event detail carries its own identity lockup',main.includes('event-identity-lockup')&&main.includes('event-identity-panel'));
 check('source-first hub media helper exists',sourceMedia.includes('enrichSourceClubs')&&sourceMedia.includes('mergeSourceGallery')&&sourceMedia.includes('QUALITY_OVERRIDES'));
