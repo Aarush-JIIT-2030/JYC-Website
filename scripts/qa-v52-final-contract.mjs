@@ -26,7 +26,7 @@ add('public shell does not mount public notifications/settings UI',!main.include
 add('public event registration is external/editorial only',!main.includes("endsWith('/register')")&&!main.includes('RegistrationPage'));
 add('real source-media pipeline remains active',main.includes('mergeSourceGallery')&&main.includes('sourceHubMedia')&&media.includes('PDF_HUB_GALLERY'));
 add('Neural Nexus source override is unique',(media.match(/NeuralNexus:/g)||[]).length===1);
-add('senior logo palette is active',theme.includes('--jyc-navy:#18161d')&&theme.includes('--jyc-champagne:#bf9c6f')&&theme.includes('--jyc-ivory:#faf7ef'));
+add('senior logo palette is active',theme.includes('--jyc-navy:#18161d')&&theme.includes('--jyc-champagne:#bf9c6f')&&theme.includes('--jyc-ivory:#ffffff')&&theme.includes('--accent-red:#a82420'));
 add('reduced motion is enforced',theme.includes('@media (prefers-reduced-motion:reduce)')&&theme.includes('animation:none!important'));
 add('minimum pointer target contract is enforced',theme.includes('min-width:44px')&&theme.includes('min-height:44px'));
 add('V56.2 overflow and typography guard is active',theme.includes('V56.2 FINAL VISUAL QA CONTRACT')&&theme.includes('overflow-wrap:anywhere')&&theme.includes('text-wrap:pretty'));
