@@ -1,4 +1,4 @@
-import React,{useMemo,useState} from 'react';
+import React,{useEffect,useMemo,useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {JYC_HUB_CONTENT,JYC_HUB_FAMILIES} from './v21-hub-content.js';
 import {JYC_HUB_SOURCE_REGISTRY,JYC_HUB_SOURCE_STATUS,JYC_HUB_VERIFIED_CURRENT,JYC_HUB_SOURCE_ONLY} from './jyc-hub-registry.js';
@@ -44,6 +44,8 @@ export function ChooseYourRoute({data}){
 export function PhotoStory({data}){
  const nav=useNavigate();
  const [active,setActive]=useState(0);
+ const [autoPlay,setAutoPlay]=useState(true);
+ const [isHovering,setIsHovering]=useState(false);
  const items=useMemo(()=>{
   const published=(Array.isArray(data?.gallery)?data.gallery:[]).filter(g=>g?.url&&g?.published!==false);
   const sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap(meta=>sourceHubMedia(meta.name).photoItems.slice(0,5).map((item,i)=>({id:`source-${meta.name}-${i}`,url:item.url,association:meta.name,year:item.year||'',caption:item.caption||item.title||`${meta.name} · source photography`,alt:item.alt||item.caption||`${meta.name} supplied JYC source photograph`,published:true,mediaKind:'photo',sourceLabel:item.sourceLabel||'JYC supplied hub archive'})));
@@ -52,13 +54,24 @@ export function PhotoStory({data}){
   const seen=new Set();
   return preferred.filter(g=>{const key=g.id||g.url;if(seen.has(key))return false;seen.add(key);return true}).slice(0,8);
  },[data?.gallery]);
+ useEffect(()=>{
+  if(!autoPlay||isHovering||items.length<2)return undefined;
+  const timer=window.setInterval(()=>setActive(index=>(index+1)%items.length),5200);
+  return ()=>window.clearInterval(timer);
+ },[autoPlay,isHovering,items.length]);
  if(!items.length)return null;
  const current=items[Math.min(active,items.length-1)];
+ const selectPhoto=i=>setActive(i);
  return <section id="photo-story" className="section jyc-photo-story-section reveal">
   <div className="jyc-photo-story-head"><div><span className="eyebrow">PHOTO STORY · JYC ARCHIVE</span><h2>Let the photographs tell the story.</h2><p>Real JYC media becomes the narrative layer: event, people, place, performance and work.</p></div><button type="button" className="reference-view-all" onClick={()=>nav('/gallery')}>Open visual archive ↗</button></div>
-  <div className="jyc-photo-story">
-   <div className="jyc-photo-story-stage"><img src={current.url} alt={current.alt||current.caption||'JYC visual archive moment'} loading={active===0?'eager':'lazy'}/><div className="jyc-photo-story-caption"><span>{String(active+1).padStart(2,'0')} / {String(items.length).padStart(2,'0')}</span><div><small>{current.association||'JYC Archive'} · {current.year||'JYC'}</small><strong>{current.caption||'JYC moment'}</strong></div></div></div>
-   <div className="jyc-photo-story-rail" aria-label="Photo story moments">{items.map((item,i)=><button type="button" key={item.id||item.url||i} className={i===active?'active':''} onClick={()=>setActive(i)} aria-label={'Open photo '+(i+1)}><span>{String(i+1).padStart(2,'0')}</span><img src={item.url} alt="" loading="lazy"/><b>{(item.caption||item.association||'JYC moment').split(' · ')[1]||item.association||'JYC moment'}</b></button>)}</div>
+  <div className="jyc-photo-story" onMouseEnter={()=>setIsHovering(true)} onMouseLeave={()=>setIsHovering(false)}>
+   <div className="jyc-photo-story-stage" aria-live="polite">
+    <img key={current.url||active} className="jyc-photo-story-transition" src={current.url} alt={current.alt||current.caption||'JYC visual archive moment'} loading={active===0?'eager':'lazy'}/>
+    <div className="jyc-photo-story-caption"><span>{String(active+1).padStart(2,'0')} / {String(items.length).padStart(2,'0')}</span><div><small>{current.association||'JYC Archive'} · {current.year||'JYC'}</small><strong>{current.caption||'JYC moment'}</strong></div></div>
+    <button type="button" className="jyc-photo-story-autoplay" onClick={()=>setAutoPlay(v=>!v)} aria-pressed={autoPlay} aria-label={autoPlay?'Pause automatic photo transition':'Play automatic photo transition'}>{autoPlay?'Ⅱ':'▶'}</button>
+    <div className="jyc-photo-story-progress" aria-hidden="true"><span style={{width:autoPlay?'100%':((active+1)/items.length*100)+'%'}}/></div>
+   </div>
+   <div className="jyc-photo-story-rail" aria-label="Photo story moments">{items.map((item,i)=><button type="button" key={item.id||item.url||i} className={i===active?'active':''} onClick={()=>selectPhoto(i)} aria-label={'Open photo '+(i+1)}><span>{String(i+1).padStart(2,'0')}</span><img src={item.url} alt="" loading="lazy"/><b>{(item.caption||item.association||'JYC moment').split(' · ')[1]||item.association||'JYC moment'}</b></button>)}</div>
   </div>
  </section>
 }
