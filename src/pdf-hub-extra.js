@@ -310,7 +310,7 @@ export const PDF_HUB_EXTRA_GALLERY=[
     "association": "Ebullience",
     "year": "2026",
     "page": 60
-  }
+  },
   {
     "id": "extra-event-74",
     "url": "/assets/hub-photos-extra/event-74.webp",
