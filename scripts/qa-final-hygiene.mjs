@@ -13,7 +13,7 @@ const theme=read('src/jyc-logo-final-theme.css');
 const checks=[];
 const add=(name,ok,detail='')=>checks.push({name,ok:Boolean(ok),detail});
 
-add('package release is current 56.x line',/^56\\.\\d+\\.\\d+$/.test(pkg.version));
+add('package release is current 56.x line',/^56\.\d+\.\d+$/.test(pkg.version));
 add('README names current release',readme.includes('Current release: V56.1'));
 add('README does not carry superseded V45/V47 product sections',!readme.includes('## V45 product upgrades')&&!readme.includes('## V47 product upgrades'));
 add('README does not advertise retired public utilities',!readme.includes('Standalone JYC Assistant')&&!readme.includes('Featured JAI 2026 popup')&&!readme.includes('public academic calendar'));
