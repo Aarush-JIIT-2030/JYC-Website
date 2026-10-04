@@ -22,6 +22,8 @@ const scripts = [
   'qa-accessibility-contract.mjs',
   'qa-repo-hygiene.mjs',
     'qa-v52-final-contract.mjs',
+  'qa-media-architecture.mjs',
+  'qa-photo-integrity.mjs',
   'qa-final-hygiene.mjs'
 ];
 
