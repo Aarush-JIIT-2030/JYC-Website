@@ -5,12 +5,13 @@ import {normalizeSearch,rankSearchResults} from './lib/search.js';
 const published=data=>({
  clubs:(data?.clubs||[]).filter(c=>c?.published&&c?.status!=='archived'),
  events:(data?.events||[]).filter(e=>e?.published&&!e?.archived),
- team:(data?.team||[]).filter(m=>m?.published===true)
+ team:(data?.team||[]).filter(m=>m?.published===true),
+ gallery:(data?.gallery||[]).filter(g=>g?.url&&g?.published!==false)
 });
 
 export function JYCAssistant({data,onClose}){
  const nav=useNavigate(),loc=useLocation(),inputRef=useRef(null),[query,setQuery]=useState('');
- const {clubs,events,team}=useMemo(()=>published(data),[data]);
+ const {clubs,events,team,gallery}=useMemo(()=>published(data),[data]);
  const context=loc.pathname.startsWith('/clubs')?'clubs':loc.pathname.startsWith('/events')?'events':loc.pathname.startsWith('/gallery')?'gallery':loc.pathname.startsWith('/team')||loc.pathname.startsWith('/leadership')?'leadership':'home';
  const contextCopy={home:'Start with a club, an event or the JYC story.',clubs:'Find a community by name, focus or activity.',events:'Find upcoming and published JYC experiences.',gallery:'Find the visual archive and event stories.',leadership:'Find the people behind JYC.'}[context];
  useEffect(()=>{const id=setTimeout(()=>inputRef.current?.focus(),40);return()=>clearTimeout(id)},[]);
@@ -21,7 +22,8 @@ export function JYCAssistant({data,onClose}){
   ...pages.map(([title,meta,type,path])=>({key:'page-'+path,title,meta,type,go:()=>go(path)})),
   ...clubs.map(c=>({key:'club-'+c.id,title:c.name,meta:c.category||c.type||'JYC community',type:'CLUB',searchText:[c.name,c.category,c.type,c.description,c.about,(c.interests||[]).join(' ')].join(' '),go:()=>go('/clubs/'+encodeURIComponent(c.id||c.name))})),
   ...events.map(e=>({key:'event-'+e.id,title:e.title,meta:[e.club,e.venue,e.date].filter(Boolean).join(' · '),type:'EVENT',searchText:[e.title,e.club,e.eventType,e.venue,(e.highlights||[]).join(' '),(e.tracks||[]).map(x=>x.name).join(' ')].join(' '),go:()=>go('/events/'+encodeURIComponent(e.id||e.title))})),
-  ...team.map(m=>({key:'team-'+m.id,title:m.name,meta:m.role||m.position||'JYC Team',type:'TEAM',searchText:[m.name,m.role,m.position,m.bio,m.description].join(' '),go:()=>go('/leadership')}))
+  ...team.map(m=>({key:'team-'+m.id,title:m.name,meta:m.role||m.position||'JYC Team',type:'TEAM',searchText:[m.name,m.role,m.position,m.bio,m.description].join(' '),go:()=>go('/leadership')})),
+  ...gallery.map((g,i)=>({key:'gallery-'+(g.id||i),title:g.caption||g.association||'JYC visual archive',meta:[g.association,g.year,g.sourceLabel].filter(Boolean).join(' · '),type:'GALLERY',searchText:[g.caption,g.association,g.year,g.sourceLabel,g.alt].filter(Boolean).join(' '),go:()=>go('/gallery')}))
  ];
  const term=normalizeSearch(query);
  const results=term?rankSearchResults(raw.map(x=>({...x,text:x.searchText||x.meta})),term).slice(0,8):[];
