@@ -6,7 +6,7 @@ const nextExperience=fs.readFileSync(path.join(root,'src/jyc-next-experience.jsx
 const css=fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 const checks=[
- ['release version is current V55+ line',/^56\.\d+\.\d+$/.test(pkg.version)],
+ ['release version is current V56.1 line',pkg.version==='56.1.0'],
  ['visible breadcrumbs component exists',main.includes('function Breadcrumbs')&&main.includes('aria-label="Breadcrumb"')],
  ['public home has closing CTA contract',main.includes('key="cta"')&&main.includes('READY TO SOAR')],
  ['Club navigation links include clubs/events/team/contact',main.includes("nav('/clubs')")&&main.includes("nav('/events')")&&main.includes("nav('/team')")&&main.includes("nav('/contact')")],
@@ -38,7 +38,10 @@ checks.push(
  ['supplied five-volume archive inventory is represented',nextExperience.includes('JYC_SOURCE_ARCHIVE_STATS')&&nextExperience.includes('812 unique source photographs')&&nextExperience.includes('jyc-source-archive.js')],
  ['gallery deduplicates source media by URL',fs.readFileSync(path.join(root,'src/jyc-source-media.js'),'utf8').includes('new Map(media.filter(x=>x?.url).map(x=>[String(x.url),x]))')],
  ['gallery story avoids decorative source assets when possible',fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8').includes('nonDecorative=photoOnly.filter')&&fs.readFileSync(path.join(root,'src/extra-features.jsx'),'utf8').includes('const itemIndex=g=>items.findIndex')],
- ['club and event source galleries are uncapped',main.includes('sourceHubMedia(c.name).photoItems.map')&&main.includes('media.items.map((m,i)=>')&&!main.includes('media.items.slice(0,12)')&&!main.includes('photoItems.slice(0,10)')]
+ ['club and event source galleries are uncapped',main.includes('sourceHubMedia(c.name).photoItems.map')&&main.includes('media.items.map((m,i)=>')&&!main.includes('media.items.slice(0,12)')&&!main.includes('photoItems.slice(0,10)')],
+ ['remaining public source-media merge is URL-keyed',fs.readFileSync(path.join(root,'src/jyc-source-media.js'),'utf8').includes("map.set(String(enriched.url),enriched)")],
+ ['remaining find-community ornament is static, not orbital motion',!fs.readFileSync(path.join(root,'src/v36-depth-polish.css'),'utf8').includes('jycV36Orbit')],
+ ['LLMs release boundary is current',fs.readFileSync(path.join(root,'public/llms.txt'),'utf8').includes('V56.1 is a club-first public website')]
 
 );
 
