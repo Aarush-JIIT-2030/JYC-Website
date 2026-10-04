@@ -383,8 +383,14 @@
 
 /* Editorial photo-story motion: quiet cross-fade + scale, never a flashy carousel. */
 .public-app .jyc-photo-story-stage{position:relative;overflow:hidden;isolation:isolate;}
+.public-app .jyc-photo-story-controls{display:grid;gap:10px;margin-top:10px;}
+.public-app .jyc-photo-story-scrubber{display:grid;grid-template-columns:auto minmax(120px,1fr) auto;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--jyc-final-line);border-radius:14px;background:rgba(255,250,241,.72);color:var(--jyc-final-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+.public-app .jyc-photo-story-scrubber input{width:100%;accent-color:var(--jyc-final-ink);cursor:pointer;}
+.public-app .jyc-photo-story-scrubber output{font-variant-numeric:tabular-nums;color:var(--jyc-final-ink);white-space:nowrap;}
 .public-app .jyc-photo-story-rail{display:flex;gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;padding:10px 2px 4px;scrollbar-width:thin;}
-.public-app .jyc-photo-story-rail>button{flex:0 0 clamp(82px,10vw,112px);scroll-snap-align:start;}
+.public-app .jyc-photo-story-rail>button{flex:0 0 clamp(82px,10vw,112px);scroll-snap-align:start;transition:transform .2s ease,opacity .2s ease;}
+.public-app .jyc-photo-story-rail>button:not(.active){opacity:.72;}
+.public-app .jyc-photo-story-rail>button:hover,.public-app .jyc-photo-story-rail>button.active{opacity:1;transform:translateY(-2px);}
 .public-app .jyc-photo-story-rail img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;}
 .public-app .jyc-photo-story-stage .jyc-photo-story-transition{display:block;width:100%;height:100%;object-fit:cover;animation:jyc-photo-story-in .85s cubic-bezier(.22,.61,.36,1) both;will-change:opacity,transform;}
 .public-app .jyc-photo-story-autoplay{position:absolute;top:14px;right:14px;z-index:4;width:36px;height:36px;border:1px solid rgba(255,255,255,.38);border-radius:999px;background:rgba(20,18,15,.62);backdrop-filter:blur(8px);color:#fff;display:grid;place-items:center;font-size:12px;line-height:1;cursor:pointer;}
@@ -398,4 +404,11 @@
 @media(prefers-reduced-motion:reduce){
  .public-app .jyc-photo-story-stage .jyc-photo-story-transition{animation:none;}
  .public-app .jyc-photo-story-progress span{animation:none;transform:scaleX(1);}
+}
+
+@media(max-width:620px){
+ .public-app .jyc-photo-story-scrubber{grid-template-columns:1fr auto;gap:8px;}
+ .public-app .jyc-photo-story-scrubber span{grid-column:1/-1;}
+ .public-app .jyc-photo-story-scrubber input{grid-column:1;}
+ .public-app .jyc-photo-story-scrubber output{grid-column:2;}
 }
