@@ -144,6 +144,9 @@ test('mobile visual guardrails keep core content centered and inside viewport', 
           .filter(el => {
             const text = (el.textContent || '').trim();
             if (!text) return false;
+            // The skip link is intentionally parked off-screen until keyboard focus.
+            // It is an accessibility affordance, not an accidentally clipped visible node.
+            if (el.classList.contains('skip-link') && document.activeElement !== el) return false;
             const s = getComputedStyle(el);
             const r = el.getBoundingClientRect();
             return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 &&
