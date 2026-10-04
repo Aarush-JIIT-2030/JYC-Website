@@ -6,12 +6,12 @@
 .public-app{
   --jyc-final-max:min(1180px,calc(100% - 32px));
   --jyc-final-bg:#f5f1e6;
-  --jyc-final-surface:#fffaf1;
-  --jyc-final-ink:#171513;
-  --jyc-final-muted:#665f56;
-  --jyc-final-line:rgba(23,21,19,.13);
-  --jyc-final-gold:#a47b43;
-  --jyc-final-red:#9d3f32;
+  --jyc-final-surface:#ffffff;
+  --jyc-final-ink:#1a191d;
+  --jyc-final-muted:#6e6a75;
+  --jyc-final-line:rgba(191,156,111,.35);
+  --jyc-final-gold:#bf9c6f;
+  --jyc-final-red:#a82420;
   overflow-x:clip;
 }
 
@@ -431,10 +431,10 @@ html[data-theme="dark"] .public-app .hub-official-description{background:rgba(21
 /* Dark-mode readability: keep the editorial surfaces, but invert their ink/muted hierarchy explicitly. */
 html[data-theme="dark"] .public-app{
   --jyc-final-bg:#0f0e11;
-  --jyc-final-surface:#181612;
+  --jyc-final-surface:#18161d;
   --jyc-final-ink:#fff8e1;
-  --jyc-final-muted:#b7aea2;
-  --jyc-final-line:rgba(255,248,225,.16);
+  --jyc-final-muted:#a8a3b0;
+  --jyc-final-line:rgba(210,180,140,.35);
   --jyc-final-gold:#d2b48c;
   --jyc-final-red:#c92a2a;
 }
