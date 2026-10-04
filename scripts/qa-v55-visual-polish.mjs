@@ -15,6 +15,7 @@ const checks=[
  ['club pages expose source photo strip',main.includes('hub-source-photo-strip')&&main.includes('sourceHubMedia(c.name).photos')],
  ['homepage photo story uses source hub photos',next.includes('sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap')],
  ['homepage photo wall uses source photography',main.includes('hub-photo-wall')&&main.includes('sourceHubMedia(meta.name).photos')],
+ ['club source rail uses metadata-aware captions',main.includes('photoItems?.length')&&main.includes('item.caption||item.title')],
  ['gallery mounts source hub photography',read('src/extra-features.jsx').includes('sourcePhotoItems=useMemo')&&read('src/extra-features.jsx').includes('sourceHubMedia(name).photos')],
  ['public club/event/photo cards stay upright',!main.includes('club-card-v41 tilt-card')&&!main.includes('event-card-premium tilt-card')&&!main.includes('moments-feature-${i} tilt-card')],
  ['event identity contract remains present',main.includes('event-identity-page')&&main.includes('eventIdentity(e)')],
