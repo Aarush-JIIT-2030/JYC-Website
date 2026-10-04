@@ -46,7 +46,7 @@ export function PhotoStory({data}){
  const [active,setActive]=useState(0);
  const items=useMemo(()=>{
   const published=(Array.isArray(data?.gallery)?data.gallery:[]).filter(g=>g?.url&&g?.published!==false);
-  const sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap(meta=>sourceHubMedia(meta.name).photoItems.slice(0,3).map((item,i)=>({id:`source-${meta.name}-${i}`,url:item.url,association:meta.name,year:item.year||'',caption:item.caption||item.title||`${meta.name} · source photography`,alt:item.alt||item.caption||`${meta.name} supplied JYC source photograph`,published:true,mediaKind:'photo',sourceLabel:item.sourceLabel||'JYC supplied hub archive'})));
+  const sourcePhotos=JYC_HUB_VERIFIED_CURRENT.flatMap(meta=>sourceHubMedia(meta.name).photoItems.slice(0,5).map((item,i)=>({id:`source-${meta.name}-${i}`,url:item.url,association:meta.name,year:item.year||'',caption:item.caption||item.title||`${meta.name} · source photography`,alt:item.alt||item.caption||`${meta.name} supplied JYC source photograph`,published:true,mediaKind:'photo',sourceLabel:item.sourceLabel||'JYC supplied hub archive'})));
   const raw=[...published,...sourcePhotos];
   const preferred=[...raw.filter(g=>/Converge|Dron-O-War|Ebullience|JAI|JYC Archive/i.test(String(g.association||''))),...raw];
   const seen=new Set();
@@ -71,7 +71,7 @@ export function PhotoChapters(){
    profile:JYC_HUB_CONTENT[h.name]||{},
    media:sourceHubMedia(h.name)
   })).filter(h=>h.media.photos.length);
-  const photos=hubs.flatMap(h=>h.media.photoItems.slice(0,2).map((item,i)=>({
+  const photos=hubs.flatMap(h=>h.media.photoItems.slice(0,4).map((item,i)=>({
    url:item.url,
    hub:h.name,
    caption:item.caption||item.title||h.profile.summary||h.profile.focus||family,
