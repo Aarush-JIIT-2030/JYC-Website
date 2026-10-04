@@ -1,3 +1,4 @@
+import {JYC_OFFICIAL_HUB_DESCRIPTIONS} from './jyc-official-hub-descriptions.js';
 /*
  V23.6 HUB DETAIL DATA
  Source hierarchy:
@@ -151,5 +152,5 @@ export const JYC_HUB_DETAILS = {
 
 export function hubDetails(name){
   const key=Object.keys(JYC_HUB_DETAILS).find(k=>k.toLowerCase()===String(name||'').trim().toLowerCase());
-  return key?{...JYC_HUB_DETAILS[key],name:key}:null;
+  return key?{...JYC_HUB_DETAILS[key],officialDescription:JYC_OFFICIAL_HUB_DESCRIPTIONS[key]||'',name:key}:null;
 }
