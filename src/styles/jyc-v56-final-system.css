@@ -379,3 +379,18 @@
 @media(prefers-reduced-motion:reduce){
   .public-app *{scroll-behavior:auto!important}
 }
+
+
+/* Editorial photo-story motion: quiet cross-fade + scale, never a flashy carousel. */
+.public-app .jyc-photo-story-stage{position:relative;overflow:hidden;isolation:isolate;}
+.public-app .jyc-photo-story-stage .jyc-photo-story-transition{display:block;width:100%;height:100%;object-fit:cover;animation:jyc-photo-story-in .85s cubic-bezier(.22,.61,.36,1) both;will-change:opacity,transform;}
+.public-app .jyc-photo-story-autoplay{position:absolute;top:14px;right:14px;z-index:4;width:36px;height:36px;border:1px solid rgba(255,255,255,.38);border-radius:999px;background:rgba(20,18,15,.62);backdrop-filter:blur(8px);color:#fff;display:grid;place-items:center;font-size:12px;line-height:1;cursor:pointer;}
+.public-app .jyc-photo-story-autoplay:hover{background:rgba(20,18,15,.82);}
+.public-app .jyc-photo-story-progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.18);z-index:4;overflow:hidden;}
+.public-app .jyc-photo-story-progress span{display:block;height:100%;background:rgba(255,255,255,.9);transform-origin:left center;animation:jyc-photo-story-progress 5.2s linear infinite;}
+@keyframes jyc-photo-story-in{from{opacity:.18;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
+@keyframes jyc-photo-story-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){
+ .public-app .jyc-photo-story-stage .jyc-photo-story-transition{animation:none;}
+ .public-app .jyc-photo-story-progress span{animation:none;transform:scaleX(1);}
+}
