@@ -22,6 +22,7 @@ const checks=[
  ['bot stays above mobile dock',bot.includes('bottom:calc(78px + env(safe-area-inset-bottom))')],
  ['assistant quick routes are contextual',assistant.includes("context==='clubs'")&&assistant.includes("context==='events'")&&assistant.includes("context==='gallery'")],
  ['assistant indexes gallery and source photography',assistant.includes("type:'GALLERY'")&&assistant.includes('JYC_HUB_SOURCE_REGISTRY')&&assistant.includes('sourceHubMedia')],
+ ['photo story preserves source-photo metadata',next.includes('photoItems.slice(0,3)')&&next.includes('item.caption||item.title')],
  ['photo story uses published media',next.includes("g?.published!==false")],
  ['route discovery uses five-family ecosystem',next.includes("JYC_HUB_CONTENT")&&next.includes("Technical")&&next.includes("Cultural")],
  ['hub source registry is loaded',next.includes("jyc-hub-registry.js")&&registry.includes('JYC_HUB_SOURCE_REGISTRY')],
