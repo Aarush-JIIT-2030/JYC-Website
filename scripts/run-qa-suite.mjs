@@ -21,9 +21,10 @@ const scripts = [
   'qa-data-integrity.mjs',
   'qa-accessibility-contract.mjs',
   'qa-repo-hygiene.mjs',
-    'qa-v52-final-contract.mjs',
+  'qa-v52-final-contract.mjs',
   'qa-media-architecture.mjs',
   'qa-photo-integrity.mjs',
+  'qa-local-assets.mjs',
   'qa-final-hygiene.mjs'
 ];
 
