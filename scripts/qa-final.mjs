@@ -31,6 +31,7 @@ checks.push(
  ['public copy uses maintained 23-community count',!main.includes('names 21 communities')],
  ['JAI event fallback uses local committed artwork',main.includes("poster:'/assets/events/agentic-ai-2026.webp'")],
  ['photo archive source selectors use multiple frames',main.includes('photoItems.slice(0,5)')&&main.includes('photoItems.slice(0,6)')&&main.includes('photoItems.slice(0,10)')&&main.includes('photoItems.slice(0,12)')],
+ ['photo story has automatic transition controls',main.includes('setInterval(()=>setActive')&&main.includes('jyc-photo-story-autoplay')&&extraPublicCss.includes('jyc-photo-story-transition')&&extraPublicCss.includes('prefers-reduced-motion')],
  ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))]
 );
 
