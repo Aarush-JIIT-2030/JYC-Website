@@ -32,6 +32,13 @@ const BASE={
 export const JYC_HUB_IDENTITIES=BASE;
 
 const EVENT_PRESETS={
+  'JAI 2026':{accent:'#596B66',motif:'AGENTS / SUMMIT',signature:'Agentic AI, builders and a global technology programme',traits:['Agentic AI','Summit','Hackathon'],shape:'network'},
+  'DRONO-O-WAR':{accent:'#4E675D',motif:'FLIGHT / ARENA',signature:'Aerial robotics, precision and national competition',traits:['Drones','Engineering','Competition'],shape:'flight'},
+  'RIDE Hack 26':{accent:'#78663F',motif:'IDEAS / IMPACT',signature:'Innovation, entrepreneurship and real-world problem solving',traits:['Hackathon','Innovation','Entrepreneurship'],shape:'spark'},
+  'CodeAI Hackathon':{accent:'#566A61',motif:'CODE / INTELLIGENCE',signature:'Applied AI, coding and technical experimentation',traits:['AI','Coding','Challenge'],shape:'network'},
+  'TechTonic 2.0':{accent:'#52645D',motif:'ROBOTICS / IMPACT',signature:'Hands-on AI/ML, robotics and project building',traits:['Robotics','AI/ML','Workshop'],shape:'circuit'},
+  'Code Clash 25.1':{accent:'#4B6359',motif:'CODE / PRESSURE',signature:'Algorithmic problem solving under competitive time pressure',traits:['DSA','Competitive Programming','Competition'],shape:'terminal'},
+  'Code Clash 25.2':{accent:'#53685C',motif:'CODE / CHALLENGE',signature:'Competitive programming, speed and precise problem solving',traits:['DSA','Coding','Competition'],shape:'terminal'},
   'Dron-O-War':{accent:'#4E675D',motif:'FLIGHT / BATTLES',signature:'Aerial robotics, precision and competition',traits:['Drones','Engineering','Competition'],shape:'flight'},
   'Converge':{accent:'#876746',motif:'CAMPUS / CONVERGENCE',signature:'Communities, stages and student collaboration',traits:['Annual Fest','Communities','Performance'],shape:'converge'},
   'Ebullience':{accent:'#966D4D',motif:'WELCOME / FIRST CHAPTER',signature:'New beginnings, performances and campus energy',traits:['Freshers','Culture','Community'],shape:'burst'},
