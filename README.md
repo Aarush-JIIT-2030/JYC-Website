@@ -226,6 +226,19 @@ A release should be considered production-ready only after:
 12. The connected Vercel production deployment is verified separately from GitHub CI.
 13. The supplied photo archives have been safely ingested, deduplicated and optimised before being treated as the final production media set.
 
+## Current backend readiness
+
+The connected production Supabase project is now active and has been hardened and populated with source-verified public content. The current live backend state includes:
+
+- 17 JIIT 128 club records verified against the official 2026 JIIT admission brochure.
+- JAI 2026 and Converge 2026 verified event records.
+- 6 curated gallery records with alt text/provenance fields.
+- Production RLS/write-boundary hardening and rate-limit guards.
+- Seven deployed Edge Functions: admin management, notifications, backups, AI content assistance, error intake, media upload and public submissions.
+- Private backup storage and constrained public media storage.
+
+The remaining production gates are operational: configure required third-party Edge Function secrets, enable leaked-password protection in Supabase Auth, verify the connected Vercel production project, complete the full supplied-photo archive ingestion, and run final browser/performance QA against the real deployment.
+
 ## Current release status
 
 **V52 is the current code release.** The codebase is intentionally in finish-and-stabilise mode rather than feature-expansion mode.
