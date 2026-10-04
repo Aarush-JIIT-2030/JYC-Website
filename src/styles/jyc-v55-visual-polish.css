@@ -835,3 +835,7 @@
 .public-app .hub-source-highlight-grid span{font-size:12px;line-height:1.5}
 @media(max-width:800px){.public-app .hub-source-highlight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.public-app .hub-source-highlight-grid{grid-template-columns:1fr}.public-app .hub-source-highlight-grid article{min-height:0}}
+
+.public-app .lightbox-related-links{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin-top:12px}
+.public-app .lightbox-related-links button{min-height:40px;padding:8px 12px;border:1px solid rgba(255,250,241,.28);border-radius:999px;background:rgba(255,250,241,.08);color:#fffaf1;font:inherit;cursor:pointer}
+.public-app .lightbox-related-links button:hover,.public-app .lightbox-related-links button:focus-visible{background:rgba(255,250,241,.16);border-color:rgba(255,250,241,.55)}
