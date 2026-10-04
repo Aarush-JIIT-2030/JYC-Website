@@ -28,3 +28,7 @@ Use the resulting duplicate/basename report to add only genuinely new source ima
 ## Design rule
 
 Do not make every card auto-rotate. Automatic motion is reserved for the editorial Photo Story; the rest of the archive remains user-controlled. This keeps the senior-requested JYC visual language quiet, professional and readable.
+
+## Research-backed direction
+
+Official JIIT publications describe JYC-led cultural, technical and sports activity across events such as Ebullience and Converge, with photographic documentation in institutional reports and newsletters. The site should therefore behave like an editorial archive rather than a tiny hero carousel: source-backed photographs should enter the sequence according to provenance and relevance, while the interface controls how much is visible at once.
