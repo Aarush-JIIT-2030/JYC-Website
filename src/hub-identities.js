@@ -1,4 +1,4 @@
-/* JYC IDENTITY SYSTEM · V33.3 · 21 maintained community signatures
+/* JYC IDENTITY SYSTEM · V33.3 · 23 maintained community signatures
    Each community and event gets a distinct visual language while remaining inside
    the shared JYC beige / black / white editorial system.
    Accent colours are deliberately muted and source-led; they are not replacement brands.
@@ -24,7 +24,9 @@ const BASE={
   Abhivyakti:{accent:'#805B4D',motif:'PERFORM / EXPRESS',signature:'Dramatics, theatre and storytelling through performance',traits:['Dramatics','Theatre','Performance'],glyph:'◐',surface:'warm',shape:'stage',display:'DRAMATICS'},
   Prismatic:{accent:'#6D5D55',motif:'DESIGN / COMMUNICATE',signature:'Graphic design, visual systems and creative collaboration',traits:['Graphic Design','Visual Storytelling','Projects'],glyph:'◆',surface:'warm',shape:'poster',display:'DESIGN'},
   Eloquence:{accent:'#765E4E',motif:'WRITE / SPEAK',signature:'Writing, debate, anchoring and literary expression',traits:['Writing','Speaking','Debate'],glyph:'“',surface:'warm',shape:'quote',display:'LITERARY'},
-  JSA:{accent:'#526A58',motif:'PLAY / REPRESENT',signature:'Sport, competition, teamwork and campus representation',traits:['Cricket','Football','Basketball'],glyph:'◎',surface:'cool',shape:'court',display:'SPORTS'}
+  JSA:{accent:'#526A58',motif:'PLAY / REPRESENT',signature:'Sport, competition, teamwork and campus representation',traits:['Cricket','Football','Basketball'],glyph:'◎',surface:'cool',shape:'court',display:'SPORTS'},
+  Qriosity:{accent:'#75664A',motif:'QUESTION / DISCOVER',signature:'Quizzing, curiosity and knowledge-based competition',traits:['Quizzing','Awareness','Critical Thinking'],glyph:'?',surface:'warm',shape:'question',display:'QUIZ'},
+  'JIIT OPTICA':{accent:'#59695F',motif:'STEM / EXPLORE',signature:'Scientific curiosity, optics and STEM exploration',traits:['STEM','Science','Exploration'],glyph:'◌',surface:'cool',shape:'lens',display:'STEM'}
 };
 
 export const JYC_HUB_IDENTITIES=BASE;
