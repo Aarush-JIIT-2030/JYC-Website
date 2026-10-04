@@ -74,7 +74,7 @@ export function HubSignalRail({data}){
    <button type="button" className="reference-view-all" onClick={()=>nav('/clubs')}>Open live club directory ↗</button>
   </div>
   <div className="jyc-hub-source-filters" role="tablist" aria-label="Filter JYC source hub index">
-   {['All',...JYC_HUB_FAMILIES].map(x=><button key={x} type="button" role="tab" aria-selected={family===x} className={family===x?'active':''} onClick={()=>setFamily(x)}>{x}<span>{x==='All'?hubs.length:visible.filter(h=>h.family===x).length}</span></button>)}
+   {['All',...JYC_HUB_FAMILIES].map(x=><button key={x} type="button" role="tab" aria-selected={family===x} className={family===x?'active':''} onClick={()=>setFamily(x)}>{x}<span>{x==='All'?hubs.length:hubs.filter(h=>h.family===x).length}</span></button>)}
   </div>
   <div className="jyc-hub-signal-grid">{visible.map((h,i)=><button type="button" className="jyc-hub-signal-card" data-source-status={h.status} key={h.name} onClick={()=>nav('/clubs/'+encodeURIComponent(h.name))}>
     <div>{h.media.photos[0]?<img src={h.media.photos[0]} alt="" loading="lazy"/>:<span>{String(i+1).padStart(2,'0')}</span>}</div>
