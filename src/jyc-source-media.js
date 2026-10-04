@@ -7,6 +7,18 @@ import {PDF_HUB_GALLERY,PDF_HUB_STORIES,HUB_PHOTO_MAP} from './pdf-hub-content.j
 import {PDF_HUB_EXTRA_GALLERY} from './pdf-hub-extra.js';
 
 const normalise=v=>String(v||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'');
+const HUB_ALIASES={
+  innovationclub:'Innovation',
+  innovation:'Innovation',
+  jiityouthclub:'JYC',
+  jiityouthclub128:'JYC'
+};
+export const canonicalHubName=name=>{
+  const raw=String(name||'').trim();
+  const alias=HUB_ALIASES[normalise(raw)];
+  if(alias)return alias;
+  return Object.keys(JYC_HUB_CONTENT).find(k=>normalise(k)===normalise(raw))||raw;
+};
 const SOURCE_GALLERY=[...PDF_HUB_GALLERY,...PDF_HUB_EXTRA_GALLERY];
 
 const QUALITY_OVERRIDES={
@@ -30,13 +42,14 @@ const QUALITY_BY_KEY=new Map(Object.entries(QUALITY_OVERRIDES).map(([name,photos
 const storyByKey=new Map(PDF_HUB_STORIES.map(s=>[normalise(s.name),s]));
 
 export function sourceHubMedia(name){
-  const key=normalise(name);
+  const labelFromAlias=canonicalHubName(name);
+  const key=normalise(labelFromAlias);
   const canonical=Object.keys(JYC_HUB_CONTENT).find(k=>normalise(k)===key);
   const label=canonical||name;
   const quality=QUALITY_BY_KEY.get(normalise(label))||[];
   const mapped=HUB_PHOTO_MAP[label]||[];
-  const gallery=SOURCE_GALLERY.filter(g=>normalise(g.association)===key).map(enrichMediaItem).filter(Boolean);
-  const story=storyByKey.get(key);
+  const gallery=SOURCE_GALLERY.filter(g=>normalise(canonicalHubName(g.association))===key).map(enrichMediaItem).filter(Boolean);
+  const story=storyByKey.get(key)||storyByKey.get(normalise(name));
   const storyImage=story?.image?[story.image]:[];
   const media=[
     ...quality.map((url,i)=>({url,association:label,mediaKind:'photo',caption:`${label} · supplied archive photograph ${String(i+1).padStart(2,'0')}`,alt:`${label} supplied JYC photograph ${i+1}`,sourceLabel:'JYC supplied hub archive'})),
