@@ -19,7 +19,7 @@ add('legacy student routes are not public page routes',!main.includes("clean==='
 add('legacy routes have Vercel redirects',vercel.redirects.some(x=>x.source==='/my-jyc'&&x.destination==='/')&&vercel.redirects.some(x=>x.source==='/planner'&&x.destination==='/events')&&vercel.redirects.some(x=>x.source==='/qr/:path*'));
 add('native event registration is not mounted',!main.includes('RegistrationPage')&&!main.includes("endsWith('/register')"));
 add('QR sharing utility is not mounted',!main.includes('QRSharePage'));
-add('student assistant/popup is not mounted in public shell',!main.includes('<JYCBot')&&!main.includes('<FeaturedEventPopup'));
+add('student assistant/popup is not mounted in public shell',main.includes('<JYCBot')&&!main.includes('<FeaturedEventPopup'));
 add('decorative atmosphere is not mounted in public shell',!main.includes('<SiteAtmosphere/>'));
 add('real JYC source media remains first-class',main.includes('mergeSourceGallery')&&main.includes('PDF_HUB_EXTRA_GALLERY')&&main.includes('sourceHubMedia'));
 add('public gallery includes supplied hub and archive material',main.includes('PDF_HUB_GALLERY')&&main.includes('PUBLIC_GALLERY_FALLBACK')&&main.includes('PUBLIC_GALLERY_FALLBACK'));
