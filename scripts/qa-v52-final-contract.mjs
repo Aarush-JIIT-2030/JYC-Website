@@ -14,7 +14,7 @@ const vercel=JSON.parse(read('vercel.json'));
 const checks=[];
 const add=(name,ok,detail='')=>checks.push({name,ok:Boolean(ok),detail});
 
-add('release is V52',pkg.version==='52.0.0'&&lock.version==='52.0.0'&&lock.packages?.['']?.version==='52.0.0');
+add('release is V55',pkg.version==='55.0.0'&&lock.version==='55.0.0'&&lock.packages?.['']?.version==='55.0.0');
 add('canonical public routes are declared',[
   ['/about','/history','/clubs','/events','/gallery','/team','/archive','/recruitment','/announcements','/calendar','/contact']
 ].every(group=>group.every(route=>config.includes("'" + route + "'"))));
@@ -29,9 +29,9 @@ add('Neural Nexus source override is unique',(media.match(/NeuralNexus:/g)||[]).
 add('senior logo palette is active',theme.includes('--jyc-navy:#141927')&&theme.includes('--jyc-champagne:#c2a682')&&theme.includes('--jyc-ivory:#faf7ef'));
 add('reduced motion is enforced',theme.includes('@media (prefers-reduced-motion:reduce)')&&theme.includes('animation:none!important'));
 add('minimum pointer target contract is enforced',theme.includes('min-width:44px')&&theme.includes('min-height:44px'));
-add('V52 overflow and typography guard is active',theme.includes('V52 FINAL VISUAL QA CONTRACT')&&theme.includes('overflow-wrap:anywhere')&&theme.includes('text-wrap:pretty'));
-add('V52 event imagery treatment is active',theme.includes('.event-poster')&&theme.includes('background-size:cover')&&theme.includes('.jyc-feature-poster img'));
-add('V52 responsive event grid is active',theme.includes('grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))')&&theme.includes('@media(max-width:640px)'));
+add('V55 overflow and typography guard is active',theme.includes('V55 FINAL VISUAL QA CONTRACT')&&theme.includes('overflow-wrap:anywhere')&&theme.includes('text-wrap:pretty'));
+add('V55 event imagery treatment is active',theme.includes('.event-poster')&&theme.includes('background-size:cover')&&theme.includes('.jyc-feature-poster img'));
+add('V55 responsive event grid is active',theme.includes('grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))')&&theme.includes('@media(max-width:640px)'));
 add('legacy recruitment alias redirects to canonical route',vercelText.includes('"source": "/join-jyc"')&&vercelText.includes('"destination": "/recruitment"'));
 add('legacy public routes redirect safely',vercel.redirects.some(x=>x.source==='/my-jyc'&&x.destination==='/')&&vercel.redirects.some(x=>x.source==='/planner'&&x.destination==='/events'));
 add('rewrite keeps SPA deep links alive',vercel.rewrites?.some(x=>x.source==='/(.*)'&&x.destination==='/'));
@@ -45,7 +45,7 @@ add('all local media references resolve',missing.length===0,missing.length?missi
 for(const c of checks) console.log((c.ok?'PASS: ':'FAIL: ')+c.name+(c.detail?' — '+c.detail:''));
 const failed=checks.filter(c=>!c.ok);
 if(failed.length){
- console.error('V52 final contract failed: '+failed.length+' checks');
+ console.error('V55 final contract failed: '+failed.length+' checks');
  process.exit(1);
 }
-console.log('PASS: V52 final contract ('+checks.length+' checks)');
+console.log('PASS: V55 final contract ('+checks.length+' checks)');
