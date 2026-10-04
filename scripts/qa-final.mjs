@@ -33,7 +33,9 @@ checks.push(
  ['JAI event fallback uses local committed artwork',main.includes("poster:'/assets/events/agentic-ai-2026.webp'")],
  ['photo archive uses the full source pool',nextExperience.includes('sourceBuckets=JYC_HUB_SOURCE_REGISTRY.map')&&nextExperience.includes('sourceHubMedia(meta.name).photoItems')&&!nextExperience.includes('photoItems.slice(0,8)')&&!nextExperience.includes('sourcePhotos.slice(0,16)')],
  ['photo story has full-archive automatic transitions',nextExperience.includes('setInterval(()=>setActive')&&nextExperience.includes('jyc-photo-story-autoplay')&&nextExperience.includes('Browse every JYC archive photograph')&&nextExperience.includes('railItems=items.slice')&&extraPublicCss.includes('jyc-photo-story-transition')&&extraPublicCss.includes('jyc-photo-story-controls')&&extraPublicCss.includes('prefers-reduced-motion')],
- ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))]
+ ['Supplied archive years are event-specific when present',pdfHub.split('\n').filter(line=>line.includes("year:'2026'")).every(line=>/Converge|Dron-O-War/.test(line))],
+ ['orientation-verified hubs expose provenance',nextExperience.includes("orientationVerifiedCount")&&nextExperience.includes("2026–27 ORIENTATION VERIFIED")]
+
 );
 
 const publicAssets=path.join(root,'public','assets');
