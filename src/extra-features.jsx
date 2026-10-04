@@ -31,7 +31,8 @@ export function JsonLd({data,pageType='home',item=null,path='/'}){const origin=(
   areaServed:{'@type':'Place','name':'JIIT Wish Town Campus, Sector 128, Noida'},
   address:{'@type':'PostalAddress','addressLocality':'Noida','addressRegion':'Uttar Pradesh','postalCode':'201304','addressCountry':'IN'},
   contactPoint:{'@type':'ContactPoint','contactType':'general enquiries','url':origin+'/contact'},
-  parentOrganization:{'@type':'EducationalOrganization','name':'Jaypee Institute of Information Technology','url':'https://www.jiit.ac.in/'}
+  parentOrganization:{'@type':'EducationalOrganization','name':'Jaypee Institute of Information Technology','url':'https://www.jiit.ac.in/'},
+  knowsAbout:['JIIT Youth Club 128','JIIT student clubs','JIIT events','JIIT fests','Cultural student communities','Technical student communities','Creative student communities','Literary student communities','Sports communities','RPH','CICR','Innovation Club','Zencoders','JODC','CypherX','Arcadia','Neural Nexus','GDG','Dronotics','Aakriti','Aura','Cinekala','Abhivyakti','Prismatic','Eloquence','JSA','Qriosity','JIIT OPTICA']
 },{
   '@type':'WebSite',
   '@id':`${origin}/#website`,
