@@ -751,3 +751,46 @@
   -webkit-line-clamp:unset!important;
   -webkit-box-orient:initial!important;
 }
+
+/* 320px loader contract: inherited legacy positioning must not push any label beyond the viewport. */
+.loading-v41 .loading-kicker,
+.loading-v41 .loading-logo,
+.loading-v41 .loading-logo span,
+.loading-v41 .loading-logo strong,
+.loading-v41 .loading-tagline,
+.loading-v41 .loading-status,
+.loading-v41 .loading-status span{
+  max-width:calc(100vw - 36px)!important;
+  box-sizing:border-box!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  white-space:normal!important;
+  text-align:center!important;
+}
+.loading-v41 .loading-logo span{display:block!important}
+.loading-v41 .loading-foot{
+  position:absolute!important;
+  left:14px!important;
+  right:14px!important;
+  bottom:18px!important;
+  width:auto!important;
+  max-width:none!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:7px!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+@media(max-width:340px){
+  .loading-v41 .loading-center-v41{width:calc(100vw - 28px)!important}
+  .loading-v41 .loading-kicker{letter-spacing:.12em!important;font-size:8px!important}
+  .loading-v41 .loading-logo span{letter-spacing:.11em!important;font-size:14px!important}
+  .loading-v41 .loading-logo strong{letter-spacing:.22em!important;font-size:8px!important}
+  .loading-v41 .loading-tagline{font-size:10px!important}
+  .loading-v41 .loading-status{font-size:9px!important}
+  .loading-v41 .loading-foot{font-size:7px!important;letter-spacing:.11em!important}
+}
