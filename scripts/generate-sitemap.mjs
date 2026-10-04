@@ -12,9 +12,22 @@ const sourceHubNames=[...sourceRegistry.matchAll(/\{name:'([^']+)'/g)].map(m=>m[
 const slug=value=>String(value||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const urls=new Set([...core,...sourceHubNames.map(name=>`/clubs/${slug(name)}`)]);
 const imageUrls=new Set();
+const hubImages=new Map();
 for(const source of ['src/jyc-source-media.js','src/pdf-hub-content.js']){
-  try{const text=fs.readFileSync(path.join(root,source),'utf8');for(const match of text.matchAll(/['\"](\/assets\/[^'\"]+\.(?:webp|png|jpe?g|avif|svg))['\"]/gi))imageUrls.add(match[1]);}catch{}
+  try{
+    const text=fs.readFileSync(path.join(root,source),'utf8');
+    for(const match of text.matchAll(/['\"](\/assets\/[^'\"]+\.(?:webp|png|jpe?g|avif|svg))['\"]/gi)) imageUrls.add(match[1]);
+  }catch{}
 }
+try{
+  const sourceText=fs.readFileSync(path.join(root,'src','jyc-source-media.js'),'utf8');
+  const blockRx=/([A-Za-z][A-Za-z0-9 &'’.-]*):\{[\s\S]*?photos:\[([\s\S]*?)\]\}/g;
+  for(const m of sourceText.matchAll(blockRx)){
+    const name=m[1].trim();
+    const urls=[...m[2].matchAll(/['\"](\/assets\/[^'\"]+\.(?:webp|png|jpe?g|avif))['\"]/gi)].map(x=>x[1]);
+    if(urls.length) hubImages.set(name,urls.slice(0,4));
+  }
+}catch{}
 
 async function loadDynamic(){
   const supabaseUrl=(process.env.VITE_SUPABASE_URL||'').replace(/\/$/,'');
@@ -41,7 +54,14 @@ try{
     if(r.ok){const rows=await r.json();if(rows?.[0]?.updated_at)dynamicDates.set('/',String(rows[0].updated_at).slice(0,10));}
   }
 }catch{}
-const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${[...urls].map(u=>{const imgs=u==='/gallery'?[...imageUrls]:[];const imageXml=imgs.map(img=>`<image:image><image:loc>${site}${img}</image:loc></image:image>`).join('');return `  <url><loc>${site}${u}</loc><lastmod>${dynamicDates.get(u)||fallbackDate}</lastmod>${imageXml}</url>`}).join('\n')}\n</urlset>\n`;
+const slugToHubImages=new Map([...hubImages.entries()].map(([name,imgs])=>[slug(name),imgs]));
+const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${[...urls].map(u=>{
+  let imgs=[];
+  if(u==='/gallery') imgs=[...imageUrls];
+  else if(u.startsWith('/clubs/')) imgs=slugToHubImages.get(u.split('/').pop())||[];
+  const imageXml=imgs.map(img=>`<image:image><image:loc>${site}${img}</image:loc></image:image>`).join('');
+  return `  <url><loc>${site}${u}</loc><lastmod>${dynamicDates.get(u)||fallbackDate}</lastmod>${imageXml}</url>`;
+}).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(out,xml);
 const robots=path.join(root,'public','robots.txt');
 if(fs.existsSync(robots)){
