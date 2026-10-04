@@ -25,7 +25,7 @@ export function JYCAssistant({data,onClose}){
  ];
  const term=normalizeSearch(query);
  const results=term?rankSearchResults(raw.map(x=>({...x,text:x.searchText||x.meta})),term).slice(0,8):[];
- const quick=[['Explore clubs','/clubs'],['Upcoming events','/events'],['JAI 2026','/events/agentic-ai-2026'],['Gallery','/gallery']];
+ const quick=context==='clubs'?[['Technical hubs','/clubs'],['Cultural hubs','/clubs'],['Upcoming events','/events'],['JYC archive','/archive']]:context==='events'?[['Upcoming events','/events'],['Event calendar','/calendar'],['JYC archive','/archive'],['Explore hubs','/clubs']]:context==='gallery'?[['JYC archive','/archive'],['Events','/events'],['Explore hubs','/clubs'],['Leadership','/leadership']]:context==='leadership'?[['Leadership','/leadership'],['Explore hubs','/clubs'],['Events','/events'],['Contact JYC','/contact']]:[['Explore clubs','/clubs'],['Upcoming events','/events'],['JAI 2026','/events/agentic-ai-2026'],['JYC archive','/archive']];
  return <div className="jyc-assistant-overlay" role="dialog" aria-modal="true" aria-label="JYC Assistant" onMouseDown={e=>e.target===e.currentTarget&&onClose?.()}>
   <section className="jyc-assistant-panel">
    <div className="jyc-assistant-head"><div className="jyc-assistant-brand"><span className="jyc-assistant-mark">J</span><div><span className="eyebrow">JYC ASSISTANT</span><h2>Ask JYC. Find your route.</h2><p>{contextCopy}</p></div></div><button type="button" className="jyc-assistant-close" onClick={onClose} aria-label="Close JYC Assistant">×</button></div>
