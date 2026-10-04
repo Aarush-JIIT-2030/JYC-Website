@@ -60,7 +60,7 @@ test('retired student-platform routes resolve to safe public destinations', asyn
   for (const route of ['/my-jyc','/login','/planner','/notifications','/settings','/agenda','/projects','/download']) {
     await page.goto(base + route, { waitUntil: 'domcontentloaded' });
     await expect(page.locator('#root')).not.toBeEmpty();
-    expect(new URL(page.url()).pathname).not.toBe(route);
+    await expect.poll(() => new URL(page.url()).pathname, { timeout: 3000 }).not.toBe(route);
   }
 });
 
