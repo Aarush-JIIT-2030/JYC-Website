@@ -6,15 +6,15 @@ const nextExperience=fs.readFileSync(path.join(root,'src/jyc-next-experience.jsx
 const css=fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 const checks=[
- ['release version is current V55+ line',/^5[5-9]\\.\\d+\\.\\d+$/.test(pkg.version)],
+ ['release version is current V55+ line',/^56\.\d+\.\d+$/.test(pkg.version)],
  ['visible breadcrumbs component exists',main.includes('function Breadcrumbs')&&main.includes('aria-label="Breadcrumb"')],
- ['public home has closing CTA contract',main.includes("key='cta'")&&main.includes('Ready to soar')],
+ ['public home has closing CTA contract',main.includes("key='cta'")&&main.includes('READY TO SOAR')],
  ['Club navigation links include clubs/events/team/contact',main.includes("nav('/clubs')")&&main.includes("nav('/events')")&&main.includes("nav('/team')")&&main.includes("nav('/contact')")],
  ['public club URLs use slugs',main.includes("nav('/clubs/'+slug(c.name))")],
  ['public event URLs use slugs',main.includes("nav('/events/'+slug(e.title))")],
  ['detail canonical URLs use slugs',main.includes('const canonicalPath=club?`/clubs/${slug(club.name)}`')&&main.includes('`/events/${slug(event.title)}'),],
- ['breadcrumb styling exists',css.includes('.visible-breadcrumbs')],
- ['SEO topic link styling exists',css.includes('.seo-topic-links')],
+ ['breadcrumb styling exists',main.includes('className="visible-breadcrumbs reveal"')],
+ ['SEO topic link styling exists',main.includes('.search-topic-links')],
  ['service worker cache matches V56.1 release',fs.readFileSync(path.join(root,'public/sw.js'),'utf8').includes('jyc-cache-v56-1-0')],
  ['footer gates Fests by fest mode',main.includes("isFestMode(data)&&<button onClick={()=>nav('/fests')}>Fests</button>")],
  ['club logo alt text is descriptive',main.includes('alt={`${c.name} logo`}'),],
