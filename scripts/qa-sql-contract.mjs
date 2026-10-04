@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root=process.cwd();
 const failures=[];
+req('202610040011_v56_2_gallery_read_bridge.sql',['jyc_gallery_items','status=\'published\'','public_url','mediaKind']);
+
 const req=(file, needles)=>{const text=fs.readFileSync(path.join(root,'supabase','migrations',file),'utf8');for(const n of needles)if(!text.includes(n))failures.push(file+': missing '+n)};
 req('202610030001_production_hardening.sql',['jyc_ingest_error_report','jyc_registration_rate_limits','jyc-backups','revoke insert, update, delete on public.jyc_site_data from anon, authenticated;']);
 req('202610030002_ai_hardening.sql',['jyc_allow_ai_request']);
