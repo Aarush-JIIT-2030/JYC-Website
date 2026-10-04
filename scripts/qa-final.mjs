@@ -5,9 +5,9 @@ const main=fs.readFileSync(path.join(root,'src/main.jsx'),'utf8');
 const css=fs.readFileSync(path.join(root,'src/styles/public-system.css'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 const checks=[
- ['version is V18.9.9',['18.9.7','18.9.8','18.9.9','18.9.10','18.10.0','18.11.0','18.11.1','18.11.2'].includes(pkg.version)],
+ ['release version is current V55+ line',/^5[5-9]\\.\\d+\\.\\d+$/.test(pkg.version)],
  ['visible breadcrumbs component exists',main.includes('function Breadcrumbs')&&main.includes('aria-label="Breadcrumb"')],
- ['JYC closing panel exists',main.includes('className=\"section club-cta reveal\"')&&main.includes('Come be part of the story.')],
+ ['public home has closing CTA contract',main.includes("key='cta'")&&main.includes('Ready to soar')],
  ['Club navigation links include clubs/events/team/contact',main.includes("nav('/clubs')")&&main.includes("nav('/events')")&&main.includes("nav('/team')")&&main.includes("nav('/contact')")],
  ['public club URLs use slugs',main.includes("nav('/clubs/'+slug(c.name))")],
  ['public event URLs use slugs',main.includes("nav('/events/'+slug(e.title))")],
