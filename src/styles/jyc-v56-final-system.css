@@ -427,3 +427,34 @@
 .public-app .hub-official-description{max-width:760px!important;margin:0 auto 10px!important;padding:11px 14px!important;border-inline-start:3px solid var(--jyc-final-gold)!important;background:rgba(194,166,130,.08)!important;border-radius:0 12px 12px 0!important;text-align:center!important;color:var(--jyc-final-ink)!important;line-height:1.65!important}
 .public-app .hub-official-description strong{color:var(--jyc-final-ink)!important}
 html[data-theme="dark"] .public-app .hub-official-description{background:rgba(210,180,140,.09)!important;color:var(--jyc-final-ink)!important}
+
+/* Dark-mode readability: keep the editorial surfaces, but invert their ink/muted hierarchy explicitly. */
+html[data-theme="dark"] .public-app{
+  --jyc-final-bg:#0f0e11;
+  --jyc-final-surface:#181612;
+  --jyc-final-ink:#fff8e1;
+  --jyc-final-muted:#b7aea2;
+  --jyc-final-line:rgba(255,248,225,.16);
+  --jyc-final-gold:#d2b48c;
+  --jyc-final-red:#c92a2a;
+}
+html[data-theme="dark"] .public-app .jyc-photo-story-scrubber,
+html[data-theme="dark"] .public-app .jyc-source-archive-ledger{
+  background:rgba(24,22,18,.92)!important;
+  color:var(--jyc-final-muted)!important;
+  border-color:var(--jyc-final-line)!important;
+}
+html[data-theme="dark"] .public-app .jyc-photo-story-scrubber output,
+html[data-theme="dark"] .public-app .jyc-source-archive-ledger strong,
+html[data-theme="dark"] .public-app .hub-official-description{
+  color:var(--jyc-final-ink)!important;
+}
+html[data-theme="dark"] .public-app .jyc-source-archive-parts span{
+  background:#211e19!important;
+  color:var(--jyc-final-muted)!important;
+  border-color:var(--jyc-final-line)!important;
+}
+html[data-theme="dark"] .public-app .hub-official-description{
+  background:rgba(210,180,140,.09)!important;
+  border-inline-start-color:var(--jyc-final-gold)!important;
+}
