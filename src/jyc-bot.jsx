@@ -5,10 +5,21 @@ import {JYCAssistant} from './jyc-assistant.jsx';
 export function JYCBot({data}){
  const loc=useLocation(),[assistantOpen,setAssistantOpen]=useState(false),[modelReady,setModelReady]=useState(false),[modelAvailable,setModelAvailable]=useState(false),[modelFailed,setModelFailed]=useState(false),[motion,setMotion]=useState('');
  const context=loc.pathname.startsWith('/events')?'events':loc.pathname.startsWith('/clubs')?'clubs':loc.pathname.startsWith('/gallery')?'gallery':loc.pathname.startsWith('/team')||loc.pathname.startsWith('/leadership')?'team':'home';
- const openAssistant=()=>{setMotion('is-wave');setAssistantOpen(true);window.setTimeout(()=>setMotion(''),850)};
- useEffect(()=>{let alive=true;const checkAsset=()=>fetch('/models/jyc-spatial.glb',{method:'HEAD',cache:'no-store'}).then(r=>{if(alive)setModelAvailable(r.ok)}).catch(()=>{if(alive)setModelAvailable(false)});const ready=()=>{if(alive){setModelReady(Boolean(customElements?.get('model-viewer')));checkAsset()}};if(customElements?.get('model-viewer')){ready();return()=>{alive=false}}const script=document.createElement('script');script.type='module';script.src='https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js';script.onload=ready;script.onerror=()=>setModelFailed(true);document.head.appendChild(script);return()=>{alive=false}},[]);
+ const loadModelViewer=()=>{
+  if(typeof window==='undefined'||customElements?.get('model-viewer')||document.querySelector('script[data-jyc-model-viewer]'))return;
+  const script=document.createElement('script');
+  script.type='module';
+  script.src='https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js';
+  script.dataset.jycModelViewer='true';
+  script.onload=()=>setModelReady(Boolean(customElements?.get('model-viewer')));
+  script.onerror=()=>setModelFailed(true);
+  document.head.appendChild(script);
+ };
+ const checkAsset=()=>fetch('/models/jyc-spatial.glb',{method:'HEAD',cache:'no-store'}).then(r=>setModelAvailable(r.ok)).catch(()=>setModelAvailable(false));
+ const openAssistant=()=>{loadModelViewer();checkAsset();setMotion('is-wave');setAssistantOpen(true);window.setTimeout(()=>setMotion(''),850)};
+ useEffect(()=>{if(customElements?.get('model-viewer')){setModelReady(true);checkAsset();}},[]);
  return <div className={`jyc-bot-shell ${assistantOpen?'is-open':''}`} data-context={context}>
-  <button className={`jyc-bot-orb ${motion}`} type="button" aria-label="Open JYC Assistant" aria-expanded={assistantOpen} onClick={openAssistant}><span className="jyc-bot-status" aria-hidden="true"/><span className="jyc-bot-model-wrap">{modelReady&&modelAvailable&&!modelFailed?<model-viewer class="jyc-bot-glb" src="/models/jyc-spatial.glb" poster="/jyc-logo-circle.png" camera-orbit="0deg 75deg auto" disable-zoom interaction-prompt="none" alt="Interactive JYC assistant bot" onError={()=>setModelFailed(true)}></model-viewer>:<span className="jyc-bot-model-fallback" aria-hidden="true"><span className="bot-head"/><span className="bot-body"/><span className="bot-arm"/></span>}</span><span className="jyc-bot-label">Ask JYC</span></button>
+  <button className={`jyc-bot-orb ${motion}`} type="button" aria-label="Open JYC Assistant" aria-expanded={assistantOpen} onPointerEnter={loadModelViewer} onFocus={loadModelViewer} onClick={openAssistant}><span className="jyc-bot-status" aria-hidden="true"/><span className="jyc-bot-model-wrap">{modelReady&&modelAvailable&&!modelFailed?<model-viewer class="jyc-bot-glb" src="/models/jyc-spatial.glb" poster="/jyc-logo-circle.png" camera-orbit="0deg 75deg auto" disable-zoom interaction-prompt="none" alt="Interactive JYC assistant bot" onError={()=>setModelFailed(true)}></model-viewer>:<span className="jyc-bot-model-fallback" aria-hidden="true"><span className="bot-head"/><span className="bot-body"/><span className="bot-arm"/></span>}</span><span className="jyc-bot-label">Ask JYC</span></button>
   <div className="jyc-bot-hint" aria-hidden="true">JYC Assistant · click to explore</div>
   {assistantOpen&&<JYCAssistant data={data} onClose={()=>setAssistantOpen(false)}/>}
   <style>{`
