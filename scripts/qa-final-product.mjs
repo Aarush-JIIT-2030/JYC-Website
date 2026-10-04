@@ -30,7 +30,8 @@ const checks=[
   [fs.existsSync('supabase/migrations/202610030007_verification_trust_contract.sql'),'verification trust contract migration exists'],
   [fs.existsSync('supabase/migrations/202610030008_verification_identity_audit.sql'),'verification identity audit migration exists'],
   [fs.existsSync('supabase/migrations/202610030009_public_submission_guard.sql'),'public submission abuse guard migration exists'],
-  [fs.existsSync('supabase/tests/database/jyc_security_rls.test.sql'),'database RLS regression suite exists']
+  [fs.existsSync('supabase/tests/database/jyc_security_rls.test.sql'),'database RLS regression suite exists'],
+  [fs.existsSync('supabase/migrations/202610040010_v56_1_public_registration_acl.sql'),'retired public registration RPC is explicitly removed from client execute ACL']
 ];
 let failed=false;
 for(const [ok,label] of checks){console.log(ok?'PASS':'FAIL',label);if(!ok)failed=true}
