@@ -27,6 +27,7 @@ const scripts = [
   'qa-photo-integrity.mjs',
   'qa-local-assets.mjs',
   'qa-v54-next-experience.mjs',
+  'qa-v55-visual-polish.mjs',
   'qa-final-hygiene.mjs'
 ];
 
