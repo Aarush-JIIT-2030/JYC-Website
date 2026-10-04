@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 const read=p=>fs.readFileSync(p,'utf8');
-const main=read('src/main.jsx'), extra=read('src/extra-features.jsx'), details=read('src/v23.6-hub-details.js'), registry=read('src/jyc-hub-registry.js'), media=read('src/jyc-source-media.js'), bot=read('src/jyc-bot.jsx'), theme=read('src/styles/jyc-v56-final-system.css'), system=read('src/styles/public-system.css'), llms=read('public/llms.txt'), sitemap=read('scripts/generate-sitemap.mjs');
+const main=read('src/main.jsx'), fallbacks=read('src/content/jyc-public-fallbacks.js'), extra=read('src/extra-features.jsx'), details=read('src/v23.6-hub-details.js'), registry=read('src/jyc-hub-registry.js'), media=read('src/jyc-source-media.js'), bot=read('src/jyc-bot.jsx'), theme=read('src/styles/jyc-v56-final-system.css'), system=read('src/styles/public-system.css'), llms=read('public/llms.txt'), sitemap=read('scripts/generate-sitemap.mjs');
 const fail=[];const check=(ok,msg)=>{if(!ok)fail.push(msg)};
 const hubs=['Fortissimo','BDS','VamUnique','Panache','RPH','CICR','Innovation','Zencoders','JODC','CypherX','Arcadia','Neural Nexus','GDG','Dronotics','Aakriti','Aura','Cinekala','Abhivyakti','Prismatic','Eloquence','JSA','Qriosity','JIIT OPTICA'];
 for(const h of hubs)check(new RegExp("(?:['\\\"])?"+h.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\$&')+"(?:['\\\"])?\\s*:").test(details),`hub detail missing: ${h}`);
@@ -17,6 +17,6 @@ check(!main.includes('club-card-v41 tilt-card')&&!main.includes('event-card-prem
 check(bot.includes('model-viewer')&&bot.includes('playModelAnimation')&&bot.includes('prefers-reduced-motion'),'contextual GLB bot contract missing');
 for(const h of hubs)check(llms.includes(h),`llms.txt missing community vocabulary: ${h}`);
 check(sitemap.includes('jyc-hub-registry.js')&&sitemap.includes('/events/agentic-ai-2026')&&sitemap.includes('xmlns:image'),'sitemap depth contract missing');
-check(main.includes("name:'Harisha'")&&main.includes("role:'Creative Head'")&&main.includes("name:'Dhruv Choudhary'")&&main.includes("role:'Management Head'"),'source-backed leadership depth missing');
+check(fallbacks.includes("name:'Harisha'")&&fallbacks.includes("role:'Creative Head'")&&fallbacks.includes("name:'Dhruv Choudhary'")&&fallbacks.includes("role:'Management Head'"),'source-backed leadership depth missing');
 if(fail.length){fail.forEach(x=>console.error('FAIL:',x));process.exit(1)}
-console.log('PASS: V56.3 source/content/depth/theme/SEO contract');
+console.log('PASS: V56.5 source/content/depth/theme/SEO contract');
