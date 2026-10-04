@@ -56,3 +56,26 @@ Current official web research used for contextual enrichment includes Innovation
 - Hub detail pages now distinguish the official brochure identity description from the richer orientation/source-material experience layer.
 - The JYC bot now uses the official circular emblem as its fallback and cycles through short, purposeful interaction motions rather than continuous animation.
 - The gallery sitemap generator now emits crawlable image locations for the JYC gallery, complementing the existing page sitemap.
+
+
+## V56.4 research extension
+
+### Official JIIT signals
+- JIIT's 2026 admission brochure explicitly identifies JIIT Youth Club 128 as the central coordinating body for major college events, fests and inter-society activities.
+- The same brochure provides source-grounded identity descriptions for VamUnique, BDS, Aakriti, Panache, Abhivyakti, Aura, Cinekala, Eloquence, Qriosity, Prismatic, Fortissimo, CICR, JODC, RPH, Innovation Club, JSA and JIIT OPTICA.
+- JIIT's current public site confirms active student communities across coding, robotics, AI/ML, cybersecurity and other areas and distinguishes Sector 62 and Sector 128.
+- Current official JIIT activity surfaces Dron-O-War, Innovation/CodeAI activity and other 2026 student programmes.
+
+### Reference-site patterns applied
+- CICR's current public site makes its identity immediately explicit (“The Robotics Hub of JIIT-128”), then moves through capabilities, projects, events and contact.
+- CICR's Converge 2026 microsite demonstrates event-specific visual language and a strong event → arena/programme → location hierarchy.
+- JIIT's public student-life material treats clubs as a meaningful organisational layer rather than decorative homepage cards.
+
+### Product changes
+- Club detail pages now expose the richer source-derived activity/signature/highlight layer rather than only generic club descriptions.
+- The assistant indexes those source-derived activities and highlights for search.
+- Event detail pages retain the complete related visual archive rather than an arbitrary 18-image cap.
+- Current flagship events receive dedicated event identities.
+- JYC Now counts the complete maintained community registry instead of only communities with social mappings.
+- Dark mode received a final-layer readability pass for gallery/filter/photo-story controls.
+- Source photography in Supabase is now relationally connected to its club record using its source caption mapping; 92/92 normalized presentation-export photos have club relationships.
