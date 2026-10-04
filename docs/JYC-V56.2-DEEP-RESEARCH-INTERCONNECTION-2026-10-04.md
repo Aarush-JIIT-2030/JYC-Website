@@ -79,3 +79,14 @@ Current official web research used for contextual enrichment includes Innovation
 - JYC Now counts the complete maintained community registry instead of only communities with social mappings.
 - Dark mode received a final-layer readability pass for gallery/filter/photo-story controls.
 - Source photography in Supabase is now relationally connected to its club record using its source caption mapping; 92/92 normalized presentation-export photos have club relationships.
+
+
+## Final V56.4 bug sweep additions
+
+- Fixed a real GLB assistant runtime bug: the assistant-open animation sequence referenced an undeclared `motionCursor` ref. It now uses the declared animation cursor and has an explicit QA assertion.
+- Added dedicated identities for the current flagship event records in the maintained event identity system.
+- Added sourced Dronotics leadership context from the supplied orientation deck, without publishing phone numbers.
+- Backfilled all 92 normalized presentation-export source photographs to their matching club records in Supabase (15 source-photo-bearing communities), eliminating the previous null club relationship gap.
+- Added a repository migration for the relationship backfill.
+- Strengthened structured data with club collection, gallery collection and absolute event image URLs; event structured data now includes the Sector 128 campus address.
+- Completed the final-layer dark-mode controls for gallery and photo-story surfaces.
